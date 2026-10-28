@@ -30,7 +30,7 @@ compile_ultra -no_autoungroup
 
 # Switching activity: annotate from simulation if available, else DC default toggle rates
 if {[file exists $SAIF]} {
-    read_saif -input $SAIF -instance_name $TOP
+    read_saif -input $SAIF -instance_name tb_gpu/dut
     report_saif -hier > $RPT/saif.rpt
 } else {
     echo "WARNING: $SAIF not found, power uses default (vectorless) activity"
@@ -43,6 +43,7 @@ report_constraint -all_violators > $RPT/violators.rpt
 report_power -hierarchy          > $RPT/power.rpt
 report_power                     > $RPT/power_summary.rpt
 
+change_names -rules verilog -hierarchy
 write -format verilog -hierarchy -output $OUT/${TOP}_netlist.v
 write_sdc $OUT/${TOP}.sdc
 write_sdf $OUT/${TOP}.sdf
