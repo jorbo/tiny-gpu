@@ -9,6 +9,12 @@ test_%:
 	iverilog -o build/sim.vvp -s gpu -g2012 build/gpu.v
 	COCOTB_TEST_MODULES=test.test_$* vvp -m $$( $${PYGPI_PYTHON_BIN} -m cocotb_tools.config --lib-name-path vpi icarus ) build/sim.vvp
 
+# Same as test_% but dumps build/gpu.vcd for power analysis
+vcd_%:
+	make compile
+	iverilog -o build/sim.vvp -s gpu -s dump -g2012 build/gpu.v syn/dump.v
+	COCOTB_TOPLEVEL=gpu COCOTB_TEST_MODULES=test.test_$* vvp -m $$( $${PYGPI_PYTHON_BIN} -m cocotb_tools.config --lib-name-path vpi icarus ) build/sim.vvp
+
 compile:
 	make compile_alu
 	sv2v -I src/* -w build/gpu.v
