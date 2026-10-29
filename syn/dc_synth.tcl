@@ -36,6 +36,11 @@ check_design > $RPT/check_design.rpt
 
 source constraints.sdc
 
+# Tighter than the library's 1.02 ns limit so weak HVT drivers on high-fanout nets get upsized/buffered
+if {$USE_HVT} {
+    set_max_transition 0.9 [current_design]
+}
+
 # Keep hierarchy so area/power can be broken down per module.
 # If compile_ultra isn't licensed, use: compile -map_effort high
 compile_ultra -no_autoungroup
@@ -57,6 +62,8 @@ report_qor                       > $RPT/qor.rpt
 report_area -hierarchy           > $RPT/area.rpt
 report_timing -max_paths 10      > $RPT/timing.rpt
 report_constraint -all_violators > $RPT/violators.rpt
+report_constraint -all_violators -verbose -max_transition > $RPT/violators_drivers.rpt
+report_net_fanout -high_fanout   > $RPT/high_fanout.rpt
 report_power -hierarchy          > $RPT/power.rpt
 report_power                     > $RPT/power_summary.rpt
 
