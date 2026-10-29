@@ -40,6 +40,11 @@ source constraints.sdc
 # If compile_ultra isn't licensed, use: compile -map_effort high
 compile_ultra -no_autoungroup
 
+# HVT cells drive weaker, which can leave max_transition violations on high-fanout nets
+if {$USE_HVT} {
+    compile_ultra -incremental -no_autoungroup
+}
+
 # Switching activity: annotate from simulation if available, else DC default toggle rates
 if {[file exists $SAIF]} {
     read_saif -input $SAIF -instance_name tb_gpu/dut
