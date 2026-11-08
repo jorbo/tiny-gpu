@@ -90,7 +90,8 @@ proc stronger_cell {ref} {
     if {![regexp {^(.*)(X\d+)_(LVT|RVT|HVT)$} $ref -> base drive vt]} { return "" }
     foreach d [lrange $drives [expr {[lsearch $drives $drive] + 1}] end] {
         set lc [get_lib_cells -quiet */${base}${d}_$vt]
-        if {[sizeof_collection $lc] && ![get_attribute [index_collection $lc 0] dont_use]} {
+        # dont_use reads back "" when never set
+        if {[sizeof_collection $lc] && ![string is true -strict [get_attribute -quiet [index_collection $lc 0] dont_use]]} {
             return [get_object_name [index_collection $lc 0]]
         }
     }
@@ -107,7 +108,7 @@ for {set pass 0} {$pass < 4 && [llength [set bad [drc_nets]]] > 0} {incr pass} {
             set new  [stronger_cell [get_attribute $cell ref_name]]
             if {$new ne ""} {
                 echo "DRC fix: [get_object_name $cell] [get_attribute $cell ref_name] -> $new ($net)"
-                size_cell $cell $new
+                if {[catch {size_cell $cell $new} msg]} { echo "DRC fix failed: $msg" }
             }
         }
     }
