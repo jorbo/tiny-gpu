@@ -116,33 +116,40 @@ proc stronger_cell {ref} {
     }
     return ""
 }
-for {set pass 0} {$pass < 4 && [llength [set bad [drc_nets]]] > 0} {incr pass} {
-    foreach net $bad {
-        foreach_in_collection pin [get_pins -quiet -leaf -of_objects [get_nets $net] -filter "pin_direction==out"] {
-            set cell [get_cells -of_objects $pin]
-            set new  [stronger_cell [get_attribute $cell ref_name]]
-            if {$new ne ""} {
-                echo "DRC fix: [get_object_name $cell] [get_attribute $cell ref_name] -> $new ($net)"
-                if {[catch {size_cell $cell $new} msg]} { echo "DRC fix failed: $msg" }
+proc fix_drc {} {
+    for {set pass 0} {$pass < 4 && [llength [set bad [drc_nets]]] > 0} {incr pass} {
+        foreach net $bad {
+            foreach_in_collection pin [get_pins -quiet -leaf -of_objects [get_nets $net] -filter "pin_direction==out"] {
+                set cell [get_cells -of_objects $pin]
+                set new  [stronger_cell [get_attribute $cell ref_name]]
+                if {$new ne ""} {
+                    echo "DRC fix: [get_object_name $cell] [get_attribute $cell ref_name] -> $new ($net)"
+                    if {[catch {size_cell $cell $new} msg]} { echo "DRC fix failed: $msg" }
+                }
             }
         }
     }
 }
+fix_drc
 
 # Back to the real setup uncertainty from constraints.sdc for reports, SDC and PrimeTime
 set_clock_uncertainty -setup 0.1 [get_clocks clk]
 
-# Hold fix last: with LVT on short paths, compile_ultra meets setup but leaves hold misses
-# (it ranks setup first), and any later setup or upsizing pass undoes hold buffers. Running it
+# Hold fix near the end: with LVT on short paths, compile_ultra meets setup but leaves hold misses
+# (it ranks setup first), and any later setup pass undoes hold buffers. Running it
 # after the margin is removed gives it the real setup slack to spend. compile_ultra here has no
 # -only_hold_time, so plain compile inserts the delay.
 proc hold_violations {} {
     redirect -variable rpt { report_constraint -all_violators -min_delay }
     return [regexp -all {VIOLATED} $rpt]
 }
-for {set pass 0} {$pass < 2 && [hold_violations] > 0} {incr pass} {
-    echo "Hold fix pass $pass: [hold_violations] violating endpoints"
-    compile -incremental_mapping -only_hold_time
+# The hold pass can leave new transition misses; alternate with driver upsizing until both are clean
+for {set pass 0} {$pass < 3 && ([hold_violations] > 0 || [llength [drc_nets]] > 0)} {incr pass} {
+    if {[hold_violations] > 0} {
+        echo "Hold fix pass $pass: [hold_violations] violating endpoints"
+        compile -incremental_mapping -only_hold_time
+    }
+    fix_drc
 }
 
 # Switching activity: annotate from simulation if available, else DC default toggle rates

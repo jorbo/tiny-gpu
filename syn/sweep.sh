@@ -13,6 +13,8 @@ VT=${1:-hvt}
 LO=${2:-1.0}
 HI=${3:-8.0}
 STEP=${4:-0.05}
+# Parallel DC runs per round (one license each): JOBS=3 ./sweep.sh lh
+JOBS=${JOBS:-1}
 
 case $VT in
     rvt) VT_ARGS="set USE_HVT 0; set USE_LVT 0" ;;
@@ -64,16 +66,33 @@ if [ "$(run_period "$HI")" != PASS ]; then
     exit 1
 fi
 best=$(printf "%.2f" "$HI")
+# Each round synthesizes JOBS periods spread evenly inside (lo, hi) in parallel, then narrows to
+# the smallest pass and the largest fail below it. JOBS=1 is a plain binary search.
 while awk -v l="$LO" -v h="$HI" -v s="$STEP" 'BEGIN {exit !(h - l > s + 1e-9)}'; do
-    mid=$(awk -v l="$LO" -v h="$HI" -v s="$STEP" 'BEGIN {printf "%.2f", int((l + h) / 2 / s + 0.5) * s}')
-    r=$(run_period "$mid")
-    echo "period $mid ns: $r"
-    if [ "$r" = PASS ]; then
-        HI=$mid
-        best=$mid
-    else
-        LO=$mid
-    fi
+    points=$(awk -v l="$LO" -v h="$HI" -v s="$STEP" -v n="$JOBS" 'BEGIN {
+        for (i = 1; i <= n; i++) {
+            p = int((l + (h - l) * i / (n + 1)) / s + 0.5) * s
+            if (p > l + 1e-9 && p < h - 1e-9) printf "%.2f\n", p
+        }}' | sort -un)
+    for p in $points; do
+        run_period "$p" > "runs/.status_${VT}_$p" &
+    done
+    wait
+    for p in $points; do
+        r=$(cat "runs/.status_${VT}_$p")
+        rm -f "runs/.status_${VT}_$p"
+        echo "period $p ns: $r"
+        if [ "$r" = PASS ] && awk -v p="$p" -v h="$HI" 'BEGIN {exit !(p < h)}'; then
+            HI=$p
+            best=$p
+        fi
+    done
+    for p in $points; do
+        r=$(grep "^$p," "$CSV" | tail -1 | awk -F, '{print $NF}')
+        if [ "$r" != PASS ] && awk -v p="$p" -v l="$LO" -v h="$HI" 'BEGIN {exit !(p > l && p < h)}'; then
+            LO=$p
+        fi
+    done
 done
 
 ln -sfn "${VT}_$best" "runs/best_$VT"
