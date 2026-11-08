@@ -76,6 +76,22 @@ for {set pass 0} {$pass < 3 && [violation_count] > 0} {incr pass} {
     compile_ultra -incremental -no_autoungroup
 }
 
+# With LVT on short paths, compile_ultra can meet setup but leave small hold misses (it ranks
+# setup first), mostly direct flop-to-flop transfers. compile_ultra has no -only_hold_time here,
+# so plain compile inserts the hold delay; it re-maps without compile_ultra's timing effort, so
+# a compile_ultra incremental pass follows to win setup back (set_fix_hold keeps hold protected).
+proc hold_violations {} {
+    redirect -variable rpt { report_constraint -all_violators -min_delay }
+    return [regexp -all {VIOLATED} $rpt]
+}
+if {[hold_violations] > 0} {
+    echo "Hold fix: [hold_violations] violating endpoints"
+    compile -incremental_mapping -only_hold_time
+    for {set pass 0} {$pass < 2 && [violation_count] > 0} {incr pass} {
+        compile_ultra -incremental -no_autoungroup
+    }
+}
+
 # Leftover DRC misses are tiny (~0.01 ns) on high-fanout nets driven by weak cells, e.g. core_state
 # flops whose QN pin has a 0.35 ns library limit. Upsize each violating net's driver one step:
 # next drive strength in the same Vt (X0->X1->X2...), else the same cell in a faster Vt.
@@ -120,19 +136,6 @@ for {set pass 0} {$pass < 4 && [llength [set bad [drc_nets]]] > 0} {incr pass} {
                 if {[catch {size_cell $cell $new} msg]} { echo "DRC fix failed: $msg" }
             }
         }
-    }
-}
-
-# With LVT on short paths, compile_ultra can meet setup but leave small hold misses (it ranks
-# setup first). A hold-only pass inserts delay just on violating paths that have setup room.
-proc hold_violations {} {
-    redirect -variable rpt { report_constraint -all_violators -min_delay }
-    return [regexp -all {VIOLATED} $rpt]
-}
-for {set pass 0} {$pass < 2 && [hold_violations] > 0} {incr pass} {
-    echo "Hold fix pass $pass: [hold_violations] violating endpoints"
-    if {[catch {compile_ultra -incremental -only_hold_time -no_autoungroup}]} {
-        compile -incremental_mapping -only_hold_time
     }
 }
 
