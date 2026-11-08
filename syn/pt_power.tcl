@@ -1,0 +1,78 @@
+# PrimeTime timing check, area and power for a DC run (SAED32 TT 0.78V 25C)
+# Run from syn/:
+#   pt_shell -x "set RUN_DIR runs/best_hvt; set VCD ../build/gpu_gls.vcd" -f pt_power.tcl | tee pt.log
+# RUN_DIR: a sweep.sh run dir (out/gpu_netlist.v, out/gpu.sdc)
+# VCD:     gate-level sim of that netlist at the same clock period (make gls), or an RTL
+#          sim VCD with "set VCD_RTL 1" (PT maps registers/ports, propagates the rest)
+
+set LIB_DIR /usr/local/synopsys/pdk/SAED32_EDK/lib
+set LIBS "$LIB_DIR/stdcell_rvt/db_nldm/saed32rvt_tt0p78v25c.db \
+          $LIB_DIR/stdcell_hvt/db_nldm/saed32hvt_tt0p78v25c.db \
+          $LIB_DIR/stdcell_lvt/db_nldm/saed32lvt_tt0p78v25c.db"
+set TOP gpu
+
+if {![info exists RUN_DIR]} { set RUN_DIR runs/best_hvt }
+if {![info exists VCD]}     { set VCD ../build/gpu_gls.vcd }
+if {![info exists VCD_RTL]} { set VCD_RTL 0 }
+set RPT $RUN_DIR/pt_reports
+file mkdir $RPT
+
+set_app_var link_path "* $LIBS"
+set_app_var power_enable_analysis true
+set_app_var power_analysis_mode averaged
+
+read_verilog $RUN_DIR/out/${TOP}_netlist.v
+current_design $TOP
+link_design
+
+# DC's written SDC carries the clock, IO delays, driving cell, load and wire load model
+read_sdc $RUN_DIR/out/${TOP}.sdc
+update_timing -full
+
+# Timing signoff at this period
+report_global_timing                        > $RPT/global_timing.rpt
+report_timing -delay_type max -max_paths 10 > $RPT/timing_setup.rpt
+report_timing -delay_type min -max_paths 10 > $RPT/timing_hold.rpt
+report_constraint -all_violators            > $RPT/violators.rpt
+report_clock -attributes                    > $RPT/clock.rpt
+
+# Area: PT has no report_area, so sum library cell areas (DC area.rpt adds wire load net area)
+set leaf_cells [get_cells -hierarchical -filter "is_hierarchical==false"]
+set cell_area 0.0
+foreach_in_collection c $leaf_cells {
+    set cell_area [expr {$cell_area + [get_attribute [get_lib_cells -of_objects $c] area]}]
+}
+set area_rpt [open $RPT/area.rpt w]
+puts $area_rpt "Leaf cells: [sizeof_collection $leaf_cells]"
+puts $area_rpt "Cell area (um^2): [format %.3f $cell_area]"
+close $area_rpt
+
+# Switching activity
+if {$VCD_RTL} {
+    read_vcd -rtl -strip_path tb_gpu/dut $VCD
+} else {
+    read_vcd -strip_path tb_gpu/dut $VCD
+}
+report_switching_activity -list_not_annotated > $RPT/switching_activity.rpt
+
+update_power
+report_power                       > $RPT/power.rpt
+report_power -hierarchy -levels 3  > $RPT/power_hier.rpt
+
+# One-line summary
+set clk_period [get_attribute [get_clocks clk] period]
+set wns [get_attribute [get_timing_paths -delay_type max] slack]
+set whs [get_attribute [get_timing_paths -delay_type min] slack]
+set sum [open $RPT/summary.rpt w]
+puts $sum "period_ns  [format %.3f $clk_period]"
+puts $sum "freq_mhz   [format %.1f [expr {1000.0 / $clk_period}]]"
+puts $sum "setup_wns  $wns"
+puts $sum "hold_wns   $whs"
+puts $sum "cell_area  [format %.3f $cell_area]"
+puts $sum "total_pwr  [get_attribute [current_design] total_power]"
+puts $sum "dyn_pwr    [expr {[get_attribute [current_design] internal_power] + [get_attribute [current_design] switching_power]}]"
+puts $sum "leak_pwr   [get_attribute [current_design] leakage_power]"
+close $sum
+puts [exec cat $RPT/summary.rpt]
+
+exit

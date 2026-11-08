@@ -1,4 +1,4 @@
-.PHONY: test compile
+.PHONY: test compile gls
 
 export LIBPYTHON_LOC=$(shell cocotb-config --libpython)
 export PYGPI_PYTHON_BIN=$(shell cocotb-config --python-bin)
@@ -16,6 +16,18 @@ tb_%:
 	make compile
 	iverilog -g2012 -o build/tb.vvp -s tb_gpu -DCLK_PERIOD=$(CLK_PERIOD) $(if $(filter matadd,$*),-DMATADD) build/gpu.v test/tb_gpu.v
 	vvp build/tb.vvp +vcd
+
+# Gate-level sim of a DC netlist for PrimeTime power: make gls RUN=runs/best_hvt CLK_PERIOD=<that period>
+# Writes build/gpu_gls.vcd. Zero-delay (no SDF), so PT sees functional toggles only.
+SAED ?= /usr/local/synopsys/pdk/SAED32_EDK/lib
+SAED_VLIB = $(SAED)/stdcell_rvt/verilog/saed32nm.v $(SAED)/stdcell_hvt/verilog/saed32nm_hvt.v $(SAED)/stdcell_lvt/verilog/saed32nm_lvt.v
+RUN ?= runs/best_hvt
+
+gls:
+	mkdir -p build
+	iverilog -g2012 -o build/gls.vvp -s tb_gpu -DCLK_PERIOD=$(CLK_PERIOD) $(if $(MATADD),-DMATADD) \
+		syn/$(RUN)/out/gpu_netlist.v $(SAED_VLIB) test/tb_gpu.v
+	vvp build/gls.vvp +vcd +vcdfile=build/gpu_gls.vcd
 
 compile:
 	make compile_alu

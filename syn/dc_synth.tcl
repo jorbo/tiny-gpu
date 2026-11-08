@@ -4,19 +4,27 @@
 
 set LIB_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_tt0p78v25c.db
 set HVT_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_tt0p78v25c.db
+set LVT_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_tt0p78v25c.db
 set RTL    ../build/gpu.v
 set SAIF   ../build/gpu.saif
 set TOP    gpu
 
 # Multi-Vt: dc_shell -x "set USE_HVT 1" -f dc_synth.tcl
 # Adds HVT cells so DC can swap non-critical paths to low-leakage cells; results go to separate dirs
+# Fastest: dc_shell -x "set USE_HVT 1; set USE_LVT 1" -f dc_synth.tcl (LVT on critical paths, HVT elsewhere)
+# Frequency sweep (sweep.sh) sets RUN_DIR so each period gets its own out/ and reports/
 if {![info exists USE_HVT]} { set USE_HVT 0 }
-if {$USE_HVT} {
-    set LIBS "$LIB_DB $HVT_DB"
+if {![info exists USE_LVT]} { set USE_LVT 0 }
+set LIBS $LIB_DB
+if {$USE_HVT} { lappend LIBS $HVT_DB }
+if {$USE_LVT} { lappend LIBS $LVT_DB }
+if {[info exists RUN_DIR]} {
+    set OUT $RUN_DIR/out
+    set RPT $RUN_DIR/reports
+} elseif {$USE_HVT} {
     set OUT  out_hvt
     set RPT  reports_hvt
 } else {
-    set LIBS $LIB_DB
     set OUT  out
     set RPT  reports
 }
@@ -41,12 +49,23 @@ if {$USE_HVT} {
     set_max_transition 0.9 [current_design]
 }
 
+# Ideal clock still carries 0.1 ns uncertainty on hold checks
+set_fix_hold [get_clocks clk]
+
 # Keep hierarchy so area/power can be broken down per module.
 # If compile_ultra isn't licensed, use: compile -map_effort high
 compile_ultra -no_autoungroup
 
-# HVT cells drive weaker, which can leave max_transition violations on high-fanout nets
-if {$USE_HVT} {
+# Incremental passes until setup and DRC are clean (HVT drivers can leave max_transition violations)
+# Second pass on: ban the weakest X0 HVT drivers so high-fanout nets get a real driver
+proc violation_count {} {
+    redirect -variable rpt { report_constraint -all_violators -max_delay -max_transition -max_capacitance -min_delay }
+    return [regexp -all {VIOLATED} $rpt]
+}
+for {set pass 0} {$pass < 3 && [violation_count] > 0} {incr pass} {
+    if {$pass == 1 && $USE_HVT} {
+        set_dont_use [get_lib_cells saed32hvt_tt0p78v25c/*X0_HVT]
+    }
     compile_ultra -incremental -no_autoungroup
 }
 
@@ -61,6 +80,7 @@ if {[file exists $SAIF]} {
 report_qor                       > $RPT/qor.rpt
 report_area -hierarchy           > $RPT/area.rpt
 report_timing -max_paths 10      > $RPT/timing.rpt
+report_timing -delay min -max_paths 10 > $RPT/timing_hold.rpt
 report_constraint -all_violators > $RPT/violators.rpt
 report_constraint -all_violators -verbose -max_transition > $RPT/violators_drivers.rpt
 report_net_fanout -high_fanout   > $RPT/high_fanout.rpt
@@ -69,7 +89,7 @@ report_power                     > $RPT/power_summary.rpt
 
 # Vt mix: how many leaf cells landed in each threshold flavor
 set vt_rpt [open $RPT/vt_mix.rpt w]
-foreach vt {RVT HVT} {
+foreach vt {LVT RVT HVT} {
     set n [sizeof_collection [get_cells -hierarchical -filter "is_hierarchical==false && ref_name=~*_$vt"]]
     puts $vt_rpt "$vt cells: $n"
 }
