@@ -5,7 +5,7 @@
 #
 # Run from syn/ after `make compile`:
 #   ./sweep.sh [vt] [lo_ns] [hi_ns] [step_ns]
-#   vt: rvt | hvt (RVT+HVT, default) | lvt (LVT+RVT+HVT)
+#   vt: rvt | hvt (RVT+HVT, default) | lvt (LVT+RVT+HVT) | lh (LVT+HVT, no RVT)
 # Results: runs/<vt>_<period>/ per run, runs/sweep_<vt>.csv, runs/best_<vt> -> best run dir
 
 set -u
@@ -18,7 +18,8 @@ case $VT in
     rvt) VT_ARGS="set USE_HVT 0; set USE_LVT 0" ;;
     hvt) VT_ARGS="set USE_HVT 1; set USE_LVT 0" ;;
     lvt) VT_ARGS="set USE_HVT 1; set USE_LVT 1" ;;
-    *)   echo "unknown vt '$VT' (rvt|hvt|lvt)"; exit 1 ;;
+    lh)  VT_ARGS="set USE_HVT 1; set USE_LVT 1; set NO_RVT 1" ;;
+    *)   echo "unknown vt '$VT' (rvt|hvt|lvt|lh)"; exit 1 ;;
 esac
 
 mkdir -p runs

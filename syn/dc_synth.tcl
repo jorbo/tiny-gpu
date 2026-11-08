@@ -15,6 +15,9 @@ set TOP    gpu
 # Frequency sweep (sweep.sh) sets RUN_DIR so each period gets its own out/ and reports/
 if {![info exists USE_HVT]} { set USE_HVT 0 }
 if {![info exists USE_LVT]} { set USE_LVT 0 }
+# LVT+HVT only: dc_shell -x "set USE_HVT 1; set USE_LVT 1; set NO_RVT 1" -f dc_synth.tcl
+# RVT stays linked (SDC driving cell, wire load models) but no RVT cell is mapped
+if {![info exists NO_RVT]}  { set NO_RVT 0 }
 set LIBS $LIB_DB
 if {$USE_HVT} { lappend LIBS $HVT_DB }
 if {$USE_LVT} { lappend LIBS $LVT_DB }
@@ -51,6 +54,10 @@ if {$USE_HVT} {
 
 # Ideal clock still carries 0.1 ns uncertainty on hold checks
 set_fix_hold [get_clocks clk]
+
+if {$NO_RVT} {
+    set_dont_use [get_lib_cells saed32rvt_tt0p78v25c/*]
+}
 
 # Keep hierarchy so area/power can be broken down per module.
 # If compile_ultra isn't licensed, use: compile -map_effort high
@@ -97,7 +104,9 @@ proc stronger_cell {ref} {
     }
     foreach faster [lrange {HVT RVT LVT} [expr {[lsearch {HVT RVT LVT} $vt] + 1}] end] {
         set lc [get_lib_cells -quiet */${base}${drive}_$faster]
-        if {[sizeof_collection $lc]} { return [get_object_name [index_collection $lc 0]] }
+        if {[sizeof_collection $lc] && ![string is true -strict [get_attribute -quiet [index_collection $lc 0] dont_use]]} {
+            return [get_object_name [index_collection $lc 0]]
+        }
     }
     return ""
 }
