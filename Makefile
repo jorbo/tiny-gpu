@@ -1,8 +1,9 @@
 .PHONY: test compile gls
 
-export LIBPYTHON_LOC=$(shell cocotb-config --libpython)
-export PYGPI_PYTHON_BIN=$(shell cocotb-config --python-bin)
-export GPI_USERS=$(LIBPYTHON_LOC);$(shell $(PYGPI_PYTHON_BIN) -m cocotb_tools.config --pygpi-entry-point)
+# cocotb is only needed for test_%; scoping these keeps other targets working on hosts without it
+test_%: export LIBPYTHON_LOC = $(shell cocotb-config --libpython)
+test_%: export PYGPI_PYTHON_BIN = $(shell cocotb-config --python-bin)
+test_%: export GPI_USERS = $(LIBPYTHON_LOC);$(shell $(PYGPI_PYTHON_BIN) -m cocotb_tools.config --pygpi-entry-point)
 
 test_%:
 	make compile
