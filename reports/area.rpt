@@ -1,0 +1,113 @@
+ 
+****************************************
+Report : area
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Wed Oct 28 11:59:51 2026
+****************************************
+
+Library(s) Used:
+
+    saed32rvt_tt0p78v25c (File: /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_tt0p78v25c.db)
+
+Number of ports:                         3014
+Number of nets:                         14182
+Number of cells:                        11397
+Number of combinational cells:           9255
+Number of sequential cells:              2103
+Number of macros/black boxes:               0
+Number of buf/inv:                       1248
+Number of references:                       7
+
+Combinational area:              21343.521447
+Buf/Inv area:                     1610.510534
+Noncombinational area:           13913.876165
+Macro/Black Box area:                0.000000
+Net Interconnect area:           10722.802275
+
+Total cell area:                 35257.397611
+Total area:                      45980.199887
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area            Local cell area
+                                  -------------------  ------------------------------ 
+Hierarchical cell                 Absolute    Percent  Combi-      Noncombi-   Black-
+                                  Total       Total    national    national    boxes   Design
+--------------------------------  ----------  -------  ----------  ----------  ------  ----------------------------------------------------------------------------------------------------------------
+gpu                               35257.3976    100.0      0.0000   1903.0303  0.0000  gpu
+cores[0].core_instance            12963.6315     36.8     38.3757      0.0000  0.0000  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+cores[0].core_instance/decoder_instance
+                                    238.1329      0.7     92.2543    145.8787  0.0000  decoder_1
+cores[0].core_instance/fetcher_instance
+                                    278.0335      0.8     99.6244    178.4091  0.0000  fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_1
+cores[0].core_instance/scheduler_instance
+                                    159.6024      0.5     79.8012     79.8012  0.0000  scheduler_THREADS_PER_BLOCK4_1
+cores[0].core_instance/threads[0].alu_instance
+                                    849.6034      2.4    796.7414     52.8620  0.0000  alu_7
+cores[0].core_instance/threads[0].lsu_instance
+                                    388.3320      1.1    150.4532    237.8788  0.0000  lsu_7
+cores[0].core_instance/threads[0].register_instance
+                                   1775.7042      5.0    941.0952    834.6089  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1
+cores[0].core_instance/threads[1].alu_instance
+                                    848.8410      2.4    795.9790     52.8620  0.0000  alu_6
+cores[0].core_instance/threads[1].lsu_instance
+                                    388.3320      1.1    150.4532    237.8788  0.0000  lsu_6
+cores[0].core_instance/threads[1].register_instance
+                                   1774.6876      5.0    940.0787    834.6089  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_1
+cores[0].core_instance/threads[2].alu_instance
+                                    848.8410      2.4    795.9790     52.8620  0.0000  alu_5
+cores[0].core_instance/threads[2].lsu_instance
+                                    388.3320      1.1    150.4532    237.8788  0.0000  lsu_5
+cores[0].core_instance/threads[2].register_instance
+                                   1777.2290      5.0    942.6201    834.6089  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_1
+cores[0].core_instance/threads[3].alu_instance
+                                    848.8410      2.4    795.9790     52.8620  0.0000  alu_4
+cores[0].core_instance/threads[3].lsu_instance
+                                    391.6359      1.1    153.7571    237.8788  0.0000  lsu_4
+cores[0].core_instance/threads[3].pc_instance
+                                    195.4367      0.6    122.7516     72.6852  0.0000  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4
+cores[0].core_instance/threads[3].register_instance
+                                   1773.6710      5.0    939.0621    834.6089  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1
+cores[1].core_instance            12963.1232     36.8     38.3757      0.0000  0.0000  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+cores[1].core_instance/decoder_instance
+                                    238.1329      0.7     92.2543    145.8787  0.0000  decoder_0
+cores[1].core_instance/fetcher_instance
+                                    278.0335      0.8     99.6244    178.4091  0.0000  fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0
+cores[1].core_instance/scheduler_instance
+                                    162.6522      0.5     83.3592     79.2929  0.0000  scheduler_THREADS_PER_BLOCK4_0
+cores[1].core_instance/threads[0].alu_instance
+                                    849.8575      2.4    796.9956     52.8620  0.0000  alu_3
+cores[1].core_instance/threads[0].lsu_instance
+                                    388.3320      1.1    150.4532    237.8788  0.0000  lsu_3
+cores[1].core_instance/threads[0].register_instance
+                                   1775.7042      5.0    941.0952    834.6089  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0
+cores[1].core_instance/threads[1].alu_instance
+                                    848.8410      2.4    795.9790     52.8620  0.0000  alu_2
+cores[1].core_instance/threads[1].lsu_instance
+                                    389.6028      1.1    151.7240    237.8788  0.0000  lsu_2
+cores[1].core_instance/threads[1].register_instance
+                                   1773.4169      5.0    938.8079    834.6089  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0
+cores[1].core_instance/threads[2].alu_instance
+                                    848.8410      2.4    795.9790     52.8620  0.0000  alu_1
+cores[1].core_instance/threads[2].lsu_instance
+                                    388.3320      1.1    150.4532    237.8788  0.0000  lsu_1
+cores[1].core_instance/threads[2].register_instance
+                                   1775.9583      5.0    941.3494    834.6089  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0
+cores[1].core_instance/threads[3].alu_instance
+                                    848.8410      2.4    795.9790     52.8620  0.0000  alu_0
+cores[1].core_instance/threads[3].lsu_instance
+                                    390.3652      1.1    152.4864    237.8788  0.0000  lsu_0
+cores[1].core_instance/threads[3].pc_instance
+                                    195.4367      0.6    122.7516     72.6852  0.0000  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0
+cores[1].core_instance/threads[3].register_instance
+                                   1772.4003      5.0    937.7914    834.6089  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0
+data_memory_controller             6054.7267     17.2   4627.4539   1427.2728  0.0000  controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+dcr_instance                         79.0388      0.2     26.1768     52.8620  0.0000  dcr
+dispatch_instance                   795.9790      2.3    538.2770    257.7020  0.0000  dispatch_NUM_CORES2_THREADS_PER_BLOCK4
+program_memory_controller           497.8681      1.4    180.6964    317.1717  0.0000  controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0
+--------------------------------  ----------  -------  ----------  ----------  ------  ----------------------------------------------------------------------------------------------------------------
+Total                                                  21343.5214  13913.8762  0.0000
+
+1

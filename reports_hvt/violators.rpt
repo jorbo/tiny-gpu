@@ -1,0 +1,42 @@
+ 
+****************************************
+Report : constraint
+        -all_violators
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Thu Oct 29 10:02:53 2026
+****************************************
+
+
+   max_transition
+
+                             Required        Actual
+   Net                      Transition     Transition        Slack
+   -----------------------------------------------------------------
+   data_memory_controller/n1700
+                                0.90           1.05          -0.15  (VIOLATED)
+       PIN :   data_memory_controller/U1778/A1
+                                0.90           1.05          -0.15  (VIOLATED)
+       PIN :   data_memory_controller/U406/A2
+                                0.90           1.05          -0.15  (VIOLATED)
+       PIN :   data_memory_controller/U2034/A
+                                0.90           1.05          -0.15  (VIOLATED)
+       PIN :   data_memory_controller/U2052/A2
+                                0.90           1.05          -0.15  (VIOLATED)
+       PIN :   data_memory_controller/U2069/A2
+                                0.90           1.05          -0.15  (VIOLATED)
+       PIN :   data_memory_controller/U2078/A2
+                                0.90           1.05          -0.15  (VIOLATED)
+       PIN :   data_memory_controller/U2087/A2
+                                0.90           1.05          -0.15  (VIOLATED)
+       PIN :   data_memory_controller/U2096/A2
+                                0.90           1.05          -0.15  (VIOLATED)
+       PIN :   data_memory_controller/U2105/A2
+                                0.90           1.05          -0.15  (VIOLATED)
+       PIN :   data_memory_controller/U4/Y
+                                0.90           1.05          -0.15  (VIOLATED)
+
+   -----------------------------------------------------------------
+   Total                      1                  -0.15  
+
+1

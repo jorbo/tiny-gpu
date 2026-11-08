@@ -1,0 +1,1575 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 10
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Wed Oct 28 11:59:51 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: tt0p78v25c   Library: saed32rvt_tt0p78v25c
+Wire Load Model Mode: enclosed
+
+  Startpoint: cores[1].core_instance/threads[3].register_instance/rt_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[1].core_instance/threads[3].alu_instance/alu_out_reg_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                     16000                 saed32rvt_tt0p78v25c
+  alu_0              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[1].core_instance/threads[3].register_instance/rt_reg[6]/CLK (DFFX1_RVT)
+                                                          0.00 #     0.00 r
+  cores[1].core_instance/threads[3].register_instance/rt_reg[6]/Q (DFFX1_RVT)
+                                                          0.24       0.24 f
+  cores[1].core_instance/threads[3].register_instance/rt[6] (registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0)
+                                                          0.00       0.24 f
+  cores[1].core_instance/threads[3].alu_instance/rt[6] (alu_0)
+                                                          0.00       0.24 f
+  cores[1].core_instance/threads[3].alu_instance/U60/Y (INVX0_RVT)
+                                                          0.11       0.35 r
+  cores[1].core_instance/threads[3].alu_instance/U83/Y (NAND3X0_RVT)
+                                                          0.11       0.47 f
+  cores[1].core_instance/threads[3].alu_instance/U84/Y (OR2X1_RVT)
+                                                          0.13       0.59 f
+  cores[1].core_instance/threads[3].alu_instance/U85/Y (INVX0_RVT)
+                                                          0.06       0.65 r
+  cores[1].core_instance/threads[3].alu_instance/U86/Y (NAND3X0_RVT)
+                                                          0.08       0.73 f
+  cores[1].core_instance/threads[3].alu_instance/U87/Y (INVX0_RVT)
+                                                          0.08       0.81 r
+  cores[1].core_instance/threads[3].alu_instance/U89/Y (NAND2X0_RVT)
+                                                          0.07       0.88 f
+  cores[1].core_instance/threads[3].alu_instance/U90/Y (OA21X1_RVT)
+                                                          0.12       1.00 f
+  cores[1].core_instance/threads[3].alu_instance/U20/Y (OAI222X1_RVT)
+                                                          0.16       1.16 r
+  cores[1].core_instance/threads[3].alu_instance/U95/Y (AO221X1_RVT)
+                                                          0.12       1.28 r
+  cores[1].core_instance/threads[3].alu_instance/U13/Y (INVX0_RVT)
+                                                          0.05       1.33 f
+  cores[1].core_instance/threads[3].alu_instance/U96/Y (NAND2X0_RVT)
+                                                          0.07       1.40 r
+  cores[1].core_instance/threads[3].alu_instance/U97/SO (HADDX1_RVT)
+                                                          0.16       1.56 f
+  cores[1].core_instance/threads[3].alu_instance/U17/Y (AO222X1_RVT)
+                                                          0.15       1.71 f
+  cores[1].core_instance/threads[3].alu_instance/U107/Y (AO222X1_RVT)
+                                                          0.16       1.87 f
+  cores[1].core_instance/threads[3].alu_instance/U108/Y (OR2X1_RVT)
+                                                          0.08       1.95 f
+  cores[1].core_instance/threads[3].alu_instance/U109/Y (AO221X1_RVT)
+                                                          0.15       2.10 f
+  cores[1].core_instance/threads[3].alu_instance/U15/Y (INVX0_RVT)
+                                                          0.08       2.18 r
+  cores[1].core_instance/threads[3].alu_instance/U116/Y (AO22X1_RVT)
+                                                          0.12       2.30 r
+  cores[1].core_instance/threads[3].alu_instance/U117/Y (AO222X1_RVT)
+                                                          0.16       2.46 r
+  cores[1].core_instance/threads[3].alu_instance/U120/Y (OA222X1_RVT)
+                                                          0.14       2.60 r
+  cores[1].core_instance/threads[3].alu_instance/U121/Y (INVX0_RVT)
+                                                          0.05       2.65 f
+  cores[1].core_instance/threads[3].alu_instance/U127/Y (AO222X1_RVT)
+                                                          0.15       2.80 f
+  cores[1].core_instance/threads[3].alu_instance/U131/Y (AOI221X1_RVT)
+                                                          0.18       2.98 r
+  cores[1].core_instance/threads[3].alu_instance/U140/Y (NAND2X0_RVT)
+                                                          0.06       3.05 f
+  cores[1].core_instance/threads[3].alu_instance/U141/SO (HADDX1_RVT)
+                                                          0.16       3.21 r
+  cores[1].core_instance/threads[3].alu_instance/U142/Y (INVX0_RVT)
+                                                          0.05       3.26 f
+  cores[1].core_instance/threads[3].alu_instance/U143/Y (OA222X1_RVT)
+                                                          0.15       3.41 f
+  cores[1].core_instance/threads[3].alu_instance/U144/Y (OA222X1_RVT)
+                                                          0.15       3.56 f
+  cores[1].core_instance/threads[3].alu_instance/U145/Y (INVX0_RVT)
+                                                          0.07       3.63 r
+  cores[1].core_instance/threads[3].alu_instance/U150/Y (AO222X1_RVT)
+                                                          0.16       3.79 r
+  cores[1].core_instance/threads[3].alu_instance/U156/Y (AO222X1_RVT)
+                                                          0.18       3.96 r
+  cores[1].core_instance/threads[3].alu_instance/U157/Y (OR2X1_RVT)
+                                                          0.09       4.05 r
+  cores[1].core_instance/threads[3].alu_instance/U159/Y (AOI221X1_RVT)
+                                                          0.17       4.22 f
+  cores[1].core_instance/threads[3].alu_instance/U171/Y (NAND2X0_RVT)
+                                                          0.08       4.30 r
+  cores[1].core_instance/threads[3].alu_instance/U172/SO (HADDX1_RVT)
+                                                          0.14       4.45 f
+  cores[1].core_instance/threads[3].alu_instance/U10/Y (INVX0_RVT)
+                                                          0.07       4.51 r
+  cores[1].core_instance/threads[3].alu_instance/U173/Y (OA222X1_RVT)
+                                                          0.14       4.66 r
+  cores[1].core_instance/threads[3].alu_instance/U174/Y (OA222X1_RVT)
+                                                          0.15       4.80 r
+  cores[1].core_instance/threads[3].alu_instance/U175/Y (OA222X1_RVT)
+                                                          0.15       4.95 r
+  cores[1].core_instance/threads[3].alu_instance/U176/Y (OA222X1_RVT)
+                                                          0.13       5.08 r
+  cores[1].core_instance/threads[3].alu_instance/U19/Y (INVX0_RVT)
+                                                          0.05       5.14 f
+  cores[1].core_instance/threads[3].alu_instance/U182/Y (AO222X1_RVT)
+                                                          0.15       5.29 f
+  cores[1].core_instance/threads[3].alu_instance/U187/Y (OR2X1_RVT)
+                                                          0.09       5.38 f
+  cores[1].core_instance/threads[3].alu_instance/U188/Y (AO221X1_RVT)
+                                                          0.15       5.53 f
+  cores[1].core_instance/threads[3].alu_instance/U16/Y (INVX0_RVT)
+                                                          0.09       5.63 r
+  cores[1].core_instance/threads[3].alu_instance/U210/Y (NAND2X0_RVT)
+                                                          0.07       5.70 f
+  cores[1].core_instance/threads[3].alu_instance/U211/SO (HADDX1_RVT)
+                                                          0.17       5.87 r
+  cores[1].core_instance/threads[3].alu_instance/U212/Y (AO222X1_RVT)
+                                                          0.16       6.02 r
+  cores[1].core_instance/threads[3].alu_instance/U213/Y (AO222X1_RVT)
+                                                          0.15       6.17 r
+  cores[1].core_instance/threads[3].alu_instance/U214/Y (AO222X1_RVT)
+                                                          0.15       6.31 r
+  cores[1].core_instance/threads[3].alu_instance/U215/Y (AO222X1_RVT)
+                                                          0.15       6.46 r
+  cores[1].core_instance/threads[3].alu_instance/U216/Y (AO222X1_RVT)
+                                                          0.15       6.61 r
+  cores[1].core_instance/threads[3].alu_instance/U221/Y (AO222X1_RVT)
+                                                          0.16       6.77 r
+  cores[1].core_instance/threads[3].alu_instance/U223/Y (AO222X1_RVT)
+                                                          0.15       6.92 r
+  cores[1].core_instance/threads[3].alu_instance/U224/Y (AO222X1_RVT)
+                                                          0.15       7.07 r
+  cores[1].core_instance/threads[3].alu_instance/U226/Y (NAND2X0_RVT)
+                                                          0.05       7.12 f
+  cores[1].core_instance/threads[3].alu_instance/U227/Y (AO22X1_RVT)
+                                                          0.08       7.21 f
+  cores[1].core_instance/threads[3].alu_instance/alu_out_reg_reg[0]/D (DFFX1_RVT)
+                                                          0.01       7.22 f
+  data arrival time                                                  7.22
+
+  clock clk (rise edge)                                  10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  clock uncertainty                                      -0.10       9.90
+  cores[1].core_instance/threads[3].alu_instance/alu_out_reg_reg[0]/CLK (DFFX1_RVT)
+                                                          0.00       9.90 r
+  library setup time                                     -0.04       9.86
+  data required time                                                 9.86
+  --------------------------------------------------------------------------
+  data required time                                                 9.86
+  data arrival time                                                 -7.22
+  --------------------------------------------------------------------------
+  slack (MET)                                                        2.64
+
+
+  Startpoint: cores[1].core_instance/threads[2].register_instance/rt_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[1].core_instance/threads[2].alu_instance/alu_out_reg_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                     16000                 saed32rvt_tt0p78v25c
+  alu_1              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[1].core_instance/threads[2].register_instance/rt_reg[6]/CLK (DFFX1_RVT)
+                                                          0.00 #     0.00 r
+  cores[1].core_instance/threads[2].register_instance/rt_reg[6]/Q (DFFX1_RVT)
+                                                          0.24       0.24 f
+  cores[1].core_instance/threads[2].register_instance/rt[6] (registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0)
+                                                          0.00       0.24 f
+  cores[1].core_instance/threads[2].alu_instance/rt[6] (alu_1)
+                                                          0.00       0.24 f
+  cores[1].core_instance/threads[2].alu_instance/U58/Y (INVX0_RVT)
+                                                          0.11       0.35 r
+  cores[1].core_instance/threads[2].alu_instance/U81/Y (NAND3X0_RVT)
+                                                          0.11       0.47 f
+  cores[1].core_instance/threads[2].alu_instance/U82/Y (OR2X1_RVT)
+                                                          0.13       0.59 f
+  cores[1].core_instance/threads[2].alu_instance/U83/Y (INVX0_RVT)
+                                                          0.06       0.65 r
+  cores[1].core_instance/threads[2].alu_instance/U84/Y (NAND3X0_RVT)
+                                                          0.08       0.73 f
+  cores[1].core_instance/threads[2].alu_instance/U85/Y (INVX0_RVT)
+                                                          0.08       0.81 r
+  cores[1].core_instance/threads[2].alu_instance/U87/Y (NAND2X0_RVT)
+                                                          0.07       0.88 f
+  cores[1].core_instance/threads[2].alu_instance/U88/Y (OA21X1_RVT)
+                                                          0.12       1.00 f
+  cores[1].core_instance/threads[2].alu_instance/U16/Y (OAI222X1_RVT)
+                                                          0.16       1.16 r
+  cores[1].core_instance/threads[2].alu_instance/U93/Y (AO221X1_RVT)
+                                                          0.12       1.28 r
+  cores[1].core_instance/threads[2].alu_instance/U94/Y (INVX0_RVT)
+                                                          0.05       1.33 f
+  cores[1].core_instance/threads[2].alu_instance/U95/Y (NAND2X0_RVT)
+                                                          0.07       1.40 r
+  cores[1].core_instance/threads[2].alu_instance/U96/SO (HADDX1_RVT)
+                                                          0.16       1.56 f
+  cores[1].core_instance/threads[2].alu_instance/U13/Y (AO222X1_RVT)
+                                                          0.15       1.71 f
+  cores[1].core_instance/threads[2].alu_instance/U107/Y (AO222X1_RVT)
+                                                          0.16       1.87 f
+  cores[1].core_instance/threads[2].alu_instance/U108/Y (OR2X1_RVT)
+                                                          0.08       1.95 f
+  cores[1].core_instance/threads[2].alu_instance/U109/Y (AO221X1_RVT)
+                                                          0.15       2.10 f
+  cores[1].core_instance/threads[2].alu_instance/U12/Y (INVX0_RVT)
+                                                          0.08       2.18 r
+  cores[1].core_instance/threads[2].alu_instance/U116/Y (AO22X1_RVT)
+                                                          0.12       2.30 r
+  cores[1].core_instance/threads[2].alu_instance/U117/Y (AO222X1_RVT)
+                                                          0.16       2.46 r
+  cores[1].core_instance/threads[2].alu_instance/U120/Y (OA222X1_RVT)
+                                                          0.14       2.60 r
+  cores[1].core_instance/threads[2].alu_instance/U121/Y (INVX0_RVT)
+                                                          0.05       2.65 f
+  cores[1].core_instance/threads[2].alu_instance/U127/Y (AO222X1_RVT)
+                                                          0.15       2.80 f
+  cores[1].core_instance/threads[2].alu_instance/U131/Y (AOI221X1_RVT)
+                                                          0.18       2.98 r
+  cores[1].core_instance/threads[2].alu_instance/U140/Y (NAND2X0_RVT)
+                                                          0.06       3.05 f
+  cores[1].core_instance/threads[2].alu_instance/U141/SO (HADDX1_RVT)
+                                                          0.16       3.21 r
+  cores[1].core_instance/threads[2].alu_instance/U142/Y (INVX0_RVT)
+                                                          0.05       3.26 f
+  cores[1].core_instance/threads[2].alu_instance/U143/Y (OA222X1_RVT)
+                                                          0.15       3.41 f
+  cores[1].core_instance/threads[2].alu_instance/U144/Y (OA222X1_RVT)
+                                                          0.15       3.56 f
+  cores[1].core_instance/threads[2].alu_instance/U145/Y (INVX0_RVT)
+                                                          0.07       3.63 r
+  cores[1].core_instance/threads[2].alu_instance/U150/Y (AO222X1_RVT)
+                                                          0.16       3.79 r
+  cores[1].core_instance/threads[2].alu_instance/U156/Y (AO222X1_RVT)
+                                                          0.18       3.96 r
+  cores[1].core_instance/threads[2].alu_instance/U157/Y (OR2X1_RVT)
+                                                          0.09       4.05 r
+  cores[1].core_instance/threads[2].alu_instance/U159/Y (AOI221X1_RVT)
+                                                          0.17       4.22 f
+  cores[1].core_instance/threads[2].alu_instance/U171/Y (NAND2X0_RVT)
+                                                          0.08       4.30 r
+  cores[1].core_instance/threads[2].alu_instance/U172/SO (HADDX1_RVT)
+                                                          0.14       4.45 f
+  cores[1].core_instance/threads[2].alu_instance/U173/Y (INVX0_RVT)
+                                                          0.07       4.51 r
+  cores[1].core_instance/threads[2].alu_instance/U174/Y (OA222X1_RVT)
+                                                          0.14       4.66 r
+  cores[1].core_instance/threads[2].alu_instance/U175/Y (OA222X1_RVT)
+                                                          0.15       4.80 r
+  cores[1].core_instance/threads[2].alu_instance/U176/Y (OA222X1_RVT)
+                                                          0.15       4.95 r
+  cores[1].core_instance/threads[2].alu_instance/U177/Y (OA222X1_RVT)
+                                                          0.13       5.08 r
+  cores[1].core_instance/threads[2].alu_instance/U15/Y (INVX0_RVT)
+                                                          0.05       5.14 f
+  cores[1].core_instance/threads[2].alu_instance/U183/Y (AO222X1_RVT)
+                                                          0.15       5.29 f
+  cores[1].core_instance/threads[2].alu_instance/U188/Y (OR2X1_RVT)
+                                                          0.09       5.38 f
+  cores[1].core_instance/threads[2].alu_instance/U189/Y (AO221X1_RVT)
+                                                          0.15       5.53 f
+  cores[1].core_instance/threads[2].alu_instance/U195/Y (INVX0_RVT)
+                                                          0.09       5.63 r
+  cores[1].core_instance/threads[2].alu_instance/U212/Y (NAND2X0_RVT)
+                                                          0.07       5.70 f
+  cores[1].core_instance/threads[2].alu_instance/U213/SO (HADDX1_RVT)
+                                                          0.17       5.87 r
+  cores[1].core_instance/threads[2].alu_instance/U214/Y (AO222X1_RVT)
+                                                          0.16       6.02 r
+  cores[1].core_instance/threads[2].alu_instance/U215/Y (AO222X1_RVT)
+                                                          0.15       6.17 r
+  cores[1].core_instance/threads[2].alu_instance/U216/Y (AO222X1_RVT)
+                                                          0.15       6.31 r
+  cores[1].core_instance/threads[2].alu_instance/U217/Y (AO222X1_RVT)
+                                                          0.15       6.46 r
+  cores[1].core_instance/threads[2].alu_instance/U218/Y (AO222X1_RVT)
+                                                          0.15       6.61 r
+  cores[1].core_instance/threads[2].alu_instance/U223/Y (AO222X1_RVT)
+                                                          0.16       6.77 r
+  cores[1].core_instance/threads[2].alu_instance/U225/Y (AO222X1_RVT)
+                                                          0.15       6.92 r
+  cores[1].core_instance/threads[2].alu_instance/U226/Y (AO222X1_RVT)
+                                                          0.15       7.07 r
+  cores[1].core_instance/threads[2].alu_instance/U228/Y (NAND2X0_RVT)
+                                                          0.05       7.12 f
+  cores[1].core_instance/threads[2].alu_instance/U229/Y (AO22X1_RVT)
+                                                          0.08       7.21 f
+  cores[1].core_instance/threads[2].alu_instance/alu_out_reg_reg[0]/D (DFFX1_RVT)
+                                                          0.01       7.22 f
+  data arrival time                                                  7.22
+
+  clock clk (rise edge)                                  10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  clock uncertainty                                      -0.10       9.90
+  cores[1].core_instance/threads[2].alu_instance/alu_out_reg_reg[0]/CLK (DFFX1_RVT)
+                                                          0.00       9.90 r
+  library setup time                                     -0.04       9.86
+  data required time                                                 9.86
+  --------------------------------------------------------------------------
+  data required time                                                 9.86
+  data arrival time                                                 -7.22
+  --------------------------------------------------------------------------
+  slack (MET)                                                        2.64
+
+
+  Startpoint: cores[0].core_instance/threads[3].register_instance/rt_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_instance/threads[3].alu_instance/alu_out_reg_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+                     16000                 saed32rvt_tt0p78v25c
+  alu_4              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[0].core_instance/threads[3].register_instance/rt_reg[6]/CLK (DFFX1_RVT)
+                                                          0.00 #     0.00 r
+  cores[0].core_instance/threads[3].register_instance/rt_reg[6]/Q (DFFX1_RVT)
+                                                          0.24       0.24 f
+  cores[0].core_instance/threads[3].register_instance/rt[6] (registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1)
+                                                          0.00       0.24 f
+  cores[0].core_instance/threads[3].alu_instance/rt[6] (alu_4)
+                                                          0.00       0.24 f
+  cores[0].core_instance/threads[3].alu_instance/U59/Y (INVX0_RVT)
+                                                          0.11       0.35 r
+  cores[0].core_instance/threads[3].alu_instance/U82/Y (NAND3X0_RVT)
+                                                          0.11       0.47 f
+  cores[0].core_instance/threads[3].alu_instance/U83/Y (OR2X1_RVT)
+                                                          0.13       0.59 f
+  cores[0].core_instance/threads[3].alu_instance/U84/Y (INVX0_RVT)
+                                                          0.06       0.65 r
+  cores[0].core_instance/threads[3].alu_instance/U85/Y (NAND3X0_RVT)
+                                                          0.08       0.73 f
+  cores[0].core_instance/threads[3].alu_instance/U86/Y (INVX0_RVT)
+                                                          0.08       0.81 r
+  cores[0].core_instance/threads[3].alu_instance/U88/Y (NAND2X0_RVT)
+                                                          0.07       0.88 f
+  cores[0].core_instance/threads[3].alu_instance/U89/Y (OA21X1_RVT)
+                                                          0.12       1.00 f
+  cores[0].core_instance/threads[3].alu_instance/U17/Y (OAI222X1_RVT)
+                                                          0.16       1.16 r
+  cores[0].core_instance/threads[3].alu_instance/U94/Y (AO221X1_RVT)
+                                                          0.12       1.28 r
+  cores[0].core_instance/threads[3].alu_instance/U95/Y (INVX0_RVT)
+                                                          0.05       1.33 f
+  cores[0].core_instance/threads[3].alu_instance/U96/Y (NAND2X0_RVT)
+                                                          0.07       1.40 r
+  cores[0].core_instance/threads[3].alu_instance/U97/SO (HADDX1_RVT)
+                                                          0.16       1.56 f
+  cores[0].core_instance/threads[3].alu_instance/U103/Y (AO222X1_RVT)
+                                                          0.15       1.71 f
+  cores[0].core_instance/threads[3].alu_instance/U108/Y (AO222X1_RVT)
+                                                          0.16       1.87 f
+  cores[0].core_instance/threads[3].alu_instance/U109/Y (OR2X1_RVT)
+                                                          0.08       1.95 f
+  cores[0].core_instance/threads[3].alu_instance/U110/Y (AO221X1_RVT)
+                                                          0.15       2.10 f
+  cores[0].core_instance/threads[3].alu_instance/U13/Y (INVX0_RVT)
+                                                          0.08       2.18 r
+  cores[0].core_instance/threads[3].alu_instance/U117/Y (AO22X1_RVT)
+                                                          0.12       2.30 r
+  cores[0].core_instance/threads[3].alu_instance/U118/Y (AO222X1_RVT)
+                                                          0.16       2.46 r
+  cores[0].core_instance/threads[3].alu_instance/U121/Y (OA222X1_RVT)
+                                                          0.14       2.60 r
+  cores[0].core_instance/threads[3].alu_instance/U122/Y (INVX0_RVT)
+                                                          0.05       2.65 f
+  cores[0].core_instance/threads[3].alu_instance/U127/Y (AO222X1_RVT)
+                                                          0.15       2.80 f
+  cores[0].core_instance/threads[3].alu_instance/U131/Y (AOI221X1_RVT)
+                                                          0.18       2.98 r
+  cores[0].core_instance/threads[3].alu_instance/U140/Y (NAND2X0_RVT)
+                                                          0.06       3.05 f
+  cores[0].core_instance/threads[3].alu_instance/U141/SO (HADDX1_RVT)
+                                                          0.16       3.21 r
+  cores[0].core_instance/threads[3].alu_instance/U10/Y (INVX0_RVT)
+                                                          0.05       3.26 f
+  cores[0].core_instance/threads[3].alu_instance/U142/Y (OA222X1_RVT)
+                                                          0.15       3.41 f
+  cores[0].core_instance/threads[3].alu_instance/U143/Y (OA222X1_RVT)
+                                                          0.15       3.56 f
+  cores[0].core_instance/threads[3].alu_instance/U144/Y (INVX0_RVT)
+                                                          0.07       3.63 r
+  cores[0].core_instance/threads[3].alu_instance/U149/Y (AO222X1_RVT)
+                                                          0.16       3.79 r
+  cores[0].core_instance/threads[3].alu_instance/U155/Y (AO222X1_RVT)
+                                                          0.18       3.96 r
+  cores[0].core_instance/threads[3].alu_instance/U156/Y (OR2X1_RVT)
+                                                          0.09       4.05 r
+  cores[0].core_instance/threads[3].alu_instance/U158/Y (AOI221X1_RVT)
+                                                          0.17       4.22 f
+  cores[0].core_instance/threads[3].alu_instance/U171/Y (NAND2X0_RVT)
+                                                          0.08       4.30 r
+  cores[0].core_instance/threads[3].alu_instance/U172/SO (HADDX1_RVT)
+                                                          0.14       4.45 f
+  cores[0].core_instance/threads[3].alu_instance/U173/Y (INVX0_RVT)
+                                                          0.07       4.51 r
+  cores[0].core_instance/threads[3].alu_instance/U174/Y (OA222X1_RVT)
+                                                          0.14       4.66 r
+  cores[0].core_instance/threads[3].alu_instance/U175/Y (OA222X1_RVT)
+                                                          0.15       4.80 r
+  cores[0].core_instance/threads[3].alu_instance/U176/Y (OA222X1_RVT)
+                                                          0.15       4.95 r
+  cores[0].core_instance/threads[3].alu_instance/U177/Y (OA222X1_RVT)
+                                                          0.13       5.08 r
+  cores[0].core_instance/threads[3].alu_instance/U16/Y (INVX0_RVT)
+                                                          0.05       5.14 f
+  cores[0].core_instance/threads[3].alu_instance/U183/Y (AO222X1_RVT)
+                                                          0.15       5.29 f
+  cores[0].core_instance/threads[3].alu_instance/U188/Y (OR2X1_RVT)
+                                                          0.09       5.38 f
+  cores[0].core_instance/threads[3].alu_instance/U189/Y (AO221X1_RVT)
+                                                          0.15       5.53 f
+  cores[0].core_instance/threads[3].alu_instance/U196/Y (INVX0_RVT)
+                                                          0.09       5.63 r
+  cores[0].core_instance/threads[3].alu_instance/U213/Y (NAND2X0_RVT)
+                                                          0.07       5.70 f
+  cores[0].core_instance/threads[3].alu_instance/U214/SO (HADDX1_RVT)
+                                                          0.17       5.87 r
+  cores[0].core_instance/threads[3].alu_instance/U215/Y (AO222X1_RVT)
+                                                          0.16       6.02 r
+  cores[0].core_instance/threads[3].alu_instance/U216/Y (AO222X1_RVT)
+                                                          0.15       6.17 r
+  cores[0].core_instance/threads[3].alu_instance/U217/Y (AO222X1_RVT)
+                                                          0.15       6.31 r
+  cores[0].core_instance/threads[3].alu_instance/U218/Y (AO222X1_RVT)
+                                                          0.15       6.46 r
+  cores[0].core_instance/threads[3].alu_instance/U219/Y (AO222X1_RVT)
+                                                          0.15       6.61 r
+  cores[0].core_instance/threads[3].alu_instance/U224/Y (AO222X1_RVT)
+                                                          0.16       6.77 r
+  cores[0].core_instance/threads[3].alu_instance/U226/Y (AO222X1_RVT)
+                                                          0.15       6.92 r
+  cores[0].core_instance/threads[3].alu_instance/U227/Y (AO222X1_RVT)
+                                                          0.15       7.07 r
+  cores[0].core_instance/threads[3].alu_instance/U229/Y (NAND2X0_RVT)
+                                                          0.05       7.12 f
+  cores[0].core_instance/threads[3].alu_instance/U230/Y (AO22X1_RVT)
+                                                          0.08       7.21 f
+  cores[0].core_instance/threads[3].alu_instance/alu_out_reg_reg[0]/D (DFFX1_RVT)
+                                                          0.01       7.22 f
+  data arrival time                                                  7.22
+
+  clock clk (rise edge)                                  10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  clock uncertainty                                      -0.10       9.90
+  cores[0].core_instance/threads[3].alu_instance/alu_out_reg_reg[0]/CLK (DFFX1_RVT)
+                                                          0.00       9.90 r
+  library setup time                                     -0.04       9.86
+  data required time                                                 9.86
+  --------------------------------------------------------------------------
+  data required time                                                 9.86
+  data arrival time                                                 -7.22
+  --------------------------------------------------------------------------
+  slack (MET)                                                        2.64
+
+
+  Startpoint: cores[0].core_instance/threads[2].register_instance/rt_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_instance/threads[2].alu_instance/alu_out_reg_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+                     16000                 saed32rvt_tt0p78v25c
+  alu_5              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[0].core_instance/threads[2].register_instance/rt_reg[6]/CLK (DFFX1_RVT)
+                                                          0.00 #     0.00 r
+  cores[0].core_instance/threads[2].register_instance/rt_reg[6]/Q (DFFX1_RVT)
+                                                          0.24       0.24 f
+  cores[0].core_instance/threads[2].register_instance/rt[6] (registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_1)
+                                                          0.00       0.24 f
+  cores[0].core_instance/threads[2].alu_instance/rt[6] (alu_5)
+                                                          0.00       0.24 f
+  cores[0].core_instance/threads[2].alu_instance/U49/Y (INVX0_RVT)
+                                                          0.11       0.35 r
+  cores[0].core_instance/threads[2].alu_instance/U50/Y (NAND3X0_RVT)
+                                                          0.11       0.47 f
+  cores[0].core_instance/threads[2].alu_instance/U51/Y (OR2X1_RVT)
+                                                          0.13       0.59 f
+  cores[0].core_instance/threads[2].alu_instance/U52/Y (INVX0_RVT)
+                                                          0.06       0.65 r
+  cores[0].core_instance/threads[2].alu_instance/U53/Y (NAND3X0_RVT)
+                                                          0.08       0.73 f
+  cores[0].core_instance/threads[2].alu_instance/U54/Y (INVX0_RVT)
+                                                          0.08       0.81 r
+  cores[0].core_instance/threads[2].alu_instance/U56/Y (NAND2X0_RVT)
+                                                          0.07       0.88 f
+  cores[0].core_instance/threads[2].alu_instance/U57/Y (OA21X1_RVT)
+                                                          0.12       1.00 f
+  cores[0].core_instance/threads[2].alu_instance/U19/Y (OAI222X1_RVT)
+                                                          0.16       1.16 r
+  cores[0].core_instance/threads[2].alu_instance/U62/Y (AO221X1_RVT)
+                                                          0.12       1.28 r
+  cores[0].core_instance/threads[2].alu_instance/U63/Y (INVX0_RVT)
+                                                          0.05       1.33 f
+  cores[0].core_instance/threads[2].alu_instance/U64/Y (NAND2X0_RVT)
+                                                          0.07       1.40 r
+  cores[0].core_instance/threads[2].alu_instance/U65/SO (HADDX1_RVT)
+                                                          0.16       1.56 f
+  cores[0].core_instance/threads[2].alu_instance/U72/Y (AO222X1_RVT)
+                                                          0.15       1.71 f
+  cores[0].core_instance/threads[2].alu_instance/U77/Y (AO222X1_RVT)
+                                                          0.16       1.87 f
+  cores[0].core_instance/threads[2].alu_instance/U78/Y (OR2X1_RVT)
+                                                          0.08       1.95 f
+  cores[0].core_instance/threads[2].alu_instance/U79/Y (AO221X1_RVT)
+                                                          0.15       2.10 f
+  cores[0].core_instance/threads[2].alu_instance/U15/Y (INVX0_RVT)
+                                                          0.08       2.18 r
+  cores[0].core_instance/threads[2].alu_instance/U86/Y (AO22X1_RVT)
+                                                          0.12       2.30 r
+  cores[0].core_instance/threads[2].alu_instance/U87/Y (AO222X1_RVT)
+                                                          0.16       2.46 r
+  cores[0].core_instance/threads[2].alu_instance/U90/Y (OA222X1_RVT)
+                                                          0.14       2.60 r
+  cores[0].core_instance/threads[2].alu_instance/U91/Y (INVX0_RVT)
+                                                          0.05       2.65 f
+  cores[0].core_instance/threads[2].alu_instance/U96/Y (AO222X1_RVT)
+                                                          0.15       2.80 f
+  cores[0].core_instance/threads[2].alu_instance/U100/Y (AOI221X1_RVT)
+                                                          0.18       2.98 r
+  cores[0].core_instance/threads[2].alu_instance/U109/Y (NAND2X0_RVT)
+                                                          0.06       3.05 f
+  cores[0].core_instance/threads[2].alu_instance/U110/SO (HADDX1_RVT)
+                                                          0.16       3.21 r
+  cores[0].core_instance/threads[2].alu_instance/U12/Y (INVX0_RVT)
+                                                          0.05       3.26 f
+  cores[0].core_instance/threads[2].alu_instance/U111/Y (OA222X1_RVT)
+                                                          0.15       3.41 f
+  cores[0].core_instance/threads[2].alu_instance/U112/Y (OA222X1_RVT)
+                                                          0.15       3.56 f
+  cores[0].core_instance/threads[2].alu_instance/U113/Y (INVX0_RVT)
+                                                          0.07       3.63 r
+  cores[0].core_instance/threads[2].alu_instance/U118/Y (AO222X1_RVT)
+                                                          0.16       3.79 r
+  cores[0].core_instance/threads[2].alu_instance/U124/Y (AO222X1_RVT)
+                                                          0.18       3.96 r
+  cores[0].core_instance/threads[2].alu_instance/U125/Y (OR2X1_RVT)
+                                                          0.09       4.05 r
+  cores[0].core_instance/threads[2].alu_instance/U127/Y (AOI221X1_RVT)
+                                                          0.17       4.22 f
+  cores[0].core_instance/threads[2].alu_instance/U142/Y (NAND2X0_RVT)
+                                                          0.08       4.30 r
+  cores[0].core_instance/threads[2].alu_instance/U143/SO (HADDX1_RVT)
+                                                          0.14       4.45 f
+  cores[0].core_instance/threads[2].alu_instance/U10/Y (INVX0_RVT)
+                                                          0.07       4.51 r
+  cores[0].core_instance/threads[2].alu_instance/U144/Y (OA222X1_RVT)
+                                                          0.14       4.66 r
+  cores[0].core_instance/threads[2].alu_instance/U145/Y (OA222X1_RVT)
+                                                          0.15       4.80 r
+  cores[0].core_instance/threads[2].alu_instance/U146/Y (OA222X1_RVT)
+                                                          0.15       4.95 r
+  cores[0].core_instance/threads[2].alu_instance/U147/Y (OA222X1_RVT)
+                                                          0.13       5.08 r
+  cores[0].core_instance/threads[2].alu_instance/U18/Y (INVX0_RVT)
+                                                          0.05       5.14 f
+  cores[0].core_instance/threads[2].alu_instance/U153/Y (AO222X1_RVT)
+                                                          0.15       5.29 f
+  cores[0].core_instance/threads[2].alu_instance/U158/Y (OR2X1_RVT)
+                                                          0.09       5.38 f
+  cores[0].core_instance/threads[2].alu_instance/U159/Y (AO221X1_RVT)
+                                                          0.15       5.53 f
+  cores[0].core_instance/threads[2].alu_instance/U160/Y (INVX0_RVT)
+                                                          0.09       5.63 r
+  cores[0].core_instance/threads[2].alu_instance/U177/Y (NAND2X0_RVT)
+                                                          0.07       5.70 f
+  cores[0].core_instance/threads[2].alu_instance/U178/SO (HADDX1_RVT)
+                                                          0.17       5.87 r
+  cores[0].core_instance/threads[2].alu_instance/U182/Y (AO222X1_RVT)
+                                                          0.16       6.02 r
+  cores[0].core_instance/threads[2].alu_instance/U183/Y (AO222X1_RVT)
+                                                          0.15       6.17 r
+  cores[0].core_instance/threads[2].alu_instance/U184/Y (AO222X1_RVT)
+                                                          0.15       6.31 r
+  cores[0].core_instance/threads[2].alu_instance/U185/Y (AO222X1_RVT)
+                                                          0.15       6.46 r
+  cores[0].core_instance/threads[2].alu_instance/U186/Y (AO222X1_RVT)
+                                                          0.15       6.61 r
+  cores[0].core_instance/threads[2].alu_instance/U191/Y (AO222X1_RVT)
+                                                          0.16       6.77 r
+  cores[0].core_instance/threads[2].alu_instance/U193/Y (AO222X1_RVT)
+                                                          0.15       6.92 r
+  cores[0].core_instance/threads[2].alu_instance/U196/Y (AO222X1_RVT)
+                                                          0.15       7.07 r
+  cores[0].core_instance/threads[2].alu_instance/U199/Y (NAND2X0_RVT)
+                                                          0.05       7.12 f
+  cores[0].core_instance/threads[2].alu_instance/U200/Y (AO22X1_RVT)
+                                                          0.08       7.21 f
+  cores[0].core_instance/threads[2].alu_instance/alu_out_reg_reg[0]/D (DFFX1_RVT)
+                                                          0.01       7.22 f
+  data arrival time                                                  7.22
+
+  clock clk (rise edge)                                  10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  clock uncertainty                                      -0.10       9.90
+  cores[0].core_instance/threads[2].alu_instance/alu_out_reg_reg[0]/CLK (DFFX1_RVT)
+                                                          0.00       9.90 r
+  library setup time                                     -0.04       9.86
+  data required time                                                 9.86
+  --------------------------------------------------------------------------
+  data required time                                                 9.86
+  data arrival time                                                 -7.22
+  --------------------------------------------------------------------------
+  slack (MET)                                                        2.64
+
+
+  Startpoint: cores[1].core_instance/threads[1].register_instance/rt_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[1].core_instance/threads[1].alu_instance/alu_out_reg_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                     16000                 saed32rvt_tt0p78v25c
+  alu_2              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[1].core_instance/threads[1].register_instance/rt_reg[6]/CLK (DFFX1_RVT)
+                                                          0.00 #     0.00 r
+  cores[1].core_instance/threads[1].register_instance/rt_reg[6]/Q (DFFX1_RVT)
+                                                          0.24       0.24 f
+  cores[1].core_instance/threads[1].register_instance/rt[6] (registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0)
+                                                          0.00       0.24 f
+  cores[1].core_instance/threads[1].alu_instance/rt[6] (alu_2)
+                                                          0.00       0.24 f
+  cores[1].core_instance/threads[1].alu_instance/U46/Y (INVX0_RVT)
+                                                          0.11       0.35 r
+  cores[1].core_instance/threads[1].alu_instance/U47/Y (NAND3X0_RVT)
+                                                          0.11       0.47 f
+  cores[1].core_instance/threads[1].alu_instance/U48/Y (OR2X1_RVT)
+                                                          0.13       0.59 f
+  cores[1].core_instance/threads[1].alu_instance/U49/Y (INVX0_RVT)
+                                                          0.06       0.65 r
+  cores[1].core_instance/threads[1].alu_instance/U50/Y (NAND3X0_RVT)
+                                                          0.08       0.73 f
+  cores[1].core_instance/threads[1].alu_instance/U51/Y (INVX0_RVT)
+                                                          0.08       0.81 r
+  cores[1].core_instance/threads[1].alu_instance/U53/Y (NAND2X0_RVT)
+                                                          0.07       0.88 f
+  cores[1].core_instance/threads[1].alu_instance/U54/Y (OA21X1_RVT)
+                                                          0.12       1.00 f
+  cores[1].core_instance/threads[1].alu_instance/U18/Y (OAI222X1_RVT)
+                                                          0.16       1.16 r
+  cores[1].core_instance/threads[1].alu_instance/U59/Y (AO221X1_RVT)
+                                                          0.12       1.28 r
+  cores[1].core_instance/threads[1].alu_instance/U60/Y (INVX0_RVT)
+                                                          0.05       1.33 f
+  cores[1].core_instance/threads[1].alu_instance/U61/Y (NAND2X0_RVT)
+                                                          0.07       1.40 r
+  cores[1].core_instance/threads[1].alu_instance/U62/SO (HADDX1_RVT)
+                                                          0.16       1.56 f
+  cores[1].core_instance/threads[1].alu_instance/U15/Y (AO222X1_RVT)
+                                                          0.15       1.71 f
+  cores[1].core_instance/threads[1].alu_instance/U73/Y (AO222X1_RVT)
+                                                          0.16       1.87 f
+  cores[1].core_instance/threads[1].alu_instance/U74/Y (OR2X1_RVT)
+                                                          0.08       1.95 f
+  cores[1].core_instance/threads[1].alu_instance/U75/Y (AO221X1_RVT)
+                                                          0.15       2.10 f
+  cores[1].core_instance/threads[1].alu_instance/U14/Y (INVX0_RVT)
+                                                          0.08       2.18 r
+  cores[1].core_instance/threads[1].alu_instance/U82/Y (AO22X1_RVT)
+                                                          0.12       2.30 r
+  cores[1].core_instance/threads[1].alu_instance/U83/Y (AO222X1_RVT)
+                                                          0.16       2.46 r
+  cores[1].core_instance/threads[1].alu_instance/U86/Y (OA222X1_RVT)
+                                                          0.14       2.60 r
+  cores[1].core_instance/threads[1].alu_instance/U87/Y (INVX0_RVT)
+                                                          0.05       2.65 f
+  cores[1].core_instance/threads[1].alu_instance/U93/Y (AO222X1_RVT)
+                                                          0.15       2.80 f
+  cores[1].core_instance/threads[1].alu_instance/U97/Y (AOI221X1_RVT)
+                                                          0.18       2.98 r
+  cores[1].core_instance/threads[1].alu_instance/U106/Y (NAND2X0_RVT)
+                                                          0.06       3.05 f
+  cores[1].core_instance/threads[1].alu_instance/U107/SO (HADDX1_RVT)
+                                                          0.16       3.21 r
+  cores[1].core_instance/threads[1].alu_instance/U11/Y (INVX0_RVT)
+                                                          0.05       3.26 f
+  cores[1].core_instance/threads[1].alu_instance/U108/Y (OA222X1_RVT)
+                                                          0.15       3.41 f
+  cores[1].core_instance/threads[1].alu_instance/U109/Y (OA222X1_RVT)
+                                                          0.15       3.56 f
+  cores[1].core_instance/threads[1].alu_instance/U110/Y (INVX0_RVT)
+                                                          0.07       3.63 r
+  cores[1].core_instance/threads[1].alu_instance/U115/Y (AO222X1_RVT)
+                                                          0.16       3.79 r
+  cores[1].core_instance/threads[1].alu_instance/U121/Y (AO222X1_RVT)
+                                                          0.18       3.96 r
+  cores[1].core_instance/threads[1].alu_instance/U122/Y (OR2X1_RVT)
+                                                          0.09       4.05 r
+  cores[1].core_instance/threads[1].alu_instance/U124/Y (AOI221X1_RVT)
+                                                          0.17       4.22 f
+  cores[1].core_instance/threads[1].alu_instance/U140/Y (NAND2X0_RVT)
+                                                          0.08       4.30 r
+  cores[1].core_instance/threads[1].alu_instance/U141/SO (HADDX1_RVT)
+                                                          0.14       4.45 f
+  cores[1].core_instance/threads[1].alu_instance/U10/Y (INVX0_RVT)
+                                                          0.07       4.51 r
+  cores[1].core_instance/threads[1].alu_instance/U142/Y (OA222X1_RVT)
+                                                          0.14       4.66 r
+  cores[1].core_instance/threads[1].alu_instance/U143/Y (OA222X1_RVT)
+                                                          0.15       4.80 r
+  cores[1].core_instance/threads[1].alu_instance/U144/Y (OA222X1_RVT)
+                                                          0.15       4.95 r
+  cores[1].core_instance/threads[1].alu_instance/U145/Y (OA222X1_RVT)
+                                                          0.13       5.08 r
+  cores[1].core_instance/threads[1].alu_instance/U17/Y (INVX0_RVT)
+                                                          0.05       5.14 f
+  cores[1].core_instance/threads[1].alu_instance/U151/Y (AO222X1_RVT)
+                                                          0.15       5.29 f
+  cores[1].core_instance/threads[1].alu_instance/U156/Y (OR2X1_RVT)
+                                                          0.09       5.38 f
+  cores[1].core_instance/threads[1].alu_instance/U157/Y (AO221X1_RVT)
+                                                          0.15       5.53 f
+  cores[1].core_instance/threads[1].alu_instance/U158/Y (INVX0_RVT)
+                                                          0.09       5.62 r
+  cores[1].core_instance/threads[1].alu_instance/U175/Y (NAND2X0_RVT)
+                                                          0.07       5.70 f
+  cores[1].core_instance/threads[1].alu_instance/U176/SO (HADDX1_RVT)
+                                                          0.17       5.86 r
+  cores[1].core_instance/threads[1].alu_instance/U180/Y (AO222X1_RVT)
+                                                          0.16       6.02 r
+  cores[1].core_instance/threads[1].alu_instance/U181/Y (AO222X1_RVT)
+                                                          0.15       6.16 r
+  cores[1].core_instance/threads[1].alu_instance/U182/Y (AO222X1_RVT)
+                                                          0.15       6.31 r
+  cores[1].core_instance/threads[1].alu_instance/U183/Y (AO222X1_RVT)
+                                                          0.15       6.46 r
+  cores[1].core_instance/threads[1].alu_instance/U184/Y (AO222X1_RVT)
+                                                          0.15       6.60 r
+  cores[1].core_instance/threads[1].alu_instance/U189/Y (AO222X1_RVT)
+                                                          0.16       6.77 r
+  cores[1].core_instance/threads[1].alu_instance/U191/Y (AO222X1_RVT)
+                                                          0.15       6.92 r
+  cores[1].core_instance/threads[1].alu_instance/U194/Y (AO222X1_RVT)
+                                                          0.15       7.07 r
+  cores[1].core_instance/threads[1].alu_instance/U197/Y (NAND2X0_RVT)
+                                                          0.05       7.12 f
+  cores[1].core_instance/threads[1].alu_instance/U198/Y (AO22X1_RVT)
+                                                          0.08       7.20 f
+  cores[1].core_instance/threads[1].alu_instance/alu_out_reg_reg[0]/D (DFFX1_RVT)
+                                                          0.01       7.21 f
+  data arrival time                                                  7.21
+
+  clock clk (rise edge)                                  10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  clock uncertainty                                      -0.10       9.90
+  cores[1].core_instance/threads[1].alu_instance/alu_out_reg_reg[0]/CLK (DFFX1_RVT)
+                                                          0.00       9.90 r
+  library setup time                                     -0.04       9.86
+  data required time                                                 9.86
+  --------------------------------------------------------------------------
+  data required time                                                 9.86
+  data arrival time                                                 -7.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        2.64
+
+
+  Startpoint: cores[0].core_instance/threads[1].register_instance/rt_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_instance/threads[1].alu_instance/alu_out_reg_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+                     16000                 saed32rvt_tt0p78v25c
+  alu_6              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[0].core_instance/threads[1].register_instance/rt_reg[6]/CLK (DFFX1_RVT)
+                                                          0.00 #     0.00 r
+  cores[0].core_instance/threads[1].register_instance/rt_reg[6]/Q (DFFX1_RVT)
+                                                          0.24       0.24 f
+  cores[0].core_instance/threads[1].register_instance/rt[6] (registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_1)
+                                                          0.00       0.24 f
+  cores[0].core_instance/threads[1].alu_instance/rt[6] (alu_6)
+                                                          0.00       0.24 f
+  cores[0].core_instance/threads[1].alu_instance/U49/Y (INVX0_RVT)
+                                                          0.11       0.35 r
+  cores[0].core_instance/threads[1].alu_instance/U50/Y (NAND3X0_RVT)
+                                                          0.11       0.47 f
+  cores[0].core_instance/threads[1].alu_instance/U51/Y (OR2X1_RVT)
+                                                          0.13       0.59 f
+  cores[0].core_instance/threads[1].alu_instance/U52/Y (INVX0_RVT)
+                                                          0.06       0.65 r
+  cores[0].core_instance/threads[1].alu_instance/U53/Y (NAND3X0_RVT)
+                                                          0.08       0.73 f
+  cores[0].core_instance/threads[1].alu_instance/U54/Y (INVX0_RVT)
+                                                          0.08       0.81 r
+  cores[0].core_instance/threads[1].alu_instance/U56/Y (NAND2X0_RVT)
+                                                          0.07       0.88 f
+  cores[0].core_instance/threads[1].alu_instance/U57/Y (OA21X1_RVT)
+                                                          0.12       1.00 f
+  cores[0].core_instance/threads[1].alu_instance/U20/Y (OAI222X1_RVT)
+                                                          0.16       1.16 r
+  cores[0].core_instance/threads[1].alu_instance/U62/Y (AO221X1_RVT)
+                                                          0.12       1.28 r
+  cores[0].core_instance/threads[1].alu_instance/U12/Y (INVX0_RVT)
+                                                          0.05       1.33 f
+  cores[0].core_instance/threads[1].alu_instance/U63/Y (NAND2X0_RVT)
+                                                          0.07       1.40 r
+  cores[0].core_instance/threads[1].alu_instance/U64/SO (HADDX1_RVT)
+                                                          0.16       1.56 f
+  cores[0].core_instance/threads[1].alu_instance/U72/Y (AO222X1_RVT)
+                                                          0.15       1.71 f
+  cores[0].core_instance/threads[1].alu_instance/U77/Y (AO222X1_RVT)
+                                                          0.16       1.87 f
+  cores[0].core_instance/threads[1].alu_instance/U78/Y (OR2X1_RVT)
+                                                          0.08       1.95 f
+  cores[0].core_instance/threads[1].alu_instance/U79/Y (AO221X1_RVT)
+                                                          0.15       2.10 f
+  cores[0].core_instance/threads[1].alu_instance/U14/Y (INVX0_RVT)
+                                                          0.08       2.18 r
+  cores[0].core_instance/threads[1].alu_instance/U86/Y (AO22X1_RVT)
+                                                          0.12       2.30 r
+  cores[0].core_instance/threads[1].alu_instance/U87/Y (AO222X1_RVT)
+                                                          0.16       2.46 r
+  cores[0].core_instance/threads[1].alu_instance/U90/Y (OA222X1_RVT)
+                                                          0.14       2.60 r
+  cores[0].core_instance/threads[1].alu_instance/U91/Y (INVX0_RVT)
+                                                          0.05       2.65 f
+  cores[0].core_instance/threads[1].alu_instance/U97/Y (AO222X1_RVT)
+                                                          0.15       2.80 f
+  cores[0].core_instance/threads[1].alu_instance/U101/Y (AOI221X1_RVT)
+                                                          0.18       2.98 r
+  cores[0].core_instance/threads[1].alu_instance/U111/Y (NAND2X0_RVT)
+                                                          0.06       3.05 f
+  cores[0].core_instance/threads[1].alu_instance/U112/SO (HADDX1_RVT)
+                                                          0.16       3.21 r
+  cores[0].core_instance/threads[1].alu_instance/U113/Y (INVX0_RVT)
+                                                          0.05       3.26 f
+  cores[0].core_instance/threads[1].alu_instance/U114/Y (OA222X1_RVT)
+                                                          0.15       3.41 f
+  cores[0].core_instance/threads[1].alu_instance/U115/Y (OA222X1_RVT)
+                                                          0.15       3.56 f
+  cores[0].core_instance/threads[1].alu_instance/U16/Y (INVX0_RVT)
+                                                          0.07       3.63 r
+  cores[0].core_instance/threads[1].alu_instance/U120/Y (AO222X1_RVT)
+                                                          0.16       3.79 r
+  cores[0].core_instance/threads[1].alu_instance/U126/Y (AO222X1_RVT)
+                                                          0.18       3.96 r
+  cores[0].core_instance/threads[1].alu_instance/U127/Y (OR2X1_RVT)
+                                                          0.09       4.05 r
+  cores[0].core_instance/threads[1].alu_instance/U129/Y (AOI221X1_RVT)
+                                                          0.17       4.22 f
+  cores[0].core_instance/threads[1].alu_instance/U143/Y (NAND2X0_RVT)
+                                                          0.08       4.30 r
+  cores[0].core_instance/threads[1].alu_instance/U144/SO (HADDX1_RVT)
+                                                          0.14       4.45 f
+  cores[0].core_instance/threads[1].alu_instance/U9/Y (INVX0_RVT)
+                                                          0.07       4.51 r
+  cores[0].core_instance/threads[1].alu_instance/U145/Y (OA222X1_RVT)
+                                                          0.14       4.66 r
+  cores[0].core_instance/threads[1].alu_instance/U146/Y (OA222X1_RVT)
+                                                          0.15       4.80 r
+  cores[0].core_instance/threads[1].alu_instance/U147/Y (OA222X1_RVT)
+                                                          0.15       4.95 r
+  cores[0].core_instance/threads[1].alu_instance/U148/Y (OA222X1_RVT)
+                                                          0.13       5.08 r
+  cores[0].core_instance/threads[1].alu_instance/U19/Y (INVX0_RVT)
+                                                          0.05       5.14 f
+  cores[0].core_instance/threads[1].alu_instance/U154/Y (AO222X1_RVT)
+                                                          0.15       5.29 f
+  cores[0].core_instance/threads[1].alu_instance/U158/Y (OR2X1_RVT)
+                                                          0.09       5.38 f
+  cores[0].core_instance/threads[1].alu_instance/U159/Y (AO221X1_RVT)
+                                                          0.15       5.53 f
+  cores[0].core_instance/threads[1].alu_instance/U15/Y (INVX0_RVT)
+                                                          0.09       5.62 r
+  cores[0].core_instance/threads[1].alu_instance/U176/Y (NAND2X0_RVT)
+                                                          0.07       5.70 f
+  cores[0].core_instance/threads[1].alu_instance/U177/SO (HADDX1_RVT)
+                                                          0.17       5.86 r
+  cores[0].core_instance/threads[1].alu_instance/U181/Y (AO222X1_RVT)
+                                                          0.16       6.02 r
+  cores[0].core_instance/threads[1].alu_instance/U182/Y (AO222X1_RVT)
+                                                          0.15       6.16 r
+  cores[0].core_instance/threads[1].alu_instance/U183/Y (AO222X1_RVT)
+                                                          0.15       6.31 r
+  cores[0].core_instance/threads[1].alu_instance/U184/Y (AO222X1_RVT)
+                                                          0.15       6.46 r
+  cores[0].core_instance/threads[1].alu_instance/U185/Y (AO222X1_RVT)
+                                                          0.15       6.60 r
+  cores[0].core_instance/threads[1].alu_instance/U190/Y (AO222X1_RVT)
+                                                          0.16       6.77 r
+  cores[0].core_instance/threads[1].alu_instance/U192/Y (AO222X1_RVT)
+                                                          0.15       6.92 r
+  cores[0].core_instance/threads[1].alu_instance/U195/Y (AO222X1_RVT)
+                                                          0.15       7.07 r
+  cores[0].core_instance/threads[1].alu_instance/U198/Y (NAND2X0_RVT)
+                                                          0.05       7.12 f
+  cores[0].core_instance/threads[1].alu_instance/U199/Y (AO22X1_RVT)
+                                                          0.08       7.20 f
+  cores[0].core_instance/threads[1].alu_instance/alu_out_reg_reg[0]/D (DFFX1_RVT)
+                                                          0.01       7.21 f
+  data arrival time                                                  7.21
+
+  clock clk (rise edge)                                  10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  clock uncertainty                                      -0.10       9.90
+  cores[0].core_instance/threads[1].alu_instance/alu_out_reg_reg[0]/CLK (DFFX1_RVT)
+                                                          0.00       9.90 r
+  library setup time                                     -0.04       9.86
+  data required time                                                 9.86
+  --------------------------------------------------------------------------
+  data required time                                                 9.86
+  data arrival time                                                 -7.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        2.64
+
+
+  Startpoint: cores[1].core_instance/threads[0].register_instance/rt_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[1].core_instance/threads[0].alu_instance/alu_out_reg_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                     16000                 saed32rvt_tt0p78v25c
+  alu_3              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[1].core_instance/threads[0].register_instance/rt_reg[6]/CLK (DFFX1_RVT)
+                                                          0.00 #     0.00 r
+  cores[1].core_instance/threads[0].register_instance/rt_reg[6]/Q (DFFX1_RVT)
+                                                          0.24       0.24 f
+  cores[1].core_instance/threads[0].register_instance/rt[6] (registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0)
+                                                          0.00       0.24 f
+  cores[1].core_instance/threads[0].alu_instance/rt[6] (alu_3)
+                                                          0.00       0.24 f
+  cores[1].core_instance/threads[0].alu_instance/U49/Y (INVX0_RVT)
+                                                          0.11       0.35 r
+  cores[1].core_instance/threads[0].alu_instance/U50/Y (NAND3X0_RVT)
+                                                          0.11       0.47 f
+  cores[1].core_instance/threads[0].alu_instance/U51/Y (OR2X1_RVT)
+                                                          0.13       0.59 f
+  cores[1].core_instance/threads[0].alu_instance/U52/Y (INVX0_RVT)
+                                                          0.06       0.65 r
+  cores[1].core_instance/threads[0].alu_instance/U53/Y (NAND3X0_RVT)
+                                                          0.08       0.73 f
+  cores[1].core_instance/threads[0].alu_instance/U54/Y (INVX0_RVT)
+                                                          0.08       0.81 r
+  cores[1].core_instance/threads[0].alu_instance/U56/Y (NAND2X0_RVT)
+                                                          0.07       0.88 f
+  cores[1].core_instance/threads[0].alu_instance/U57/Y (OA21X1_RVT)
+                                                          0.12       1.00 f
+  cores[1].core_instance/threads[0].alu_instance/U19/Y (OAI222X1_RVT)
+                                                          0.16       1.16 r
+  cores[1].core_instance/threads[0].alu_instance/U62/Y (AO221X1_RVT)
+                                                          0.12       1.28 r
+  cores[1].core_instance/threads[0].alu_instance/U13/Y (INVX0_RVT)
+                                                          0.05       1.33 f
+  cores[1].core_instance/threads[0].alu_instance/U63/Y (NAND2X0_RVT)
+                                                          0.07       1.40 r
+  cores[1].core_instance/threads[0].alu_instance/U64/SO (HADDX1_RVT)
+                                                          0.16       1.56 f
+  cores[1].core_instance/threads[0].alu_instance/U68/Y (AO222X1_RVT)
+                                                          0.15       1.71 f
+  cores[1].core_instance/threads[0].alu_instance/U73/Y (AO222X1_RVT)
+                                                          0.16       1.87 f
+  cores[1].core_instance/threads[0].alu_instance/U74/Y (OR2X1_RVT)
+                                                          0.08       1.95 f
+  cores[1].core_instance/threads[0].alu_instance/U78/Y (AO221X1_RVT)
+                                                          0.15       2.10 f
+  cores[1].core_instance/threads[0].alu_instance/U15/Y (INVX0_RVT)
+                                                          0.08       2.17 r
+  cores[1].core_instance/threads[0].alu_instance/U85/Y (AO22X1_RVT)
+                                                          0.12       2.29 r
+  cores[1].core_instance/threads[0].alu_instance/U86/Y (AO222X1_RVT)
+                                                          0.16       2.45 r
+  cores[1].core_instance/threads[0].alu_instance/U89/Y (OA222X1_RVT)
+                                                          0.14       2.59 r
+  cores[1].core_instance/threads[0].alu_instance/U90/Y (INVX0_RVT)
+                                                          0.05       2.64 f
+  cores[1].core_instance/threads[0].alu_instance/U95/Y (AO222X1_RVT)
+                                                          0.15       2.80 f
+  cores[1].core_instance/threads[0].alu_instance/U99/Y (AOI221X1_RVT)
+                                                          0.18       2.98 r
+  cores[1].core_instance/threads[0].alu_instance/U109/Y (NAND2X0_RVT)
+                                                          0.06       3.04 f
+  cores[1].core_instance/threads[0].alu_instance/U110/SO (HADDX1_RVT)
+                                                          0.16       3.20 r
+  cores[1].core_instance/threads[0].alu_instance/U11/Y (INVX0_RVT)
+                                                          0.05       3.25 f
+  cores[1].core_instance/threads[0].alu_instance/U111/Y (OA222X1_RVT)
+                                                          0.15       3.40 f
+  cores[1].core_instance/threads[0].alu_instance/U112/Y (OA222X1_RVT)
+                                                          0.15       3.55 f
+  cores[1].core_instance/threads[0].alu_instance/U113/Y (INVX0_RVT)
+                                                          0.07       3.62 r
+  cores[1].core_instance/threads[0].alu_instance/U116/Y (AO222X1_RVT)
+                                                          0.16       3.78 r
+  cores[1].core_instance/threads[0].alu_instance/U122/Y (AO222X1_RVT)
+                                                          0.18       3.96 r
+  cores[1].core_instance/threads[0].alu_instance/U123/Y (OR2X1_RVT)
+                                                          0.09       4.04 r
+  cores[1].core_instance/threads[0].alu_instance/U127/Y (AOI221X1_RVT)
+                                                          0.17       4.21 f
+  cores[1].core_instance/threads[0].alu_instance/U142/Y (NAND2X0_RVT)
+                                                          0.08       4.29 r
+  cores[1].core_instance/threads[0].alu_instance/U143/SO (HADDX1_RVT)
+                                                          0.14       4.44 f
+  cores[1].core_instance/threads[0].alu_instance/U144/Y (INVX0_RVT)
+                                                          0.07       4.50 r
+  cores[1].core_instance/threads[0].alu_instance/U145/Y (OA222X1_RVT)
+                                                          0.14       4.64 r
+  cores[1].core_instance/threads[0].alu_instance/U146/Y (OA222X1_RVT)
+                                                          0.15       4.79 r
+  cores[1].core_instance/threads[0].alu_instance/U147/Y (OA222X1_RVT)
+                                                          0.15       4.94 r
+  cores[1].core_instance/threads[0].alu_instance/U148/Y (OA222X1_RVT)
+                                                          0.13       5.07 r
+  cores[1].core_instance/threads[0].alu_instance/U18/Y (INVX0_RVT)
+                                                          0.05       5.13 f
+  cores[1].core_instance/threads[0].alu_instance/U154/Y (AO222X1_RVT)
+                                                          0.15       5.28 f
+  cores[1].core_instance/threads[0].alu_instance/U159/Y (OR2X1_RVT)
+                                                          0.09       5.37 f
+  cores[1].core_instance/threads[0].alu_instance/U160/Y (AO221X1_RVT)
+                                                          0.15       5.52 f
+  cores[1].core_instance/threads[0].alu_instance/U161/Y (INVX0_RVT)
+                                                          0.09       5.62 r
+  cores[1].core_instance/threads[0].alu_instance/U177/Y (NAND2X0_RVT)
+                                                          0.07       5.69 f
+  cores[1].core_instance/threads[0].alu_instance/U178/SO (HADDX1_RVT)
+                                                          0.17       5.86 r
+  cores[1].core_instance/threads[0].alu_instance/U182/Y (AO222X1_RVT)
+                                                          0.16       6.01 r
+  cores[1].core_instance/threads[0].alu_instance/U183/Y (AO222X1_RVT)
+                                                          0.15       6.16 r
+  cores[1].core_instance/threads[0].alu_instance/U184/Y (AO222X1_RVT)
+                                                          0.15       6.30 r
+  cores[1].core_instance/threads[0].alu_instance/U185/Y (AO222X1_RVT)
+                                                          0.15       6.45 r
+  cores[1].core_instance/threads[0].alu_instance/U186/Y (AO222X1_RVT)
+                                                          0.15       6.60 r
+  cores[1].core_instance/threads[0].alu_instance/U191/Y (AO222X1_RVT)
+                                                          0.16       6.76 r
+  cores[1].core_instance/threads[0].alu_instance/U193/Y (AO222X1_RVT)
+                                                          0.15       6.91 r
+  cores[1].core_instance/threads[0].alu_instance/U196/Y (AO222X1_RVT)
+                                                          0.15       7.06 r
+  cores[1].core_instance/threads[0].alu_instance/U199/Y (NAND2X0_RVT)
+                                                          0.05       7.11 f
+  cores[1].core_instance/threads[0].alu_instance/U200/Y (AO22X1_RVT)
+                                                          0.08       7.20 f
+  cores[1].core_instance/threads[0].alu_instance/alu_out_reg_reg[0]/D (DFFX1_RVT)
+                                                          0.01       7.21 f
+  data arrival time                                                  7.21
+
+  clock clk (rise edge)                                  10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  clock uncertainty                                      -0.10       9.90
+  cores[1].core_instance/threads[0].alu_instance/alu_out_reg_reg[0]/CLK (DFFX1_RVT)
+                                                          0.00       9.90 r
+  library setup time                                     -0.04       9.86
+  data required time                                                 9.86
+  --------------------------------------------------------------------------
+  data required time                                                 9.86
+  data arrival time                                                 -7.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        2.65
+
+
+  Startpoint: cores[0].core_instance/threads[0].register_instance/rt_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_instance/threads[0].alu_instance/alu_out_reg_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+                     16000                 saed32rvt_tt0p78v25c
+  alu_7              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[0].core_instance/threads[0].register_instance/rt_reg[6]/CLK (DFFX1_RVT)
+                                                          0.00 #     0.00 r
+  cores[0].core_instance/threads[0].register_instance/rt_reg[6]/Q (DFFX1_RVT)
+                                                          0.24       0.24 f
+  cores[0].core_instance/threads[0].register_instance/rt[6] (registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1)
+                                                          0.00       0.24 f
+  cores[0].core_instance/threads[0].alu_instance/rt[6] (alu_7)
+                                                          0.00       0.24 f
+  cores[0].core_instance/threads[0].alu_instance/U59/Y (INVX0_RVT)
+                                                          0.11       0.36 r
+  cores[0].core_instance/threads[0].alu_instance/U81/Y (NAND3X0_RVT)
+                                                          0.11       0.47 f
+  cores[0].core_instance/threads[0].alu_instance/U82/Y (OR2X1_RVT)
+                                                          0.13       0.59 f
+  cores[0].core_instance/threads[0].alu_instance/U83/Y (INVX0_RVT)
+                                                          0.06       0.66 r
+  cores[0].core_instance/threads[0].alu_instance/U84/Y (NAND3X0_RVT)
+                                                          0.08       0.73 f
+  cores[0].core_instance/threads[0].alu_instance/U85/Y (INVX0_RVT)
+                                                          0.08       0.81 r
+  cores[0].core_instance/threads[0].alu_instance/U87/Y (NAND2X0_RVT)
+                                                          0.07       0.88 f
+  cores[0].core_instance/threads[0].alu_instance/U88/Y (OA21X1_RVT)
+                                                          0.12       1.00 f
+  cores[0].core_instance/threads[0].alu_instance/U89/Y (OAI222X1_RVT)
+                                                          0.16       1.17 r
+  cores[0].core_instance/threads[0].alu_instance/U94/Y (AO221X1_RVT)
+                                                          0.12       1.29 r
+  cores[0].core_instance/threads[0].alu_instance/U12/Y (INVX0_RVT)
+                                                          0.05       1.33 f
+  cores[0].core_instance/threads[0].alu_instance/U95/Y (NAND2X0_RVT)
+                                                          0.07       1.40 r
+  cores[0].core_instance/threads[0].alu_instance/U96/SO (HADDX1_RVT)
+                                                          0.16       1.56 f
+  cores[0].core_instance/threads[0].alu_instance/U102/Y (AO222X1_RVT)
+                                                          0.15       1.71 f
+  cores[0].core_instance/threads[0].alu_instance/U107/Y (AO222X1_RVT)
+                                                          0.16       1.87 f
+  cores[0].core_instance/threads[0].alu_instance/U108/Y (OR2X1_RVT)
+                                                          0.08       1.95 f
+  cores[0].core_instance/threads[0].alu_instance/U109/Y (AO221X1_RVT)
+                                                          0.15       2.10 f
+  cores[0].core_instance/threads[0].alu_instance/U110/Y (INVX0_RVT)
+                                                          0.08       2.18 r
+  cores[0].core_instance/threads[0].alu_instance/U117/Y (AO22X1_RVT)
+                                                          0.12       2.30 r
+  cores[0].core_instance/threads[0].alu_instance/U14/Y (AO222X1_RVT)
+                                                          0.16       2.46 r
+  cores[0].core_instance/threads[0].alu_instance/U120/Y (OA222X1_RVT)
+                                                          0.14       2.60 r
+  cores[0].core_instance/threads[0].alu_instance/U121/Y (INVX0_RVT)
+                                                          0.05       2.65 f
+  cores[0].core_instance/threads[0].alu_instance/U127/Y (AO222X1_RVT)
+                                                          0.15       2.80 f
+  cores[0].core_instance/threads[0].alu_instance/U130/Y (AOI221X1_RVT)
+                                                          0.18       2.98 r
+  cores[0].core_instance/threads[0].alu_instance/U139/Y (NAND2X0_RVT)
+                                                          0.06       3.05 f
+  cores[0].core_instance/threads[0].alu_instance/U140/SO (HADDX1_RVT)
+                                                          0.16       3.21 r
+  cores[0].core_instance/threads[0].alu_instance/U141/Y (INVX0_RVT)
+                                                          0.05       3.26 f
+  cores[0].core_instance/threads[0].alu_instance/U142/Y (OA222X1_RVT)
+                                                          0.15       3.41 f
+  cores[0].core_instance/threads[0].alu_instance/U143/Y (OA222X1_RVT)
+                                                          0.15       3.56 f
+  cores[0].core_instance/threads[0].alu_instance/U144/Y (INVX0_RVT)
+                                                          0.07       3.63 r
+  cores[0].core_instance/threads[0].alu_instance/U15/Y (AO222X1_RVT)
+                                                          0.16       3.79 r
+  cores[0].core_instance/threads[0].alu_instance/U154/Y (AO222X1_RVT)
+                                                          0.17       3.96 r
+  cores[0].core_instance/threads[0].alu_instance/U155/Y (OR2X1_RVT)
+                                                          0.08       4.04 r
+  cores[0].core_instance/threads[0].alu_instance/U156/Y (NAND2X0_RVT)
+                                                          0.05       4.08 f
+  cores[0].core_instance/threads[0].alu_instance/U159/Y (AND3X1_RVT)
+                                                          0.11       4.20 f
+  cores[0].core_instance/threads[0].alu_instance/U172/Y (NAND2X0_RVT)
+                                                          0.09       4.28 r
+  cores[0].core_instance/threads[0].alu_instance/U173/SO (HADDX1_RVT)
+                                                          0.14       4.43 f
+  cores[0].core_instance/threads[0].alu_instance/U10/Y (INVX0_RVT)
+                                                          0.07       4.49 r
+  cores[0].core_instance/threads[0].alu_instance/U174/Y (OA222X1_RVT)
+                                                          0.14       4.64 r
+  cores[0].core_instance/threads[0].alu_instance/U175/Y (OA222X1_RVT)
+                                                          0.15       4.78 r
+  cores[0].core_instance/threads[0].alu_instance/U176/Y (OA222X1_RVT)
+                                                          0.15       4.93 r
+  cores[0].core_instance/threads[0].alu_instance/U177/Y (OA222X1_RVT)
+                                                          0.13       5.07 r
+  cores[0].core_instance/threads[0].alu_instance/U178/Y (INVX0_RVT)
+                                                          0.05       5.12 f
+  cores[0].core_instance/threads[0].alu_instance/U184/Y (AO222X1_RVT)
+                                                          0.15       5.27 f
+  cores[0].core_instance/threads[0].alu_instance/U188/Y (OR2X1_RVT)
+                                                          0.09       5.37 f
+  cores[0].core_instance/threads[0].alu_instance/U189/Y (AO221X1_RVT)
+                                                          0.14       5.51 f
+  cores[0].core_instance/threads[0].alu_instance/U196/Y (INVX0_RVT)
+                                                          0.09       5.60 r
+  cores[0].core_instance/threads[0].alu_instance/U213/Y (NAND2X0_RVT)
+                                                          0.07       5.67 f
+  cores[0].core_instance/threads[0].alu_instance/U214/SO (HADDX1_RVT)
+                                                          0.17       5.84 r
+  cores[0].core_instance/threads[0].alu_instance/U215/Y (AO222X1_RVT)
+                                                          0.16       6.00 r
+  cores[0].core_instance/threads[0].alu_instance/U216/Y (AO222X1_RVT)
+                                                          0.15       6.14 r
+  cores[0].core_instance/threads[0].alu_instance/U217/Y (AO222X1_RVT)
+                                                          0.15       6.29 r
+  cores[0].core_instance/threads[0].alu_instance/U218/Y (AO222X1_RVT)
+                                                          0.15       6.44 r
+  cores[0].core_instance/threads[0].alu_instance/U219/Y (AO222X1_RVT)
+                                                          0.15       6.58 r
+  cores[0].core_instance/threads[0].alu_instance/U224/Y (AO222X1_RVT)
+                                                          0.16       6.74 r
+  cores[0].core_instance/threads[0].alu_instance/U226/Y (AO222X1_RVT)
+                                                          0.15       6.90 r
+  cores[0].core_instance/threads[0].alu_instance/U227/Y (AO222X1_RVT)
+                                                          0.15       7.05 r
+  cores[0].core_instance/threads[0].alu_instance/U229/Y (NAND2X0_RVT)
+                                                          0.05       7.10 f
+  cores[0].core_instance/threads[0].alu_instance/U230/Y (AO22X1_RVT)
+                                                          0.08       7.18 f
+  cores[0].core_instance/threads[0].alu_instance/alu_out_reg_reg[0]/D (DFFX1_RVT)
+                                                          0.01       7.19 f
+  data arrival time                                                  7.19
+
+  clock clk (rise edge)                                  10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  clock uncertainty                                      -0.10       9.90
+  cores[0].core_instance/threads[0].alu_instance/alu_out_reg_reg[0]/CLK (DFFX1_RVT)
+                                                          0.00       9.90 r
+  library setup time                                     -0.04       9.86
+  data required time                                                 9.86
+  --------------------------------------------------------------------------
+  data required time                                                 9.86
+  data arrival time                                                 -7.19
+  --------------------------------------------------------------------------
+  slack (MET)                                                        2.67
+
+
+  Startpoint: cores[0].core_instance/threads[3].register_instance/rt_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_instance/threads[3].alu_instance/alu_out_reg_reg[1]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+                     16000                 saed32rvt_tt0p78v25c
+  alu_4              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[0].core_instance/threads[3].register_instance/rt_reg[6]/CLK (DFFX1_RVT)
+                                                          0.00 #     0.00 r
+  cores[0].core_instance/threads[3].register_instance/rt_reg[6]/Q (DFFX1_RVT)
+                                                          0.24       0.24 f
+  cores[0].core_instance/threads[3].register_instance/rt[6] (registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1)
+                                                          0.00       0.24 f
+  cores[0].core_instance/threads[3].alu_instance/rt[6] (alu_4)
+                                                          0.00       0.24 f
+  cores[0].core_instance/threads[3].alu_instance/U59/Y (INVX0_RVT)
+                                                          0.11       0.35 r
+  cores[0].core_instance/threads[3].alu_instance/U82/Y (NAND3X0_RVT)
+                                                          0.11       0.47 f
+  cores[0].core_instance/threads[3].alu_instance/U83/Y (OR2X1_RVT)
+                                                          0.13       0.59 f
+  cores[0].core_instance/threads[3].alu_instance/U84/Y (INVX0_RVT)
+                                                          0.06       0.65 r
+  cores[0].core_instance/threads[3].alu_instance/U85/Y (NAND3X0_RVT)
+                                                          0.08       0.73 f
+  cores[0].core_instance/threads[3].alu_instance/U86/Y (INVX0_RVT)
+                                                          0.08       0.81 r
+  cores[0].core_instance/threads[3].alu_instance/U88/Y (NAND2X0_RVT)
+                                                          0.07       0.88 f
+  cores[0].core_instance/threads[3].alu_instance/U89/Y (OA21X1_RVT)
+                                                          0.12       1.00 f
+  cores[0].core_instance/threads[3].alu_instance/U17/Y (OAI222X1_RVT)
+                                                          0.16       1.16 r
+  cores[0].core_instance/threads[3].alu_instance/U94/Y (AO221X1_RVT)
+                                                          0.12       1.28 r
+  cores[0].core_instance/threads[3].alu_instance/U95/Y (INVX0_RVT)
+                                                          0.05       1.33 f
+  cores[0].core_instance/threads[3].alu_instance/U96/Y (NAND2X0_RVT)
+                                                          0.07       1.40 r
+  cores[0].core_instance/threads[3].alu_instance/U97/SO (HADDX1_RVT)
+                                                          0.16       1.56 f
+  cores[0].core_instance/threads[3].alu_instance/U103/Y (AO222X1_RVT)
+                                                          0.15       1.71 f
+  cores[0].core_instance/threads[3].alu_instance/U108/Y (AO222X1_RVT)
+                                                          0.16       1.87 f
+  cores[0].core_instance/threads[3].alu_instance/U109/Y (OR2X1_RVT)
+                                                          0.08       1.95 f
+  cores[0].core_instance/threads[3].alu_instance/U110/Y (AO221X1_RVT)
+                                                          0.15       2.10 f
+  cores[0].core_instance/threads[3].alu_instance/U13/Y (INVX0_RVT)
+                                                          0.08       2.18 r
+  cores[0].core_instance/threads[3].alu_instance/U117/Y (AO22X1_RVT)
+                                                          0.12       2.30 r
+  cores[0].core_instance/threads[3].alu_instance/U118/Y (AO222X1_RVT)
+                                                          0.16       2.46 r
+  cores[0].core_instance/threads[3].alu_instance/U121/Y (OA222X1_RVT)
+                                                          0.14       2.60 r
+  cores[0].core_instance/threads[3].alu_instance/U122/Y (INVX0_RVT)
+                                                          0.05       2.65 f
+  cores[0].core_instance/threads[3].alu_instance/U127/Y (AO222X1_RVT)
+                                                          0.15       2.80 f
+  cores[0].core_instance/threads[3].alu_instance/U131/Y (AOI221X1_RVT)
+                                                          0.18       2.98 r
+  cores[0].core_instance/threads[3].alu_instance/U140/Y (NAND2X0_RVT)
+                                                          0.06       3.05 f
+  cores[0].core_instance/threads[3].alu_instance/U141/SO (HADDX1_RVT)
+                                                          0.16       3.21 r
+  cores[0].core_instance/threads[3].alu_instance/U10/Y (INVX0_RVT)
+                                                          0.05       3.26 f
+  cores[0].core_instance/threads[3].alu_instance/U142/Y (OA222X1_RVT)
+                                                          0.15       3.41 f
+  cores[0].core_instance/threads[3].alu_instance/U143/Y (OA222X1_RVT)
+                                                          0.15       3.56 f
+  cores[0].core_instance/threads[3].alu_instance/U144/Y (INVX0_RVT)
+                                                          0.07       3.63 r
+  cores[0].core_instance/threads[3].alu_instance/U149/Y (AO222X1_RVT)
+                                                          0.16       3.79 r
+  cores[0].core_instance/threads[3].alu_instance/U155/Y (AO222X1_RVT)
+                                                          0.18       3.96 r
+  cores[0].core_instance/threads[3].alu_instance/U156/Y (OR2X1_RVT)
+                                                          0.09       4.05 r
+  cores[0].core_instance/threads[3].alu_instance/U158/Y (AOI221X1_RVT)
+                                                          0.17       4.22 f
+  cores[0].core_instance/threads[3].alu_instance/U171/Y (NAND2X0_RVT)
+                                                          0.08       4.30 r
+  cores[0].core_instance/threads[3].alu_instance/U172/SO (HADDX1_RVT)
+                                                          0.14       4.45 f
+  cores[0].core_instance/threads[3].alu_instance/U173/Y (INVX0_RVT)
+                                                          0.07       4.51 r
+  cores[0].core_instance/threads[3].alu_instance/U174/Y (OA222X1_RVT)
+                                                          0.14       4.66 r
+  cores[0].core_instance/threads[3].alu_instance/U175/Y (OA222X1_RVT)
+                                                          0.15       4.80 r
+  cores[0].core_instance/threads[3].alu_instance/U176/Y (OA222X1_RVT)
+                                                          0.15       4.95 r
+  cores[0].core_instance/threads[3].alu_instance/U177/Y (OA222X1_RVT)
+                                                          0.13       5.08 r
+  cores[0].core_instance/threads[3].alu_instance/U16/Y (INVX0_RVT)
+                                                          0.05       5.14 f
+  cores[0].core_instance/threads[3].alu_instance/U183/Y (AO222X1_RVT)
+                                                          0.15       5.29 f
+  cores[0].core_instance/threads[3].alu_instance/U188/Y (OR2X1_RVT)
+                                                          0.09       5.38 f
+  cores[0].core_instance/threads[3].alu_instance/U189/Y (AO221X1_RVT)
+                                                          0.15       5.53 f
+  cores[0].core_instance/threads[3].alu_instance/U193/Y (AO221X1_RVT)
+                                                          0.15       5.68 f
+  cores[0].core_instance/threads[3].alu_instance/U194/Y (NAND3X0_RVT)
+                                                          0.06       5.75 r
+  cores[0].core_instance/threads[3].alu_instance/alu_out_reg_reg[1]/D (DFFX1_RVT)
+                                                          0.01       5.76 r
+  data arrival time                                                  5.76
+
+  clock clk (rise edge)                                  10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  clock uncertainty                                      -0.10       9.90
+  cores[0].core_instance/threads[3].alu_instance/alu_out_reg_reg[1]/CLK (DFFX1_RVT)
+                                                          0.00       9.90 r
+  library setup time                                     -0.06       9.84
+  data required time                                                 9.84
+  --------------------------------------------------------------------------
+  data required time                                                 9.84
+  data arrival time                                                 -5.76
+  --------------------------------------------------------------------------
+  slack (MET)                                                        4.08
+
+
+  Startpoint: cores[1].core_instance/threads[3].register_instance/rt_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[1].core_instance/threads[3].alu_instance/alu_out_reg_reg[1]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                     16000                 saed32rvt_tt0p78v25c
+  alu_0              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[1].core_instance/threads[3].register_instance/rt_reg[6]/CLK (DFFX1_RVT)
+                                                          0.00 #     0.00 r
+  cores[1].core_instance/threads[3].register_instance/rt_reg[6]/Q (DFFX1_RVT)
+                                                          0.24       0.24 f
+  cores[1].core_instance/threads[3].register_instance/rt[6] (registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0)
+                                                          0.00       0.24 f
+  cores[1].core_instance/threads[3].alu_instance/rt[6] (alu_0)
+                                                          0.00       0.24 f
+  cores[1].core_instance/threads[3].alu_instance/U60/Y (INVX0_RVT)
+                                                          0.11       0.35 r
+  cores[1].core_instance/threads[3].alu_instance/U83/Y (NAND3X0_RVT)
+                                                          0.11       0.47 f
+  cores[1].core_instance/threads[3].alu_instance/U84/Y (OR2X1_RVT)
+                                                          0.13       0.59 f
+  cores[1].core_instance/threads[3].alu_instance/U85/Y (INVX0_RVT)
+                                                          0.06       0.65 r
+  cores[1].core_instance/threads[3].alu_instance/U86/Y (NAND3X0_RVT)
+                                                          0.08       0.73 f
+  cores[1].core_instance/threads[3].alu_instance/U87/Y (INVX0_RVT)
+                                                          0.08       0.81 r
+  cores[1].core_instance/threads[3].alu_instance/U89/Y (NAND2X0_RVT)
+                                                          0.07       0.88 f
+  cores[1].core_instance/threads[3].alu_instance/U90/Y (OA21X1_RVT)
+                                                          0.12       1.00 f
+  cores[1].core_instance/threads[3].alu_instance/U20/Y (OAI222X1_RVT)
+                                                          0.16       1.16 r
+  cores[1].core_instance/threads[3].alu_instance/U95/Y (AO221X1_RVT)
+                                                          0.12       1.28 r
+  cores[1].core_instance/threads[3].alu_instance/U13/Y (INVX0_RVT)
+                                                          0.05       1.33 f
+  cores[1].core_instance/threads[3].alu_instance/U96/Y (NAND2X0_RVT)
+                                                          0.07       1.40 r
+  cores[1].core_instance/threads[3].alu_instance/U97/SO (HADDX1_RVT)
+                                                          0.16       1.56 f
+  cores[1].core_instance/threads[3].alu_instance/U17/Y (AO222X1_RVT)
+                                                          0.15       1.71 f
+  cores[1].core_instance/threads[3].alu_instance/U107/Y (AO222X1_RVT)
+                                                          0.16       1.87 f
+  cores[1].core_instance/threads[3].alu_instance/U108/Y (OR2X1_RVT)
+                                                          0.08       1.95 f
+  cores[1].core_instance/threads[3].alu_instance/U109/Y (AO221X1_RVT)
+                                                          0.15       2.10 f
+  cores[1].core_instance/threads[3].alu_instance/U15/Y (INVX0_RVT)
+                                                          0.08       2.18 r
+  cores[1].core_instance/threads[3].alu_instance/U116/Y (AO22X1_RVT)
+                                                          0.12       2.30 r
+  cores[1].core_instance/threads[3].alu_instance/U117/Y (AO222X1_RVT)
+                                                          0.16       2.46 r
+  cores[1].core_instance/threads[3].alu_instance/U120/Y (OA222X1_RVT)
+                                                          0.14       2.60 r
+  cores[1].core_instance/threads[3].alu_instance/U121/Y (INVX0_RVT)
+                                                          0.05       2.65 f
+  cores[1].core_instance/threads[3].alu_instance/U127/Y (AO222X1_RVT)
+                                                          0.15       2.80 f
+  cores[1].core_instance/threads[3].alu_instance/U131/Y (AOI221X1_RVT)
+                                                          0.18       2.98 r
+  cores[1].core_instance/threads[3].alu_instance/U140/Y (NAND2X0_RVT)
+                                                          0.06       3.05 f
+  cores[1].core_instance/threads[3].alu_instance/U141/SO (HADDX1_RVT)
+                                                          0.16       3.21 r
+  cores[1].core_instance/threads[3].alu_instance/U142/Y (INVX0_RVT)
+                                                          0.05       3.26 f
+  cores[1].core_instance/threads[3].alu_instance/U143/Y (OA222X1_RVT)
+                                                          0.15       3.41 f
+  cores[1].core_instance/threads[3].alu_instance/U144/Y (OA222X1_RVT)
+                                                          0.15       3.56 f
+  cores[1].core_instance/threads[3].alu_instance/U145/Y (INVX0_RVT)
+                                                          0.07       3.63 r
+  cores[1].core_instance/threads[3].alu_instance/U150/Y (AO222X1_RVT)
+                                                          0.16       3.79 r
+  cores[1].core_instance/threads[3].alu_instance/U156/Y (AO222X1_RVT)
+                                                          0.18       3.96 r
+  cores[1].core_instance/threads[3].alu_instance/U157/Y (OR2X1_RVT)
+                                                          0.09       4.05 r
+  cores[1].core_instance/threads[3].alu_instance/U159/Y (AOI221X1_RVT)
+                                                          0.17       4.22 f
+  cores[1].core_instance/threads[3].alu_instance/U171/Y (NAND2X0_RVT)
+                                                          0.08       4.30 r
+  cores[1].core_instance/threads[3].alu_instance/U172/SO (HADDX1_RVT)
+                                                          0.14       4.45 f
+  cores[1].core_instance/threads[3].alu_instance/U10/Y (INVX0_RVT)
+                                                          0.07       4.51 r
+  cores[1].core_instance/threads[3].alu_instance/U173/Y (OA222X1_RVT)
+                                                          0.14       4.66 r
+  cores[1].core_instance/threads[3].alu_instance/U174/Y (OA222X1_RVT)
+                                                          0.15       4.80 r
+  cores[1].core_instance/threads[3].alu_instance/U175/Y (OA222X1_RVT)
+                                                          0.15       4.95 r
+  cores[1].core_instance/threads[3].alu_instance/U176/Y (OA222X1_RVT)
+                                                          0.13       5.08 r
+  cores[1].core_instance/threads[3].alu_instance/U19/Y (INVX0_RVT)
+                                                          0.05       5.14 f
+  cores[1].core_instance/threads[3].alu_instance/U182/Y (AO222X1_RVT)
+                                                          0.15       5.29 f
+  cores[1].core_instance/threads[3].alu_instance/U187/Y (OR2X1_RVT)
+                                                          0.09       5.38 f
+  cores[1].core_instance/threads[3].alu_instance/U188/Y (AO221X1_RVT)
+                                                          0.15       5.53 f
+  cores[1].core_instance/threads[3].alu_instance/U192/Y (AO221X1_RVT)
+                                                          0.15       5.68 f
+  cores[1].core_instance/threads[3].alu_instance/U193/Y (NAND3X0_RVT)
+                                                          0.06       5.75 r
+  cores[1].core_instance/threads[3].alu_instance/alu_out_reg_reg[1]/D (DFFX1_RVT)
+                                                          0.01       5.76 r
+  data arrival time                                                  5.76
+
+  clock clk (rise edge)                                  10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  clock uncertainty                                      -0.10       9.90
+  cores[1].core_instance/threads[3].alu_instance/alu_out_reg_reg[1]/CLK (DFFX1_RVT)
+                                                          0.00       9.90 r
+  library setup time                                     -0.06       9.84
+  data required time                                                 9.84
+  --------------------------------------------------------------------------
+  data required time                                                 9.84
+  data arrival time                                                 -5.76
+  --------------------------------------------------------------------------
+  slack (MET)                                                        4.08
+
+
+1
