@@ -123,6 +123,19 @@ for {set pass 0} {$pass < 4 && [llength [set bad [drc_nets]]] > 0} {incr pass} {
     }
 }
 
+# With LVT on short paths, compile_ultra can meet setup but leave small hold misses (it ranks
+# setup first). A hold-only pass inserts delay just on violating paths that have setup room.
+proc hold_violations {} {
+    redirect -variable rpt { report_constraint -all_violators -min_delay }
+    return [regexp -all {VIOLATED} $rpt]
+}
+for {set pass 0} {$pass < 2 && [hold_violations] > 0} {incr pass} {
+    echo "Hold fix pass $pass: [hold_violations] violating endpoints"
+    if {[catch {compile_ultra -incremental -only_hold_time -no_autoungroup}]} {
+        compile -incremental_mapping -only_hold_time
+    }
+}
+
 # Switching activity: annotate from simulation if available, else DC default toggle rates
 if {[file exists $SAIF]} {
     read_saif -input $SAIF -instance_name tb_gpu/dut
