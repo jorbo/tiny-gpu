@@ -69,6 +69,49 @@ for {set pass 0} {$pass < 3 && [violation_count] > 0} {incr pass} {
     compile_ultra -incremental -no_autoungroup
 }
 
+# Leftover DRC misses are tiny (~0.01 ns) on high-fanout nets driven by weak cells, e.g. core_state
+# flops whose QN pin has a 0.35 ns library limit. Upsize each violating net's driver one step:
+# next drive strength in the same Vt (X0->X1->X2...), else the same cell in a faster Vt.
+proc drc_nets {} {
+    set nets {}
+    foreach kind {-max_transition -max_capacitance} {
+        redirect -variable rpt "report_constraint -all_violators -nosplit $kind"
+        foreach line [split $rpt "\n"] {
+            if {[regexp {^\s+(\S+)\s+\S+\s+\S+\s+-\S+\s+\(VIOLATED\)} $line -> net] && $net ne "PIN"} {
+                lappend nets $net
+            }
+        }
+    }
+    return [lsort -unique $nets]
+}
+proc stronger_cell {ref} {
+    set drives {X0 X1 X2 X4 X8 X16 X32}
+    if {![regexp {^(.*)(X\d+)_(LVT|RVT|HVT)$} $ref -> base drive vt]} { return "" }
+    foreach d [lrange $drives [expr {[lsearch $drives $drive] + 1}] end] {
+        set lc [get_lib_cells -quiet */${base}${d}_$vt]
+        if {[sizeof_collection $lc] && ![get_attribute [index_collection $lc 0] dont_use]} {
+            return [get_object_name [index_collection $lc 0]]
+        }
+    }
+    foreach faster [lrange {HVT RVT LVT} [expr {[lsearch {HVT RVT LVT} $vt] + 1}] end] {
+        set lc [get_lib_cells -quiet */${base}${drive}_$faster]
+        if {[sizeof_collection $lc]} { return [get_object_name [index_collection $lc 0]] }
+    }
+    return ""
+}
+for {set pass 0} {$pass < 4 && [llength [set bad [drc_nets]]] > 0} {incr pass} {
+    foreach net $bad {
+        foreach_in_collection pin [get_pins -quiet -leaf -of_objects [get_nets $net] -filter "pin_direction==out"] {
+            set cell [get_cells -of_objects $pin]
+            set new  [stronger_cell [get_attribute $cell ref_name]]
+            if {$new ne ""} {
+                echo "DRC fix: [get_object_name $cell] [get_attribute $cell ref_name] -> $new ($net)"
+                size_cell $cell $new
+            }
+        }
+    }
+}
+
 # Switching activity: annotate from simulation if available, else DC default toggle rates
 if {[file exists $SAIF]} {
     read_saif -input $SAIF -instance_name tb_gpu/dut

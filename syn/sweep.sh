@@ -33,6 +33,7 @@ run_period() {
     qor=$dir/reports/qor.rpt
     if [ ! -f "$qor" ]; then
         mkdir -p "$dir"
+        echo "$(date +%T) synthesizing at $p ns (log: $dir/dc.log)" >&2
         dc_shell -x "set CLK_PERIOD $p; $VT_ARGS; set RUN_DIR $dir" -f dc_synth.tcl > "$dir/dc.log" 2>&1
     fi
     if [ ! -f "$qor" ]; then
@@ -51,7 +52,7 @@ run_period() {
     else
         status=FAIL
     fi
-    echo "$p,$(awk -v p="$p" 'BEGIN {printf "%.1f", 1000 / p}'),$wns,$tns,$hold,$drc,$area,$status" >> "$CSV"
+    grep -q "^$p," "$CSV" || echo "$p,$(awk -v p="$p" 'BEGIN {printf "%.1f", 1000 / p}'),$wns,$tns,$hold,$drc,$area,$status" >> "$CSV"
     echo $status
 }
 
