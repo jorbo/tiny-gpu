@@ -75,9 +75,10 @@ for {set pass 0} {$pass < 3 && [violation_count] > 0} {incr pass} {
 proc drc_nets {} {
     set nets {}
     foreach kind {-max_transition -max_capacitance} {
-        redirect -variable rpt "report_constraint -all_violators -nosplit $kind"
+        redirect -variable rpt "report_constraint -all_violators -nosplit -significant_digits 4 $kind"
         foreach line [split $rpt "\n"] {
-            if {[regexp {^\s+(\S+)\s+\S+\s+\S+\s+-\S+\s+\(VIOLATED\)} $line -> net] && $net ne "PIN"} {
+            # Sub-0.005 ns misses print as "0.00  (VIOLATED: increase significant digits)"
+            if {[regexp {^\s+(\S+)\s+-?[\d.]+\s+-?[\d.]+\s+-?[\d.]+\s+\(VIOLATED} $line -> net]} {
                 lappend nets $net
             }
         }
@@ -124,7 +125,7 @@ report_qor                       > $RPT/qor.rpt
 report_area -hierarchy           > $RPT/area.rpt
 report_timing -max_paths 10      > $RPT/timing.rpt
 report_timing -delay min -max_paths 10 > $RPT/timing_hold.rpt
-report_constraint -all_violators > $RPT/violators.rpt
+report_constraint -all_violators -significant_digits 4 > $RPT/violators.rpt
 report_constraint -all_violators -verbose -max_transition > $RPT/violators_drivers.rpt
 report_net_fanout -high_fanout   > $RPT/high_fanout.rpt
 report_power -hierarchy          > $RPT/power.rpt
