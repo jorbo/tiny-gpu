@@ -43,6 +43,9 @@ elaborate $TOP
 current_design $TOP
 link
 uniquify
+
+# Track RTL->gate name changes so PrimeTime can annotate an RTL VCD onto the netlist
+saif_map -start
 check_design > $RPT/check_design.rpt
 
 source constraints.sdc
@@ -182,5 +185,9 @@ change_names -rules verilog -hierarchy
 write -format verilog -hierarchy -output $OUT/${TOP}_netlist.v
 write_sdc $OUT/${TOP}.sdc
 write_sdf $OUT/${TOP}.sdf
+# PrimeTime has no per-hierarchy wire load models from the SDC; hand it DC's WLM parasitics so
+# both tools see the same net caps (otherwise PT reports max_capacitance misses DC never saw)
+write_parasitics -output $OUT/${TOP}.spef
+saif_map -type ptpx -write_map $OUT/${TOP}_name_map.tcl
 
 exit

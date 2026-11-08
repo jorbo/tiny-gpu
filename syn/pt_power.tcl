@@ -25,8 +25,12 @@ read_verilog $RUN_DIR/out/${TOP}_netlist.v
 current_design $TOP
 link_design
 
-# DC's written SDC carries the clock, IO delays, driving cell, load and wire load model
+# DC's written SDC carries the clock, IO delays, driving cell and output load
 read_sdc $RUN_DIR/out/${TOP}.sdc
+# DC's wire-load parasitics, so net caps match DC (SDC alone falls back to the library default WLM)
+if {[file exists $RUN_DIR/out/${TOP}.spef]} {
+    read_parasitics $RUN_DIR/out/${TOP}.spef
+}
 update_timing -full
 
 # Timing signoff at this period
@@ -49,13 +53,17 @@ close $area_rpt
 
 # Switching activity
 if {$VCD_RTL} {
+    # DC's saif_map file maps RTL names (cores[0].core_instance...) to the netlist's
+    if {[file exists $RUN_DIR/out/${TOP}_name_map.tcl]} {
+        source $RUN_DIR/out/${TOP}_name_map.tcl
+    }
     read_vcd -rtl -strip_path tb_gpu/dut $VCD
 } else {
     read_vcd -strip_path tb_gpu/dut $VCD
 }
-report_switching_activity -list_not_annotated > $RPT/switching_activity.rpt
 
 update_power
+report_switching_activity -list_not_annotated > $RPT/switching_activity.rpt
 report_power                       > $RPT/power.rpt
 report_power -hierarchy -levels 3  > $RPT/power_hier.rpt
 
