@@ -47,6 +47,12 @@ check_design > $RPT/check_design.rpt
 
 source constraints.sdc
 
+# Overconstrain setup during optimization only: DC stops once WNS reaches ~0 and often lands
+# 0.01 ns short, which made pass/fail at nearby periods look random. The margin is removed
+# before reporting and write_sdc, so reports and PrimeTime see the real constraints.
+if {![info exists SYN_MARGIN]} { set SYN_MARGIN 0.03 }
+set_clock_uncertainty -setup [expr {0.1 + $SYN_MARGIN * $CLK_PERIOD}] [get_clocks clk]
+
 # Tighter than the library's 1.02 ns limit so weak HVT drivers on high-fanout nets get upsized/buffered
 if {$USE_HVT} {
     set_max_transition 0.9 [current_design]
@@ -138,6 +144,9 @@ for {set pass 0} {$pass < 4 && [llength [set bad [drc_nets]]] > 0} {incr pass} {
         }
     }
 }
+
+# Back to the real setup uncertainty from constraints.sdc for reports, SDC and PrimeTime
+set_clock_uncertainty -setup 0.1 [get_clocks clk]
 
 # Switching activity: annotate from simulation if available, else DC default toggle rates
 if {[file exists $SAIF]} {

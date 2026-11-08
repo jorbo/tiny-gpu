@@ -54,6 +54,7 @@ run_period() {
         status=FAIL
     fi
     grep -q "^$p," "$CSV" || echo "$p,$(awk -v p="$p" 'BEGIN {printf "%.1f", 1000 / p}'),$wns,$tns,$hold,$drc,$area,$status" >> "$CSV"
+    [ $status = FAIL ] && echo "  $p ns: setup_wns=$wns tns=$tns hold_viol=$hold drc_nets=$drc" >&2
     echo $status
 }
 
