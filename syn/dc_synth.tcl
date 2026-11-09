@@ -18,6 +18,9 @@ if {![info exists USE_LVT]} { set USE_LVT 0 }
 # LVT+HVT only: dc_shell -x "set USE_HVT 1; set USE_LVT 1; set NO_RVT 1" -f dc_synth.tcl
 # RVT stays linked (SDC driving cell, wire load models) but no RVT cell is mapped
 if {![info exists NO_RVT]}  { set NO_RVT 0 }
+# Automatic clock gating: set CLOCK_GATING 1. DC puts an integrated clock-gating cell in front of
+# register banks that only load under an enable, so their clock pins stop toggling while idle.
+if {![info exists CLOCK_GATING]} { set CLOCK_GATING 0 }
 set LIBS $LIB_DB
 if {$USE_HVT} { lappend LIBS $HVT_DB }
 if {$USE_LVT} { lappend LIBS $LVT_DB }
@@ -70,7 +73,14 @@ if {$NO_RVT} {
 
 # Keep hierarchy so area/power can be broken down per module.
 # If compile_ultra isn't licensed, use: compile -map_effort high
-compile_ultra -no_autoungroup
+if {$CLOCK_GATING} {
+    # Latch-based integrated gating cells from the library; banks of 3+ flops, up to 32 per gate
+    set_clock_gating_style -sequential_cell latch -positive_edge_logic integrated \
+        -minimum_bitwidth 3 -max_fanout 32
+    compile_ultra -no_autoungroup -gate_clock
+} else {
+    compile_ultra -no_autoungroup
+}
 
 # Incremental passes until setup and DRC are clean (HVT drivers can leave max_transition violations)
 # Second pass on: ban the weakest X0 HVT drivers so high-fanout nets get a real driver
@@ -172,6 +182,9 @@ report_constraint -all_violators -verbose -max_transition > $RPT/violators_drive
 report_net_fanout -high_fanout   > $RPT/high_fanout.rpt
 report_power -hierarchy          > $RPT/power.rpt
 report_power                     > $RPT/power_summary.rpt
+if {$CLOCK_GATING} {
+    report_clock_gating -gating_elements > $RPT/clock_gating.rpt
+}
 
 # Vt mix: how many leaf cells landed in each threshold flavor
 set vt_rpt [open $RPT/vt_mix.rpt w]
