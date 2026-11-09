@@ -85,8 +85,8 @@ proc first_usable_cell {names} {
 # Keep hierarchy so area/power can be broken down per module.
 # If compile_ultra isn't licensed, use: compile -map_effort high
 if {$CLOCK_GATING} {
-    # Latch-based integrated gating cells from the library; banks of 3+ flops, up to 32 per gate
-    set_clock_gating_style -sequential_cell latch -minimum_bitwidth 3 -max_fanout 32
+    # DC's default style: integrated latch-based gating cells, banks of 3+ flops. An explicit
+    # set_clock_gating_style (with or without a named cell) made DC insert no SAED32 gating cells.
     compile_ultra -no_autoungroup -gate_clock
     # SAED32 gating cells are latch_posedge_precontrol (test-enable pin), which DC refuses when named
     # in the style without a test control point (PWR-192). Its default pick is CGLPPRX*_RVT even
