@@ -189,8 +189,18 @@ proc hold_violations {} {
     redirect -variable rpt { report_constraint -all_violators -min_delay }
     return [regexp -all {VIOLATED} $rpt]
 }
-# The hold pass can leave new transition misses; alternate with driver upsizing until both are clean
-for {set pass 0} {$pass < 3 && ([hold_violations] > 0 || [llength [drc_nets]] > 0)} {incr pass} {
+proc setup_violations {} {
+    redirect -variable rpt { report_constraint -all_violators -max_delay }
+    return [regexp -all {VIOLATED} $rpt]
+}
+# The hold pass can leave new transition misses, and hold buffers / DRC upsizing can push near-critical
+# paths over (seen with clock gating: -0.08 ns on data_memory_controller). Alternate setup recovery,
+# hold fixing and driver upsizing until all three are clean.
+for {set pass 0} {$pass < 4 && ([setup_violations] > 0 || [hold_violations] > 0 || [llength [drc_nets]] > 0)} {incr pass} {
+    if {[setup_violations] > 0} {
+        echo "Setup recovery pass $pass: [setup_violations] violating endpoints"
+        compile_ultra -incremental -no_autoungroup
+    }
     if {[hold_violations] > 0} {
         echo "Hold fix pass $pass: [hold_violations] violating endpoints"
         compile -incremental_mapping -only_hold_time
