@@ -57,26 +57,54 @@ proc timing_summary {} {
     return "setup_wns $wns hold_wns $whs"
 }
 
+proc wns {} { return [get_attribute [get_timing_paths -delay_type max] slack] }
+proc whs {} { return [get_attribute [get_timing_paths -delay_type min] slack] }
+# A change is kept only if setup and hold stay >= 0 (or no worse than before, if already negative)
+proc timing_ok {wns0 whs0} {
+    update_timing
+    set w [wns]; set h [whs]
+    return [expr {$w >= min(0.0, $wns0) && $h >= min(0.0, $whs0)}]
+}
+proc buffer_cell_of {loads} {
+    set net [get_nets -of_objects [index_collection $loads 0]]
+    return [get_cells -of_objects [get_pins -leaf -of_objects $net -filter "direction==out"]]
+}
+
 echo "ECO start: [llength [cap_violators]] max_capacitance pins, [timing_summary]"
 set buf [lib_cell_ok NBUFFX4_LVT]
-for {set pass 0} {$pass < 6 && [llength [set bad [cap_violators]]] > 0} {incr pass} {
+set skipped {}
+for {set pass 0} {$pass < 6} {incr pass} {
+    set bad [lsearch -all -inline -not -exact [cap_violators] {}]
+    foreach s $skipped { set bad [lsearch -all -inline -not -exact $bad $s] }
+    if {[llength $bad] == 0} { break }
     echo "ECO pass $pass: [llength $bad] pins"
     foreach p $bad {
         set pin [get_pins -quiet $p]
         if {[sizeof_collection $pin] == 0} { continue }
+        set wns0 [wns]; set whs0 [whs]
         set cell [get_cells -of_objects $pin]
         set ref  [get_attribute $cell ref_name]
-        set new  [stronger_cell $ref]
-        if {$new ne ""} {
-            if {[catch {size_cell $cell $new} msg]} { echo "size failed $p: $msg" }
-        } else {
-            # Already the strongest: split the loads behind a buffer
+        set done 0
+        # 1) upsize the driver
+        set new [stronger_cell $ref]
+        if {$new ne "" && ![catch {size_cell $cell $new}]} {
+            if {[timing_ok $wns0 $whs0]} { set done 1 } else { size_cell $cell [lib_cell_ok $ref] ; update_timing }
+        }
+        # 2) keep the driver, put the loads behind a buffer
+        if {!$done} {
             set net   [get_nets -of_objects $pin]
             set loads [get_pins -quiet -leaf -of_objects $net -filter "direction==in"]
-            if {[catch {insert_buffer $loads $buf} msg]} { echo "buffer failed $p: $msg" }
+            if {[sizeof_collection $loads] > 1 && ![catch {insert_buffer $loads $buf}]} {
+                if {[timing_ok $wns0 $whs0]} {
+                    set done 1
+                } else {
+                    catch {remove_buffer [buffer_cell_of $loads]}
+                    update_timing
+                }
+            }
         }
+        if {!$done} { lappend skipped $p ; echo "ECO skip $p ($ref): no timing-safe fix" }
     }
-    update_timing
 }
 echo "ECO end: [llength [cap_violators]] max_capacitance pins, [timing_summary]"
 
