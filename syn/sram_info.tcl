@@ -46,7 +46,7 @@ set_load 0.005 [all_outputs]
 update_timing -full
 
 echo "==== access time: CE -> O -> q_r (read path)"
-report_timing -from [get_pins mem/CE] -to [get_cells q_r_reg*] -max_paths 1 -nosplit -input_pins
+report_timing -from [get_pins mem/CE] -to [get_cells q_reg_*] -max_paths 1 -nosplit -input_pins
 echo "==== setup checks at the macro inputs"
 report_timing -to [get_pins mem/A*]   -max_paths 1 -nosplit
 report_timing -to [get_pins mem/CSB]  -max_paths 1 -nosplit
