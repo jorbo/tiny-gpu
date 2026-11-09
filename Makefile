@@ -18,16 +18,18 @@ tb_%:
 	iverilog -g2012 -o build/tb.vvp -s tb_gpu -DCLK_PERIOD=$(CLK_PERIOD) $(if $(filter matadd,$*),-DMATADD) build/gpu.v test/tb_gpu.v
 	vvp build/tb.vvp +vcd
 
-# Gate-level sim of a DC netlist for PrimeTime power: make gls RUN=runs/best_hvt CLK_PERIOD=<that period>
+# Gate-level sim of a DC netlist for PrimeTime power:
+#   make gls NETLIST=runs/lh_2.55_final/out/gpu_netlist.v CLK_PERIOD=2.55 SAED=~/saed32/lib
 # Writes build/gpu_gls.vcd. Zero-delay (no SDF), so PT sees functional toggles only.
+# SAED points at a copy of SAED32_EDK/lib holding stdcell_*/verilog; missing Vt flavors are skipped.
 SAED ?= /usr/local/synopsys/pdk/SAED32_EDK/lib
-SAED_VLIB = $(SAED)/stdcell_rvt/verilog/saed32nm.v $(SAED)/stdcell_hvt/verilog/saed32nm_hvt.v $(SAED)/stdcell_lvt/verilog/saed32nm_lvt.v
-RUN ?= runs/best_hvt
+SAED_VLIB = $(wildcard $(SAED)/stdcell_rvt/verilog/saed32nm.v $(SAED)/stdcell_hvt/verilog/saed32nm_hvt.v $(SAED)/stdcell_lvt/verilog/saed32nm_lvt.v)
+NETLIST ?= syn/runs/best_lh/out/gpu_netlist.v
 
 gls:
 	mkdir -p build
 	iverilog -g2012 -o build/gls.vvp -s tb_gpu -DCLK_PERIOD=$(CLK_PERIOD) $(if $(MATADD),-DMATADD) \
-		syn/$(RUN)/out/gpu_netlist.v $(SAED_VLIB) test/tb_gpu.v
+		$(NETLIST) $(SAED_VLIB) test/tb_gpu.v
 	vvp build/gls.vvp +vcd +vcdfile=build/gpu_gls.vcd
 
 compile:

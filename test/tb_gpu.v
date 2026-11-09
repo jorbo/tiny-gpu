@@ -163,8 +163,10 @@ module tb_gpu;
 
         load_kernel;
 
-        // Reset
-        @(posedge clk);
+        // Reset: several edges, since cores are reset through dispatch's registered core_reset;
+        // with one edge the memory controllers leave reset while core fetchers are still X,
+        // which a gate-level sim latches forever
+        repeat (4) @(posedge clk);
         #(`CLK_PERIOD / 4.0) reset = 0;
 
         // Device Control Register
