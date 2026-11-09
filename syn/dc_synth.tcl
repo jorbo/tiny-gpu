@@ -86,15 +86,26 @@ proc first_usable_cell {names} {
 # If compile_ultra isn't licensed, use: compile -map_effort high
 if {$CLOCK_GATING} {
     # Latch-based integrated gating cells from the library; banks of 3+ flops, up to 32 per gate
-    # SAED32 gating cells carry a test-enable pin (latch_posedge_precontrol), so plain "integrated"
-    # finds nothing (PWR-191) and DC fell back to RVT cells despite NO_RVT. Name the cell instead,
-    # fastest allowed Vt first, since the enable check sits on the setup-critical path.
-    set icg [file tail [first_usable_cell {CGLPPRX2_LVT CGLPPRX2_RVT CGLPPRX2_HVT}]]
-    echo "Clock gating cell: $icg"
-    # Test-enable pin stays tied low (no scan), so no control point / new port is requested
-    set_clock_gating_style -sequential_cell latch -positive_edge_logic "integrated:$icg" \
-        -minimum_bitwidth 3 -max_fanout 32
+    set_clock_gating_style -sequential_cell latch -minimum_bitwidth 3 -max_fanout 32
     compile_ultra -no_autoungroup -gate_clock
+    # SAED32 gating cells are latch_posedge_precontrol (test-enable pin), which DC refuses when named
+    # in the style without a test control point (PWR-192). Its default pick is CGLPPRX*_RVT even
+    # under NO_RVT (TE tied to 0), so swap each one to the fastest allowed Vt: same pins, and the
+    # enable check sits on the setup-critical path.
+    foreach_in_collection g [get_cells -hierarchical -quiet -filter "ref_name=~CGLPP*_RVT"] {
+        set ref [get_attribute $g ref_name]
+        regsub {_RVT$} $ref {} base
+        set new [first_usable_cell [list ${base}_LVT ${base}_RVT ${base}_HVT]]
+        if {$new ne "" && [file tail $new] ne $ref} {
+            if {[catch {size_cell $g $new} msg]} { echo "ICG swap failed: $msg" }
+        }
+    }
+    redirect -variable icg_rpt {
+        foreach vt {LVT RVT HVT} {
+            echo "  $vt: [sizeof_collection [get_cells -hierarchical -quiet -filter "ref_name=~CGLPP*_$vt"]]"
+        }
+    }
+    echo "Clock gating cells after Vt swap:\n$icg_rpt"
 } else {
     compile_ultra -no_autoungroup
 }
