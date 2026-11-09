@@ -26,6 +26,12 @@ set_app_var power_analysis_mode averaged
 read_verilog $RUN_DIR/out/${TOP}_netlist.v
 current_design $TOP
 link_design
+# Signoff DRC ECO from pt_eco.tcl (cell upsizing / buffers for max_capacitance); USE_ECO 0 skips it
+if {![info exists USE_ECO]} { set USE_ECO 1 }
+if {$USE_ECO && [file exists $RUN_DIR/out/eco_changes.tcl]} {
+    echo "Applying ECO changes from $RUN_DIR/out/eco_changes.tcl"
+    source $RUN_DIR/out/eco_changes.tcl
+}
 
 # DC's written SDC carries the clock, IO delays, driving cell and output load
 read_sdc $RUN_DIR/out/${TOP}.sdc
