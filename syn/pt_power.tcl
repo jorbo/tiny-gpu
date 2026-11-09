@@ -27,8 +27,10 @@ link_design
 
 # DC's written SDC carries the clock, IO delays, driving cell and output load
 read_sdc $RUN_DIR/out/${TOP}.sdc
-# DC's wire-load parasitics, so net caps match DC (SDC alone falls back to the library default WLM)
-if {[file exists $RUN_DIR/out/${TOP}.spef]} {
+# PT picks the same per-hierarchy wire load models as DC on its own (setup WNS matched DC at 2.55 ns).
+# DC's WLM-derived SPEF re-computes wire delay as RC and came out 0.17 ns worse, so it is opt-in.
+if {![info exists USE_SPEF]} { set USE_SPEF 0 }
+if {$USE_SPEF && [file exists $RUN_DIR/out/${TOP}.spef]} {
     read_parasitics $RUN_DIR/out/${TOP}.spef
 }
 update_timing -full
