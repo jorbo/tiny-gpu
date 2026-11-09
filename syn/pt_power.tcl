@@ -14,7 +14,9 @@ set TOP gpu
 if {![info exists RUN_DIR]} { set RUN_DIR runs/best_hvt }
 if {![info exists VCD]}     { set VCD ../build/gpu_gls.vcd }
 if {![info exists VCD_RTL]} { set VCD_RTL 0 }
-set RPT $RUN_DIR/pt_reports
+# Separate report dir per workload, e.g. "set RPT_NAME pt_reports_matadd"
+if {![info exists RPT_NAME]} { set RPT_NAME pt_reports }
+set RPT $RUN_DIR/$RPT_NAME
 file mkdir $RPT
 
 set_app_var link_path "* $LIBS"
