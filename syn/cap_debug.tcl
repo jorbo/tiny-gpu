@@ -42,8 +42,24 @@ foreach a {wire_capacitance_max pin_capacitance_max total_capacitance_max wire_l
 }
 
 echo "==== pin $PIN constraint"
-catch {report_constraint -max_capacitance -verbose [get_pins $PIN]}
+if {$is_pt} { catch {report_constraint -max_capacitance -verbose [get_pins $PIN]} }
 redirect -variable rpt {report_constraint -all_violators -max_capacitance}
 echo "max_capacitance violators: [regexp -all {VIOLATED} $rpt]"
+
+# Where does the 8 fF limit on AND2X1_LVT/Y come from? Library attribute vs table-derived limit
+echo "==== library max_capacitance attributes"
+foreach lp {saed32lvt_tt0p78v25c/AND2X1_LVT/Y saed32hvt_tt0p78v25c/AND2X1_HVT/Y
+            saed32lvt_tt0p78v25c/NOR4X1_LVT/Y saed32lvt_tt0p78v25c/AND2X2_LVT/Y} {
+    set p [get_lib_pins -quiet $lp]
+    if {[sizeof_collection $p] == 0} { echo "$lp: not found"; continue }
+    set mc ""
+    catch {set mc [get_attribute -quiet $p max_capacitance]}
+    echo "$lp max_capacitance = '$mc'"
+}
+catch {echo "pin U11/Y max_capacitance attr: [get_attribute -quiet [get_pins $PIN] max_capacitance]"}
+foreach v {timing_library_max_cap_from_lookup_table timing_enable_max_capacitance_set_case_analysis
+           compile_enable_max_cap_from_lookup_table} {
+    if {![catch {get_app_var $v} val]} { echo "app_var $v = $val" }
+}
 
 exit
