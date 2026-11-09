@@ -71,11 +71,28 @@ if {$NO_RVT} {
     set_dont_use [get_lib_cells saed32rvt_tt0p78v25c/*]
 }
 
+# First lib cell from the list that exists and isn't dont_use, as lib/cell
+proc first_usable_cell {names} {
+    foreach n $names {
+        set lc [get_lib_cells -quiet */$n]
+        if {[sizeof_collection $lc] && ![string is true -strict [get_attribute -quiet [index_collection $lc 0] dont_use]]} {
+            return [get_object_name [index_collection $lc 0]]
+        }
+    }
+    return ""
+}
+
 # Keep hierarchy so area/power can be broken down per module.
 # If compile_ultra isn't licensed, use: compile -map_effort high
 if {$CLOCK_GATING} {
     # Latch-based integrated gating cells from the library; banks of 3+ flops, up to 32 per gate
-    set_clock_gating_style -sequential_cell latch -positive_edge_logic integrated \
+    # SAED32 gating cells carry a test-enable pin (latch_posedge_precontrol), so plain "integrated"
+    # finds nothing (PWR-191) and DC fell back to RVT cells despite NO_RVT. Name the cell instead,
+    # fastest allowed Vt first, since the enable check sits on the setup-critical path.
+    set icg [file tail [first_usable_cell {CGLPPRX2_LVT CGLPPRX2_RVT CGLPPRX2_HVT}]]
+    echo "Clock gating cell: $icg"
+    # Test-enable pin stays tied low (no scan), so no control point / new port is requested
+    set_clock_gating_style -sequential_cell latch -positive_edge_logic "integrated:$icg" \
         -minimum_bitwidth 3 -max_fanout 32
     compile_ultra -no_autoungroup -gate_clock
 } else {
@@ -138,6 +155,11 @@ proc fix_drc {} {
                 if {$new ne ""} {
                     echo "DRC fix: [get_object_name $cell] [get_attribute $cell ref_name] -> $new ($net)"
                     if {[catch {size_cell $cell $new} msg]} { echo "DRC fix failed: $msg" }
+                } elseif {[set buf [first_usable_cell {NBUFFX4_LVT NBUFFX4_RVT NBUFFX4_HVT}]] ne ""} {
+                    # Already the strongest cell of its type (e.g. NOR4X1_LVT): buffer the loads instead
+                    set loads [get_pins -quiet -leaf -of_objects [get_nets $net] -filter "pin_direction==in"]
+                    echo "DRC fix: buffer [sizeof_collection $loads] loads of $net with $buf"
+                    if {[catch {insert_buffer $loads $buf} msg]} { echo "DRC fix failed: $msg" }
                 }
             }
         }
