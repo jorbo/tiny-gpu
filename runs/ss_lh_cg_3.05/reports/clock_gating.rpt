@@ -1,0 +1,2795 @@
+ 
+****************************************
+Report : clock_gating
+        -gating_elements
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Mon Nov  9 18:17:44 2026
+****************************************
+
+Information: Identification of clock-gating cells has not been performed. Pre-existing clock-gating cells will not be reported. (PWR-947)
+--------------------------------------------------------------------------------
+                             Clock Gating Cell Report
+--------------------------------------------------------------------------------
+
+ Clock Gating Bank : dcr_instance/clk_gate_device_conrol_register_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         dcr_instance/clk_gate_device_conrol_register_reg/CLK = clk 
+         dcr_instance/clk_gate_device_conrol_register_reg/EN = n4 
+         dcr_instance/clk_gate_device_conrol_register_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         dcr_instance/clk_gate_device_conrol_register_reg/ENCLK = net7881 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_mem_read_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_mem_read_address_reg/CLK = clk 
+         data_memory_controller/clk_gate_mem_read_address_reg/EN = N6025 
+         data_memory_controller/clk_gate_mem_read_address_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_mem_read_address_reg/ENCLK = net7743 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_mem_read_address_reg_0
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_mem_read_address_reg_0/CLK = clk 
+         data_memory_controller/clk_gate_mem_read_address_reg_0/EN = N6024 
+         data_memory_controller/clk_gate_mem_read_address_reg_0/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_mem_read_address_reg_0/ENCLK = net7749 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_mem_read_address_reg_1
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_mem_read_address_reg_1/CLK = clk 
+         data_memory_controller/clk_gate_mem_read_address_reg_1/EN = N6023 
+         data_memory_controller/clk_gate_mem_read_address_reg_1/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_mem_read_address_reg_1/ENCLK = net7754 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_mem_read_address_reg_2
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_mem_read_address_reg_2/CLK = clk 
+         data_memory_controller/clk_gate_mem_read_address_reg_2/EN = N6022 
+         data_memory_controller/clk_gate_mem_read_address_reg_2/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_mem_read_address_reg_2/ENCLK = net7759 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_mem_write_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_mem_write_address_reg/CLK = clk 
+         data_memory_controller/clk_gate_mem_write_address_reg/EN = N6101 
+         data_memory_controller/clk_gate_mem_write_address_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_mem_write_address_reg/ENCLK = net7764 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_mem_write_address_reg_0
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_mem_write_address_reg_0/CLK = clk 
+         data_memory_controller/clk_gate_mem_write_address_reg_0/EN = n4085 
+         data_memory_controller/clk_gate_mem_write_address_reg_0/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_mem_write_address_reg_0/ENCLK = net7769 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_mem_write_address_reg_1
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_mem_write_address_reg_1/CLK = clk 
+         data_memory_controller/clk_gate_mem_write_address_reg_1/EN = N6099 
+         data_memory_controller/clk_gate_mem_write_address_reg_1/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_mem_write_address_reg_1/ENCLK = net7774 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_mem_write_address_reg_2
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_mem_write_address_reg_2/CLK = clk 
+         data_memory_controller/clk_gate_mem_write_address_reg_2/EN = N6098 
+         data_memory_controller/clk_gate_mem_write_address_reg_2/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_mem_write_address_reg_2/ENCLK = net7779 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_consumer_read_data_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg/CLK = clk 
+         data_memory_controller/clk_gate_consumer_read_data_reg/EN = N6189 
+         data_memory_controller/clk_gate_consumer_read_data_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg/ENCLK = net7784 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_consumer_read_data_reg_0
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_0/CLK = clk 
+         data_memory_controller/clk_gate_consumer_read_data_reg_0/EN = N6188 
+         data_memory_controller/clk_gate_consumer_read_data_reg_0/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_0/ENCLK = net7789 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_consumer_read_data_reg_1
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_1/CLK = clk 
+         data_memory_controller/clk_gate_consumer_read_data_reg_1/EN = N6187 
+         data_memory_controller/clk_gate_consumer_read_data_reg_1/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_1/ENCLK = net7794 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_consumer_read_data_reg_2
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_2/CLK = clk 
+         data_memory_controller/clk_gate_consumer_read_data_reg_2/EN = N6186 
+         data_memory_controller/clk_gate_consumer_read_data_reg_2/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_2/ENCLK = net7799 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_consumer_read_data_reg_3
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_3/CLK = clk 
+         data_memory_controller/clk_gate_consumer_read_data_reg_3/EN = N6185 
+         data_memory_controller/clk_gate_consumer_read_data_reg_3/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_3/ENCLK = net7804 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_consumer_read_data_reg_4
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_4/CLK = clk 
+         data_memory_controller/clk_gate_consumer_read_data_reg_4/EN = N6184 
+         data_memory_controller/clk_gate_consumer_read_data_reg_4/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_4/ENCLK = net7809 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_consumer_read_data_reg_5
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_5/CLK = clk 
+         data_memory_controller/clk_gate_consumer_read_data_reg_5/EN = N6183 
+         data_memory_controller/clk_gate_consumer_read_data_reg_5/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_5/ENCLK = net7814 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_consumer_read_data_reg_6
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_6/CLK = clk 
+         data_memory_controller/clk_gate_consumer_read_data_reg_6/EN = N6182 
+         data_memory_controller/clk_gate_consumer_read_data_reg_6/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_consumer_read_data_reg_6/ENCLK = net7819 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_current_consumer_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_current_consumer_reg/CLK = clk 
+         data_memory_controller/clk_gate_current_consumer_reg/EN = N6221 
+         data_memory_controller/clk_gate_current_consumer_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_current_consumer_reg/ENCLK = net7824 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_current_consumer_reg_0
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_current_consumer_reg_0/CLK = clk 
+         data_memory_controller/clk_gate_current_consumer_reg_0/EN = N6220 
+         data_memory_controller/clk_gate_current_consumer_reg_0/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_current_consumer_reg_0/ENCLK = net7829 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_current_consumer_reg_1
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_current_consumer_reg_1/CLK = clk 
+         data_memory_controller/clk_gate_current_consumer_reg_1/EN = N6219 
+         data_memory_controller/clk_gate_current_consumer_reg_1/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_current_consumer_reg_1/ENCLK = net7834 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_current_consumer_reg_2
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_current_consumer_reg_2/CLK = clk 
+         data_memory_controller/clk_gate_current_consumer_reg_2/EN = N6218 
+         data_memory_controller/clk_gate_current_consumer_reg_2/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_current_consumer_reg_2/ENCLK = net7839 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_controller_state_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_controller_state_reg/CLK = clk 
+         data_memory_controller/clk_gate_controller_state_reg/EN = N6237 
+         data_memory_controller/clk_gate_controller_state_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_controller_state_reg/ENCLK = net7844 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_controller_state_reg_0
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_controller_state_reg_0/CLK = clk 
+         data_memory_controller/clk_gate_controller_state_reg_0/EN = N6236 
+         data_memory_controller/clk_gate_controller_state_reg_0/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_controller_state_reg_0/ENCLK = net7849 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_controller_state_reg_1
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_controller_state_reg_1/CLK = clk 
+         data_memory_controller/clk_gate_controller_state_reg_1/EN = N6235 
+         data_memory_controller/clk_gate_controller_state_reg_1/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_controller_state_reg_1/ENCLK = net7854 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_controller_state_reg_2
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_controller_state_reg_2/CLK = clk 
+         data_memory_controller/clk_gate_controller_state_reg_2/EN = N6234 
+         data_memory_controller/clk_gate_controller_state_reg_2/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_controller_state_reg_2/ENCLK = net7859 
+
+ Clock Gating Bank : data_memory_controller/clk_gate_consumer_read_ready_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         data_memory_controller/clk_gate_consumer_read_ready_reg/CLK = clk 
+         data_memory_controller/clk_gate_consumer_read_ready_reg/EN = net7726 
+         data_memory_controller/clk_gate_consumer_read_ready_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         data_memory_controller/clk_gate_consumer_read_ready_reg/ENCLK = net7864 
+
+ Clock Gating Bank : program_memory_controller/clk_gate_controller_state_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         program_memory_controller/clk_gate_controller_state_reg/CLK = clk 
+         program_memory_controller/clk_gate_controller_state_reg/EN = N268 
+         program_memory_controller/clk_gate_controller_state_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         program_memory_controller/clk_gate_controller_state_reg/ENCLK = net7534 
+
+ Clock Gating Bank : program_memory_controller/clk_gate_mem_read_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         program_memory_controller/clk_gate_mem_read_address_reg/CLK = clk 
+         program_memory_controller/clk_gate_mem_read_address_reg/EN = N211 
+         program_memory_controller/clk_gate_mem_read_address_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         program_memory_controller/clk_gate_mem_read_address_reg/ENCLK = net7540 
+
+ Clock Gating Bank : program_memory_controller/clk_gate_consumer_read_data_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         program_memory_controller/clk_gate_consumer_read_data_reg/CLK = clk 
+         program_memory_controller/clk_gate_consumer_read_data_reg/EN = N259 
+         program_memory_controller/clk_gate_consumer_read_data_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         program_memory_controller/clk_gate_consumer_read_data_reg/ENCLK = net7545 
+
+ Clock Gating Bank : program_memory_controller/clk_gate_consumer_read_data_reg_0
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         program_memory_controller/clk_gate_consumer_read_data_reg_0/CLK = clk 
+         program_memory_controller/clk_gate_consumer_read_data_reg_0/EN = N258 
+         program_memory_controller/clk_gate_consumer_read_data_reg_0/TE = *Logic0* 
+
+     OUTPUTS :
+         program_memory_controller/clk_gate_consumer_read_data_reg_0/ENCLK = net7550 
+
+ Clock Gating Bank : dispatch_instance/clk_gate_core_thread_count_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         dispatch_instance/clk_gate_core_thread_count_reg/CLK = clk 
+         dispatch_instance/clk_gate_core_thread_count_reg/EN = n71 
+         dispatch_instance/clk_gate_core_thread_count_reg/TE = total_blocks[7] 
+
+     OUTPUTS :
+         dispatch_instance/clk_gate_core_thread_count_reg/ENCLK = net7477 
+
+ Clock Gating Bank : dispatch_instance/clk_gate_core_thread_count_reg_0
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         dispatch_instance/clk_gate_core_thread_count_reg_0/CLK = clk 
+         dispatch_instance/clk_gate_core_thread_count_reg_0/EN = n73 
+         dispatch_instance/clk_gate_core_thread_count_reg_0/TE = total_blocks[7] 
+
+     OUTPUTS :
+         dispatch_instance/clk_gate_core_thread_count_reg_0/ENCLK = net7483 
+
+ Clock Gating Bank : dispatch_instance/clk_gate_blocks_done_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         dispatch_instance/clk_gate_blocks_done_reg/CLK = clk 
+         dispatch_instance/clk_gate_blocks_done_reg/EN = n74 
+         dispatch_instance/clk_gate_blocks_done_reg/TE = total_blocks[7] 
+
+     OUTPUTS :
+         dispatch_instance/clk_gate_blocks_done_reg/ENCLK = net7488 
+
+ Clock Gating Bank : dispatch_instance/clk_gate_blocks_dispatched_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         dispatch_instance/clk_gate_blocks_dispatched_reg/CLK = clk 
+         dispatch_instance/clk_gate_blocks_dispatched_reg/EN = n422 
+         dispatch_instance/clk_gate_blocks_dispatched_reg/TE = total_blocks[7] 
+
+     OUTPUTS :
+         dispatch_instance/clk_gate_blocks_dispatched_reg/ENCLK = net7493 
+
+ Clock Gating Bank : dispatch_instance/clk_gate_done_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         dispatch_instance/clk_gate_done_reg/CLK = clk 
+         dispatch_instance/clk_gate_done_reg/EN = N17 
+         dispatch_instance/clk_gate_done_reg/TE = total_blocks[7] 
+
+     OUTPUTS :
+         dispatch_instance/clk_gate_done_reg/ENCLK = net7498 
+
+ Clock Gating Bank : cores[0].core_instance/fetcher_instance/clk_gate_mem_read_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/fetcher_instance/clk_gate_mem_read_address_reg/CLK = clk 
+         cores[0].core_instance/fetcher_instance/clk_gate_mem_read_address_reg/EN = N34 
+         cores[0].core_instance/fetcher_instance/clk_gate_mem_read_address_reg/TE = n28 
+
+     OUTPUTS :
+         cores[0].core_instance/fetcher_instance/clk_gate_mem_read_address_reg/ENCLK = net7439 
+
+ Clock Gating Bank : cores[0].core_instance/fetcher_instance/clk_gate_instruction_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/fetcher_instance/clk_gate_instruction_reg/CLK = clk 
+         cores[0].core_instance/fetcher_instance/clk_gate_instruction_reg/EN = N43 
+         cores[0].core_instance/fetcher_instance/clk_gate_instruction_reg/TE = n28 
+
+     OUTPUTS :
+         cores[0].core_instance/fetcher_instance/clk_gate_instruction_reg/ENCLK = net7445 
+
+ Clock Gating Bank : cores[0].core_instance/fetcher_instance/clk_gate_fetcher_state_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/fetcher_instance/clk_gate_fetcher_state_reg/CLK = clk 
+         cores[0].core_instance/fetcher_instance/clk_gate_fetcher_state_reg/EN = N29 
+         cores[0].core_instance/fetcher_instance/clk_gate_fetcher_state_reg/TE = n28 
+
+     OUTPUTS :
+         cores[0].core_instance/fetcher_instance/clk_gate_fetcher_state_reg/ENCLK = net7450 
+
+ Clock Gating Bank : cores[0].core_instance/decoder_instance/clk_gate_decoded_pc_mux_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/decoder_instance/clk_gate_decoded_pc_mux_reg/CLK = clk 
+         cores[0].core_instance/decoder_instance/clk_gate_decoded_pc_mux_reg/EN = N68 
+         cores[0].core_instance/decoder_instance/clk_gate_decoded_pc_mux_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/decoder_instance/clk_gate_decoded_pc_mux_reg/ENCLK = net7420 
+
+ Clock Gating Bank : cores[0].core_instance/scheduler_instance/clk_gate_current_pc_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/scheduler_instance/clk_gate_current_pc_reg/CLK = clk 
+         cores[0].core_instance/scheduler_instance/clk_gate_current_pc_reg/EN = N71 
+         cores[0].core_instance/scheduler_instance/clk_gate_current_pc_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/scheduler_instance/clk_gate_current_pc_reg/ENCLK = net7397 
+
+ Clock Gating Bank : cores[0].core_instance/scheduler_instance/clk_gate_core_state_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/scheduler_instance/clk_gate_core_state_reg/CLK = clk 
+         cores[0].core_instance/scheduler_instance/clk_gate_core_state_reg/EN = N80 
+         cores[0].core_instance/scheduler_instance/clk_gate_core_state_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/scheduler_instance/clk_gate_core_state_reg/ENCLK = net7403 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].alu_instance/clk_gate_alu_out_reg_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].alu_instance/clk_gate_alu_out_reg_reg/CLK = clk 
+         cores[0].core_instance/threads[0].alu_instance/clk_gate_alu_out_reg_reg/EN = n53 
+         cores[0].core_instance/threads[0].alu_instance/clk_gate_alu_out_reg_reg/TE = n54 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].alu_instance/clk_gate_alu_out_reg_reg/ENCLK = net7064 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].lsu_instance/clk_gate_mem_write_data_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].lsu_instance/clk_gate_mem_write_data_reg/CLK = clk 
+         cores[0].core_instance/threads[0].lsu_instance/clk_gate_mem_write_data_reg/EN = n37 
+         cores[0].core_instance/threads[0].lsu_instance/clk_gate_mem_write_data_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].lsu_instance/clk_gate_mem_write_data_reg/ENCLK = net7036 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].lsu_instance/clk_gate_mem_read_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].lsu_instance/clk_gate_mem_read_address_reg/CLK = clk 
+         cores[0].core_instance/threads[0].lsu_instance/clk_gate_mem_read_address_reg/EN = n39 
+         cores[0].core_instance/threads[0].lsu_instance/clk_gate_mem_read_address_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].lsu_instance/clk_gate_mem_read_address_reg/ENCLK = net7042 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].lsu_instance/clk_gate_lsu_out_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].lsu_instance/clk_gate_lsu_out_reg/CLK = clk 
+         cores[0].core_instance/threads[0].lsu_instance/clk_gate_lsu_out_reg/EN = n38 
+         cores[0].core_instance/threads[0].lsu_instance/clk_gate_lsu_out_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].lsu_instance/clk_gate_lsu_out_reg/ENCLK = net7047 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[14]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[14]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[14]/EN = n380 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[14]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[14]/ENCLK = net7302 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[13]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[13]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[13]/EN = n248 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[13]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[13]/ENCLK = net7307 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[12]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[12]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[12]/EN = n234 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[12]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[12]/ENCLK = net7312 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[11]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[11]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[11]/EN = n235 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[11]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[11]/ENCLK = net7317 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[10]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[10]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[10]/EN = n236 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[10]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[10]/ENCLK = net7322 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[9]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[9]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[9]/EN = n237 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[9]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[9]/ENCLK = net7327 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[8]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[8]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[8]/EN = n238 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[8]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[8]/ENCLK = net7332 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[7]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[7]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[7]/EN = n239 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[7]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[7]/ENCLK = net7337 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[6]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[6]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[6]/EN = n240 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[6]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[6]/ENCLK = net7342 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[5]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[5]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[5]/EN = n241 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[5]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[5]/ENCLK = net7347 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[4]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[4]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[4]/EN = n242 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[4]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[4]/ENCLK = net7352 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[3]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[3]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[3]/EN = n243 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[3]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[3]/ENCLK = net7357 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[2]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[2]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[2]/EN = n244 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[2]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[2]/ENCLK = net7362 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[1]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[1]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[1]/EN = n245 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[1]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[1]/ENCLK = net7367 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[0]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[0]/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[0]/EN = n246 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[0]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[0]/ENCLK = net7372 
+
+ Clock Gating Bank : cores[0].core_instance/threads[0].register_instance/clk_gate_rs_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_rs_reg/CLK = clk 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_rs_reg/EN = n247 
+         cores[0].core_instance/threads[0].register_instance/clk_gate_rs_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[0].register_instance/clk_gate_rs_reg/ENCLK = net7377 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].alu_instance/clk_gate_alu_out_reg_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].alu_instance/clk_gate_alu_out_reg_reg/CLK = clk 
+         cores[0].core_instance/threads[1].alu_instance/clk_gate_alu_out_reg_reg/EN = n656 
+         cores[0].core_instance/threads[1].alu_instance/clk_gate_alu_out_reg_reg/TE = n655 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].alu_instance/clk_gate_alu_out_reg_reg/ENCLK = net7064 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].lsu_instance/clk_gate_mem_write_data_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].lsu_instance/clk_gate_mem_write_data_reg/CLK = clk 
+         cores[0].core_instance/threads[1].lsu_instance/clk_gate_mem_write_data_reg/EN = n70 
+         cores[0].core_instance/threads[1].lsu_instance/clk_gate_mem_write_data_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].lsu_instance/clk_gate_mem_write_data_reg/ENCLK = net7036 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].lsu_instance/clk_gate_mem_read_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].lsu_instance/clk_gate_mem_read_address_reg/CLK = clk 
+         cores[0].core_instance/threads[1].lsu_instance/clk_gate_mem_read_address_reg/EN = n68 
+         cores[0].core_instance/threads[1].lsu_instance/clk_gate_mem_read_address_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].lsu_instance/clk_gate_mem_read_address_reg/ENCLK = net7042 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].lsu_instance/clk_gate_lsu_out_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].lsu_instance/clk_gate_lsu_out_reg/CLK = clk 
+         cores[0].core_instance/threads[1].lsu_instance/clk_gate_lsu_out_reg/EN = n69 
+         cores[0].core_instance/threads[1].lsu_instance/clk_gate_lsu_out_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].lsu_instance/clk_gate_lsu_out_reg/ENCLK = net7047 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[14]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[14]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[14]/EN = n377 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[14]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[14]/ENCLK = net7204 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[13]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[13]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[13]/EN = n249 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[13]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[13]/ENCLK = net7209 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[12]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[12]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[12]/EN = n235 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[12]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[12]/ENCLK = net7214 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[11]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[11]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[11]/EN = n236 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[11]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[11]/ENCLK = net7219 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[10]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[10]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[10]/EN = n237 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[10]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[10]/ENCLK = net7224 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[9]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[9]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[9]/EN = n238 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[9]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[9]/ENCLK = net7229 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[8]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[8]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[8]/EN = n239 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[8]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[8]/ENCLK = net7234 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[7]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[7]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[7]/EN = n240 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[7]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[7]/ENCLK = net7239 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[6]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[6]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[6]/EN = n241 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[6]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[6]/ENCLK = net7244 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[5]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[5]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[5]/EN = n242 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[5]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[5]/ENCLK = net7249 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[4]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[4]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[4]/EN = n243 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[4]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[4]/ENCLK = net7254 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[3]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[3]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[3]/EN = n244 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[3]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[3]/ENCLK = net7259 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[2]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[2]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[2]/EN = n245 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[2]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[2]/ENCLK = net7264 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[1]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[1]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[1]/EN = n246 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[1]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[1]/ENCLK = net7269 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[0]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[0]/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[0]/EN = n247 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[0]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[0]/ENCLK = net7274 
+
+ Clock Gating Bank : cores[0].core_instance/threads[1].register_instance/clk_gate_rs_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_rs_reg/CLK = clk 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_rs_reg/EN = n248 
+         cores[0].core_instance/threads[1].register_instance/clk_gate_rs_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[1].register_instance/clk_gate_rs_reg/ENCLK = net7279 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].alu_instance/clk_gate_alu_out_reg_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].alu_instance/clk_gate_alu_out_reg_reg/CLK = clk 
+         cores[0].core_instance/threads[2].alu_instance/clk_gate_alu_out_reg_reg/EN = n626 
+         cores[0].core_instance/threads[2].alu_instance/clk_gate_alu_out_reg_reg/TE = n625 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].alu_instance/clk_gate_alu_out_reg_reg/ENCLK = net7064 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].lsu_instance/clk_gate_mem_write_data_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].lsu_instance/clk_gate_mem_write_data_reg/CLK = clk 
+         cores[0].core_instance/threads[2].lsu_instance/clk_gate_mem_write_data_reg/EN = n69 
+         cores[0].core_instance/threads[2].lsu_instance/clk_gate_mem_write_data_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].lsu_instance/clk_gate_mem_write_data_reg/ENCLK = net7036 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].lsu_instance/clk_gate_mem_read_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].lsu_instance/clk_gate_mem_read_address_reg/CLK = clk 
+         cores[0].core_instance/threads[2].lsu_instance/clk_gate_mem_read_address_reg/EN = n67 
+         cores[0].core_instance/threads[2].lsu_instance/clk_gate_mem_read_address_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].lsu_instance/clk_gate_mem_read_address_reg/ENCLK = net7042 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].lsu_instance/clk_gate_lsu_out_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].lsu_instance/clk_gate_lsu_out_reg/CLK = clk 
+         cores[0].core_instance/threads[2].lsu_instance/clk_gate_lsu_out_reg/EN = n68 
+         cores[0].core_instance/threads[2].lsu_instance/clk_gate_lsu_out_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].lsu_instance/clk_gate_lsu_out_reg/ENCLK = net7047 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[14]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[14]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[14]/EN = n379 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[14]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[14]/ENCLK = net7106 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[13]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[13]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[13]/EN = n249 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[13]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[13]/ENCLK = net7111 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[12]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[12]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[12]/EN = n235 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[12]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[12]/ENCLK = net7116 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[11]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[11]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[11]/EN = n236 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[11]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[11]/ENCLK = net7121 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[10]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[10]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[10]/EN = n237 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[10]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[10]/ENCLK = net7126 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[9]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[9]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[9]/EN = n238 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[9]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[9]/ENCLK = net7131 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[8]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[8]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[8]/EN = n239 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[8]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[8]/ENCLK = net7136 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[7]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[7]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[7]/EN = n240 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[7]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[7]/ENCLK = net7141 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[6]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[6]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[6]/EN = n241 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[6]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[6]/ENCLK = net7146 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[5]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[5]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[5]/EN = n242 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[5]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[5]/ENCLK = net7151 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[4]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[4]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[4]/EN = n243 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[4]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[4]/ENCLK = net7156 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[3]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[3]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[3]/EN = n244 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[3]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[3]/ENCLK = net7161 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[2]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[2]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[2]/EN = n245 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[2]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[2]/ENCLK = net7166 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[1]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[1]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[1]/EN = n246 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[1]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[1]/ENCLK = net7171 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[0]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[0]/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[0]/EN = n247 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[0]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[0]/ENCLK = net7176 
+
+ Clock Gating Bank : cores[0].core_instance/threads[2].register_instance/clk_gate_rs_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_rs_reg/CLK = clk 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_rs_reg/EN = n248 
+         cores[0].core_instance/threads[2].register_instance/clk_gate_rs_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[2].register_instance/clk_gate_rs_reg/ENCLK = net7181 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].alu_instance/clk_gate_alu_out_reg_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].alu_instance/clk_gate_alu_out_reg_reg/CLK = clk 
+         cores[0].core_instance/threads[3].alu_instance/clk_gate_alu_out_reg_reg/EN = n632 
+         cores[0].core_instance/threads[3].alu_instance/clk_gate_alu_out_reg_reg/TE = n631 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].alu_instance/clk_gate_alu_out_reg_reg/ENCLK = net7064 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].lsu_instance/clk_gate_mem_write_data_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].lsu_instance/clk_gate_mem_write_data_reg/CLK = clk 
+         cores[0].core_instance/threads[3].lsu_instance/clk_gate_mem_write_data_reg/EN = n70 
+         cores[0].core_instance/threads[3].lsu_instance/clk_gate_mem_write_data_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].lsu_instance/clk_gate_mem_write_data_reg/ENCLK = net7036 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].lsu_instance/clk_gate_mem_read_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].lsu_instance/clk_gate_mem_read_address_reg/CLK = clk 
+         cores[0].core_instance/threads[3].lsu_instance/clk_gate_mem_read_address_reg/EN = n68 
+         cores[0].core_instance/threads[3].lsu_instance/clk_gate_mem_read_address_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].lsu_instance/clk_gate_mem_read_address_reg/ENCLK = net7042 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].lsu_instance/clk_gate_lsu_out_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].lsu_instance/clk_gate_lsu_out_reg/CLK = clk 
+         cores[0].core_instance/threads[3].lsu_instance/clk_gate_lsu_out_reg/EN = n69 
+         cores[0].core_instance/threads[3].lsu_instance/clk_gate_lsu_out_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].lsu_instance/clk_gate_lsu_out_reg/ENCLK = net7047 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[14]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[14]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[14]/EN = n379 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[14]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[14]/ENCLK = net6944 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[13]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[13]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[13]/EN = n250 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[13]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[13]/ENCLK = net6949 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[12]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[12]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[12]/EN = n236 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[12]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[12]/ENCLK = net6954 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[11]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[11]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[11]/EN = n237 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[11]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[11]/ENCLK = net6959 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[10]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[10]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[10]/EN = n238 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[10]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[10]/ENCLK = net6964 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[9]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[9]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[9]/EN = n239 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[9]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[9]/ENCLK = net6969 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[8]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[8]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[8]/EN = n240 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[8]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[8]/ENCLK = net6974 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[7]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[7]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[7]/EN = n241 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[7]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[7]/ENCLK = net6979 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[6]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[6]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[6]/EN = n242 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[6]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[6]/ENCLK = net6984 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[5]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[5]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[5]/EN = n243 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[5]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[5]/ENCLK = net6989 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[4]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[4]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[4]/EN = n244 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[4]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[4]/ENCLK = net6994 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[3]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[3]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[3]/EN = n245 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[3]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[3]/ENCLK = net6999 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[2]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[2]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[2]/EN = n246 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[2]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[2]/ENCLK = net7004 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[1]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[1]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[1]/EN = n247 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[1]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[1]/ENCLK = net7009 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[0]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[0]/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[0]/EN = n248 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[0]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[0]/ENCLK = net7014 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].register_instance/clk_gate_rs_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_rs_reg/CLK = clk 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_rs_reg/EN = n249 
+         cores[0].core_instance/threads[3].register_instance/clk_gate_rs_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].register_instance/clk_gate_rs_reg/ENCLK = net7019 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].pc_instance/clk_gate_nzp_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].pc_instance/clk_gate_nzp_reg/CLK = clk 
+         cores[0].core_instance/threads[3].pc_instance/clk_gate_nzp_reg/EN = n11 
+         cores[0].core_instance/threads[3].pc_instance/clk_gate_nzp_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].pc_instance/clk_gate_nzp_reg/ENCLK = net6915 
+
+ Clock Gating Bank : cores[0].core_instance/threads[3].pc_instance/clk_gate_next_pc_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[0].core_instance/threads[3].pc_instance/clk_gate_next_pc_reg/CLK = clk 
+         cores[0].core_instance/threads[3].pc_instance/clk_gate_next_pc_reg/EN = n12 
+         cores[0].core_instance/threads[3].pc_instance/clk_gate_next_pc_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[0].core_instance/threads[3].pc_instance/clk_gate_next_pc_reg/ENCLK = net6921 
+
+ Clock Gating Bank : cores[1].core_instance/fetcher_instance/clk_gate_mem_read_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/fetcher_instance/clk_gate_mem_read_address_reg/CLK = clk 
+         cores[1].core_instance/fetcher_instance/clk_gate_mem_read_address_reg/EN = N34 
+         cores[1].core_instance/fetcher_instance/clk_gate_mem_read_address_reg/TE = n25 
+
+     OUTPUTS :
+         cores[1].core_instance/fetcher_instance/clk_gate_mem_read_address_reg/ENCLK = net7439 
+
+ Clock Gating Bank : cores[1].core_instance/fetcher_instance/clk_gate_instruction_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/fetcher_instance/clk_gate_instruction_reg/CLK = clk 
+         cores[1].core_instance/fetcher_instance/clk_gate_instruction_reg/EN = N43 
+         cores[1].core_instance/fetcher_instance/clk_gate_instruction_reg/TE = n25 
+
+     OUTPUTS :
+         cores[1].core_instance/fetcher_instance/clk_gate_instruction_reg/ENCLK = net7445 
+
+ Clock Gating Bank : cores[1].core_instance/fetcher_instance/clk_gate_fetcher_state_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/fetcher_instance/clk_gate_fetcher_state_reg/CLK = clk 
+         cores[1].core_instance/fetcher_instance/clk_gate_fetcher_state_reg/EN = N29 
+         cores[1].core_instance/fetcher_instance/clk_gate_fetcher_state_reg/TE = n25 
+
+     OUTPUTS :
+         cores[1].core_instance/fetcher_instance/clk_gate_fetcher_state_reg/ENCLK = net7450 
+
+ Clock Gating Bank : cores[1].core_instance/decoder_instance/clk_gate_decoded_pc_mux_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/decoder_instance/clk_gate_decoded_pc_mux_reg/CLK = clk 
+         cores[1].core_instance/decoder_instance/clk_gate_decoded_pc_mux_reg/EN = N68 
+         cores[1].core_instance/decoder_instance/clk_gate_decoded_pc_mux_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/decoder_instance/clk_gate_decoded_pc_mux_reg/ENCLK = net7420 
+
+ Clock Gating Bank : cores[1].core_instance/scheduler_instance/clk_gate_current_pc_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/scheduler_instance/clk_gate_current_pc_reg/CLK = clk 
+         cores[1].core_instance/scheduler_instance/clk_gate_current_pc_reg/EN = N71 
+         cores[1].core_instance/scheduler_instance/clk_gate_current_pc_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/scheduler_instance/clk_gate_current_pc_reg/ENCLK = net7397 
+
+ Clock Gating Bank : cores[1].core_instance/scheduler_instance/clk_gate_core_state_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/scheduler_instance/clk_gate_core_state_reg/CLK = clk 
+         cores[1].core_instance/scheduler_instance/clk_gate_core_state_reg/EN = N80 
+         cores[1].core_instance/scheduler_instance/clk_gate_core_state_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/scheduler_instance/clk_gate_core_state_reg/ENCLK = net7403 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].alu_instance/clk_gate_alu_out_reg_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].alu_instance/clk_gate_alu_out_reg_reg/CLK = clk 
+         cores[1].core_instance/threads[0].alu_instance/clk_gate_alu_out_reg_reg/EN = n630 
+         cores[1].core_instance/threads[0].alu_instance/clk_gate_alu_out_reg_reg/TE = n629 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].alu_instance/clk_gate_alu_out_reg_reg/ENCLK = net7064 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].lsu_instance/clk_gate_mem_write_data_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].lsu_instance/clk_gate_mem_write_data_reg/CLK = clk 
+         cores[1].core_instance/threads[0].lsu_instance/clk_gate_mem_write_data_reg/EN = n68 
+         cores[1].core_instance/threads[0].lsu_instance/clk_gate_mem_write_data_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].lsu_instance/clk_gate_mem_write_data_reg/ENCLK = net7036 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].lsu_instance/clk_gate_mem_read_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].lsu_instance/clk_gate_mem_read_address_reg/CLK = clk 
+         cores[1].core_instance/threads[0].lsu_instance/clk_gate_mem_read_address_reg/EN = n66 
+         cores[1].core_instance/threads[0].lsu_instance/clk_gate_mem_read_address_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].lsu_instance/clk_gate_mem_read_address_reg/ENCLK = net7042 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].lsu_instance/clk_gate_lsu_out_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].lsu_instance/clk_gate_lsu_out_reg/CLK = clk 
+         cores[1].core_instance/threads[0].lsu_instance/clk_gate_lsu_out_reg/EN = n67 
+         cores[1].core_instance/threads[0].lsu_instance/clk_gate_lsu_out_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].lsu_instance/clk_gate_lsu_out_reg/ENCLK = net7047 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[14]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[14]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[14]/EN = reset 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[14]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[14]/ENCLK = net7302 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[13]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[13]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[13]/EN = n379 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[13]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[13]/ENCLK = net7307 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[12]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[12]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[12]/EN = n393 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[12]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[12]/ENCLK = net7312 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[11]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[11]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[11]/EN = n392 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[11]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[11]/ENCLK = net7317 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[10]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[10]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[10]/EN = n391 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[10]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[10]/ENCLK = net7322 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[9]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[9]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[9]/EN = n390 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[9]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[9]/ENCLK = net7327 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[8]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[8]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[8]/EN = n389 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[8]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[8]/ENCLK = net7332 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[7]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[7]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[7]/EN = n388 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[7]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[7]/ENCLK = net7337 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[6]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[6]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[6]/EN = n387 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[6]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[6]/ENCLK = net7342 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[5]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[5]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[5]/EN = n386 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[5]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[5]/ENCLK = net7347 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[4]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[4]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[4]/EN = n385 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[4]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[4]/ENCLK = net7352 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[3]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[3]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[3]/EN = n384 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[3]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[3]/ENCLK = net7357 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[2]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[2]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[2]/EN = n383 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[2]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[2]/ENCLK = net7362 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[1]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[1]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[1]/EN = n382 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[1]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[1]/ENCLK = net7367 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[0]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[0]/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[0]/EN = n381 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[0]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[0]/ENCLK = net7372 
+
+ Clock Gating Bank : cores[1].core_instance/threads[0].register_instance/clk_gate_rs_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_rs_reg/CLK = clk 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_rs_reg/EN = n380 
+         cores[1].core_instance/threads[0].register_instance/clk_gate_rs_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[0].register_instance/clk_gate_rs_reg/ENCLK = net7377 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].alu_instance/clk_gate_alu_out_reg_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].alu_instance/clk_gate_alu_out_reg_reg/CLK = clk 
+         cores[1].core_instance/threads[1].alu_instance/clk_gate_alu_out_reg_reg/EN = n629 
+         cores[1].core_instance/threads[1].alu_instance/clk_gate_alu_out_reg_reg/TE = n628 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].alu_instance/clk_gate_alu_out_reg_reg/ENCLK = net7064 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].lsu_instance/clk_gate_mem_write_data_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].lsu_instance/clk_gate_mem_write_data_reg/CLK = clk 
+         cores[1].core_instance/threads[1].lsu_instance/clk_gate_mem_write_data_reg/EN = n68 
+         cores[1].core_instance/threads[1].lsu_instance/clk_gate_mem_write_data_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].lsu_instance/clk_gate_mem_write_data_reg/ENCLK = net7036 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].lsu_instance/clk_gate_mem_read_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].lsu_instance/clk_gate_mem_read_address_reg/CLK = clk 
+         cores[1].core_instance/threads[1].lsu_instance/clk_gate_mem_read_address_reg/EN = n66 
+         cores[1].core_instance/threads[1].lsu_instance/clk_gate_mem_read_address_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].lsu_instance/clk_gate_mem_read_address_reg/ENCLK = net7042 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].lsu_instance/clk_gate_lsu_out_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].lsu_instance/clk_gate_lsu_out_reg/CLK = clk 
+         cores[1].core_instance/threads[1].lsu_instance/clk_gate_lsu_out_reg/EN = n67 
+         cores[1].core_instance/threads[1].lsu_instance/clk_gate_lsu_out_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].lsu_instance/clk_gate_lsu_out_reg/ENCLK = net7047 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[14]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[14]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[14]/EN = reset 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[14]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[14]/ENCLK = net7204 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[13]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[13]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[13]/EN = n376 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[13]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[13]/ENCLK = net7209 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[12]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[12]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[12]/EN = n390 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[12]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[12]/ENCLK = net7214 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[11]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[11]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[11]/EN = n389 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[11]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[11]/ENCLK = net7219 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[10]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[10]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[10]/EN = n388 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[10]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[10]/ENCLK = net7224 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[9]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[9]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[9]/EN = n387 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[9]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[9]/ENCLK = net7229 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[8]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[8]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[8]/EN = n386 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[8]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[8]/ENCLK = net7234 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[7]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[7]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[7]/EN = n385 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[7]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[7]/ENCLK = net7239 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[6]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[6]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[6]/EN = n384 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[6]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[6]/ENCLK = net7244 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[5]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[5]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[5]/EN = n383 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[5]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[5]/ENCLK = net7249 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[4]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[4]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[4]/EN = n382 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[4]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[4]/ENCLK = net7254 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[3]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[3]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[3]/EN = n381 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[3]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[3]/ENCLK = net7259 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[2]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[2]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[2]/EN = n380 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[2]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[2]/ENCLK = net7264 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[1]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[1]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[1]/EN = n379 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[1]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[1]/ENCLK = net7269 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[0]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[0]/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[0]/EN = n378 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[0]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[0]/ENCLK = net7274 
+
+ Clock Gating Bank : cores[1].core_instance/threads[1].register_instance/clk_gate_rs_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_rs_reg/CLK = clk 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_rs_reg/EN = n377 
+         cores[1].core_instance/threads[1].register_instance/clk_gate_rs_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[1].register_instance/clk_gate_rs_reg/ENCLK = net7279 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].alu_instance/clk_gate_alu_out_reg_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].alu_instance/clk_gate_alu_out_reg_reg/CLK = clk 
+         cores[1].core_instance/threads[2].alu_instance/clk_gate_alu_out_reg_reg/EN = n638 
+         cores[1].core_instance/threads[2].alu_instance/clk_gate_alu_out_reg_reg/TE = n637 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].alu_instance/clk_gate_alu_out_reg_reg/ENCLK = net7064 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].lsu_instance/clk_gate_mem_write_data_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].lsu_instance/clk_gate_mem_write_data_reg/CLK = clk 
+         cores[1].core_instance/threads[2].lsu_instance/clk_gate_mem_write_data_reg/EN = n68 
+         cores[1].core_instance/threads[2].lsu_instance/clk_gate_mem_write_data_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].lsu_instance/clk_gate_mem_write_data_reg/ENCLK = net7036 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].lsu_instance/clk_gate_mem_read_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].lsu_instance/clk_gate_mem_read_address_reg/CLK = clk 
+         cores[1].core_instance/threads[2].lsu_instance/clk_gate_mem_read_address_reg/EN = n66 
+         cores[1].core_instance/threads[2].lsu_instance/clk_gate_mem_read_address_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].lsu_instance/clk_gate_mem_read_address_reg/ENCLK = net7042 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].lsu_instance/clk_gate_lsu_out_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].lsu_instance/clk_gate_lsu_out_reg/CLK = clk 
+         cores[1].core_instance/threads[2].lsu_instance/clk_gate_lsu_out_reg/EN = n67 
+         cores[1].core_instance/threads[2].lsu_instance/clk_gate_lsu_out_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].lsu_instance/clk_gate_lsu_out_reg/ENCLK = net7047 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[14]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[14]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[14]/EN = n377 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[14]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[14]/ENCLK = net7106 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[13]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[13]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[13]/EN = n378 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[13]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[13]/ENCLK = net7111 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[12]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[12]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[12]/EN = n392 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[12]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[12]/ENCLK = net7116 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[11]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[11]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[11]/EN = n391 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[11]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[11]/ENCLK = net7121 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[10]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[10]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[10]/EN = n390 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[10]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[10]/ENCLK = net7126 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[9]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[9]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[9]/EN = n389 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[9]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[9]/ENCLK = net7131 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[8]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[8]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[8]/EN = n388 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[8]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[8]/ENCLK = net7136 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[7]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[7]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[7]/EN = n387 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[7]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[7]/ENCLK = net7141 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[6]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[6]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[6]/EN = n386 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[6]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[6]/ENCLK = net7146 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[5]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[5]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[5]/EN = n385 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[5]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[5]/ENCLK = net7151 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[4]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[4]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[4]/EN = n384 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[4]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[4]/ENCLK = net7156 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[3]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[3]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[3]/EN = n383 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[3]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[3]/ENCLK = net7161 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[2]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[2]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[2]/EN = n382 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[2]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[2]/ENCLK = net7166 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[1]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[1]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[1]/EN = n381 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[1]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[1]/ENCLK = net7171 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[0]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[0]/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[0]/EN = n380 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[0]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[0]/ENCLK = net7176 
+
+ Clock Gating Bank : cores[1].core_instance/threads[2].register_instance/clk_gate_rs_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_rs_reg/CLK = clk 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_rs_reg/EN = n379 
+         cores[1].core_instance/threads[2].register_instance/clk_gate_rs_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[2].register_instance/clk_gate_rs_reg/ENCLK = net7181 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].alu_instance/clk_gate_alu_out_reg_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].alu_instance/clk_gate_alu_out_reg_reg/CLK = clk 
+         cores[1].core_instance/threads[3].alu_instance/clk_gate_alu_out_reg_reg/EN = n634 
+         cores[1].core_instance/threads[3].alu_instance/clk_gate_alu_out_reg_reg/TE = n633 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].alu_instance/clk_gate_alu_out_reg_reg/ENCLK = net7064 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].lsu_instance/clk_gate_mem_write_data_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].lsu_instance/clk_gate_mem_write_data_reg/CLK = clk 
+         cores[1].core_instance/threads[3].lsu_instance/clk_gate_mem_write_data_reg/EN = n68 
+         cores[1].core_instance/threads[3].lsu_instance/clk_gate_mem_write_data_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].lsu_instance/clk_gate_mem_write_data_reg/ENCLK = net7036 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].lsu_instance/clk_gate_mem_read_address_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].lsu_instance/clk_gate_mem_read_address_reg/CLK = clk 
+         cores[1].core_instance/threads[3].lsu_instance/clk_gate_mem_read_address_reg/EN = n66 
+         cores[1].core_instance/threads[3].lsu_instance/clk_gate_mem_read_address_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].lsu_instance/clk_gate_mem_read_address_reg/ENCLK = net7042 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].lsu_instance/clk_gate_lsu_out_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].lsu_instance/clk_gate_lsu_out_reg/CLK = clk 
+         cores[1].core_instance/threads[3].lsu_instance/clk_gate_lsu_out_reg/EN = n67 
+         cores[1].core_instance/threads[3].lsu_instance/clk_gate_lsu_out_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].lsu_instance/clk_gate_lsu_out_reg/ENCLK = net7047 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[14]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[14]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[14]/EN = n377 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[14]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[14]/ENCLK = net6944 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[13]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[13]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[13]/EN = n378 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[13]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[13]/ENCLK = net6949 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[12]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[12]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[12]/EN = n392 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[12]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[12]/ENCLK = net6954 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[11]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[11]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[11]/EN = n391 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[11]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[11]/ENCLK = net6959 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[10]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[10]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[10]/EN = n390 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[10]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[10]/ENCLK = net6964 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[9]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[9]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[9]/EN = n389 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[9]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[9]/ENCLK = net6969 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[8]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[8]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[8]/EN = n388 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[8]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[8]/ENCLK = net6974 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[7]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[7]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[7]/EN = n387 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[7]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[7]/ENCLK = net6979 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[6]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[6]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[6]/EN = n386 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[6]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[6]/ENCLK = net6984 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[5]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[5]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[5]/EN = n385 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[5]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[5]/ENCLK = net6989 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[4]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[4]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[4]/EN = n384 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[4]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[4]/ENCLK = net6994 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[3]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[3]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[3]/EN = n383 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[3]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[3]/ENCLK = net6999 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[2]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[2]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[2]/EN = n382 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[2]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[2]/ENCLK = net7004 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[1]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[1]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[1]/EN = n381 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[1]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[1]/ENCLK = net7009 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[0]
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[0]/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[0]/EN = n380 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[0]/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[0]/ENCLK = net7014 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].register_instance/clk_gate_rs_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_rs_reg/CLK = clk 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_rs_reg/EN = n379 
+         cores[1].core_instance/threads[3].register_instance/clk_gate_rs_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].register_instance/clk_gate_rs_reg/ENCLK = net7019 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].pc_instance/clk_gate_nzp_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].pc_instance/clk_gate_nzp_reg/CLK = clk 
+         cores[1].core_instance/threads[3].pc_instance/clk_gate_nzp_reg/EN = n52 
+         cores[1].core_instance/threads[3].pc_instance/clk_gate_nzp_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].pc_instance/clk_gate_nzp_reg/ENCLK = net6915 
+
+ Clock Gating Bank : cores[1].core_instance/threads[3].pc_instance/clk_gate_next_pc_reg
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         cores[1].core_instance/threads[3].pc_instance/clk_gate_next_pc_reg/CLK = clk 
+         cores[1].core_instance/threads[3].pc_instance/clk_gate_next_pc_reg/EN = n51 
+         cores[1].core_instance/threads[3].pc_instance/clk_gate_next_pc_reg/TE = *Logic0* 
+
+     OUTPUTS :
+         cores[1].core_instance/threads[3].pc_instance/clk_gate_next_pc_reg/ENCLK = net6921 
+--------------------------------------------------------------------------------
+
+
+                             Clock Gating Summary
+          ------------------------------------------------------------
+          |    Number of Clock gating elements    |      211         |
+          |                                       |                  |
+          |    Number of Gated registers          |  1931 (85.78%)   |
+          |                                       |                  |
+          |    Number of Ungated registers        |   320 (14.22%)   |
+          |                                       |                  |
+          |    Total number of registers          |     2251         |
+          ------------------------------------------------------------
+
+
+
+                             Clock Gating Report by Origin
+          +-------------------------------------------------+------------------+
+          |                                                 |    Actual (%)    |
+          |                                                 |    Count         |
+          +-------------------------------------------------+------------------+
+          |  Number of tool-inserted clock gating elements  |   211 (100.00%)  |
+          |                                                 |                  |
+          |  Number of pre-existing clock gating elements   |     0 (0.00%)    |
+          |                                                 |                  |
+          |  Number of gated registers                      |  1931 (85.78%)   |
+          |                                                 |                  |
+          |  Number of tool-inserted gated registers        |  1931 (85.78%)   |
+          |                                                 |                  |
+          |  Number of pre-existing gated registers         |     0 (0.00%)    |
+          |                                                 |                  |
+          |  Number of ungated registers                    |   320 (14.22%)   |
+          |                                                 |                  |
+          |  Number of registers                            |     2251         |
+          +-------------------------------------------------+------------------+
+
+
+
+1

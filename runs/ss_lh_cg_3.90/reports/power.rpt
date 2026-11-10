@@ -1,0 +1,580 @@
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Invalid switching activity annotation on constant net(s) is being ignored. (PWR-421)
+Warning: The derived toggle rate value (0.512820) for the clock net 'clk' conflicts with the annotated value (0.199959). Using the annotated value. (PWR-12)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -hier
+        -analysis_effort low
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Mon Nov  9 18:02:00 2026
+****************************************
+
+
+Library(s) Used:
+
+    saed32lvt_ss0p75v125c (File: /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75v125c.db)
+    saed32hvt_ss0p75v125c (File: /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p75v125c.db)
+
+
+Operating Conditions: ss0p75v125c   Library: saed32rvt_ss0p75v125c
+Wire Load Model Mode: enclosed
+
+Design        Wire Load Model            Library
+------------------------------------------------
+gpu                    70000             saed32rvt_ss0p75v125c
+dcr                    ForQA             saed32rvt_ss0p75v125c
+controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                       8000              saed32rvt_ss0p75v125c
+controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0
+                       8000              saed32rvt_ss0p75v125c
+dispatch_NUM_CORES2_THREADS_PER_BLOCK4
+                       8000              saed32rvt_ss0p75v125c
+core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+                       35000             saed32rvt_ss0p75v125c
+core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                       35000             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_dcr
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_0
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_24
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_0
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_3
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_0
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_4
+                       ForQA             saed32rvt_ss0p75v125c
+fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_1
+                       8000              saed32rvt_ss0p75v125c
+decoder_1              8000              saed32rvt_ss0p75v125c
+scheduler_THREADS_PER_BLOCK4_1
+                       ForQA             saed32rvt_ss0p75v125c
+alu_7                  8000              saed32rvt_ss0p75v125c
+lsu_7                  8000              saed32rvt_ss0p75v125c
+registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1
+                       8000              saed32rvt_ss0p75v125c
+alu_6                  8000              saed32rvt_ss0p75v125c
+lsu_6                  8000              saed32rvt_ss0p75v125c
+registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_1
+                       8000              saed32rvt_ss0p75v125c
+alu_5                  8000              saed32rvt_ss0p75v125c
+lsu_5                  8000              saed32rvt_ss0p75v125c
+registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_1
+                       8000              saed32rvt_ss0p75v125c
+alu_4                  8000              saed32rvt_ss0p75v125c
+lsu_4                  8000              saed32rvt_ss0p75v125c
+registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1
+                       8000              saed32rvt_ss0p75v125c
+pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4
+                       8000              saed32rvt_ss0p75v125c
+fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0
+                       8000              saed32rvt_ss0p75v125c
+decoder_0              8000              saed32rvt_ss0p75v125c
+scheduler_THREADS_PER_BLOCK4_0
+                       ForQA             saed32rvt_ss0p75v125c
+alu_3                  8000              saed32rvt_ss0p75v125c
+lsu_3                  8000              saed32rvt_ss0p75v125c
+registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0
+                       8000              saed32rvt_ss0p75v125c
+alu_2                  8000              saed32rvt_ss0p75v125c
+lsu_2                  8000              saed32rvt_ss0p75v125c
+registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0
+                       8000              saed32rvt_ss0p75v125c
+alu_1                  8000              saed32rvt_ss0p75v125c
+lsu_1                  8000              saed32rvt_ss0p75v125c
+registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0
+                       8000              saed32rvt_ss0p75v125c
+alu_0                  8000              saed32rvt_ss0p75v125c
+lsu_0                  8000              saed32rvt_ss0p75v125c
+registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0
+                       8000              saed32rvt_ss0p75v125c
+pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0
+                       8000              saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_5
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_4
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_decoder_0_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_3
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_2
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_alu_0_7
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_23
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_22
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_32
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_alu_0_6
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_32
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_32
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_32
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_31
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_3
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_2
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_decoder_0_0
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_16
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_16
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_0
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_2
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_3
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_4
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_5
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_6
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_7
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_8
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_9
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_10
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_11
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_12
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_13
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_14
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_15
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_17
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_18
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_19
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_20
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_21
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_22
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_23
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_24
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_25
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_26
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_27
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_28
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_29
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_30
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_2
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_0
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_3
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_4
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_5
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_6
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_7
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_8
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_9
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_10
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_11
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_12
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_13
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_14
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_15
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_16
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_17
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_18
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_19
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_20
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_lsu_0_21
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_2
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_3
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_4
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_5
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_6
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_7
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_8
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_9
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_10
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_11
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_12
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_13
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_14
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_15
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_17
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_18
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_19
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_20
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_21
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_22
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_23
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_24
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_25
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_26
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_27
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_28
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_29
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_30
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_31
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_2
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_0
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_3
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_2
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_3
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_4
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_5
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_6
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_7
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_8
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_9
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_10
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_11
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_12
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_13
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_14
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_15
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_16
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_17
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_18
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_19
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_20
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_21
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_22
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_23
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_2
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_3
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_4
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_5
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_6
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_7
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_8
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_9
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_10
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_11
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_12
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_13
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_14
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_15
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_16
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_17
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_18
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_19
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_20
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_21
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_22
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_23
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_24
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_25
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_26
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_27
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_28
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_29
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_30
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_31
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_2
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_alu_0_0
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_alu_0_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_alu_0_2
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_alu_0_3
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_alu_0_4
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_alu_0_5
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_2
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_3
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_4
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_5
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_6
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_7
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_8
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_9
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_10
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_11
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_12
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_13
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_14
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_15
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_16
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_17
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_18
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_19
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_20
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_21
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_22
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_23
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_24
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_25
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_26
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_27
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_28
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_29
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_30
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_31
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_0
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_1
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_2
+                       ForQA             saed32rvt_ss0p75v125c
+SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_3
+                       ForQA             saed32rvt_ss0p75v125c
+
+
+Global Operating Voltage = 0.75 
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000ff
+    Time Units = 1ns
+    Dynamic Power Units = 1uW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+--------------------------------------------------------------------------------
+                                       Switch   Int      Leak     Total
+Hierarchy                              Power    Power    Power    Power    %
+--------------------------------------------------------------------------------
+gpu                                      20.381  282.892 3.07e+09 3.38e+03 100.0
+  cores[1].core_instance (core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0)
+                                          2.218   30.263 1.04e+09 1.08e+03  31.9
+    threads[3].pc_instance (pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0)
+                                       8.77e-03    0.302 9.89e+06   10.204   0.3
+    threads[3].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0)
+                                          0.383    4.658 8.06e+07   85.619   2.5
+    threads[3].lsu_instance (lsu_0)    8.00e-02    1.972 1.33e+07   15.311   0.5
+    threads[3].alu_instance (alu_0)    8.60e-02    0.304 1.53e+08  153.510   4.5
+    threads[2].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0)
+                                          0.385    4.662 6.97e+07   74.707   2.2
+    threads[2].lsu_instance (lsu_1)    7.96e-02    2.279 1.45e+07   16.815   0.5
+    threads[2].alu_instance (alu_1)    8.67e-02    0.293 1.52e+08  152.424   4.5
+    threads[1].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0)
+                                          0.385    4.687 8.06e+07   85.711   2.5
+    threads[1].lsu_instance (lsu_2)    7.95e-02    2.504 1.41e+07   16.659   0.5
+    threads[1].alu_instance (alu_2)    7.59e-02    0.277 1.51e+08  151.325   4.5
+    threads[0].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0)
+                                          0.383    4.648 8.25e+07   87.499   2.6
+    threads[0].lsu_instance (lsu_3)    8.01e-02    2.517 1.48e+07   17.386   0.5
+    threads[0].alu_instance (alu_3)    8.89e-02    0.333 1.49e+08  149.254   4.4
+    scheduler_instance (scheduler_THREADS_PER_BLOCK4_0)
+                                       3.26e-03    0.264 1.87e+07   18.954   0.6
+    decoder_instance (decoder_0)       3.36e-03    0.155 2.80e+07   28.180   0.8
+    fetcher_instance (fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0)
+                                       7.79e-03    0.408 1.05e+07   10.941   0.3
+  cores[0].core_instance (core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1)
+                                          6.443   48.666 1.09e+09 1.15e+03  33.9
+    threads[3].pc_instance (pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4)
+                                       8.96e-02    0.840 1.02e+07   11.105   0.3
+    threads[3].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1)
+                                          0.817    6.523 8.85e+07   95.801   2.8
+    threads[3].lsu_instance (lsu_4)       0.135    2.154 1.38e+07   16.085   0.5
+    threads[3].alu_instance (alu_4)       0.331    1.764 1.53e+08  154.929   4.6
+    threads[2].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_1)
+                                          0.778    6.446 9.45e+07  101.685   3.0
+    threads[2].lsu_instance (lsu_5)       0.134    2.374 1.35e+07   16.004   0.5
+    threads[2].alu_instance (alu_5)       0.313    1.699 1.49e+08  151.076   4.5
+    threads[1].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_1)
+                                          0.779    6.547 8.34e+07   90.734   2.7
+    threads[1].lsu_instance (lsu_6)       0.129    2.374 1.37e+07   16.252   0.5
+    threads[1].alu_instance (alu_6)       0.295    1.613 1.53e+08  155.283   4.6
+    threads[0].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1)
+                                          0.752    6.488 8.19e+07   89.133   2.6
+    threads[0].lsu_instance (lsu_7)       0.129    2.133 1.46e+07   16.863   0.5
+    threads[0].alu_instance (alu_7)       0.301    1.541 1.58e+08  159.834   4.7
+    scheduler_instance (scheduler_THREADS_PER_BLOCK4_1)
+                                          0.567    2.667 1.93e+07   22.518   0.7
+    decoder_instance (decoder_1)          0.265    0.952 3.07e+07   31.937   0.9
+    fetcher_instance (fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_1)
+                                          0.286    2.259 1.23e+07   14.824   0.4
+  dispatch_instance (dispatch_NUM_CORES2_THREADS_PER_BLOCK4)
+                                          1.999   15.152 9.32e+07  110.388   3.3
+  program_memory_controller (controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0)
+                                          1.298   10.518 3.54e+07   47.190   1.4
+  data_memory_controller (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                          8.164   63.016 6.16e+08  687.633  20.4
+  dcr_instance (dcr)                      0.242    2.654 1.06e+07   13.461   0.4
+1

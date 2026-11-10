@@ -13,4 +13,5 @@ syn/runs/
 runs/**/*.sdf
 runs/**/*.spef
 !runs/lh_2.55_cg/out/gpu.sdf
+!runs/ss_lh_cg_2.90/out/gpu.sdf
 *:Zone.Identifier

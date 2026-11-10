@@ -1,0 +1,23 @@
+17:47:16 synthesizing at 8.00 ns (log: runs/ss_lh_cg_8.00/dc.log)
+17:55:05 synthesizing at 3.90 ns (log: runs/ss_lh_cg_3.90/dc.log)
+17:55:05 synthesizing at 5.25 ns (log: runs/ss_lh_cg_5.25/dc.log)
+17:55:05 synthesizing at 6.65 ns (log: runs/ss_lh_cg_6.65/dc.log)
+period 3.90 ns: PASS
+period 5.25 ns: PASS
+period 6.65 ns: PASS
+18:02:03 synthesizing at 3.20 ns (log: runs/ss_lh_cg_3.20/dc.log)
+18:02:03 synthesizing at 2.85 ns (log: runs/ss_lh_cg_2.85/dc.log)
+18:02:03 synthesizing at 3.55 ns (log: runs/ss_lh_cg_3.55/dc.log)
+  2.85 ns: setup_wns=0.01 tns=0 hold_viol=0 drc_nets=1
+period 2.85 ns: FAIL
+period 3.20 ns: PASS
+period 3.55 ns: PASS
+18:10:37 synthesizing at 2.95 ns (log: runs/ss_lh_cg_2.95/dc.log)
+18:10:37 synthesizing at 3.05 ns (log: runs/ss_lh_cg_3.05/dc.log)
+18:10:37 synthesizing at 3.10 ns (log: runs/ss_lh_cg_3.10/dc.log)
+period 2.95 ns: PASS
+period 3.05 ns: PASS
+period 3.10 ns: PASS
+18:19:13 synthesizing at 2.90 ns (log: runs/ss_lh_cg_2.90/dc.log)
+period 2.90 ns: PASS
+best period: 2.90 ns (344.8 MHz) -> runs/best_ss_lh_cg

@@ -26,10 +26,17 @@ SAED ?= /usr/local/synopsys/pdk/SAED32_EDK/lib
 SAED_VLIB = $(wildcard $(SAED)/stdcell_rvt/verilog/saed32nm.v $(SAED)/stdcell_hvt/verilog/saed32nm_hvt.v $(SAED)/stdcell_lvt/verilog/saed32nm_lvt.v)
 NETLIST ?= syn/runs/best_lh/out/gpu_netlist.v
 
-gls:
+# The cell models are copied through test/saed_xfix.awk (mux X-select rows, see that file)
+GLS_VLIB = $(addprefix build/saed_models/,$(notdir $(SAED_VLIB)))
+
+build/saed_models/%.v: test/saed_xfix.awk
+	mkdir -p build/saed_models
+	awk -f test/saed_xfix.awk $(filter %/$*.v,$(SAED_VLIB)) > $@
+
+gls: $(GLS_VLIB)
 	mkdir -p build
 	iverilog -g2012 -o build/gls.vvp -s tb_gpu -DCLK_PERIOD=$(CLK_PERIOD) $(if $(MATADD),-DMATADD) \
-		$(NETLIST) $(SAED_VLIB) test/tb_gpu.v
+		$(NETLIST) $(GLS_VLIB) test/tb_gpu.v
 	vvp build/gls.vvp +vcd +vcdfile=build/gpu_gls.vcd
 
 compile:

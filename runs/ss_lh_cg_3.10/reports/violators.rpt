@@ -1,0 +1,47 @@
+ 
+****************************************
+Report : constraint
+        -all_violators
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Mon Nov  9 18:17:49 2026
+****************************************
+
+
+Min pulse width constraints
+
+                       Required      Actual
+  Pin                pulse width   pulse width   Slack           Scenario
+--------------------------------------------------------------------------------
+  cores[0].core_lsu_read_data_reg[0]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  cores[0].core_lsu_read_data_reg[14]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  cores[0].core_lsu_read_data_reg[20]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  cores[1].core_lsu_read_data_reg[1]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  cores[1].core_lsu_read_data_reg[5]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  cores[1].core_lsu_read_data_reg[21]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  cores[1].core_lsu_read_data_reg[23]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  lsu_read_address_reg[49]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  lsu_write_address_reg[2]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  lsu_write_address_reg[10]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  lsu_write_address_reg[14]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  lsu_write_address_reg[20]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  lsu_write_address_reg[21]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  lsu_write_address_reg[29]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+  lsu_write_address_reg[31]/CLK(low)
+                     1.6536        1.4500        -0.2036 (VIOLATED)
+
+1
