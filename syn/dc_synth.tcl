@@ -1,10 +1,12 @@
-# Design Compiler baseline synthesis for tiny-gpu (SAED32 RVT, TT 0.78V 25C)
+# Design Compiler baseline synthesis for tiny-gpu (SAED32, worst-case SS 0.75V 125C by default)
 # Run from syn/:  dc_shell -f dc_synth.tcl | tee dc.log
 # Expects ../build/gpu.v from `make compile` and optionally ../build/gpu.saif
 
-set LIB_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_tt0p78v25c.db
-set HVT_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_tt0p78v25c.db
-set LVT_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_tt0p78v25c.db
+# Library corner. Worst case (SS 0.75 V 125 C) per the project spec; override e.g. "set CORNER tt0p78v25c"
+if {![info exists CORNER]} { set CORNER ss0p75v125c }
+set LIB_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_$CORNER.db
+set HVT_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_$CORNER.db
+set LVT_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_$CORNER.db
 set RTL    ../build/gpu.v
 set SAIF   ../build/gpu.saif
 set TOP    gpu
@@ -68,7 +70,7 @@ if {$USE_HVT} {
 set_fix_hold [get_clocks clk]
 
 if {$NO_RVT} {
-    set_dont_use [get_lib_cells saed32rvt_tt0p78v25c/*]
+    set_dont_use [get_lib_cells saed32rvt_$CORNER/*]
 }
 
 # First lib cell from the list that exists and isn't dont_use, as lib/cell
@@ -118,7 +120,7 @@ proc violation_count {} {
 }
 for {set pass 0} {$pass < 3 && [violation_count] > 0} {incr pass} {
     if {$pass == 1 && $USE_HVT} {
-        set_dont_use [get_lib_cells saed32hvt_tt0p78v25c/*X0_HVT]
+        set_dont_use [get_lib_cells saed32hvt_$CORNER/*X0_HVT]
     }
     compile_ultra -incremental -no_autoungroup
 }

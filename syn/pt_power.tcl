@@ -1,14 +1,16 @@
-# PrimeTime timing check, area and power for a DC run (SAED32 TT 0.78V 25C)
+# PrimeTime timing check, area and power for a DC run (SAED32, same corner as synthesis: SS 0.75V 125C by default)
 # Run from syn/:
 #   pt_shell -x "set RUN_DIR runs/best_hvt; set VCD ../build/gpu_gls.vcd" -f pt_power.tcl | tee pt.log
 # RUN_DIR: a sweep.sh run dir (out/gpu_netlist.v, out/gpu.sdc)
 # VCD:     gate-level sim of that netlist at the same clock period (make gls), or an RTL
 #          sim VCD with "set VCD_RTL 1" (PT maps registers/ports, propagates the rest)
 
+# Library corner. Worst case (SS 0.75 V 125 C) per the project spec; override e.g. "set CORNER tt0p78v25c"
+if {![info exists CORNER]} { set CORNER ss0p75v125c }
 set LIB_DIR /usr/local/synopsys/pdk/SAED32_EDK/lib
-set LIBS "$LIB_DIR/stdcell_rvt/db_nldm/saed32rvt_tt0p78v25c.db \
-          $LIB_DIR/stdcell_hvt/db_nldm/saed32hvt_tt0p78v25c.db \
-          $LIB_DIR/stdcell_lvt/db_nldm/saed32lvt_tt0p78v25c.db"
+set LIBS "$LIB_DIR/stdcell_rvt/db_nldm/saed32rvt_$CORNER.db \
+          $LIB_DIR/stdcell_hvt/db_nldm/saed32hvt_$CORNER.db \
+          $LIB_DIR/stdcell_lvt/db_nldm/saed32lvt_$CORNER.db"
 set TOP gpu
 
 if {![info exists RUN_DIR]} { set RUN_DIR runs/best_hvt }

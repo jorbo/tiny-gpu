@@ -15,6 +15,9 @@ HI=${3:-8.0}
 STEP=${4:-0.05}
 # Parallel DC runs per round (one license each): JOBS=3 ./sweep.sh lh
 JOBS=${JOBS:-1}
+# Library corner (default worst case, per the project spec) and clock gating: CG=1 ./sweep.sh lh
+CORNER=${CORNER:-ss0p75v125c}
+CG=${CG:-0}
 
 case $VT in
     rvt) VT_ARGS="set USE_HVT 0; set USE_LVT 0" ;;
@@ -24,15 +27,21 @@ case $VT in
     *)   echo "unknown vt '$VT' (rvt|hvt|lvt|lh)"; exit 1 ;;
 esac
 
+# Run names carry the corner and gating so they never reuse another config's results:
+# ss0p75v125c + CG=1 + lh -> runs/ss_lh_cg_<period>
+NAME=${CORNER:0:2}_$VT
+[ "$CG" = 1 ] && NAME=${NAME}_cg
+VT_ARGS="$VT_ARGS; set CORNER $CORNER; set CLOCK_GATING $CG"
+
 mkdir -p runs
-CSV=runs/sweep_$VT.csv
+CSV=runs/sweep_$NAME.csv
 [ -f "$CSV" ] || echo "period_ns,freq_mhz,setup_wns,tns,hold_viol,drc_nets,cell_area,status" > "$CSV"
 
 # Synthesize at period $1, print PASS or FAIL
 run_period() {
     local p dir qor wns tns hold drc area status
     p=$(printf "%.2f" "$1")
-    dir=runs/${VT}_$p
+    dir=runs/${NAME}_$p
     qor=$dir/reports/qor.rpt
     if [ ! -f "$qor" ]; then
         mkdir -p "$dir"
@@ -75,12 +84,12 @@ while awk -v l="$LO" -v h="$HI" -v s="$STEP" 'BEGIN {exit !(h - l > s + 1e-9)}';
             if (p > l + 1e-9 && p < h - 1e-9) printf "%.2f\n", p
         }}' | sort -un)
     for p in $points; do
-        run_period "$p" > "runs/.status_${VT}_$p" &
+        run_period "$p" > "runs/.status_${NAME}_$p" &
     done
     wait
     for p in $points; do
-        r=$(cat "runs/.status_${VT}_$p")
-        rm -f "runs/.status_${VT}_$p"
+        r=$(cat "runs/.status_${NAME}_$p")
+        rm -f "runs/.status_${NAME}_$p"
         echo "period $p ns: $r"
         if [ "$r" = PASS ] && awk -v p="$p" -v h="$HI" 'BEGIN {exit !(p < h)}'; then
             HI=$p
@@ -95,5 +104,5 @@ while awk -v l="$LO" -v h="$HI" -v s="$STEP" 'BEGIN {exit !(h - l > s + 1e-9)}';
     done
 done
 
-ln -sfn "${VT}_$best" "runs/best_$VT"
-echo "best period: $best ns ($(awk -v p="$best" 'BEGIN {printf "%.1f", 1000 / p}') MHz) -> runs/best_$VT"
+ln -sfn "${NAME}_$best" "runs/best_$NAME"
+echo "best period: $best ns ($(awk -v p="$best" 'BEGIN {printf "%.1f", 1000 / p}') MHz) -> runs/best_$NAME"
