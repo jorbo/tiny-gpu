@@ -8,3 +8,9 @@ gds/**/*.gltf
 results.xml
 .venv
 syn/runs/
+
+# Run outputs: SDF/SPEF regenerate from the netlist; keep only the baseline SDF for GLS
+runs/**/*.sdf
+runs/**/*.spef
+!runs/lh_2.55_cg/out/gpu.sdf
+*:Zone.Identifier

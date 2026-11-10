@@ -1,0 +1,89 @@
+ 
+****************************************
+Report : net fanout
+        -high_fanout
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Sun Nov  8 15:13:38 2026
+****************************************
+
+
+Operating Conditions: tt0p78v25c   Library: saed32rvt_tt0p78v25c
+Wire Load Model Mode: enclosed
+
+Design        Wire Load Model            Library
+------------------------------------------------
+gpu                    70000             saed32rvt_tt0p78v25c
+dcr                    ForQA             saed32rvt_tt0p78v25c
+controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                       16000             saed32rvt_tt0p78v25c
+controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0
+                       8000              saed32rvt_tt0p78v25c
+dispatch_NUM_CORES2_THREADS_PER_BLOCK4
+                       8000              saed32rvt_tt0p78v25c
+core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+                       35000             saed32rvt_tt0p78v25c
+core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                       35000             saed32rvt_tt0p78v25c
+fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_1
+                       8000              saed32rvt_tt0p78v25c
+decoder_1              8000              saed32rvt_tt0p78v25c
+scheduler_THREADS_PER_BLOCK4_1
+                       ForQA             saed32rvt_tt0p78v25c
+alu_7                  8000              saed32rvt_tt0p78v25c
+lsu_7                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1
+                       8000              saed32rvt_tt0p78v25c
+alu_6                  8000              saed32rvt_tt0p78v25c
+lsu_6                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_1
+                       8000              saed32rvt_tt0p78v25c
+alu_5                  8000              saed32rvt_tt0p78v25c
+lsu_5                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_1
+                       8000              saed32rvt_tt0p78v25c
+alu_4                  8000              saed32rvt_tt0p78v25c
+lsu_4                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1
+                       8000              saed32rvt_tt0p78v25c
+pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4
+                       ForQA             saed32rvt_tt0p78v25c
+fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0
+                       8000              saed32rvt_tt0p78v25c
+decoder_0              8000              saed32rvt_tt0p78v25c
+scheduler_THREADS_PER_BLOCK4_0
+                       ForQA             saed32rvt_tt0p78v25c
+alu_3                  8000              saed32rvt_tt0p78v25c
+lsu_3                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0
+                       8000              saed32rvt_tt0p78v25c
+alu_2                  8000              saed32rvt_tt0p78v25c
+lsu_2                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0
+                       8000              saed32rvt_tt0p78v25c
+alu_1                  8000              saed32rvt_tt0p78v25c
+lsu_1                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0
+                       8000              saed32rvt_tt0p78v25c
+alu_0                  8000              saed32rvt_tt0p78v25c
+lsu_0                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0
+                       8000              saed32rvt_tt0p78v25c
+pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0
+                       ForQA             saed32rvt_tt0p78v25c
+
+
+Attributes:
+   dr - drc disabled
+    c - annotated capacitance
+    d - dont_touch
+    i - ideal_net
+    I - ideal_network
+    p - includes pin load
+    r - annotated resistance
+    h - high fanout
+
+Net                 Fanout   Attributes   Capacitance   Driver
+--------------------------------------------------------------------------------
+clk                   2109   dr, h        1001024.19    clk
+1

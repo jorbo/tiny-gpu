@@ -1,0 +1,495 @@
+****************************************
+Report : Averaged Power
+	-hierarchy
+	-levels 3
+Design : gpu
+Version: V-2023.12-SP5-4
+Date   : Sun Nov  8 18:55:09 2026
+****************************************
+
+
+
+                                      Int      Switch   Leak     Total
+Hierarchy                             Power    Power    Power    Power    %
+----------------------------------------------------------------------------------
+gpu                                   1.02e-03 8.22e-05 4.37e-03 5.47e-03 100.0
+  program_memory_controller (controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0)
+                                      2.07e-05 3.02e-06 5.43e-06 2.92e-05   0.5
+    clk_gate_mem_read_address_reg (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_3)
+                                      7.75e-07 2.31e-07 5.63e-07 1.57e-06   0.0
+    clk_gate_controller_state_reg (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_0)
+                                      1.28e-06 5.60e-07 6.11e-07 2.45e-06   0.0
+    clk_gate_consumer_read_data_reg_0 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_1)
+                                      6.27e-07 2.34e-07 5.50e-07 1.41e-06   0.0
+    clk_gate_consumer_read_data_reg (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_2)
+                                      6.27e-07 2.34e-07 5.50e-07 1.41e-06   0.0
+  cores_0__core_instance (core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1)
+                                      2.33e-04 2.97e-05 1.49e-03 1.76e-03  32.1
+    threads_3__register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1)
+                                      3.40e-05 3.59e-06 1.62e-04 1.99e-04   3.6
+      clk_gate_registers_reg_2_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_20)
+                                      5.30e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_rs_reg (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_17)
+                                      6.57e-07 2.93e-07 5.52e-07 1.50e-06   0.0
+      clk_gate_registers_reg_3_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_21)
+                                      5.30e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_4_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_22)
+                                      5.41e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_5_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_23)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_6_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_24)
+                                      5.27e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_10_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_28)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_7_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_25)
+                                      5.27e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_11_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_29)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_8_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_26)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_12_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_30)
+                                      5.18e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_9_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_27)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_13_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_31)
+                                      2.43e-06 1.24e-06 6.77e-07 4.35e-06   0.1
+      clk_gate_registers_reg_0_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_18)
+                                      5.41e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_14_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_32)
+                                      5.16e-07 8.60e-08 5.39e-07 1.14e-06   0.0
+      clk_gate_registers_reg_1_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_19)
+                                      5.30e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+    threads_3__lsu_instance (lsu_4)   1.06e-05 7.13e-07 6.57e-06 1.79e-05   0.3
+      clk_gate_mem_write_data_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_14)
+                                      5.28e-07 9.98e-08 5.40e-07 1.17e-06   0.0
+      clk_gate_mem_read_address_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_13)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_lsu_out_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_12)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+    threads_0__lsu_instance (lsu_7)   1.05e-05 6.86e-07 7.51e-06 1.87e-05   0.3
+      clk_gate_mem_write_data_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_23)
+                                      5.28e-07 9.97e-08 5.40e-07 1.17e-06   0.0
+      clk_gate_mem_read_address_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_22)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_lsu_out_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_21)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+    threads_1__alu_instance (alu_6)   7.78e-06 2.10e-06 2.14e-04 2.24e-04   4.1
+      clk_gate_alu_out_reg_reg (SNPS_CLOCK_GATE_HIGH_alu_0_6)
+                                      6.53e-07 1.43e-07 5.52e-07 1.35e-06   0.0
+    scheduler_instance (scheduler_THREADS_PER_BLOCK4_1)
+                                      9.66e-06 2.42e-06 1.21e-05 2.42e-05   0.4
+      clk_gate_core_state_reg (SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_2)
+                                      1.34e-06 4.22e-07 6.13e-07 2.38e-06   0.0
+      clk_gate_current_pc_reg (SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_3)
+                                      6.44e-07 1.86e-07 5.51e-07 1.38e-06   0.0
+    threads_3__alu_instance (alu_4)   8.73e-06 2.44e-06 2.21e-04 2.32e-04   4.2
+      clk_gate_alu_out_reg_reg (SNPS_CLOCK_GATE_HIGH_alu_0_4)
+                                      6.53e-07 1.40e-07 5.52e-07 1.35e-06   0.0
+    threads_2__register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_1)
+                                      3.36e-05 3.50e-06 1.58e-04 1.95e-04   3.6
+      clk_gate_registers_reg_2_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_20)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_rs_reg (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_17)
+                                      6.57e-07 2.93e-07 5.52e-07 1.50e-06   0.0
+      clk_gate_registers_reg_3_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_21)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_4_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_22)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_5_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_23)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_6_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_24)
+                                      5.33e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_10_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_28)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_7_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_25)
+                                      5.33e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_11_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_29)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_8_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_26)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_12_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_30)
+                                      5.18e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_9_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_27)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_13_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_31)
+                                      2.43e-06 1.24e-06 6.77e-07 4.35e-06   0.1
+      clk_gate_registers_reg_0_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_18)
+                                      5.39e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_14_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_32)
+                                      5.16e-07 8.60e-08 5.39e-07 1.14e-06   0.0
+      clk_gate_registers_reg_1_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_19)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+    threads_0__alu_instance (alu_7)   3.53e-06 6.34e-07 2.10e-04 2.14e-04   3.9
+      clk_gate_alu_out_reg_reg (SNPS_CLOCK_GATE_HIGH_alu_0_7)
+                                      6.53e-07 1.38e-07 5.52e-07 1.34e-06   0.0
+    fetcher_instance (fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_1)
+                                      8.44e-06 9.67e-07 2.00e-06 1.14e-05   0.2
+      clk_gate_fetcher_state_reg (SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_3)
+                                      9.35e-07 1.16e-07 5.78e-07 1.63e-06   0.0
+      clk_gate_instruction_reg (SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_4)
+                                      6.56e-07 2.65e-07 5.52e-07 1.47e-06   0.0
+      clk_gate_mem_read_address_reg (SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_5)
+                                      6.48e-07 1.32e-07 5.52e-07 1.33e-06   0.0
+    threads_3__pc_instance (pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4)
+                                      3.39e-06 5.35e-07 6.13e-06 1.01e-05   0.2
+      clk_gate_next_pc_reg (SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_2)
+                                      6.61e-07 1.94e-07 5.52e-07 1.41e-06   0.0
+      clk_gate_nzp_reg (SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_3)
+                                      5.18e-07 2.22e-08 5.39e-07 1.08e-06   0.0
+    threads_2__alu_instance (alu_5)   8.17e-06 2.20e-06 2.04e-04 2.15e-04   3.9
+      clk_gate_alu_out_reg_reg (SNPS_CLOCK_GATE_HIGH_alu_0_5)
+                                      6.53e-07 1.36e-07 5.52e-07 1.34e-06   0.0
+    decoder_instance (decoder_1)      6.12e-06 1.01e-06 2.01e-05 2.72e-05   0.5
+      clk_gate_decoded_pc_mux_reg (SNPS_CLOCK_GATE_HIGH_decoder_0_1)
+                                      6.53e-07 3.57e-07 5.52e-07 1.56e-06   0.0
+    threads_1__register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_1)
+                                      3.35e-05 3.45e-06 1.36e-04 1.73e-04   3.2
+      clk_gate_registers_reg_2_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_20)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_rs_reg (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_17)
+                                      6.57e-07 2.93e-07 5.52e-07 1.50e-06   0.0
+      clk_gate_registers_reg_3_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_21)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_4_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_22)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_5_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_23)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_6_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_24)
+                                      5.27e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_10_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_28)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_7_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_25)
+                                      5.27e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_11_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_29)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_8_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_26)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_12_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_30)
+                                      5.18e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_9_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_27)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_13_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_31)
+                                      2.43e-06 1.24e-06 6.77e-07 4.35e-06   0.1
+      clk_gate_registers_reg_0_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_18)
+                                      5.39e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_14_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_32)
+                                      5.16e-07 8.60e-08 5.39e-07 1.14e-06   0.0
+      clk_gate_registers_reg_1_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_19)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+    threads_2__lsu_instance (lsu_5)   1.05e-05 7.00e-07 8.57e-06 1.98e-05   0.4
+      clk_gate_mem_write_data_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_17)
+                                      5.28e-07 9.97e-08 5.40e-07 1.17e-06   0.0
+      clk_gate_mem_read_address_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_16)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_lsu_out_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_15)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+    threads_1__lsu_instance (lsu_6)   1.05e-05 7.00e-07 7.93e-06 1.91e-05   0.3
+      clk_gate_mem_write_data_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_20)
+                                      5.28e-07 9.97e-08 5.40e-07 1.17e-06   0.0
+      clk_gate_mem_read_address_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_19)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_lsu_out_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_18)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+    threads_0__register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1)
+                                      3.31e-05 3.31e-06 1.18e-04 1.54e-04   2.8
+      clk_gate_registers_reg_2_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_20)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_rs_reg (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_17)
+                                      6.55e-07 2.93e-07 5.52e-07 1.50e-06   0.0
+      clk_gate_registers_reg_3_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_21)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_4_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_22)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_5_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_23)
+                                      5.41e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_6_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_24)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_10_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_28)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_7_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_25)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_11_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_29)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_8_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_26)
+                                      5.20e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_12_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_30)
+                                      5.18e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_9_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_27)
+                                      5.18e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_13_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_31)
+                                      2.43e-06 1.24e-06 6.77e-07 4.35e-06   0.1
+      clk_gate_registers_reg_0_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_18)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_14_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_32)
+                                      5.16e-07 8.60e-08 5.39e-07 1.14e-06   0.0
+      clk_gate_registers_reg_1_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_19)
+                                      5.30e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+  cores_1__core_instance (core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0)
+                                      2.43e-04 3.24e-05 1.44e-03 1.72e-03  31.4
+    threads_3__register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0)
+                                      3.42e-05 3.58e-06 1.37e-04 1.75e-04   3.2
+      clk_gate_registers_reg_2_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_4)
+                                      5.28e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_rs_reg (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_1)
+                                      6.64e-07 2.93e-07 5.52e-07 1.51e-06   0.0
+      clk_gate_registers_reg_3_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_5)
+                                      5.28e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_4_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_6)
+                                      5.39e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_5_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_7)
+                                      5.39e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_6_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_8)
+                                      5.33e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_10_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_12)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_7_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_9)
+                                      5.27e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_11_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_13)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_8_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_10)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_12_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_14)
+                                      5.18e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_9_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_11)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_13_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_15)
+                                      2.43e-06 1.24e-06 6.77e-07 4.35e-06   0.1
+      clk_gate_registers_reg_0_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_2)
+                                      5.38e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_14_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_16)
+                                      5.16e-07 8.60e-08 5.39e-07 1.14e-06   0.0
+      clk_gate_registers_reg_1_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_3)
+                                      5.28e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+    threads_3__lsu_instance (lsu_0)   1.07e-05 6.94e-07 4.67e-06 1.60e-05   0.3
+      clk_gate_mem_write_data_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_0)
+                                      5.28e-07 9.97e-08 5.40e-07 1.17e-06   0.0
+      clk_gate_mem_read_address_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_2)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_lsu_out_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_1)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+    threads_0__lsu_instance (lsu_3)   1.07e-05 7.04e-07 7.45e-06 1.89e-05   0.3
+      clk_gate_mem_write_data_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_11)
+                                      5.28e-07 9.97e-08 5.40e-07 1.17e-06   0.0
+      clk_gate_mem_read_address_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_10)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_lsu_out_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_9)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+    threads_1__alu_instance (alu_2)   8.89e-06 2.46e-06 2.07e-04 2.19e-04   4.0
+      clk_gate_alu_out_reg_reg (SNPS_CLOCK_GATE_HIGH_alu_0_2)
+                                      6.52e-07 1.43e-07 5.52e-07 1.35e-06   0.0
+    scheduler_instance (scheduler_THREADS_PER_BLOCK4_0)
+                                      1.00e-05 2.04e-06 1.86e-05 3.07e-05   0.6
+      clk_gate_core_state_reg (SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_1)
+                                      1.34e-06 4.30e-07 6.13e-07 2.38e-06   0.0
+      clk_gate_current_pc_reg (SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_0)
+                                      6.44e-07 1.87e-07 5.51e-07 1.38e-06   0.0
+    threads_3__alu_instance (alu_0)   9.58e-06 2.80e-06 2.23e-04 2.35e-04   4.3
+      clk_gate_alu_out_reg_reg (SNPS_CLOCK_GATE_HIGH_alu_0_0)
+                                      6.52e-07 1.40e-07 5.52e-07 1.34e-06   0.0
+    threads_2__register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0)
+                                      3.39e-05 3.56e-06 1.45e-04 1.83e-04   3.3
+      clk_gate_registers_reg_2_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_4)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_rs_reg (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_1)
+                                      6.64e-07 2.93e-07 5.52e-07 1.51e-06   0.0
+      clk_gate_registers_reg_3_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_5)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_4_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_6)
+                                      5.39e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_5_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_7)
+                                      5.39e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_6_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_8)
+                                      5.34e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_10_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_12)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_7_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_9)
+                                      5.34e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_11_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_13)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_8_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_10)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_12_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_14)
+                                      5.18e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_9_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_11)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_13_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_15)
+                                      2.43e-06 1.24e-06 6.77e-07 4.35e-06   0.1
+      clk_gate_registers_reg_0_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_2)
+                                      5.39e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_14_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_16)
+                                      5.16e-07 8.60e-08 5.39e-07 1.14e-06   0.0
+      clk_gate_registers_reg_1_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_3)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+    threads_0__alu_instance (alu_3)   6.94e-06 1.75e-06 1.99e-04 2.08e-04   3.8
+      clk_gate_alu_out_reg_reg (SNPS_CLOCK_GATE_HIGH_alu_0_3)
+                                      6.52e-07 1.43e-07 5.52e-07 1.35e-06   0.0
+    fetcher_instance (fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0)
+                                      8.44e-06 9.70e-07 2.00e-06 1.14e-05   0.2
+      clk_gate_fetcher_state_reg (SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_1)
+                                      9.35e-07 1.16e-07 5.78e-07 1.63e-06   0.0
+      clk_gate_instruction_reg (SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_2)
+                                      6.56e-07 2.65e-07 5.52e-07 1.47e-06   0.0
+      clk_gate_mem_read_address_reg (SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_0)
+                                      6.48e-07 1.32e-07 5.52e-07 1.33e-06   0.0
+    threads_3__pc_instance (pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0)
+                                      3.16e-06 4.39e-07 3.55e-06 7.15e-06   0.1
+      clk_gate_next_pc_reg (SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_1)
+                                      6.56e-07 1.94e-07 5.52e-07 1.40e-06   0.0
+      clk_gate_nzp_reg (SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_0)
+                                      5.18e-07 2.22e-08 5.39e-07 1.08e-06   0.0
+    threads_2__alu_instance (alu_1)   8.99e-06 2.42e-06 2.06e-04 2.18e-04   4.0
+      clk_gate_alu_out_reg_reg (SNPS_CLOCK_GATE_HIGH_alu_0_1)
+                                      6.52e-07 1.40e-07 5.52e-07 1.34e-06   0.0
+    decoder_instance (decoder_0)      6.07e-06 9.97e-07 2.21e-05 2.91e-05   0.5
+      clk_gate_decoded_pc_mux_reg (SNPS_CLOCK_GATE_HIGH_decoder_0_0)
+                                      6.53e-07 3.58e-07 5.52e-07 1.56e-06   0.0
+    threads_1__register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0)
+                                      3.42e-05 3.71e-06 1.26e-04 1.64e-04   3.0
+      clk_gate_registers_reg_2_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_4)
+                                      5.28e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_rs_reg (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_1)
+                                      6.64e-07 2.93e-07 5.52e-07 1.51e-06   0.0
+      clk_gate_registers_reg_3_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_5)
+                                      5.28e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_4_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_6)
+                                      5.39e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_5_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_7)
+                                      5.39e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_6_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_8)
+                                      5.33e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_10_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_12)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_7_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_9)
+                                      5.27e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_11_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_13)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_8_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_10)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_12_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_14)
+                                      5.18e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_9_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_11)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_13_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_15)
+                                      2.43e-06 1.24e-06 6.77e-07 4.35e-06   0.1
+      clk_gate_registers_reg_0_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_2)
+                                      5.38e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_14_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_16)
+                                      5.16e-07 8.60e-08 5.39e-07 1.14e-06   0.0
+      clk_gate_registers_reg_1_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_3)
+                                      5.28e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+    threads_2__lsu_instance (lsu_1)   1.15e-05 7.30e-07 6.06e-06 1.83e-05   0.3
+      clk_gate_mem_write_data_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_5)
+                                      5.28e-07 1.00e-07 5.40e-07 1.17e-06   0.0
+      clk_gate_mem_read_address_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_4)
+                                      5.40e-07 5.69e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_lsu_out_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_3)
+                                      5.40e-07 5.67e-08 5.41e-07 1.14e-06   0.0
+    threads_1__lsu_instance (lsu_2)   1.10e-05 7.69e-07 6.56e-06 1.83e-05   0.3
+      clk_gate_mem_write_data_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_8)
+                                      5.28e-07 9.97e-08 5.40e-07 1.17e-06   0.0
+      clk_gate_mem_read_address_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_7)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_lsu_out_reg (SNPS_CLOCK_GATE_HIGH_lsu_0_6)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+    threads_0__register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0)
+                                      3.36e-05 3.42e-06 1.25e-04 1.62e-04   3.0
+      clk_gate_registers_reg_2_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_4)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_rs_reg (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_1)
+                                      6.55e-07 2.93e-07 5.52e-07 1.50e-06   0.0
+      clk_gate_registers_reg_3_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_5)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_4_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_6)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_5_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_7)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_6_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_8)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_10_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_12)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_7_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_9)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+      clk_gate_registers_reg_11_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_13)
+                                      5.17e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_8_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_10)
+                                      5.20e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_12_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_14)
+                                      5.18e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_9_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_11)
+                                      5.18e-07 4.27e-08 5.39e-07 1.10e-06   0.0
+      clk_gate_registers_reg_13_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_15)
+                                      2.43e-06 1.24e-06 6.77e-07 4.35e-06   0.1
+      clk_gate_registers_reg_0_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_2)
+                                      5.40e-07 5.64e-08 5.41e-07 1.14e-06   0.0
+      clk_gate_registers_reg_14_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_16)
+                                      5.16e-07 8.60e-08 5.39e-07 1.14e-06   0.0
+      clk_gate_registers_reg_1_ (SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_3)
+                                      5.29e-07 4.95e-08 5.40e-07 1.12e-06   0.0
+  dcr_instance (dcr)                  9.00e-07 6.72e-08 2.34e-05 2.43e-05   0.4
+    clk_gate_device_conrol_register_reg (SNPS_CLOCK_GATE_HIGH_dcr)
+                                      5.04e-07 5.34e-08 5.38e-07 1.10e-06   0.0
+  data_memory_controller (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                      9.45e-05 1.53e-05 1.17e-03 1.28e-03  23.3
+    clk_gate_mem_read_address_reg (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_0)
+                                      5.40e-07 6.06e-08 5.41e-07 1.14e-06   0.0
+    clk_gate_consumer_read_data_reg (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_17)
+                                      5.15e-07 4.10e-08 5.39e-07 1.10e-06   0.0
+    clk_gate_current_consumer_reg_0 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_8)
+                                      5.97e-07 2.83e-08 5.43e-07 1.17e-06   0.0
+    clk_gate_current_consumer_reg_1 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_7)
+                                      5.57e-07 2.83e-08 5.43e-07 1.13e-06   0.0
+    clk_gate_current_consumer_reg_2 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_6)
+                                      5.76e-07 2.83e-08 5.43e-07 1.15e-06   0.0
+    clk_gate_controller_state_reg_0 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_4)
+                                      6.82e-07 1.04e-07 5.55e-07 1.34e-06   0.0
+    clk_gate_controller_state_reg_1 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_3)
+                                      6.82e-07 1.04e-07 5.55e-07 1.34e-06   0.0
+    clk_gate_controller_state_reg_2 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_2)
+                                      6.82e-07 9.85e-08 5.55e-07 1.34e-06   0.0
+    clk_gate_mem_write_address_reg_0 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_20)
+                                      5.24e-07 9.14e-08 5.39e-07 1.15e-06   0.0
+    clk_gate_mem_write_address_reg_1 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_19)
+                                      5.21e-07 8.97e-08 5.39e-07 1.15e-06   0.0
+    clk_gate_mem_write_address_reg_2 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_18)
+                                      5.19e-07 8.34e-08 5.39e-07 1.14e-06   0.0
+    clk_gate_consumer_read_data_reg_0 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_16)
+                                      5.16e-07 4.10e-08 5.39e-07 1.10e-06   0.0
+    clk_gate_consumer_read_data_reg_1 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_15)
+                                      5.16e-07 4.10e-08 5.39e-07 1.10e-06   0.0
+    clk_gate_consumer_read_data_reg_2 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_14)
+                                      5.16e-07 4.10e-08 5.39e-07 1.10e-06   0.0
+    clk_gate_consumer_read_data_reg_3 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_13)
+                                      5.16e-07 4.10e-08 5.39e-07 1.10e-06   0.0
+    clk_gate_consumer_read_data_reg_4 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_12)
+                                      5.16e-07 4.10e-08 5.39e-07 1.10e-06   0.0
+    clk_gate_consumer_read_data_reg_5 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_11)
+                                      5.15e-07 4.10e-08 5.39e-07 1.09e-06   0.0
+    clk_gate_consumer_read_data_reg_6 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_10)
+                                      5.16e-07 4.10e-08 5.39e-07 1.10e-06   0.0
+    clk_gate_mem_read_address_reg_0 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_24)
+                                      5.66e-07 6.06e-08 5.41e-07 1.17e-06   0.0
+    clk_gate_mem_read_address_reg_1 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_23)
+                                      5.47e-07 5.95e-08 5.41e-07 1.15e-06   0.0
+    clk_gate_mem_read_address_reg_2 (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_22)
+                                      5.36e-07 5.53e-08 5.41e-07 1.13e-06   0.0
+    clk_gate_controller_state_reg (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_5)
+                                      7.45e-07 1.01e-07 5.55e-07 1.40e-06   0.0
+    clk_gate_current_consumer_reg (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_9)
+                                      5.89e-07 2.83e-08 5.43e-07 1.16e-06   0.0
+    clk_gate_mem_write_address_reg (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_21)
+                                      5.35e-07 9.14e-08 5.39e-07 1.17e-06   0.0
+    clk_gate_consumer_read_ready_reg (SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_1)
+                                      2.41e-06 3.90e-06 6.78e-07 6.99e-06   0.1
+  dispatch_instance (dispatch_NUM_CORES2_THREADS_PER_BLOCK4)
+                                      1.69e-05 1.39e-06 1.84e-04 2.02e-04   3.7
+    clk_gate_blocks_dispatched_reg (SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_2)
+                                      5.09e-07 3.72e-08 5.38e-07 1.08e-06   0.0
+    clk_gate_blocks_done_reg (SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_3)
+                                      5.16e-07 4.23e-08 5.39e-07 1.10e-06   0.0
+    clk_gate_done_reg (SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_1)
+                                      2.43e-06 9.81e-07 6.77e-07 4.09e-06   0.1
+    clk_gate_core_thread_count_reg_0 (SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_4)
+                                      5.05e-07 4.82e-08 5.38e-07 1.09e-06   0.0
+    clk_gate_core_thread_count_reg (SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_0)
+                                      5.08e-07 5.02e-08 5.38e-07 1.10e-06   0.0
+1

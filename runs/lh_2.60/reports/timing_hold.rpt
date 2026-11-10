@@ -1,0 +1,487 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 10
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Sun Nov  8 15:02:55 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: tt0p78v25c   Library: saed32rvt_tt0p78v25c
+Wire Load Model Mode: enclosed
+
+  Startpoint: cores[1].core_instance/decoder_instance/decoded_immediate_reg[0]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[1].core_instance/threads[3].pc_instance/next_pc_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                     16000                 saed32rvt_tt0p78v25c
+  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0
+                     ForQA                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[1].core_instance/decoder_instance/decoded_immediate_reg[0]/CLK (DFFSSRX1_LVT)
+                                                          0.00 #     0.00 r
+  cores[1].core_instance/decoder_instance/decoded_immediate_reg[0]/Q (DFFSSRX1_LVT)
+                                                          0.12       0.12 f
+  cores[1].core_instance/decoder_instance/decoded_immediate[0] (decoder_0)
+                                                          0.00       0.12 f
+  cores[1].core_instance/threads[3].pc_instance/decoded_immediate[0] (pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0)
+                                                          0.00       0.12 f
+  cores[1].core_instance/threads[3].pc_instance/U20/Y (AO222X1_LVT)
+                                                          0.07       0.19 f
+  cores[1].core_instance/threads[3].pc_instance/next_pc_reg[0]/D (DFFX1_HVT)
+                                                          0.01       0.20 f
+  data arrival time                                                  0.20
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[1].core_instance/threads[3].pc_instance/next_pc_reg[0]/CLK (DFFX1_HVT)
+                                                          0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.20
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: cores[1].core_instance/threads[0].register_instance/rs_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[1].core_instance/threads[0].lsu_instance/mem_write_address_reg[6]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                     16000                 saed32rvt_tt0p78v25c
+  lsu_3              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[1].core_instance/threads[0].register_instance/rs_reg[6]/CLK (DFFX2_LVT)
+                                                          0.00 #     0.00 r
+  cores[1].core_instance/threads[0].register_instance/rs_reg[6]/Q (DFFX2_LVT)
+                                                          0.13       0.13 f
+  cores[1].core_instance/threads[0].register_instance/rs[6] (registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0)
+                                                          0.00       0.13 f
+  cores[1].core_instance/threads[0].lsu_instance/rs[6] (lsu_3)
+                                                          0.00       0.13 f
+  cores[1].core_instance/threads[0].lsu_instance/U47/Y (AO22X1_LVT)
+                                                          0.07       0.20 f
+  cores[1].core_instance/threads[0].lsu_instance/mem_write_address_reg[6]/D (DFFX1_HVT)
+                                                          0.01       0.20 f
+  data arrival time                                                  0.20
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[1].core_instance/threads[0].lsu_instance/mem_write_address_reg[6]/CLK (DFFX1_HVT)
+                                                          0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.20
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: cores[1].core_instance/threads[0].register_instance/rs_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[1].core_instance/threads[0].lsu_instance/mem_read_address_reg[6]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                     16000                 saed32rvt_tt0p78v25c
+  lsu_3              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[1].core_instance/threads[0].register_instance/rs_reg[6]/CLK (DFFX2_LVT)
+                                                          0.00 #     0.00 r
+  cores[1].core_instance/threads[0].register_instance/rs_reg[6]/Q (DFFX2_LVT)
+                                                          0.13       0.13 f
+  cores[1].core_instance/threads[0].register_instance/rs[6] (registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0)
+                                                          0.00       0.13 f
+  cores[1].core_instance/threads[0].lsu_instance/rs[6] (lsu_3)
+                                                          0.00       0.13 f
+  cores[1].core_instance/threads[0].lsu_instance/U74/Y (AO22X1_LVT)
+                                                          0.07       0.20 f
+  cores[1].core_instance/threads[0].lsu_instance/mem_read_address_reg[6]/D (DFFX1_HVT)
+                                                          0.01       0.20 f
+  data arrival time                                                  0.20
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[1].core_instance/threads[0].lsu_instance/mem_read_address_reg[6]/CLK (DFFX1_HVT)
+                                                          0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.20
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: cores[0].core_instance/decoder_instance/decoded_immediate_reg[6]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_instance/threads[3].pc_instance/next_pc_reg[6]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+                     16000                 saed32rvt_tt0p78v25c
+  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4
+                     ForQA                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[0].core_instance/decoder_instance/decoded_immediate_reg[6]/CLK (DFFSSRX1_LVT)
+                                                          0.00 #     0.00 r
+  cores[0].core_instance/decoder_instance/decoded_immediate_reg[6]/Q (DFFSSRX1_LVT)
+                                                          0.13       0.13 f
+  cores[0].core_instance/decoder_instance/decoded_immediate[6] (decoder_1)
+                                                          0.00       0.13 f
+  cores[0].core_instance/threads[3].pc_instance/decoded_immediate[6] (pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4)
+                                                          0.00       0.13 f
+  cores[0].core_instance/threads[3].pc_instance/U31/Y (AO222X1_LVT)
+                                                          0.06       0.19 f
+  cores[0].core_instance/threads[3].pc_instance/next_pc_reg[6]/D (DFFX1_HVT)
+                                                          0.01       0.20 f
+  data arrival time                                                  0.20
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_instance/threads[3].pc_instance/next_pc_reg[6]/CLK (DFFX1_HVT)
+                                                          0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.20
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.01
+
+
+  Startpoint: cores[1].core_instance/threads[0].register_instance/rt_reg[4]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[1].core_instance/threads[0].lsu_instance/mem_write_data_reg[4]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                     16000                 saed32rvt_tt0p78v25c
+  lsu_3              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[1].core_instance/threads[0].register_instance/rt_reg[4]/CLK (DFFX1_LVT)
+                                                          0.00 #     0.00 r
+  cores[1].core_instance/threads[0].register_instance/rt_reg[4]/Q (DFFX1_LVT)
+                                                          0.13       0.13 f
+  cores[1].core_instance/threads[0].register_instance/rt[4] (registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0)
+                                                          0.00       0.13 f
+  cores[1].core_instance/threads[0].lsu_instance/rt[4] (lsu_3)
+                                                          0.00       0.13 f
+  cores[1].core_instance/threads[0].lsu_instance/U54/Y (AO22X1_LVT)
+                                                          0.07       0.20 f
+  cores[1].core_instance/threads[0].lsu_instance/mem_write_data_reg[4]/D (DFFX1_HVT)
+                                                          0.01       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[1].core_instance/threads[0].lsu_instance/mem_write_data_reg[4]/CLK (DFFX1_HVT)
+                                                          0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.01
+
+
+  Startpoint: cores[1].core_instance/decoder_instance/decoded_immediate_reg[2]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[1].core_instance/threads[3].pc_instance/next_pc_reg[2]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                     16000                 saed32rvt_tt0p78v25c
+  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0
+                     ForQA                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[1].core_instance/decoder_instance/decoded_immediate_reg[2]/CLK (DFFSSRX1_LVT)
+                                                          0.00 #     0.00 r
+  cores[1].core_instance/decoder_instance/decoded_immediate_reg[2]/Q (DFFSSRX1_LVT)
+                                                          0.13       0.13 f
+  cores[1].core_instance/decoder_instance/decoded_immediate[2] (decoder_0)
+                                                          0.00       0.13 f
+  cores[1].core_instance/threads[3].pc_instance/decoded_immediate[2] (pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0)
+                                                          0.00       0.13 f
+  cores[1].core_instance/threads[3].pc_instance/U17/Y (AO222X1_LVT)
+                                                          0.06       0.20 f
+  cores[1].core_instance/threads[3].pc_instance/next_pc_reg[2]/D (DFFX1_HVT)
+                                                          0.01       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[1].core_instance/threads[3].pc_instance/next_pc_reg[2]/CLK (DFFX1_HVT)
+                                                          0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.01
+
+
+  Startpoint: cores[1].core_instance/threads[0].register_instance/rs_reg[7]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[1].core_instance/threads[0].lsu_instance/mem_read_address_reg[7]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0
+                     8000                  saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                     16000                 saed32rvt_tt0p78v25c
+  lsu_3              8000                  saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[1].core_instance/threads[0].register_instance/rs_reg[7]/CLK (DFFX1_LVT)
+                                                          0.00 #     0.00 r
+  cores[1].core_instance/threads[0].register_instance/rs_reg[7]/Q (DFFX1_LVT)
+                                                          0.10       0.10 f
+  cores[1].core_instance/threads[0].register_instance/U499/Y (NBUFFX2_LVT)
+                                                          0.04       0.15 f
+  cores[1].core_instance/threads[0].register_instance/rs[7] (registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0)
+                                                          0.00       0.15 f
+  cores[1].core_instance/threads[0].lsu_instance/rs[7] (lsu_3)
+                                                          0.00       0.15 f
+  cores[1].core_instance/threads[0].lsu_instance/U72/Y (AO22X1_LVT)
+                                                          0.06       0.20 f
+  cores[1].core_instance/threads[0].lsu_instance/mem_read_address_reg[7]/D (DFFX1_HVT)
+                                                          0.01       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[1].core_instance/threads[0].lsu_instance/mem_read_address_reg[7]/CLK (DFFX1_HVT)
+                                                          0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.01
+
+
+  Startpoint: cores[0].core_instance/decoder_instance/decoded_immediate_reg[5]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_instance/threads[3].pc_instance/next_pc_reg[5]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+                     16000                 saed32rvt_tt0p78v25c
+  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4
+                     ForQA                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[0].core_instance/decoder_instance/decoded_immediate_reg[5]/CLK (DFFSSRX1_LVT)
+                                                          0.00 #     0.00 r
+  cores[0].core_instance/decoder_instance/decoded_immediate_reg[5]/Q (DFFSSRX1_LVT)
+                                                          0.13       0.13 f
+  cores[0].core_instance/decoder_instance/decoded_immediate[5] (decoder_1)
+                                                          0.00       0.13 f
+  cores[0].core_instance/threads[3].pc_instance/decoded_immediate[5] (pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4)
+                                                          0.00       0.13 f
+  cores[0].core_instance/threads[3].pc_instance/U29/Y (AO222X1_LVT)
+                                                          0.07       0.20 f
+  cores[0].core_instance/threads[3].pc_instance/next_pc_reg[5]/D (DFFX1_HVT)
+                                                          0.01       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_instance/threads[3].pc_instance/next_pc_reg[5]/CLK (DFFX1_HVT)
+                                                          0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.01
+
+
+  Startpoint: cores[0].core_instance/decoder_instance/decoded_immediate_reg[1]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_instance/threads[3].pc_instance/next_pc_reg[1]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+                     16000                 saed32rvt_tt0p78v25c
+  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4
+                     ForQA                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[0].core_instance/decoder_instance/decoded_immediate_reg[1]/CLK (DFFSSRX1_LVT)
+                                                          0.00 #     0.00 r
+  cores[0].core_instance/decoder_instance/decoded_immediate_reg[1]/Q (DFFSSRX1_LVT)
+                                                          0.13       0.13 f
+  cores[0].core_instance/decoder_instance/decoded_immediate[1] (decoder_1)
+                                                          0.00       0.13 f
+  cores[0].core_instance/threads[3].pc_instance/decoded_immediate[1] (pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4)
+                                                          0.00       0.13 f
+  cores[0].core_instance/threads[3].pc_instance/U23/Y (AO222X1_LVT)
+                                                          0.07       0.20 f
+  cores[0].core_instance/threads[3].pc_instance/next_pc_reg[1]/D (DFFX1_HVT)
+                                                          0.01       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_instance/threads[3].pc_instance/next_pc_reg[1]/CLK (DFFX1_HVT)
+                                                          0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.01
+
+
+  Startpoint: cores[0].core_instance/decoder_instance/decoded_immediate_reg[2]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_instance/threads[3].pc_instance/next_pc_reg[2]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+                     16000                 saed32rvt_tt0p78v25c
+  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4
+                     ForQA                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cores[0].core_instance/decoder_instance/decoded_immediate_reg[2]/CLK (DFFSSRX1_LVT)
+                                                          0.00 #     0.00 r
+  cores[0].core_instance/decoder_instance/decoded_immediate_reg[2]/Q (DFFSSRX1_LVT)
+                                                          0.13       0.13 f
+  cores[0].core_instance/decoder_instance/decoded_immediate[2] (decoder_1)
+                                                          0.00       0.13 f
+  cores[0].core_instance/threads[3].pc_instance/decoded_immediate[2] (pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4)
+                                                          0.00       0.13 f
+  cores[0].core_instance/threads[3].pc_instance/U21/Y (AO222X1_LVT)
+                                                          0.07       0.20 f
+  cores[0].core_instance/threads[3].pc_instance/next_pc_reg[2]/D (DFFX1_HVT)
+                                                          0.01       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_instance/threads[3].pc_instance/next_pc_reg[2]/CLK (DFFX1_HVT)
+                                                          0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.01
+
+
+1

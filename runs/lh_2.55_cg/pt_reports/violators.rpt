@@ -1,0 +1,28 @@
+****************************************
+Report : constraint
+	-all_violators
+	-path slack_only
+Design : gpu
+Version: V-2023.12-SP5-4
+Date   : Sun Nov  8 18:54:58 2026
+****************************************
+
+
+
+
+
+
+   max_capacitance
+
+                             Required        Actual
+   Pin                      Capacitance    Capacitance       Slack
+   -----------------------------------------------------------------
+   cores_1__core_instance/threads_2__register_instance/rt_reg_4_/QN
+                               16.00          16.53          -0.53  (VIOLATED)
+   cores_1__core_instance/threads_1__alu_instance/U428/Y
+                               16.00          16.48          -0.48  (VIOLATED)
+   cores_0__core_instance/threads_2__alu_instance/U313/Y
+                                8.00           8.14          -0.14  (VIOLATED)
+
+
+1

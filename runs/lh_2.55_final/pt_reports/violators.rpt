@@ -1,0 +1,262 @@
+****************************************
+Report : constraint
+	-all_violators
+	-path slack_only
+Design : gpu
+Version: V-2023.12-SP5-4
+Date   : Sun Nov  8 16:55:32 2026
+****************************************
+
+
+
+
+   max_capacitance
+
+                             Required        Actual
+   Pin                      Capacitance    Capacitance       Slack
+   -----------------------------------------------------------------
+   program_memory_controller/U3/Y
+                                8.00           9.95          -1.95  (VIOLATED)
+   program_memory_controller/U41/Y
+                                8.00           9.89          -1.89  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U373/Y
+                                8.00           9.52          -1.52  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U461/Y
+                                8.00           9.52          -1.52  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U420/Y
+                                8.00           9.52          -1.52  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U479/Y
+                                8.00           9.52          -1.52  (VIOLATED)
+   cores_1__core_instance/threads_2__alu_instance/U124/Y
+                               16.00          17.52          -1.52  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U369/Y
+                                8.00           9.50          -1.50  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U386/Y
+                                8.00           9.50          -1.50  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U417/Y
+                                8.00           9.50          -1.50  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U468/Y
+                                8.00           9.50          -1.50  (VIOLATED)
+   data_memory_controller/U441/Y
+                                8.00           9.49          -1.49  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U25/Y
+                                8.00           9.48          -1.48  (VIOLATED)
+   cores_1__core_instance/threads_0__register_instance/U12/Y
+                                8.00           9.48          -1.48  (VIOLATED)
+   cores_1__core_instance/threads_0__register_instance/U26/Y
+                                8.00           9.48          -1.48  (VIOLATED)
+   cores_1__core_instance/threads_0__register_instance/U211/Y
+                                8.00           9.48          -1.48  (VIOLATED)
+   cores_1__core_instance/threads_0__register_instance/U374/Y
+                                8.00           9.48          -1.48  (VIOLATED)
+   cores_1__core_instance/threads_0__register_instance/U381/Y
+                                8.00           9.48          -1.48  (VIOLATED)
+   cores_1__core_instance/threads_0__register_instance/U449/Y
+                                8.00           9.48          -1.48  (VIOLATED)
+   cores_1__core_instance/threads_0__register_instance/U187/Y
+                                8.00           9.48          -1.48  (VIOLATED)
+   cores_0__core_instance/threads_2__register_instance/U124/Y
+                                8.00           9.29          -1.29  (VIOLATED)
+   cores_1__core_instance/threads_2__register_instance/U43/Y
+                                8.00           9.29          -1.29  (VIOLATED)
+   cores_0__core_instance/threads_0__alu_instance/U9/Y
+                                8.00           9.29          -1.29  (VIOLATED)
+   cores_0__core_instance/scheduler_instance/U5/Y
+                               16.00          17.23          -1.23  (VIOLATED)
+   cores_1__core_instance/threads_3__pc_instance/U9/Y
+                                8.00           9.19          -1.19  (VIOLATED)
+   cores_0__core_instance/fetcher_instance/U13/Y
+                                8.00           9.14          -1.14  (VIOLATED)
+   cores_1__core_instance/fetcher_instance/U4/Y
+                                8.00           9.14          -1.14  (VIOLATED)
+   data_memory_controller/U462/Y
+                                8.00           9.04          -1.04  (VIOLATED)
+   cores_0__core_instance/threads_0__alu_instance/U64/Y
+                                8.00           8.97          -0.97  (VIOLATED)
+   cores_1__core_instance/scheduler_instance/core_state_reg_1_/Q
+                                8.00           8.96          -0.96  (VIOLATED)
+   cores_1__core_instance/threads_3__alu_instance/U69/Y
+                                8.00           8.93          -0.93  (VIOLATED)
+   cores_0__core_instance/threads_2__register_instance/U11/Y
+                                8.00           8.91          -0.91  (VIOLATED)
+   cores_0__core_instance/threads_3__alu_instance/U64/Y
+                                8.00           8.90          -0.90  (VIOLATED)
+   cores_0__core_instance/threads_1__alu_instance/U122/Y
+                                8.00           8.89          -0.89  (VIOLATED)
+   cores_0__core_instance/threads_1__alu_instance/U34/Y
+                                8.00           8.88          -0.88  (VIOLATED)
+   cores_0__core_instance/threads_2__alu_instance/U88/Y
+                                8.00           8.87          -0.87  (VIOLATED)
+   cores_1__core_instance/threads_0__alu_instance/U8/Y
+                                8.00           8.87          -0.87  (VIOLATED)
+   data_memory_controller/U445/Y
+                                8.00           8.87          -0.87  (VIOLATED)
+   cores_0__core_instance/threads_0__alu_instance/U125/Y
+                                8.00           8.85          -0.85  (VIOLATED)
+   data_memory_controller/U842/Y
+                                8.00           8.85          -0.85  (VIOLATED)
+   cores_0__core_instance/threads_3__pc_instance/U11/Y
+                                8.00           8.85          -0.85  (VIOLATED)
+   cores_1__core_instance/threads_2__alu_instance/U86/Y
+                                8.00           8.85          -0.85  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U43/Y
+                                8.00           8.84          -0.84  (VIOLATED)
+   cores_1__core_instance/threads_0__register_instance/U46/Y
+                                8.00           8.84          -0.84  (VIOLATED)
+   cores_0__core_instance/threads_2__alu_instance/U72/Y
+                                8.00           8.82          -0.82  (VIOLATED)
+   cores_0__core_instance/scheduler_instance/core_state_reg_1_/Q
+                               16.00          16.76          -0.76  (VIOLATED)
+   cores_0__core_instance/threads_1__alu_instance/U74/Y
+                                8.00           8.73          -0.73  (VIOLATED)
+   cores_1__core_instance/threads_1__alu_instance/U35/Y
+                                8.00           8.68          -0.68  (VIOLATED)
+   cores_0__core_instance/threads_0__alu_instance/U79/Y
+                                8.00           8.68          -0.68  (VIOLATED)
+   cores_1__core_instance/threads_1__alu_instance/U97/Y
+                                8.00           8.68          -0.68  (VIOLATED)
+   cores_1__core_instance/threads_0__alu_instance/U96/Y
+                                8.00           8.67          -0.67  (VIOLATED)
+   cores_0__core_instance/threads_2__register_instance/U84/Y
+                                8.00           8.67          -0.67  (VIOLATED)
+   cores_1__core_instance/threads_2__register_instance/U56/Y
+                                8.00           8.67          -0.67  (VIOLATED)
+   cores_1__core_instance/threads_3__register_instance/U47/Y
+                                8.00           8.67          -0.67  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U4/Y
+                                8.00           8.66          -0.66  (VIOLATED)
+   cores_1__core_instance/threads_0__register_instance/U571/Y
+                                8.00           8.66          -0.66  (VIOLATED)
+   cores_1__core_instance/threads_0__alu_instance/U75/Y
+                                8.00           8.64          -0.64  (VIOLATED)
+   cores_0__core_instance/threads_2__register_instance/U7/Y
+                                8.00           8.64          -0.64  (VIOLATED)
+   cores_1__core_instance/threads_2__register_instance/U62/Y
+                                8.00           8.64          -0.64  (VIOLATED)
+   program_memory_controller/U40/Y
+                                8.00           8.63          -0.63  (VIOLATED)
+   cores_0__core_instance/threads_0__alu_instance/U87/Y
+                                8.00           8.59          -0.59  (VIOLATED)
+   cores_0__core_instance/threads_3__alu_instance/U60/Y
+                                8.00           8.58          -0.58  (VIOLATED)
+   program_memory_controller/U22/Y
+                                8.00           8.56          -0.56  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U69/Y
+                                8.00           8.55          -0.55  (VIOLATED)
+   cores_1__core_instance/threads_0__register_instance/U70/Y
+                                8.00           8.55          -0.55  (VIOLATED)
+   cores_0__core_instance/fetcher_instance/U14/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_0__core_instance/threads_0__lsu_instance/U34/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_0__core_instance/threads_1__lsu_instance/U35/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_0__core_instance/threads_2__lsu_instance/U35/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_0__core_instance/threads_3__lsu_instance/U7/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_1__core_instance/fetcher_instance/U12/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_1__core_instance/threads_0__lsu_instance/U15/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_1__core_instance/threads_1__lsu_instance/U37/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_1__core_instance/threads_2__lsu_instance/U33/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_1__core_instance/threads_3__lsu_instance/U11/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_0__core_instance/threads_1__register_instance/U53/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_1__core_instance/threads_1__register_instance/U10/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_0__core_instance/threads_0__alu_instance/U78/Y
+                                8.00           8.53          -0.53  (VIOLATED)
+   cores_0__core_instance/threads_3__register_instance/U124/Y
+                                8.00           8.52          -0.52  (VIOLATED)
+   cores_1__core_instance/threads_3__register_instance/U84/Y
+                                8.00           8.52          -0.52  (VIOLATED)
+   cores_1__core_instance/threads_1__register_instance/U171/Y
+                                8.00           8.51          -0.51  (VIOLATED)
+   cores_0__core_instance/threads_1__register_instance/U288/Y
+                                8.00           8.51          -0.51  (VIOLATED)
+   data_memory_controller/U334/Y
+                                8.00           8.48          -0.48  (VIOLATED)
+   cores_0__core_instance/threads_3__register_instance/U121/Y
+                                8.00           8.48          -0.48  (VIOLATED)
+   cores_1__core_instance/threads_3__register_instance/U135/Y
+                                8.00           8.48          -0.48  (VIOLATED)
+   cores_0__core_instance/threads_2__alu_instance/U51/Y
+                                8.00           8.47          -0.47  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/U165/Y
+                                8.00           8.46          -0.46  (VIOLATED)
+   cores_1__core_instance/threads_0__register_instance/U202/Y
+                                8.00           8.46          -0.46  (VIOLATED)
+   data_memory_controller/U1535/Y
+                               16.00          16.44          -0.44  (VIOLATED)
+   cores_0__core_instance/threads_2__register_instance/U114/Y
+                                8.00           8.42          -0.42  (VIOLATED)
+   cores_1__core_instance/threads_2__register_instance/U40/Y
+                                8.00           8.42          -0.42  (VIOLATED)
+   cores_0__core_instance/threads_1__register_instance/U10/Y
+                                8.00           8.41          -0.41  (VIOLATED)
+   cores_1__core_instance/threads_1__register_instance/U11/Y
+                                8.00           8.41          -0.41  (VIOLATED)
+   cores_0__core_instance/threads_0__register_instance/rs_reg_4_/Q
+                                8.00           8.37          -0.37  (VIOLATED)
+   cores_1__core_instance/threads_1__register_instance/U9/Y
+                                8.00           8.37          -0.37  (VIOLATED)
+   cores_0__core_instance/threads_3__register_instance/U217/Y
+                                8.00           8.36          -0.36  (VIOLATED)
+   cores_0__core_instance/threads_1__register_instance/U168/Y
+                                8.00           8.35          -0.35  (VIOLATED)
+   cores_0__core_instance/threads_1__register_instance/U63/Y
+                                8.00           8.35          -0.35  (VIOLATED)
+   cores_0__core_instance/decoder_instance/decoded_mem_read_enable_reg/Q
+                                8.00           8.31          -0.31  (VIOLATED)
+   cores_0__core_instance/threads_3__alu_instance/U331/Y
+                                8.00           8.30          -0.30  (VIOLATED)
+   cores_1__core_instance/threads_1__register_instance/U59/Y
+                                8.00           8.28          -0.28  (VIOLATED)
+   cores_1__core_instance/threads_0__alu_instance/U29/Y
+                                8.00           8.26          -0.26  (VIOLATED)
+   cores_0__core_instance/threads_2__alu_instance/U58/Y
+                                8.00           8.21          -0.21  (VIOLATED)
+   cores_1__core_instance/threads_1__alu_instance/U29/Y
+                                8.00           8.21          -0.21  (VIOLATED)
+   cores_0__core_instance/threads_1__alu_instance/U67/Y
+                                8.00           8.20          -0.20  (VIOLATED)
+   cores_0__core_instance/threads_3__alu_instance/U43/Y
+                                8.00           8.19          -0.19  (VIOLATED)
+   cores_1__core_instance/threads_0__register_instance/rs_reg_3_/Q
+                                8.00           8.19          -0.19  (VIOLATED)
+   cores_1__core_instance/scheduler_instance/core_state_reg_2_/Q
+                               16.00          16.16          -0.16  (VIOLATED)
+   cores_1__core_instance/threads_3__register_instance/U57/Y
+                                8.00           8.15          -0.15  (VIOLATED)
+   cores_1__core_instance/threads_0__alu_instance/U22/Y
+                                8.00           8.15          -0.15  (VIOLATED)
+   cores_1__core_instance/threads_1__alu_instance/U59/Y
+                                8.00           8.14          -0.14  (VIOLATED)
+   cores_1__core_instance/threads_2__alu_instance/U84/Y
+                                8.00           8.13          -0.13  (VIOLATED)
+   cores_0__core_instance/threads_3__register_instance/U55/Y
+                                8.00           8.12          -0.12  (VIOLATED)
+   cores_0__core_instance/threads_1__alu_instance/U530/Y
+                                8.00           8.09          -0.09  (VIOLATED)
+   cores_1__core_instance/threads_1__alu_instance/U41/Y
+                               16.00          16.05          -0.05  (VIOLATED)
+   cores_0__core_instance/threads_1__register_instance/U166/Y
+                                8.00           8.04          -0.04  (VIOLATED)
+   cores_1__core_instance/threads_1__register_instance/U161/Y
+                                8.00           8.04          -0.04  (VIOLATED)
+   cores_1__core_instance/threads_1__register_instance/rs_reg_4_/Q
+                                8.00           8.02          -0.02  (VIOLATED)
+   cores_1__core_instance/threads_2__alu_instance/U129/Y
+                                8.00           8.01          -0.01  (VIOLATED)
+   cores_0__core_instance/threads_1__alu_instance/U45/Y
+                                8.00           8.00           0.00  (VIOLATED: increase significant digits)
+   cores_0__core_instance/threads_3__alu_instance/U225/Y
+                                8.00           8.00           0.00  (VIOLATED: increase significant digits)
+
+
+1

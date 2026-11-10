@@ -1,0 +1,417 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 10
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Sun Nov  8 15:14:24 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: tt0p78v25c   Library: saed32rvt_tt0p78v25c
+Wire Load Model Mode: enclosed
+
+  Startpoint: data_memory_controller/consumer_read_data_reg[10]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_lsu_read_data_reg[10]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                     16000                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  data_memory_controller/consumer_read_data_reg[10]/CLK (DFFX1_LVT)
+                                                          0.00 #     0.00 r
+  data_memory_controller/consumer_read_data_reg[10]/Q (DFFX1_LVT)
+                                                          0.10       0.10 f
+  data_memory_controller/U3080/Y (NBUFFX2_LVT)            0.04       0.14 f
+  data_memory_controller/consumer_read_data[10] (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                                          0.00       0.14 f
+  cores[0].core_lsu_read_data_reg[10]/D (DFFX1_HVT)       0.07       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_lsu_read_data_reg[10]/CLK (DFFX1_HVT)     0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: data_memory_controller/consumer_read_data_reg[11]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_lsu_read_data_reg[11]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                     16000                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  data_memory_controller/consumer_read_data_reg[11]/CLK (DFFX1_LVT)
+                                                          0.00 #     0.00 r
+  data_memory_controller/consumer_read_data_reg[11]/Q (DFFX1_LVT)
+                                                          0.10       0.10 f
+  data_memory_controller/U3079/Y (NBUFFX2_LVT)            0.04       0.14 f
+  data_memory_controller/consumer_read_data[11] (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                                          0.00       0.14 f
+  cores[0].core_lsu_read_data_reg[11]/D (DFFX1_HVT)       0.07       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_lsu_read_data_reg[11]/CLK (DFFX1_HVT)     0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: data_memory_controller/consumer_read_data_reg[12]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_lsu_read_data_reg[12]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                     16000                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  data_memory_controller/consumer_read_data_reg[12]/CLK (DFFX1_LVT)
+                                                          0.00 #     0.00 r
+  data_memory_controller/consumer_read_data_reg[12]/Q (DFFX1_LVT)
+                                                          0.10       0.10 f
+  data_memory_controller/U3078/Y (NBUFFX2_LVT)            0.04       0.14 f
+  data_memory_controller/consumer_read_data[12] (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                                          0.00       0.14 f
+  cores[0].core_lsu_read_data_reg[12]/D (DFFX1_HVT)       0.07       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_lsu_read_data_reg[12]/CLK (DFFX1_HVT)     0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: data_memory_controller/consumer_read_data_reg[13]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_lsu_read_data_reg[13]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                     16000                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  data_memory_controller/consumer_read_data_reg[13]/CLK (DFFX1_LVT)
+                                                          0.00 #     0.00 r
+  data_memory_controller/consumer_read_data_reg[13]/Q (DFFX1_LVT)
+                                                          0.10       0.10 f
+  data_memory_controller/U3077/Y (NBUFFX2_LVT)            0.04       0.14 f
+  data_memory_controller/consumer_read_data[13] (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                                          0.00       0.14 f
+  cores[0].core_lsu_read_data_reg[13]/D (DFFX1_HVT)       0.07       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_lsu_read_data_reg[13]/CLK (DFFX1_HVT)     0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: data_memory_controller/consumer_read_data_reg[14]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_lsu_read_data_reg[14]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                     16000                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  data_memory_controller/consumer_read_data_reg[14]/CLK (DFFX1_LVT)
+                                                          0.00 #     0.00 r
+  data_memory_controller/consumer_read_data_reg[14]/Q (DFFX1_LVT)
+                                                          0.10       0.10 f
+  data_memory_controller/U3076/Y (NBUFFX2_LVT)            0.04       0.14 f
+  data_memory_controller/consumer_read_data[14] (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                                          0.00       0.14 f
+  cores[0].core_lsu_read_data_reg[14]/D (DFFX1_HVT)       0.07       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_lsu_read_data_reg[14]/CLK (DFFX1_HVT)     0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: data_memory_controller/consumer_read_data_reg[15]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_lsu_read_data_reg[15]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                     16000                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  data_memory_controller/consumer_read_data_reg[15]/CLK (DFFX1_LVT)
+                                                          0.00 #     0.00 r
+  data_memory_controller/consumer_read_data_reg[15]/Q (DFFX1_LVT)
+                                                          0.10       0.10 f
+  data_memory_controller/U3075/Y (NBUFFX2_LVT)            0.04       0.14 f
+  data_memory_controller/consumer_read_data[15] (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                                          0.00       0.14 f
+  cores[0].core_lsu_read_data_reg[15]/D (DFFX1_HVT)       0.07       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_lsu_read_data_reg[15]/CLK (DFFX1_HVT)     0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: data_memory_controller/consumer_read_data_reg[18]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_lsu_read_data_reg[18]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                     16000                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  data_memory_controller/consumer_read_data_reg[18]/CLK (DFFX1_LVT)
+                                                          0.00 #     0.00 r
+  data_memory_controller/consumer_read_data_reg[18]/Q (DFFX1_LVT)
+                                                          0.10       0.10 f
+  data_memory_controller/U3074/Y (NBUFFX2_LVT)            0.04       0.14 f
+  data_memory_controller/consumer_read_data[18] (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                                          0.00       0.14 f
+  cores[0].core_lsu_read_data_reg[18]/D (DFFX1_HVT)       0.07       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_lsu_read_data_reg[18]/CLK (DFFX1_HVT)     0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: data_memory_controller/consumer_read_data_reg[24]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_lsu_read_data_reg[24]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                     16000                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  data_memory_controller/consumer_read_data_reg[24]/CLK (DFFX1_LVT)
+                                                          0.00 #     0.00 r
+  data_memory_controller/consumer_read_data_reg[24]/Q (DFFX1_LVT)
+                                                          0.10       0.10 f
+  data_memory_controller/U3073/Y (NBUFFX2_LVT)            0.04       0.14 f
+  data_memory_controller/consumer_read_data[24] (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                                          0.00       0.14 f
+  cores[0].core_lsu_read_data_reg[24]/D (DFFX1_HVT)       0.07       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_lsu_read_data_reg[24]/CLK (DFFX1_HVT)     0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: data_memory_controller/consumer_read_data_reg[25]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[0].core_lsu_read_data_reg[25]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                     16000                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  data_memory_controller/consumer_read_data_reg[25]/CLK (DFFX1_LVT)
+                                                          0.00 #     0.00 r
+  data_memory_controller/consumer_read_data_reg[25]/Q (DFFX1_LVT)
+                                                          0.10       0.10 f
+  data_memory_controller/U3072/Y (NBUFFX2_LVT)            0.04       0.14 f
+  data_memory_controller/consumer_read_data[25] (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                                          0.00       0.14 f
+  cores[0].core_lsu_read_data_reg[25]/D (DFFX1_HVT)       0.07       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[0].core_lsu_read_data_reg[25]/CLK (DFFX1_HVT)     0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+  Startpoint: data_memory_controller/consumer_read_data_reg[50]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cores[1].core_lsu_read_data_reg[18]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  gpu                70000                 saed32rvt_tt0p78v25c
+  controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                     16000                 saed32rvt_tt0p78v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  data_memory_controller/consumer_read_data_reg[50]/CLK (DFFX1_LVT)
+                                                          0.00 #     0.00 r
+  data_memory_controller/consumer_read_data_reg[50]/Q (DFFX1_LVT)
+                                                          0.10       0.10 f
+  data_memory_controller/U3065/Y (NBUFFX2_LVT)            0.04       0.14 f
+  data_memory_controller/consumer_read_data[50] (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                                          0.00       0.14 f
+  cores[1].core_lsu_read_data_reg[18]/D (DFFX1_HVT)       0.07       0.21 f
+  data arrival time                                                  0.21
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.10       0.10
+  cores[1].core_lsu_read_data_reg[18]/CLK (DFFX1_HVT)     0.00       0.10 r
+  library hold time                                       0.10       0.20
+  data required time                                                 0.20
+  --------------------------------------------------------------------------
+  data required time                                                 0.20
+  data arrival time                                                 -0.21
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1

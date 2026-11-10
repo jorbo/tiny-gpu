@@ -1,0 +1,34 @@
+[dumpfile] "/home/jordan/tiny-gpu/build/gpu_rtl_2p55.vcd"
+[timestart] 0
+@200
+-Top level
+@28
+tb_gpu.dut.clk
+tb_gpu.dut.reset
+tb_gpu.dut.start
+tb_gpu.dut.done
+@200
+-Core 0 control
+@2022
+^1 /home/jordan/tiny-gpu/docs/gtkwave/core_state.txt
+tb_gpu.dut.cores[0].core_instance.core_state[2:0]
+@2022
+^2 /home/jordan/tiny-gpu/docs/gtkwave/fetcher_state.txt
+tb_gpu.dut.cores[0].core_instance.fetcher_state[2:0]
+@24
+tb_gpu.dut.cores[0].core_instance.current_pc[7:0]
+@200
+-Program memory
+@28
+tb_gpu.dut.program_mem_read_valid
+@22
+tb_gpu.dut.program_mem_read_address[7:0]
+@200
+-Data memory (4 channels)
+@22
+tb_gpu.dut.data_mem_read_valid[3:0]
+tb_gpu.dut.data_mem_write_valid[3:0]
+@200
+-Thread 0 ALU
+@24
+tb_gpu.dut.cores[0].core_instance.threads[0].alu_instance.alu_out[7:0]

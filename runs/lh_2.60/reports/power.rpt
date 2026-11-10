@@ -1,0 +1,159 @@
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Invalid switching activity annotation on constant net(s) is being ignored. (PWR-421)
+Warning: The derived toggle rate value (0.769231) for the clock net 'clk' conflicts with the annotated value (0.199959). Using the annotated value. (PWR-12)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -hier
+        -analysis_effort low
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Sun Nov  8 15:02:57 2026
+****************************************
+
+
+Library(s) Used:
+
+    saed32lvt_tt0p78v25c (File: /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_tt0p78v25c.db)
+    saed32hvt_tt0p78v25c (File: /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_tt0p78v25c.db)
+
+
+Operating Conditions: tt0p78v25c   Library: saed32rvt_tt0p78v25c
+Wire Load Model Mode: enclosed
+
+Design        Wire Load Model            Library
+------------------------------------------------
+gpu                    70000             saed32rvt_tt0p78v25c
+dcr                    ForQA             saed32rvt_tt0p78v25c
+controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+                       16000             saed32rvt_tt0p78v25c
+controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0
+                       8000              saed32rvt_tt0p78v25c
+dispatch_NUM_CORES2_THREADS_PER_BLOCK4
+                       8000              saed32rvt_tt0p78v25c
+core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+                       16000             saed32rvt_tt0p78v25c
+core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+                       16000             saed32rvt_tt0p78v25c
+fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_1
+                       8000              saed32rvt_tt0p78v25c
+decoder_1              8000              saed32rvt_tt0p78v25c
+scheduler_THREADS_PER_BLOCK4_1
+                       ForQA             saed32rvt_tt0p78v25c
+alu_7                  8000              saed32rvt_tt0p78v25c
+lsu_7                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1
+                       8000              saed32rvt_tt0p78v25c
+alu_6                  8000              saed32rvt_tt0p78v25c
+lsu_6                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_1
+                       8000              saed32rvt_tt0p78v25c
+alu_5                  8000              saed32rvt_tt0p78v25c
+lsu_5                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_1
+                       8000              saed32rvt_tt0p78v25c
+alu_4                  8000              saed32rvt_tt0p78v25c
+lsu_4                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1
+                       8000              saed32rvt_tt0p78v25c
+pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4
+                       ForQA             saed32rvt_tt0p78v25c
+fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0
+                       8000              saed32rvt_tt0p78v25c
+decoder_0              8000              saed32rvt_tt0p78v25c
+scheduler_THREADS_PER_BLOCK4_0
+                       ForQA             saed32rvt_tt0p78v25c
+alu_3                  8000              saed32rvt_tt0p78v25c
+lsu_3                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0
+                       8000              saed32rvt_tt0p78v25c
+alu_2                  8000              saed32rvt_tt0p78v25c
+lsu_2                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0
+                       8000              saed32rvt_tt0p78v25c
+alu_1                  8000              saed32rvt_tt0p78v25c
+lsu_1                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0
+                       8000              saed32rvt_tt0p78v25c
+alu_0                  8000              saed32rvt_tt0p78v25c
+lsu_0                  8000              saed32rvt_tt0p78v25c
+registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0
+                       8000              saed32rvt_tt0p78v25c
+pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0
+                       ForQA             saed32rvt_tt0p78v25c
+
+
+Global Operating Voltage = 0.78 
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000ff
+    Time Units = 1ns
+    Dynamic Power Units = 1uW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+--------------------------------------------------------------------------------
+                                       Switch   Int      Leak     Total
+Hierarchy                              Power    Power    Power    Power    %
+--------------------------------------------------------------------------------
+gpu                                      22.481  865.397 4.95e+09 5.84e+03 100.0
+  cores[1].core_instance (core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0)
+                                          7.025  314.404 1.65e+09 1.97e+03  33.7
+    threads[3].pc_instance (pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0)
+                                          0.136    4.459 1.45e+07   19.047   0.3
+    threads[3].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0)
+                                          1.213   46.948 1.13e+08  161.450   2.8
+    threads[3].lsu_instance (lsu_0)       0.271   13.211 5.02e+06   18.498   0.3
+    threads[3].alu_instance (alu_0)       0.106    3.717 2.10e+08  214.048   3.7
+    threads[2].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0)
+                                          1.337   47.147 1.27e+08  175.951   3.0
+    threads[2].lsu_instance (lsu_1)       0.229   13.194 4.19e+06   17.614   0.3
+    threads[2].alu_instance (alu_1)    9.51e-02    3.739 2.38e+08  241.479   4.1
+    threads[1].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0)
+                                          1.147   73.404 3.13e+08  387.622   6.6
+    threads[1].lsu_instance (lsu_2)       0.271   13.213 4.93e+06   18.417   0.3
+    threads[1].alu_instance (alu_2)    7.74e-02    3.425 2.32e+08  235.108   4.0
+    threads[0].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0)
+                                          1.288   47.467 9.33e+07  142.094   2.4
+    threads[0].lsu_instance (lsu_3)       0.268   13.219 6.68e+06   20.170   0.3
+    threads[0].alu_instance (alu_3)    8.59e-02    3.677 2.27e+08  230.869   4.0
+    scheduler_instance (scheduler_THREADS_PER_BLOCK4_0)
+                                          0.133    6.170 2.15e+07   27.813   0.5
+    decoder_instance (decoder_0)          0.106   11.368 2.98e+07   41.268   0.7
+    fetcher_instance (fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0)
+                                          0.259   10.044 4.62e+06   14.929   0.3
+  cores[0].core_instance (core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1)
+                                         10.320  301.984 1.56e+09 1.87e+03  32.1
+    threads[3].pc_instance (pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4)
+                                          0.180    4.333 1.27e+07   17.164   0.3
+    threads[3].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1)
+                                          1.863   49.412 1.39e+08  190.171   3.3
+    threads[3].lsu_instance (lsu_4)       0.183   13.246 7.67e+06   21.099   0.4
+    threads[3].alu_instance (alu_4)       0.458    5.077 2.50e+08  255.425   4.4
+    threads[2].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_1)
+                                          1.763   48.995 1.44e+08  194.860   3.3
+    threads[2].lsu_instance (lsu_5)    9.98e-02   13.596 8.34e+06   22.037   0.4
+    threads[2].alu_instance (alu_5)       0.422    4.788 2.20e+08  224.867   3.8
+    threads[1].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_1)
+                                          1.659   48.804 1.18e+08  168.014   2.9
+    threads[1].lsu_instance (lsu_6)       0.174   13.631 9.56e+06   23.370   0.4
+    threads[1].alu_instance (alu_6)       0.448    4.858 2.37e+08  242.581   4.2
+    threads[0].register_instance (registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1)
+                                          1.240   48.409 1.10e+08  159.983   2.7
+    threads[0].lsu_instance (lsu_7)       0.172   13.654 9.07e+06   22.900   0.4
+    threads[0].alu_instance (alu_7)       0.305    4.518 2.27e+08  231.546   4.0
+    scheduler_instance (scheduler_THREADS_PER_BLOCK4_1)
+                                          0.487    6.915 2.57e+07   33.131   0.6
+    decoder_instance (decoder_1)          0.136   11.217 3.37e+07   45.061   0.8
+    fetcher_instance (fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_1)
+                                          0.332   10.400 5.47e+06   16.204   0.3
+  dispatch_instance (dispatch_NUM_CORES2_THREADS_PER_BLOCK4)
+                                          1.447   22.819 2.05e+08  229.019   3.9
+  program_memory_controller (controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0)
+                                          0.372   18.048 1.22e+07   30.661   0.5
+  data_memory_controller (controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4)
+                                          3.302   99.907 1.44e+09 1.54e+03  26.4
+  dcr_instance (dcr)                   2.74e-03    3.566 2.98e+07   33.378   0.6
+1

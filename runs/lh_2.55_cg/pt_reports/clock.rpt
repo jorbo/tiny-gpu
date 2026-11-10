@@ -1,0 +1,17 @@
+****************************************
+Report : clock
+Design : gpu
+Version: V-2023.12-SP5-4
+Date   : Sun Nov  8 18:54:59 2026
+****************************************
+
+Attributes:
+    p - Propagated clock
+    G - Generated  clock
+    I - Inactive   clock
+
+Clock             Period          Waveform            Attrs     Sources
+-----------------------------------------------------------------------
+clk                 2.55          {0 1.275}                     {clk}
+
+1

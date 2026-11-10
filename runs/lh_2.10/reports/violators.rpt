@@ -1,0 +1,70 @@
+ 
+****************************************
+Report : constraint
+        -all_violators
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Sun Nov  8 15:03:55 2026
+****************************************
+
+
+   max_delay/setup ('clk' group)
+
+                             Required        Actual
+   Endpoint                 Path Delay     Path Delay        Slack
+   -----------------------------------------------------------------
+   data_memory_controller/mem_write_address_reg[27]/D
+                              1.9591         1.9799 f      -0.0208  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[28]/D
+                              1.9591         1.9799 f      -0.0208  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[31]/D
+                              1.9591         1.9799 f      -0.0208  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[26]/D
+                              1.9591         1.9799 f      -0.0208  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[27]/D
+                              1.9591         1.9799 f      -0.0208  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[29]/D
+                              1.9591         1.9799 f      -0.0208  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[26]/D
+                              1.9587         1.9680 f      -0.0093  (VIOLATED)
+   cores[1].core_instance/threads[0].alu_instance/alu_out_reg_reg[0]/D
+                              1.9677         1.9763 r      -0.0086  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[29]/D
+                              1.9618         1.9672 f      -0.0055  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[16]/D
+                              1.9766         1.9808 f      -0.0043  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[24]/D
+                              1.9673         1.9699 r      -0.0026  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[18]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[23]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[22]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[16]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[17]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[19]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[20]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[21]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[17]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[18]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[19]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[20]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[21]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[22]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[23]/D
+                              1.9766         1.9769 f      -0.0003  (VIOLATED)
+
+
+1

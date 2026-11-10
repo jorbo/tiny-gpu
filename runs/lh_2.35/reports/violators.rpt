@@ -1,0 +1,30 @@
+ 
+****************************************
+Report : constraint
+        -all_violators
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Sun Nov  8 15:14:24 2026
+****************************************
+
+
+   max_delay/setup ('clk' group)
+
+                             Required        Actual
+   Endpoint                 Path Delay     Path Delay        Slack
+   -----------------------------------------------------------------
+   data_memory_controller/mem_write_data_reg[27]/D
+                              2.2178         2.2363 r      -0.0185  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[29]/D
+                              2.2189         2.2349 r      -0.0160  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[27]/D
+                              2.2258         2.2392 f      -0.0134  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[26]/D
+                              2.2238         2.2310 f      -0.0072  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[25]/D
+                              2.2267         2.2314 f      -0.0048  (VIOLATED)
+   data_memory_controller/controller_state_reg[6]/D
+                              2.2189         2.2197 r      -0.0008  (VIOLATED)
+
+
+1

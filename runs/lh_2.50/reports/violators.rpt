@@ -1,0 +1,20 @@
+ 
+****************************************
+Report : constraint
+        -all_violators
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Sun Nov  8 15:13:37 2026
+****************************************
+
+
+   max_delay/setup ('clk' group)
+
+                             Required        Actual
+   Endpoint                 Path Delay     Path Delay        Slack
+   -----------------------------------------------------------------
+   cores[0].core_instance/threads[1].alu_instance/alu_out_reg_reg[0]/D
+                              2.3740         2.3815 f      -0.0075  (VIOLATED)
+
+
+1

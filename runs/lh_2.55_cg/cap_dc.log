@@ -1,0 +1,731 @@
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid this.
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+              Version W-2024.09-SP5-4 for linux64 - Sep 10, 2025 
+
+                    Copyright (c) 1988 - 2025 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+Initializing...
+Initializing gui preferences from file  /home/cegrad/jayvazian/.synopsys_dc_gui/preferences.tcl
+Current time:       Sun Nov  8 18:49:24 2026
+Hostname:           bender.engr.ucr.edu
+CPU Model:          Intel(R) Xeon(R) Gold 5215 CPU @ 2.50GHz
+CPU Details:        Cores = 40 : Sockets = 2 : Cache Size = 14080 KB : Freq = 3.00 GHz
+OS:                 Linux 4.18.0-553.158.1.el8_10.x86_64
+RAM:                251 GB (Free   8 GB)
+Swap:                 3 GB (Free   0 GB)
+Work Filesystem:    /home/cegrad mounted to toaster:/home/grad/ce
+Tmp Filesystem:     / mounted to /dev/md126
+Work Disk:          6745 GB (Free 3310 GB)
+Tmp Disk:           888 GB (Free  87 GB)
+
+CPU Load: 42%, Ram Free: 8 GB, Swap Free: 0 GB, Work Disk Free: 3310 GB, Tmp Disk Free: 87 GB
+# Compare DC's and PrimeTime's view of net capacitance on the same netlist (max_capacitance mismatch).
+# Run from syn/ in either tool:
+#   dc_shell -x "set RUN_DIR runs/lh_2.55_cg" -f cap_debug.tcl >| runs/lh_2.55_cg/cap_dc.log 2>&1
+#   pt_shell -x "set RUN_DIR runs/lh_2.55_cg" -f cap_debug.tcl >| runs/lh_2.55_cg/cap_pt.log 2>&1
+set LIB_DIR /usr/local/synopsys/pdk/SAED32_EDK/lib
+/usr/local/synopsys/pdk/SAED32_EDK/lib
+set LIBS "$LIB_DIR/stdcell_rvt/db_nldm/saed32rvt_tt0p78v25c.db \
+          $LIB_DIR/stdcell_hvt/db_nldm/saed32hvt_tt0p78v25c.db \
+          $LIB_DIR/stdcell_lvt/db_nldm/saed32lvt_tt0p78v25c.db"
+/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_tt0p78v25c.db  /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_tt0p78v25c.db  /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_tt0p78v25c.db
+if {![info exists RUN_DIR]} { set RUN_DIR runs/lh_2.55_cg }
+# Worst register-file pin in PT (8 fF limit, 10.51 fF in PT)
+if {![info exists NET]} { set NET cores_0__core_instance/threads_0__register_instance/n48 }
+cores_0__core_instance/threads_0__register_instance/n48
+set PIN cores_0__core_instance/threads_0__register_instance/U11/Y
+cores_0__core_instance/threads_0__register_instance/U11/Y
+set is_pt [string match pt_shell* $synopsys_program_name]
+0
+set_app_var link_path "* $LIBS"
+* /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_tt0p78v25c.db  /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_tt0p78v25c.db  /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_tt0p78v25c.db
+if {!$is_pt} { set_app_var target_library $LIBS }
+/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_tt0p78v25c.db  /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_tt0p78v25c.db  /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_tt0p78v25c.db
+read_verilog $RUN_DIR/out/gpu_netlist.v
+Loading db file '/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_tt0p78v25c.db'
+Loading db file '/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_tt0p78v25c.db'
+Loading db file '/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_tt0p78v25c.db'
+Loading db file '/usr/local/synopsys/syn/W-2024.09-SP5-4/libraries/syn/gtech.db'
+Loading db file '/usr/local/synopsys/syn/W-2024.09-SP5-4/libraries/syn/standard.sldb'
+  Loading link library 'saed32rvt_tt0p78v25c'
+  Loading link library 'saed32hvt_tt0p78v25c'
+  Loading link library 'saed32lvt_tt0p78v25c'
+  Loading link library 'gtech'
+Loading verilog file '/home/cegrad/jayvazian/tiny-gpu/syn/runs/lh_2.55_cg/out/gpu_netlist.v'
+Detecting input file type automatically (-rtl or -netlist).
+Running DC verilog reader
+Performing 'read' command.
+Compiling source file /home/cegrad/jayvazian/tiny-gpu/syn/runs/lh_2.55_cg/out/gpu_netlist.v
+Reading with netlist reader (equivalent to -netlist option).
+Verilog netlist reader completed successfully.
+Current design is now '/home/cegrad/jayvazian/tiny-gpu/syn/runs/lh_2.55_cg/out/SNPS_CLOCK_GATE_HIGH_dcr.db:SNPS_CLOCK_GATE_HIGH_dcr'
+Loaded 250 designs.
+Current design is 'SNPS_CLOCK_GATE_HIGH_dcr'.
+SNPS_CLOCK_GATE_HIGH_dcr dcr SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_0 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_24 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_23 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_22 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_21 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_20 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_19 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_18 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_17 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_16 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_15 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_14 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_13 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_12 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_11 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_10 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_9 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_8 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_7 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_6 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_5 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_4 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_3 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_2 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_1 controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_0 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_3 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_2 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_1 controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0 SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_0 SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_4 SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_3 SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_2 SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_1 dispatch_NUM_CORES2_THREADS_PER_BLOCK4 SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_5 SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_4 SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_3 fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_1 SNPS_CLOCK_GATE_HIGH_decoder_0_1 decoder_1 SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_3 SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_2 scheduler_THREADS_PER_BLOCK4_1 SNPS_CLOCK_GATE_HIGH_alu_0_7 alu_7 SNPS_CLOCK_GATE_HIGH_lsu_0_23 SNPS_CLOCK_GATE_HIGH_lsu_0_22 SNPS_CLOCK_GATE_HIGH_lsu_0_21 lsu_7 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_32 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_31 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_30 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_29 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_28 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_27 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_26 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_25 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_24 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_23 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_22 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_21 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_20 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_19 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_18 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_17 registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1 SNPS_CLOCK_GATE_HIGH_alu_0_6 alu_6 SNPS_CLOCK_GATE_HIGH_lsu_0_20 SNPS_CLOCK_GATE_HIGH_lsu_0_19 SNPS_CLOCK_GATE_HIGH_lsu_0_18 lsu_6 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_32 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_31 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_30 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_29 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_28 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_27 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_26 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_25 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_24 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_23 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_22 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_21 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_20 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_19 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_18 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_17 registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_1 SNPS_CLOCK_GATE_HIGH_alu_0_5 alu_5 SNPS_CLOCK_GATE_HIGH_lsu_0_17 SNPS_CLOCK_GATE_HIGH_lsu_0_16 SNPS_CLOCK_GATE_HIGH_lsu_0_15 lsu_5 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_32 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_31 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_30 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_29 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_28 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_27 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_26 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_25 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_24 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_23 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_22 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_21 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_20 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_19 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_18 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_17 registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_1 SNPS_CLOCK_GATE_HIGH_alu_0_4 alu_4 SNPS_CLOCK_GATE_HIGH_lsu_0_14 SNPS_CLOCK_GATE_HIGH_lsu_0_13 SNPS_CLOCK_GATE_HIGH_lsu_0_12 lsu_4 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_32 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_31 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_30 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_29 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_28 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_27 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_26 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_25 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_24 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_23 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_22 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_21 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_20 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_19 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_18 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_17 registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_3 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_2 pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4 core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1 SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_0 SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_2 SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_1 fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0 SNPS_CLOCK_GATE_HIGH_decoder_0_0 decoder_0 SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_0 SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_1 scheduler_THREADS_PER_BLOCK4_0 
+SNPS_CLOCK_GATE_HIGH_alu_0_3 alu_3 SNPS_CLOCK_GATE_HIGH_lsu_0_11 SNPS_CLOCK_GATE_HIGH_lsu_0_10 SNPS_CLOCK_GATE_HIGH_lsu_0_9 lsu_3 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_16 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_15 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_14 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_13 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_12 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_11 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_10 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_9 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_8 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_7 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_6 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_5 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_4 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_3 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_2 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_1 registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0 SNPS_CLOCK_GATE_HIGH_alu_0_2 alu_2 SNPS_CLOCK_GATE_HIGH_lsu_0_8 SNPS_CLOCK_GATE_HIGH_lsu_0_7 SNPS_CLOCK_GATE_HIGH_lsu_0_6 lsu_2 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_16 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_15 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_14 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_13 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_12 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_11 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_10 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_9 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_8 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_7 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_6 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_5 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_4 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_3 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_2 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_1 registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0 SNPS_CLOCK_GATE_HIGH_alu_0_1 alu_1 SNPS_CLOCK_GATE_HIGH_lsu_0_5 SNPS_CLOCK_GATE_HIGH_lsu_0_4 SNPS_CLOCK_GATE_HIGH_lsu_0_3 lsu_1 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_16 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_15 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_14 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_13 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_12 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_11 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_10 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_9 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_8 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_7 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_6 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_5 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_4 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_3 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_2 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_1 registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0 SNPS_CLOCK_GATE_HIGH_alu_0_0 alu_0 SNPS_CLOCK_GATE_HIGH_lsu_0_0 SNPS_CLOCK_GATE_HIGH_lsu_0_2 SNPS_CLOCK_GATE_HIGH_lsu_0_1 lsu_0 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_16 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_15 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_14 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_13 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_12 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_11 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_10 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_9 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_8 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_7 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_6 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_5 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_4 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_3 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_2 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_1 registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_0 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_1 pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0 core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0 gpu
+current_design gpu
+Current design is 'gpu'.
+{gpu}
+if {$is_pt} { link_design } else { link }
+
+  Linking design 'gpu'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (250 designs)             /home/cegrad/jayvazian/tiny-gpu/syn/runs/lh_2.55_cg/out/gpu.db, etc
+  saed32rvt_tt0p78v25c (library) /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_tt0p78v25c.db
+  saed32hvt_tt0p78v25c (library) /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_tt0p78v25c.db
+  saed32lvt_tt0p78v25c (library) /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_tt0p78v25c.db
+
+1
+if {$is_pt} { read_sdc $RUN_DIR/out/gpu.sdc } else { source $RUN_DIR/out/gpu.sdc }
+Information: Setting sdc_version outside of an SDC file has no effect (SDC-1)
+Current design is 'gpu'.
+Warning: Design rule attributes from the driving cell will be set on the port 'reset'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'start'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'device_control_write_enable'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'device_control_data[7]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'device_control_data[6]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'device_control_data[5]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'device_control_data[4]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'device_control_data[3]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'device_control_data[2]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'device_control_data[1]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'device_control_data[0]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_ready[0]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[15]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[14]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[13]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[12]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[11]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[10]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[9]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[8]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[7]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[6]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[5]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[4]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[3]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[2]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[1]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'program_mem_read_data[0]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_ready[3]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_ready[2]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_ready[1]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_ready[0]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[31]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[30]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[29]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[28]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[27]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[26]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[25]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[24]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[23]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[22]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[21]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[20]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[19]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[18]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[17]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[16]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[15]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[14]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[13]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[12]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[11]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[10]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[9]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[8]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[7]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[6]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[5]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[4]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[3]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[2]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[1]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_read_data[0]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_write_ready[3]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_write_ready[2]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_write_ready[1]'. (UID-401)
+Warning: Design rule attributes from the driving cell will be set on the port 'data_mem_write_ready[0]'. (UID-401)
+1
+echo "==== TOOL: $synopsys_program_name"
+==== TOOL: dc_shell
+echo "==== wire load mode / selection"
+==== wire load mode / selection
+foreach v {auto_wire_load_selection} {
+    if {![catch {get_app_var $v} val]} { echo "$v = $val" }
+}
+auto_wire_load_selection = true
+catch {echo "top wire_load_mode attr: [get_attribute [current_design] wire_load_mode]"}
+Current design is 'gpu'.
+Warning: Attribute 'wire_load_mode' does not exist on design 'gpu'. (UID-101)
+top wire_load_mode attr: 
+0
+if {$is_pt} { catch {report_wire_load} } else { catch {report_wire_load} }
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_0' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_2' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_3' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_4' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_5' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_6' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_7' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_8' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_9' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_10' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_11' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_12' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_13' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_14' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_15' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_16' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_2' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_0' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'lsu_0' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_alu_0_0' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'alu_0' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_2' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_3' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_4' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_5' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_6' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_7' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_8' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_9' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_10' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_11' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_12' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_13' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_14' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_15' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_16' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_3' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_4' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_5' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'lsu_1' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_alu_0_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'alu_1' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_2' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_3' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_4' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_5' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_6' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_7' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_8' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_9' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_10' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_11' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_12' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_13' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_14' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_15' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_16' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_6' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_7' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_8' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'lsu_2' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_alu_0_2' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'alu_2' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_2' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_3' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_4' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_5' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_6' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_7' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_8' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_9' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_10' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_11' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_12' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_13' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_14' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_15' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_16' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_9' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_10' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_11' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'lsu_3' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_alu_0_3' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'alu_3' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_0' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'scheduler_THREADS_PER_BLOCK4_0' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_decoder_0_0' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'decoder_0' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_2' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_0' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0' from '(none)' to '16000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_2' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_3' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_17' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_18' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_19' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_20' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_21' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_22' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_23' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_24' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_25' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_26' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_27' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_28' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_29' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_30' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_31' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_32' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_12' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_13' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_14' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'lsu_4' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_alu_0_4' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'alu_4' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_17' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_18' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_19' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_20' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_21' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_22' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_23' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_24' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_25' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_26' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_27' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_28' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_29' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_30' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_31' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_32' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_1' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_15' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_16' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_17' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'lsu_5' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_alu_0_5' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'alu_5' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_17' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_18' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_19' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_20' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_21' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_22' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_23' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_24' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_25' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_26' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_27' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_28' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_29' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_30' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_31' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_32' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_1' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_18' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_19' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_20' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'lsu_6' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_alu_0_6' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'alu_6' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_17' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_18' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_19' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_20' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_21' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_22' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_23' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_24' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_25' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_26' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_27' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_28' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_29' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_30' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_31' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_32' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_21' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_22' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_lsu_0_23' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'lsu_7' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_alu_0_7' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'alu_7' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_2' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_3' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'scheduler_THREADS_PER_BLOCK4_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_decoder_0_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'decoder_1' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_3' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_4' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_5' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_1' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1' from '(none)' to '16000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_2' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_3' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_4' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_0' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'dispatch_NUM_CORES2_THREADS_PER_BLOCK4' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_2' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_3' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_0' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_1' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_2' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_3' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_4' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_5' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_6' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_7' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_8' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_9' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_10' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_11' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_12' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_13' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_14' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_15' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_16' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_17' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_18' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_19' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_20' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_21' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_22' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_23' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_24' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_0' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4' from '(none)' to '8000'. (OPT-170)
+Information: Changed wire load model for 'dcr' from '(none)' to 'ForQA'. (OPT-170)
+Information: Changed wire load model for 'gpu' from 'ForQA' to '70000'. (OPT-170)
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : wire loads
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Sun Nov  8 18:49:27 2026
+****************************************
+
+Wire load model:   70000
+Location       :   gpu (design)
+Resistance     :   0.01
+Capacitance    :   0.000143
+Area           :   0.01
+Slope          :   170.996
+
+                             Average   Standard  % Standard
+Fanout   Length   Points         Cap  Deviation   Deviation
+--------------------------------------------------------------
+     1    18.44                                    
+     2    42.77                                    
+     3    70.64                                    
+     4   102.58                                    
+     5   139.15                                    
+     6   180.88                                    
+     7   228.32                                    
+     8   282.00                                    
+     9   342.48                                    
+    10   410.29                                    
+    11   485.98                                    
+    12   570.09                                    
+    13   663.16                                    
+    14   765.74                                    
+    15   878.36                                    
+    16  1001.57                                    
+    17  1135.91                                    
+    18  1281.93                                    
+    19  1440.17                                    
+    20  1611.17                                    
+--------------------------------------------------------------
+
+Wire load model:   ForQA
+Location       :   dcr (design)
+Resistance     :   0.002067
+Capacitance    :   0.026724
+Area           :   0.01
+Slope          :   30.2854
+
+                             Average   Standard  % Standard
+Fanout   Length   Points         Cap  Deviation   Deviation
+--------------------------------------------------------------
+     1     8.28                                    
+     2    18.49                                    
+     3    29.35                                    
+     4    40.92                                    
+     5    53.23                                    
+     6    66.36                                    
+     7    80.36                                    
+     8    95.27                                    
+     9   111.17                                    
+    10   128.09                                    
+    11   146.10                                    
+    12   165.26                                    
+    13   185.61                                    
+    14   207.22                                    
+    15   230.13                                    
+    16   254.41                                    
+    17   280.11                                    
+    18   307.28                                    
+    19   335.98                                    
+    20   366.27                                    
+--------------------------------------------------------------
+
+Wire load model:   8000
+Location       :   controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4 (design)
+Resistance     :   0.0015727
+Capacitance    :   0.000312
+Area           :   0.01
+Slope          :   90.6464
+
+                             Average   Standard  % Standard
+Fanout   Length   Points         Cap  Deviation   Deviation
+--------------------------------------------------------------
+     1    13.94                                    
+     2    31.80                                    
+     3    51.61                                    
+     4    73.61                                    
+     5    98.05                                    
+     6   125.17                                    
+     7   155.23                                    
+     8   188.46                                    
+     9   225.12                                    
+    10   265.45                                    
+    11   309.71                                    
+    12   358.13                                    
+    13   410.96                                    
+    14   468.46                                    
+    15   530.86                                    
+    16   598.42                                    
+    17   671.38                                    
+    18   749.98                                    
+    19   834.49                                    
+    20   925.13                                    
+--------------------------------------------------------------
+
+Wire load model:   16000
+Location       :   core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1 (design)
+Resistance     :   0.001282
+Capacitance    :   0.000569
+Area           :   0.01
+Slope          :   108.438
+
+                             Average   Standard  % Standard
+Fanout   Length   Points         Cap  Deviation   Deviation
+--------------------------------------------------------------
+     1    15.10                                    
+     2    34.61                                    
+     3    56.42                                    
+     4    80.84                                    
+     5   108.20                                    
+     6   138.79                                    
+     7   172.92                                    
+     8   210.91                                    
+     9   253.07                                    
+    10   299.71                                    
+    11   351.13                                    
+    12   407.64                                    
+    13   469.57                                    
+    14   537.20                                    
+    15   610.87                                    
+    16   690.86                                    
+    17   777.51                                    
+    18   871.11                                    
+    19   971.97                                    
+    20  1080.41                                    
+--------------------------------------------------------------
+
+0
+echo "==== WLM of the enclosing register design"
+==== WLM of the enclosing register design
+set reg [get_cells cores_0__core_instance/threads_0__register_instance]
+{cores_0__core_instance/threads_0__register_instance}
+catch {echo "ref: [get_attribute $reg ref_name]"}
+ref: registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1
+0
+foreach a {wire_load_model_max wire_load_model wire_load_selection_group_max area} {
+    catch {echo "$a (cell): [get_attribute $reg $a]"}
+}
+Warning: Attribute 'wire_load_model_max' does not exist on cell 'cores_0__core_instance/threads_0__register_instance'. (UID-101)
+wire_load_model_max (cell): 
+Warning: Attribute 'wire_load_model' does not exist on cell 'cores_0__core_instance/threads_0__register_instance'. (UID-101)
+wire_load_model (cell): 
+Warning: Attribute 'wire_load_selection_group_max' does not exist on cell 'cores_0__core_instance/threads_0__register_instance'. (UID-101)
+wire_load_selection_group_max (cell): 
+Warning: Attribute 'area' does not exist on cell 'cores_0__core_instance/threads_0__register_instance'. (UID-101)
+area (cell): 
+echo "==== net $NET"
+==== net cores_0__core_instance/threads_0__register_instance/n48
+catch {report_net -connections -verbose $NET}
+ 
+****************************************
+Report : net
+        -connections
+        -verbose
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Sun Nov  8 18:49:27 2026
+****************************************
+
+
+net 'cores_0__core_instance/threads_0__register_instance/n48':
+    dont_touch:         FALSE               
+    pin capacitance:    min:6.63832    max:10.3002
+    wire capacitance:   min:0.209469    max:0.209469
+    total capacitance:  min:6.84779    max:10.5096
+    wire resistance:    1.05587
+    number of drivers:  1
+    number of loads:    17
+    number of pins:     18
+
+Connections for net 'cores_0__core_instance/threads_0__register_instance/n48':
+
+    Driver Pins         Type                Pin Cap
+    ------------        ----------------    --------
+    cores_0__core_instance/threads_0__register_instance/U11/Y
+                        Output Pin (AND2X1_LVT)
+                                            0
+
+    Load Pins           Type                Pin Cap
+    ------------        ----------------    --------
+    cores_0__core_instance/threads_0__register_instance/U20/A1
+                        Input Pin (NAND2X0_LVT)
+                                            0.565654
+    cores_0__core_instance/threads_0__register_instance/U29/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U28/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U27/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U26/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U25/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U22/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U148/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U118/A
+                        Input Pin (INVX2_HVT)
+                                            1.41951
+    cores_0__core_instance/threads_0__register_instance/U70/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U69/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U68/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U67/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U66/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U65/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U64/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+    cores_0__core_instance/threads_0__register_instance/U63/A1
+                        Input Pin (AND2X1_HVT)
+                                            0.555462
+0
+foreach a {wire_capacitance_max pin_capacitance_max total_capacitance_max wire_load_model_max} {
+    catch {echo "$a: [get_attribute [get_nets $NET] $a]"}
+}
+Warning: Attribute 'wire_capacitance_max' does not exist on net 'cores_0__core_instance/threads_0__register_instance/n48'. (UID-101)
+wire_capacitance_max: 
+Warning: Attribute 'pin_capacitance_max' does not exist on net 'cores_0__core_instance/threads_0__register_instance/n48'. (UID-101)
+pin_capacitance_max: 
+total_capacitance_max: 7.982315
+Warning: Attribute 'wire_load_model_max' does not exist on net 'cores_0__core_instance/threads_0__register_instance/n48'. (UID-101)
+wire_load_model_max: 
+echo "==== pin $PIN constraint"
+==== pin cores_0__core_instance/threads_0__register_instance/U11/Y constraint
+if {$is_pt} { catch {report_constraint -max_capacitance -verbose [get_pins $PIN]} }
+redirect -variable rpt {report_constraint -all_violators -max_capacitance}
+echo "max_capacitance violators: [regexp -all {VIOLATED} $rpt]"
+max_capacitance violators: 0
+# Where does the 8 fF limit on AND2X1_LVT/Y come from? Library attribute vs table-derived limit
+echo "==== library max_capacitance attributes"
+==== library max_capacitance attributes
+foreach lp {saed32lvt_tt0p78v25c/AND2X1_LVT/Y saed32hvt_tt0p78v25c/AND2X1_HVT/Y
+            saed32lvt_tt0p78v25c/NOR4X1_LVT/Y saed32lvt_tt0p78v25c/AND2X2_LVT/Y} {
+    set p [get_lib_pins -quiet $lp]
+    if {[sizeof_collection $p] == 0} { echo "$lp: not found"; continue }
+    set mc ""
+    catch {set mc [get_attribute -quiet $p max_capacitance]}
+    echo "$lp max_capacitance = '$mc'"
+}
+saed32lvt_tt0p78v25c/AND2X1_LVT/Y max_capacitance = '8.000000'
+saed32hvt_tt0p78v25c/AND2X1_HVT/Y max_capacitance = '8.000000'
+saed32lvt_tt0p78v25c/NOR4X1_LVT/Y max_capacitance = '8.000000'
+saed32lvt_tt0p78v25c/AND2X2_LVT/Y max_capacitance = '16.000000'
+catch {echo "pin U11/Y max_capacitance attr: [get_attribute -quiet [get_pins $PIN] max_capacitance]"}
+pin U11/Y max_capacitance attr: 8.000000
+0
+foreach v {timing_library_max_cap_from_lookup_table timing_enable_max_capacitance_set_case_analysis
+           compile_enable_max_cap_from_lookup_table} {
+    if {![catch {get_app_var $v} val]} { echo "app_var $v = $val" }
+}
+app_var timing_library_max_cap_from_lookup_table = false
+Error: Variable 'timing_enable_max_capacitance_set_case_analysis' is not an application variable. Using Tcl global variable. (CMD-104)
+Error: Variable 'compile_enable_max_cap_from_lookup_table' is not an application variable. Using Tcl global variable. (CMD-104)
+exit
+
+Memory usage for this session 268 Mbytes.
+Memory usage for this session including child processes 268 Mbytes.
+CPU usage for this session 6 seconds ( 0.00 hours ).
+Elapsed time for this session 7 seconds ( 0.00 hours ).
+
+Thank you...

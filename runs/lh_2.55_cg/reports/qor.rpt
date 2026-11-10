@@ -1,0 +1,83 @@
+ 
+****************************************
+Report : qor
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Sun Nov  8 18:30:43 2026
+****************************************
+
+
+  Timing Path Group 'clk'
+  -----------------------------------
+  Levels of Logic:              26.00
+  Critical Path Length:          2.42
+  Critical Path Slack:           0.00
+  Critical Path Clk Period:      2.55
+  Total Negative Slack:          0.00
+  No. of Violating Paths:        0.00
+  Worst Hold Violation:          0.00
+  Total Hold Violation:          0.00
+  No. of Hold Violations:        0.00
+  -----------------------------------
+
+
+  Cell Count
+  -----------------------------------
+  Hierarchical Cell Count:        249
+  Hierarchical Port Count:       3675
+  Leaf Cell Count:              13492
+  Buf/Inv Cell Count:            1754
+  Buf Cell Count:                  61
+  Inv Cell Count:                1693
+  CT Buf/Inv Cell Count:            0
+  Combinational Cell Count:     11030
+  Sequential Cell Count:         2462
+  Macro Count:                      0
+  -----------------------------------
+
+
+  Area
+  -----------------------------------
+  Combinational Area:    26682.578721
+  Noncombinational Area: 16213.625249
+  Buf/Inv Area:           2356.677319
+  Total Buffer Area:           146.39
+  Total Inverter Area:        2210.29
+  Macro/Black Box Area:      0.000000
+  Net Area:               8217.461363
+  -----------------------------------
+  Cell Area:             42896.203970
+  Design Area:           51113.665333
+
+
+  Design Rules
+  -----------------------------------
+  Total Number of Nets:         14276
+  Nets With Violations:             0
+  Max Trans Violations:             0
+  Max Cap Violations:               0
+  -----------------------------------
+
+
+  Hostname: bender.engr.ucr.edu
+
+  Compile CPU Statistics
+  -----------------------------------------
+  Resource Sharing:                    0.01
+  Logic Optimization:                  2.70
+  Mapping Optimization:               42.82
+  -----------------------------------------
+  Overall Compile Time:               61.32
+  Overall Compile Wall Clock Time:    62.34
+
+  --------------------------------------------------------------------
+
+  Design  WNS: 0.00  TNS: 0.00  Number of Violating Paths: 0
+
+
+  Design (Hold)  WNS: 0.00  TNS: 0.00  Number of Violating Paths: 0
+
+  --------------------------------------------------------------------
+
+
+1

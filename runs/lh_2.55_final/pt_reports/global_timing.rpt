@@ -1,0 +1,12 @@
+****************************************
+Report : global_timing
+	-format { narrow }
+Design : gpu
+Version: V-2023.12-SP5-4
+Date   : Sun Nov  8 16:55:32 2026
+****************************************
+
+No setup violations found.
+
+No hold violations found.
+1

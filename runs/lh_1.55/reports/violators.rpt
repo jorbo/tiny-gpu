@@ -1,0 +1,584 @@
+ 
+****************************************
+Report : constraint
+        -all_violators
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Sun Nov  8 15:05:59 2026
+****************************************
+
+
+   max_delay/setup ('clk' group)
+
+                             Required        Actual
+   Endpoint                 Path Delay     Path Delay        Slack
+   -----------------------------------------------------------------
+   data_memory_controller/mem_read_address_reg[31]/D
+                              1.4163         1.6503 r      -0.2340  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[19]/D
+                              1.4222         1.6552 f      -0.2330  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[21]/D
+                              1.4222         1.6552 f      -0.2330  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[22]/D
+                              1.4222         1.6552 f      -0.2330  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[16]/D
+                              1.4222         1.6552 f      -0.2330  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[17]/D
+                              1.4222         1.6552 f      -0.2330  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[20]/D
+                              1.4222         1.6552 f      -0.2330  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[18]/D
+                              1.4222         1.6552 f      -0.2329  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[28]/D
+                              1.4258         1.6580 f      -0.2322  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[29]/D
+                              1.4169         1.6485 r      -0.2316  (VIOLATED)
+   data_memory_controller/current_consumer_reg[11]/D
+                              1.4239         1.6506 f      -0.2267  (VIOLATED)
+   data_memory_controller/controller_state_reg[6]/D
+                              1.4171         1.6429 r      -0.2259  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[28]/D
+                              1.4165         1.6421 f      -0.2256  (VIOLATED)
+   data_memory_controller/controller_state_reg[10]/D
+                              1.4190         1.6439 f      -0.2249  (VIOLATED)
+   cores[0].core_instance/threads[0].alu_instance/alu_out_reg_reg[0]/D
+                              1.4167         1.6407 f      -0.2240  (VIOLATED)
+   data_memory_controller/controller_state_reg[11]/D
+                              1.4200         1.6439 f      -0.2239  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[30]/D
+                              1.4171         1.6397 r      -0.2225  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[25]/D
+                              1.4165         1.6384 f      -0.2219  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[27]/D
+                              1.4165         1.6382 f      -0.2216  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[8]/D
+                              1.4267         1.6482 f      -0.2216  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[13]/D
+                              1.4267         1.6482 f      -0.2216  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[29]/D
+                              1.4177         1.6388 f      -0.2211  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[26]/D
+                              1.4165         1.6367 f      -0.2202  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[24]/D
+                              1.4154         1.6354 r      -0.2199  (VIOLATED)
+   data_memory_controller/controller_state_reg[7]/D
+                              1.4171         1.6342 f      -0.2171  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[31]/D
+                              1.4164         1.6335 r      -0.2170  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[26]/D
+                              1.4169         1.6335 r      -0.2166  (VIOLATED)
+   cores[0].core_instance/threads[2].alu_instance/alu_out_reg_reg[0]/D
+                              1.4177         1.6328 r      -0.2150  (VIOLATED)
+   data_memory_controller/controller_state_reg[8]/D
+                              1.4201         1.6342 f      -0.2141  (VIOLATED)
+   cores[0].core_instance/threads[3].alu_instance/alu_out_reg_reg[1]/D
+                              1.4183         1.6321 f      -0.2138  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[30]/D
+                              1.4239         1.6371 f      -0.2132  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[29]/D
+                              1.4256         1.6375 f      -0.2118  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[25]/D
+                              1.4219         1.6319 f      -0.2100  (VIOLATED)
+   cores[0].core_instance/threads[2].alu_instance/alu_out_reg_reg[1]/D
+                              1.4153         1.6227 f      -0.2075  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[24]/D
+                              1.4241         1.6309 f      -0.2068  (VIOLATED)
+   data_memory_controller/mem_write_valid_reg[2]/D
+                              1.4177         1.6242 r      -0.2065  (VIOLATED)
+   dispatch_instance/core_thread_count_reg[5]/D
+                              1.4178         1.6243 r      -0.2064  (VIOLATED)
+   dispatch_instance/blocks_dispatched_reg[0]/D
+                              1.4173         1.6233 r      -0.2060  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[24]/D
+                              1.4178         1.6223 r      -0.2045  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[27]/D
+                              1.4239         1.6277 f      -0.2038  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[30]/D
+                              1.4165         1.6188 f      -0.2022  (VIOLATED)
+   cores[0].core_instance/threads[3].alu_instance/alu_out_reg_reg[0]/D
+                              1.4156         1.6178 r      -0.2022  (VIOLATED)
+   cores[1].core_instance/threads[2].alu_instance/alu_out_reg_reg[0]/D
+                              1.4177         1.6188 f      -0.2011  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[27]/D
+                              1.4169         1.6180 r      -0.2011  (VIOLATED)
+   data_memory_controller/current_consumer_reg[9]/D
+                              1.4241         1.6239 f      -0.1998  (VIOLATED)
+   cores[1].core_instance/threads[3].alu_instance/alu_out_reg_reg[0]/D
+                              1.4241         1.6233 f      -0.1992  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[25]/D
+                              1.4178         1.6168 r      -0.1990  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[28]/D
+                              1.4169         1.6158 r      -0.1989  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[31]/D
+                              1.4171         1.6151 r      -0.1980  (VIOLATED)
+   data_memory_controller/current_consumer_reg[10]/D
+                              1.4164         1.6109 f      -0.1945  (VIOLATED)
+   data_memory_controller/controller_state_reg[9]/D
+                              1.4167         1.6082 r      -0.1915  (VIOLATED)
+   dispatch_instance/blocks_dispatched_reg[3]/D
+                              1.4183         1.6004 r      -0.1821  (VIOLATED)
+   dispatch_instance/blocks_dispatched_reg[4]/D
+                              1.4183         1.6004 r      -0.1821  (VIOLATED)
+   dispatch_instance/blocks_dispatched_reg[1]/D
+                              1.4183         1.6004 r      -0.1821  (VIOLATED)
+   dispatch_instance/blocks_dispatched_reg[7]/D
+                              1.4183         1.6004 r      -0.1821  (VIOLATED)
+   cores[1].core_instance/threads[3].alu_instance/alu_out_reg_reg[1]/D
+                              1.4172         1.5973 f      -0.1800  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[16]/D
+                              1.4236         1.6031 f      -0.1795  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[18]/D
+                              1.4236         1.6031 f      -0.1795  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[17]/D
+                              1.4178         1.5972 r      -0.1794  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[18]/D
+                              1.4178         1.5972 r      -0.1794  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[20]/D
+                              1.4178         1.5972 r      -0.1794  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[19]/D
+                              1.4178         1.5972 r      -0.1794  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[21]/D
+                              1.4178         1.5972 r      -0.1794  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[23]/D
+                              1.4178         1.5972 r      -0.1794  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[17]/D
+                              1.4239         1.6031 f      -0.1792  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[26]/D
+                              1.4166         1.5946 r      -0.1780  (VIOLATED)
+   dispatch_instance/core_thread_count_reg[4]/D
+                              1.4201         1.5962 f      -0.1760  (VIOLATED)
+   data_memory_controller/current_consumer_reg[8]/D
+                              1.4201         1.5952 f      -0.1750  (VIOLATED)
+   cores[1].core_instance/threads[0].alu_instance/alu_out_reg_reg[0]/D
+                              1.4162         1.5901 r      -0.1739  (VIOLATED)
+   cores[1].core_instance/threads[1].alu_instance/alu_out_reg_reg[0]/D
+                              1.4178         1.5842 f      -0.1664  (VIOLATED)
+   cores[1].core_instance/threads[2].alu_instance/alu_out_reg_reg[1]/D
+                              1.4152         1.5816 r      -0.1664  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[20]/D
+                              1.4165         1.5821 f      -0.1656  (VIOLATED)
+   dispatch_instance/core_thread_count_reg[3]/D
+                              1.4215         1.5868 f      -0.1653  (VIOLATED)
+   data_memory_controller/current_consumer_reg[6]/D
+                              1.4201         1.5836 f      -0.1635  (VIOLATED)
+   data_memory_controller/current_consumer_reg[7]/D
+                              1.4201         1.5836 f      -0.1635  (VIOLATED)
+   dispatch_instance/core_block_id_reg[9]/D
+                              1.4257         1.5862 f      -0.1605  (VIOLATED)
+   cores[0].core_instance/threads[0].alu_instance/alu_out_reg_reg[1]/D
+                              1.4225         1.5826 f      -0.1601  (VIOLATED)
+   data_memory_controller/channel_serving_consumer_reg[7]/D
+                              1.4227         1.5828 f      -0.1601  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[19]/D
+                              1.4167         1.5720 f      -0.1553  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[21]/D
+                              1.4173         1.5720 f      -0.1547  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[22]/D
+                              1.4175         1.5706 f      -0.1531  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[23]/D
+                              1.4175         1.5706 f      -0.1531  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[22]/D
+                              1.4071         1.5555 f      -0.1484  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[16]/D
+                              1.4071         1.5555 f      -0.1484  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[23]/D
+                              1.4166         1.5620 r      -0.1454  (VIOLATED)
+   data_memory_controller/mem_write_valid_reg[3]/D
+                              1.4189         1.5634 f      -0.1446  (VIOLATED)
+   cores[0].core_instance/threads[1].alu_instance/alu_out_reg_reg[0]/D
+                              1.4161         1.5593 r      -0.1432  (VIOLATED)
+   dispatch_instance/core_block_id_reg[8]/D
+                              1.4172         1.5602 r      -0.1430  (VIOLATED)
+   dispatch_instance/core_block_id_reg[12]/D
+                              1.4172         1.5602 r      -0.1430  (VIOLATED)
+   dispatch_instance/core_block_id_reg[13]/D
+                              1.4173         1.5602 r      -0.1429  (VIOLATED)
+   dispatch_instance/core_block_id_reg[11]/D
+                              1.4174         1.5602 r      -0.1428  (VIOLATED)
+   dispatch_instance/core_block_id_reg[10]/D
+                              1.4175         1.5602 r      -0.1427  (VIOLATED)
+   dispatch_instance/blocks_dispatched_reg[5]/D
+                              1.4177         1.5602 r      -0.1425  (VIOLATED)
+   cores[1].core_instance/threads[1].alu_instance/alu_out_reg_reg[1]/D
+                              1.4172         1.5523 f      -0.1350  (VIOLATED)
+   data_memory_controller/mem_read_valid_reg[3]/D
+                              1.4190         1.5539 r      -0.1349  (VIOLATED)
+   dispatch_instance/blocks_dispatched_reg[6]/D
+                              1.4114         1.5461 r      -0.1347  (VIOLATED)
+   cores[1].core_instance/threads[1].register_instance/registers_reg[6][0]/D
+                              1.1648         1.2960 r      -0.1312  (VIOLATED)
+   dispatch_instance/blocks_dispatched_reg[2]/D
+                              1.4153         1.5461 r      -0.1308  (VIOLATED)
+   cores[1].core_instance/threads[0].alu_instance/alu_out_reg_reg[1]/D
+                              1.4164         1.5347 r      -0.1183  (VIOLATED)
+   dispatch_instance/core_start_reg[1]/D
+                              1.4260         1.5418 f      -0.1158  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[9][0]/D
+                              1.1646         1.2795 r      -0.1149  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[3][0]/D
+                              1.1648         1.2795 r      -0.1147  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[5][0]/D
+                              1.1648         1.2795 r      -0.1147  (VIOLATED)
+   cores[0].core_instance/threads[3].alu_instance/alu_out_reg_reg[2]/D
+                              1.4161         1.5271 r      -0.1109  (VIOLATED)
+   cores[0].core_instance/threads[1].alu_instance/alu_out_reg_reg[1]/D
+                              1.4225         1.5330 f      -0.1105  (VIOLATED)
+   cores[1].core_instance/threads[2].alu_instance/alu_out_reg_reg[2]/D
+                              1.4236         1.5329 f      -0.1093  (VIOLATED)
+   data_memory_controller/channel_serving_consumer_reg[5]/D
+                              1.4177         1.5260 r      -0.1083  (VIOLATED)
+   data_memory_controller/controller_state_reg[3]/D
+                              1.4189         1.5269 r      -0.1081  (VIOLATED)
+   cores[0].core_instance/threads[2].alu_instance/alu_out_reg_reg[2]/D
+                              1.4220         1.5265 f      -0.1045  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[14]/D
+                              1.4267         1.5312 f      -0.1045  (VIOLATED)
+   cores[1].core_instance/threads[1].alu_instance/alu_out_reg_reg[2]/D
+                              1.4207         1.5223 f      -0.1016  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[9]/D
+                              1.4267         1.5274 f      -0.1007  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[2]/D
+                              1.4266         1.5272 f      -0.1006  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[1]/D
+                              1.4266         1.5266 f      -0.1000  (VIOLATED)
+   data_memory_controller/mem_read_valid_reg[2]/D
+                              1.4177         1.5144 r      -0.0967  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[10]/D
+                              1.4075         1.5033 f      -0.0958  (VIOLATED)
+   cores[1].core_instance/threads[2].register_instance/rs_reg[3]/D
+                              1.4149         1.5100 r      -0.0951  (VIOLATED)
+   cores[1].core_instance/threads[3].alu_instance/alu_out_reg_reg[2]/D
+                              1.4180         1.5130 f      -0.0949  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[9]/D
+                              1.4075         1.5022 f      -0.0947  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[5]/D
+                              1.4267         1.5173 f      -0.0907  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[3]/D
+                              1.4267         1.5173 f      -0.0907  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[7]/D
+                              1.4267         1.5173 f      -0.0907  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[6]/D
+                              1.4267         1.5173 f      -0.0907  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[2]/D
+                              1.4267         1.5173 f      -0.0907  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[6]/D
+                              1.4267         1.5173 f      -0.0907  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[0]/D
+                              1.4267         1.5173 f      -0.0907  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[3]/D
+                              1.4267         1.5173 f      -0.0907  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[4]/D
+                              1.4267         1.5173 f      -0.0907  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[1]/D
+                              1.4267         1.5173 f      -0.0907  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[15]/D
+                              1.4267         1.5141 f      -0.0874  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[0]/D
+                              1.4266         1.5140 f      -0.0873  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[8]/D
+                              1.4267         1.5135 f      -0.0869  (VIOLATED)
+   data_memory_controller/channel_serving_consumer_reg[6]/D
+                              1.4174         1.5035 r      -0.0861  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[10][0]/D
+                              1.2213         1.3054 r      -0.0841  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[2][0]/D
+                              1.2213         1.3054 r      -0.0841  (VIOLATED)
+   cores[0].core_instance/threads[1].alu_instance/alu_out_reg_reg[2]/D
+                              1.4220         1.5019 f      -0.0799  (VIOLATED)
+   data_memory_controller/controller_state_reg[4]/D
+                              1.4189         1.4968 f      -0.0779  (VIOLATED)
+   data_memory_controller/controller_state_reg[5]/D
+                              1.4201         1.4968 f      -0.0767  (VIOLATED)
+   cores[0].core_instance/threads[0].alu_instance/alu_out_reg_reg[2]/D
+                              1.4236         1.4995 f      -0.0759  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[15]/D
+                              1.4267         1.4965 f      -0.0698  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[14]/D
+                              1.4267         1.4949 f      -0.0683  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[12]/D
+                              1.4235         1.4912 f      -0.0677  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[13]/D
+                              1.4250         1.4923 f      -0.0672  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[10]/D
+                              1.4196         1.4767 r      -0.0572  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[11]/D
+                              1.4196         1.4766 r      -0.0570  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[12]/D
+                              1.4267         1.4837 f      -0.0570  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/rs_reg[2]/D
+                              1.4227         1.4796 f      -0.0570  (VIOLATED)
+   cores[1].core_instance/threads[0].alu_instance/alu_out_reg_reg[2]/D
+                              1.4165         1.4706 r      -0.0541  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[5]/D
+                              1.4267         1.4775 f      -0.0508  (VIOLATED)
+   data_memory_controller/mem_write_data_reg[4]/D
+                              1.4267         1.4775 f      -0.0508  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[7]/D
+                              1.4267         1.4774 f      -0.0507  (VIOLATED)
+   data_memory_controller/mem_write_address_reg[11]/D
+                              1.4267         1.4762 f      -0.0495  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[14]/D
+                              1.4178         1.4588 r      -0.0409  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[15]/D
+                              1.4178         1.4588 r      -0.0409  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[8]/D
+                              1.4178         1.4588 r      -0.0409  (VIOLATED)
+   data_memory_controller/channel_serving_consumer_reg[4]/D
+                              1.4219         1.4622 f      -0.0403  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[9]/D
+                              1.4239         1.4639 f      -0.0401  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[11]/D
+                              1.4239         1.4639 f      -0.0401  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[12]/D
+                              1.4239         1.4639 f      -0.0401  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[13]/D
+                              1.4239         1.4639 f      -0.0401  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[10]/D
+                              1.4239         1.4639 f      -0.0401  (VIOLATED)
+   data_memory_controller/mem_read_address_reg[5]/D
+                              1.4239         1.4616 f      -0.0377  (VIOLATED)
+   data_memory_controller/consumer_read_ready_reg[4]/D
+                              1.4047         1.4414 f      -0.0367  (VIOLATED)
+   cores[0].core_instance/threads[2].register_instance/rs_reg[7]/D
+                              1.4151         1.4489 r      -0.0337  (VIOLATED)
+   cores[1].core_instance/threads[1].alu_instance/alu_out_reg_reg[7]/D
+                              1.4161         1.4469 r      -0.0308  (VIOLATED)
+   data_memory_controller/mem_read_valid_reg[1]/D
+                              1.4151         1.4458 r      -0.0307  (VIOLATED)
+   cores[1].core_instance/threads[2].register_instance/rt_reg[1]/D
+                              1.4079         1.4360 r      -0.0281  (VIOLATED)
+   cores[1].core_instance/threads[0].alu_instance/alu_out_reg_reg[5]/D
+                              1.3975         1.4250 f      -0.0275  (VIOLATED)
+   cores[0].core_instance/threads[2].register_instance/rt_reg[0]/D
+                              1.4061         1.4327 r      -0.0266  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/rs_reg[1]/D
+                              1.4227         1.4466 f      -0.0240  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[11][2]/D
+                              1.1648         1.1886 r      -0.0238  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[3][0]/D
+                              1.1648         1.1886 r      -0.0238  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[3][1]/D
+                              1.1648         1.1886 r      -0.0238  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[3][2]/D
+                              1.1648         1.1886 r      -0.0238  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[3][4]/D
+                              1.1648         1.1886 r      -0.0238  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[3][5]/D
+                              1.1648         1.1886 r      -0.0238  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[3][6]/D
+                              1.1648         1.1886 r      -0.0238  (VIOLATED)
+   cores[0].core_instance/threads[2].alu_instance/alu_out_reg_reg[7]/D
+                              1.4239         1.4469 f      -0.0230  (VIOLATED)
+   data_memory_controller/consumer_read_ready_reg[7]/D
+                              1.4121         1.4344 r      -0.0224  (VIOLATED)
+   cores[0].core_instance/threads[2].register_instance/rs_reg[0]/D
+                              1.4189         1.4411 r      -0.0222  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[7][2]/D
+                              1.3998         1.4220 f      -0.0222  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[7][1]/D
+                              1.3998         1.4220 f      -0.0222  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[7][3]/D
+                              1.3998         1.4220 f      -0.0222  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[7][4]/D
+                              1.3998         1.4220 f      -0.0222  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[7][5]/D
+                              1.3998         1.4220 f      -0.0222  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[7][6]/D
+                              1.3998         1.4220 f      -0.0222  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[7][7]/D
+                              1.3998         1.4220 f      -0.0222  (VIOLATED)
+   cores[1].core_instance/threads[1].alu_instance/alu_out_reg_reg[6]/D
+                              1.3975         1.4196 f      -0.0221  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/rs_reg[0]/D
+                              1.4249         1.4466 f      -0.0218  (VIOLATED)
+   data_memory_controller/consumer_read_data_reg[25]/D
+                              1.4212         1.4421 f      -0.0209  (VIOLATED)
+   data_memory_controller/consumer_read_ready_reg[3]/D
+                              1.4121         1.4312 r      -0.0191  (VIOLATED)
+   data_memory_controller/consumer_read_data_reg[18]/D
+                              1.4168         1.4357 r      -0.0189  (VIOLATED)
+   data_memory_controller/consumer_read_data_reg[19]/D
+                              1.4168         1.4357 r      -0.0189  (VIOLATED)
+   data_memory_controller/consumer_read_data_reg[20]/D
+                              1.4168         1.4357 r      -0.0189  (VIOLATED)
+   data_memory_controller/consumer_read_data_reg[21]/D
+                              1.4168         1.4357 r      -0.0189  (VIOLATED)
+   data_memory_controller/consumer_read_data_reg[22]/D
+                              1.4168         1.4357 r      -0.0189  (VIOLATED)
+   data_memory_controller/consumer_read_data_reg[23]/D
+                              1.4168         1.4357 r      -0.0189  (VIOLATED)
+   cores[0].core_instance/threads[1].register_instance/rs_reg[0]/D
+                              1.4128         1.4316 r      -0.0188  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[6][1]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[6][2]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[6][3]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[6][4]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[6][5]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[6][6]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[6][7]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[2][7]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[10][2]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[10][3]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[10][4]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[10][5]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[10][6]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[10][7]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[2][1]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[2][2]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[2][3]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[2][4]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[2][5]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[2][6]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[1].core_instance/threads[3].register_instance/registers_reg[10][1]/D
+                              1.3998         1.4181 f      -0.0184  (VIOLATED)
+   cores[0].core_instance/threads[0].register_instance/rt_reg[0]/D
+                              1.4137         1.4314 r      -0.0177  (VIOLATED)
+   cores[1].core_instance/threads[3].pc_instance/next_pc_reg[6]/D
+                              1.3856         1.4025 f      -0.0169  (VIOLATED)
+   cores[1].core_instance/decoder_instance/decoded_mem_read_enable_reg/D
+                              1.4121         1.4259 r      -0.0138  (VIOLATED)
+   cores[1].core_instance/decoder_instance/decoded_reg_input_mux_reg[0]/D
+                              1.4121         1.4259 r      -0.0138  (VIOLATED)
+   cores[0].core_instance/threads[1].lsu_instance/mem_write_data_reg[4]/D
+                              1.1612         1.1746 r      -0.0134  (VIOLATED)
+   cores[0].core_instance/threads[1].lsu_instance/mem_write_data_reg[3]/D
+                              1.1612         1.1746 r      -0.0134  (VIOLATED)
+   cores[0].core_instance/threads[1].lsu_instance/mem_write_data_reg[7]/D
+                              1.1613         1.1746 r      -0.0133  (VIOLATED)
+   cores[0].core_instance/threads[1].lsu_instance/mem_write_address_reg[7]/D
+                              1.1614         1.1746 r      -0.0133  (VIOLATED)
+   cores[0].core_instance/threads[1].lsu_instance/mem_write_data_reg[6]/D
+                              1.1614         1.1746 r      -0.0133  (VIOLATED)
+   cores[0].core_instance/threads[1].lsu_instance/mem_write_address_reg[0]/D
+                              1.1614         1.1746 r      -0.0133  (VIOLATED)
+   cores[0].core_instance/threads[1].lsu_instance/mem_write_address_reg[3]/D
+                              1.1614         1.1746 r      -0.0132  (VIOLATED)
+   cores[0].core_instance/threads[1].lsu_instance/mem_write_address_reg[4]/D
+                              1.1614         1.1746 r      -0.0132  (VIOLATED)
+   cores[0].core_instance/threads[1].lsu_instance/mem_write_data_reg[2]/D
+                              1.1614         1.1746 r      -0.0132  (VIOLATED)
+   cores[0].core_instance/threads[0].register_instance/rs_reg[1]/D
+                              1.4149         1.4279 r      -0.0130  (VIOLATED)
+   cores[1].core_instance/threads[1].lsu_instance/mem_read_address_reg[2]/D
+                              1.1613         1.1738 r      -0.0125  (VIOLATED)
+   cores[1].core_instance/threads[0].register_instance/rs_reg[1]/D
+                              1.4149         1.4273 r      -0.0124  (VIOLATED)
+   cores[1].core_instance/threads[0].register_instance/rs_reg[2]/D
+                              1.4149         1.4273 r      -0.0124  (VIOLATED)
+   cores[1].core_instance/threads[0].register_instance/rs_reg[3]/D
+                              1.4149         1.4273 r      -0.0124  (VIOLATED)
+   cores[1].core_instance/threads[0].register_instance/rs_reg[5]/D
+                              1.4152         1.4273 r      -0.0122  (VIOLATED)
+   cores[1].core_instance/threads[2].register_instance/rt_reg[4]/D
+                              1.4151         1.4266 r      -0.0115  (VIOLATED)
+   cores[1].core_instance/threads[2].register_instance/rt_reg[5]/D
+                              1.4151         1.4266 r      -0.0115  (VIOLATED)
+   cores[1].core_instance/threads[2].register_instance/rt_reg[6]/D
+                              1.4151         1.4266 r      -0.0115  (VIOLATED)
+   cores[1].core_instance/threads[2].register_instance/rs_reg[2]/D
+                              1.4153         1.4257 r      -0.0105  (VIOLATED)
+   data_memory_controller/consumer_read_ready_reg[5]/D
+                              1.4121         1.4221 r      -0.0101  (VIOLATED)
+   cores[0].core_instance/threads[0].register_instance/rt_reg[1]/D
+                              1.4227         1.4319 f      -0.0092  (VIOLATED)
+   cores[0].core_instance/threads[0].register_instance/rt_reg[3]/D
+                              1.4227         1.4317 f      -0.0090  (VIOLATED)
+   cores[0].core_instance/threads[0].register_instance/rt_reg[4]/D
+                              1.4227         1.4317 f      -0.0090  (VIOLATED)
+   cores[0].core_instance/threads[0].register_instance/rt_reg[5]/D
+                              1.4227         1.4317 f      -0.0090  (VIOLATED)
+   cores[0].core_instance/threads[0].register_instance/rt_reg[6]/D
+                              1.4227         1.4317 f      -0.0090  (VIOLATED)
+   cores[1].core_instance/threads[0].register_instance/rs_reg[4]/D
+                              1.4191         1.4273 r      -0.0082  (VIOLATED)
+   cores[1].core_instance/threads[0].register_instance/rs_reg[6]/D
+                              1.4191         1.4273 r      -0.0082  (VIOLATED)
+   cores[1].core_instance/threads[2].register_instance/rt_reg[2]/D
+                              1.4190         1.4266 r      -0.0075  (VIOLATED)
+   cores[1].core_instance/threads[2].register_instance/rt_reg[3]/D
+                              1.4190         1.4266 r      -0.0075  (VIOLATED)
+   cores[0].core_instance/threads[1].register_instance/rs_reg[1]/D
+                              1.4061         1.4127 r      -0.0066  (VIOLATED)
+   cores[1].core_instance/threads[2].alu_instance/alu_out_reg_reg[7]/D
+                              1.4208         1.4271 f      -0.0062  (VIOLATED)
+   cores[1].core_instance/threads[2].register_instance/rs_reg[7]/D
+                              1.4191         1.4250 r      -0.0059  (VIOLATED)
+   data_memory_controller/consumer_read_data_reg[17]/D
+                              1.4121         1.4174 r      -0.0053  (VIOLATED)
+   dispatch_instance/done_reg/D
+                              1.4253         1.4283 f      -0.0031  (VIOLATED)
+   cores[1].core_instance/threads[0].register_instance/rt_reg[0]/D
+                              1.4061         1.4089 r      -0.0028  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/rt_reg[2]/D
+                              1.4249         1.4269 f      -0.0021  (VIOLATED)
+   cores[1].core_instance/threads[3].alu_instance/alu_out_reg_reg[7]/D
+                              1.4239         1.4259 f      -0.0020  (VIOLATED)
+   data_memory_controller/consumer_read_data_reg[16]/D
+                              1.4173         1.4188 r      -0.0016  (VIOLATED)
+   data_memory_controller/consumer_read_ready_reg[6]/D
+                              1.4047         1.4058 f      -0.0010  (VIOLATED)
+   cores[0].core_instance/threads[3].alu_instance/alu_out_reg_reg[7]/D
+                              1.4239         1.4249 f      -0.0010  (VIOLATED)
+   data_memory_controller/current_consumer_reg[3]/D
+                              1.4201         1.4209 f      -0.0008  (VIOLATED)
+   cores[0].core_instance/threads[3].alu_instance/alu_out_reg_reg[3]/D
+                              1.4181         1.4185 r      -0.0005  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[1][0]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[1][1]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[5][0]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[9][2]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[9][6]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[9][5]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[9][0]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[9][4]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[5][1]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[5][2]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[5][4]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[5][6]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[9][1]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[1][4]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[1][6]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[5][5]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[1][2]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+   cores[0].core_instance/threads[3].register_instance/registers_reg[1][5]/D
+                              1.3960         1.3962 f      -0.0002  (VIOLATED)
+
+
+1
