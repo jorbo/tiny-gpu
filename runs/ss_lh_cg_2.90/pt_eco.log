@@ -1,0 +1,824 @@
+Error: Library Compiler executable path is not set. (PT-063)
+
+                                 PrimeTime (R)
+
+              Version V-2023.12-SP5-4 for linux64 - Aug 07, 2025 
+
+                    Copyright (c) 1988 - 2025 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+Information: Term was not able to be set up using xterm-256color . Using "xterm" by default instead. (CLE-10)
+Information: Defining new variable 'RUN_DIR'. (CMD-041)
+# PrimeTime DRC ECO: fix the max_capacitance pins PT flags but DC reports clean.
+# Both tools see the same net capacitance and library limits; DC's synthesis-time DRC check
+# still passes these nets, so they are fixed here, where signoff is done.
+# Run from syn/:
+#   pt_shell -x "set RUN_DIR runs/lh_2.55_cg" -f pt_eco.tcl >| runs/lh_2.55_cg/pt_eco.log 2>&1
+# Writes $RUN_DIR/out/eco_changes.tcl (PT format, applied by pt_power.tcl when present) and
+# eco_changes_dc.tcl (DC format, to apply to the netlist in dc_shell).
+# Library corner. Worst case (SS 0.75 V 125 C) per the project spec; override e.g. "set CORNER tt0p78v25c"
+if {![info exists CORNER]} { set CORNER ss0p75v125c }
+ss0p75v125c
+set LIB_DIR /usr/local/synopsys/pdk/SAED32_EDK/lib
+/usr/local/synopsys/pdk/SAED32_EDK/lib
+set LIBS "$LIB_DIR/stdcell_rvt/db_nldm/saed32rvt_$CORNER.db           $LIB_DIR/stdcell_hvt/db_nldm/saed32hvt_$CORNER.db           $LIB_DIR/stdcell_lvt/db_nldm/saed32lvt_$CORNER.db"
+/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p75v125c.db           /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p75v125c.db           /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75v125c.db
+set TOP gpu
+gpu
+if {![info exists RUN_DIR]} { set RUN_DIR runs/lh_2.55_cg }
+# Same Vt rule as synthesis: LVT + HVT only
+if {![info exists ALLOWED_VT]} { set ALLOWED_VT {HVT LVT} }
+HVT LVT
+set_app_var link_path "* $LIBS"
+* /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p75v125c.db           /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p75v125c.db           /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75v125c.db
+read_verilog $RUN_DIR/out/${TOP}_netlist.v
+1
+current_design $TOP
+Information: current_design won't return any data before link (DES-071)
+link_design
+Loading db file '/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p75v125c.db'
+Loading verilog file '/home/cegrad/jayvazian/tiny-gpu/syn/runs/ss_lh_cg_2.90/out/gpu_netlist.v'
+Loading db file '/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p75v125c.db'
+Loading db file '/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75v125c.db'
+Linking design gpu...
+Information: Removing 249 unneeded designs..... (LNK-034)
+Information: 294 (100.00%) library cells are unused in library saed32rvt_ss0p75v125c..... (LNK-045)
+Information: 264 (89.80%) library cells are unused in library saed32hvt_ss0p75v125c..... (LNK-045)
+Information: 228 (77.55%) library cells are unused in library saed32lvt_ss0p75v125c..... (LNK-045)
+Information: total 786 library cells are unused (LNK-046)
+Design 'gpu' was successfully linked.
+Information: There are 15831 leaf cells, ports, hiers and 19323 nets in the design (LNK-047)
+1
+read_sdc $RUN_DIR/out/${TOP}.sdc
+
+Reading SDC version 2.1...
+Information: Loading library 'saed32rvt_ss0p75v125c' data due to accessing lib cells not linked in the current design. (LNK-041)
+1
+1
+update_timing -full
+Information: Using automatic max wire load selection group 'predcaps'. (ENV-003)
+Information: Using automatic min wire load selection group 'predcaps'. (ENV-003)
+Warning: Some timing arcs have been disabled for breaking timing loops or because of constant propagation. Use the 'report_disable_timing' command to get the list of these disabled timing arcs. (PTE-003)
+Information: Building multi voltage information for entire design. (MV-022)
+1
+proc lib_cell_ok {name} {
+    global ALLOWED_VT
+    if {![regexp {_(LVT|RVT|HVT)$} $name -> vt] || [lsearch $ALLOWED_VT $vt] < 0} { return "" }
+    set lc [get_lib_cells -quiet */$name]
+    if {[sizeof_collection $lc] == 0} { return "" }
+    return [get_object_name [index_collection $lc 0]]
+}
+# Next drive strength in the same Vt, else the same drive in a faster allowed Vt
+proc stronger_cell {ref} {
+    if {![regexp {^(.*)(X\d+)_(LVT|RVT|HVT)$} $ref -> base drive vt]} { return "" }
+    set drives {X0 X1 X2 X4 X8 X16 X32}
+    foreach d [lrange $drives [expr {[lsearch $drives $drive] + 1}] end] {
+        if {[set lc [lib_cell_ok ${base}${d}_$vt]] ne ""} { return $lc }
+    }
+    foreach faster [lrange {HVT RVT LVT} [expr {[lsearch {HVT RVT LVT} $vt] + 1}] end] {
+        if {[set lc [lib_cell_ok ${base}${drive}_$faster]] ne ""} { return $lc }
+    }
+    return ""
+}
+proc cap_violators {} {
+    redirect -variable rpt {report_constraint -all_violators -nosplit -max_capacitance -significant_digits 4}
+    set pins {}
+    foreach line [split $rpt "\n"] {
+        if {[regexp {^\s+(\S+)\s+-?[\d.]+\s+-?[\d.]+\s+-?[\d.]+\s+\(VIOLATED} $line -> pin]} {
+            lappend pins $pin
+        }
+    }
+    return [lsort -unique $pins]
+}
+proc timing_summary {} {
+    set wns [get_attribute [get_timing_paths -delay_type max] slack]
+    set whs [get_attribute [get_timing_paths -delay_type min] slack]
+    return "setup_wns $wns hold_wns $whs"
+}
+proc wns {} { return [get_attribute [get_timing_paths -delay_type max] slack] }
+proc whs {} { return [get_attribute [get_timing_paths -delay_type min] slack] }
+# A change is kept only if setup and hold stay >= 0 (or no worse than before, if already negative)
+proc timing_ok {wns0 whs0} {
+    update_timing
+    set w [wns]; set h [whs]
+    return [expr {$w >= min(0.0, $wns0) && $h >= min(0.0, $whs0)}]
+}
+proc buffer_cell_of {loads} {
+    set net [get_nets -of_objects [index_collection $loads 0]]
+    return [get_cells -of_objects [get_pins -leaf -of_objects $net -filter "direction==out"]]
+}
+echo "ECO start: [llength [cap_violators]] max_capacitance pins, [timing_summary]"
+ECO start: 172 max_capacitance pins, setup_wns 0.034710 hold_wns 0.000054
+set buf [lib_cell_ok NBUFFX4_LVT]
+saed32lvt_ss0p75v125c/NBUFFX4_LVT
+set skipped {}
+for {set pass 0} {$pass < 6} {incr pass} {
+    set bad [lsearch -all -inline -not -exact [cap_violators] {}]
+    foreach s $skipped { set bad [lsearch -all -inline -not -exact $bad $s] }
+    if {[llength $bad] == 0} { break }
+    echo "ECO pass $pass: [llength $bad] pins"
+    foreach p $bad {
+        set pin [get_pins -quiet $p]
+        if {[sizeof_collection $pin] == 0} { continue }
+        set wns0 [wns]; set whs0 [whs]
+        set cell [get_cells -of_objects $pin]
+        set ref  [get_attribute $cell ref_name]
+        set done 0
+        # 1) upsize the driver
+        set new [stronger_cell $ref]
+        if {$new ne "" && ![catch {size_cell $cell $new}]} {
+            if {[timing_ok $wns0 $whs0]} { set done 1 } else { size_cell $cell [lib_cell_ok $ref] ; update_timing }
+        }
+        # 2) keep the driver, put the loads behind a buffer
+        if {!$done} {
+            set net   [get_nets -of_objects $pin]
+            set loads [get_pins -quiet -leaf -of_objects $net -filter "direction==in"]
+            if {[sizeof_collection $loads] > 1 && ![catch {insert_buffer $loads $buf}]} {
+                if {[timing_ok $wns0 $whs0]} {
+                    set done 1
+                } else {
+                    catch {remove_buffer [buffer_cell_of $loads]}
+                    update_timing
+                }
+            }
+        }
+        if {!$done} { lappend skipped $p ; echo "ECO skip $p ($ref): no timing-safe fix" }
+    }
+}
+ECO pass 0: 172 pins
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/decoder_instance/U11' with 'saed32lvt_ss0p75v125c/OR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/decoder_instance/decoded_alu_arithmetic_mux_reg_1_' with 'saed32lvt_ss0p75v125c/DFFSSRX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/decoder_instance/decoded_alu_output_mux_reg' with 'saed32lvt_ss0p75v125c/DFFSSRX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/scheduler_instance/U4' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__lsu_instance/U19' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U110' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U113' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U114' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U117' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U118' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U216' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U218' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U220' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U221' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U26' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U27' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U44' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U60' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U96' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__alu_instance/U449' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__lsu_instance/U7' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U109' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U11' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U110' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U112' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U113' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U115' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U116' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U125' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U217' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U220' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U222' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U225' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U226' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U230' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U238' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U69' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__alu_instance/U198' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__alu_instance/U63' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__lsu_instance/U7' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U103' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U218' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U221' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U224' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U225' with 'saed32lvt_ss0p75v125c/NOR3X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U227' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U230' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U238' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U7' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U8' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U83' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U88' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U90' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U91' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U94' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U95' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/rt_reg_0_' with 'saed32lvt_ss0p75v125c/DFFSSRX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__alu_instance/U710' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__lsu_instance/U22' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U103' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U221' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U223' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U225' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U226' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U229' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U240' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U28' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U29' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U60' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U84' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U85' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U88' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U91' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U92' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U95' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__lsu_instance/U63/A is not removed because it is not connected to driving port. (NED-079)
+Information: Invalidating logical update. (PTE-139)
+Information: Inserted 'U1' at 'cores_0__core_instance/threads_3__lsu_instance/U63/A' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U486/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U45/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U691/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U308/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U504/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U74/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U324/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U140/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U721/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U160/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U169/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U364/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U568/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U584/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U209/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U425/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U253/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U254/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U648/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U13/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U650/A1 is not removed because it is not connected to driving port. (NED-079)
+Information: Inserted 'U2' at 'cores_0__core_instance/threads_3__alu_instance/U486/A3', 'cores_0__core_instance/threads_3__alu_instance/U45/A1', 'cores_0__core_instance/threads_3__alu_instance/U691/A', 'cores_0__core_instance/threads_3__alu_instance/U308/A1', 'cores_0__core_instance/threads_3__alu_instance/U504/A2', 'cores_0__core_instance/threads_3__alu_instance/U74/A1', 'cores_0__core_instance/threads_3__alu_instance/U324/A', 'cores_0__core_instance/threads_3__alu_instance/U140/A1', 'cores_0__core_instance/threads_3__alu_instance/U721/A', 'cores_0__core_instance/threads_3__alu_instance/U160/A2', 'cores_0__core_instance/threads_3__alu_instance/U169/A2', 'cores_0__core_instance/threads_3__alu_instance/U364/A2', 'cores_0__core_instance/threads_3__alu_instance/U568/A2', 'cores_0__core_instance/threads_3__alu_instance/U584/A2', 'cores_0__core_instance/threads_3__alu_instance/U209/A2', 'cores_0__core_instance/threads_3__alu_instance/U425/A2', 'cores_0__core_instance/threads_3__alu_instance/U253/A2', 'cores_0__core_instance/threads_3__alu_instance/U254/A1', 'cores_0__core_instance/threads_3__alu_instance/U648/A1', 'cores_0__core_instance/threads_3__alu_instance/U13/A2', 'cores_0__core_instance/threads_3__alu_instance/U650/A1' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__lsu_instance/U84/A is not removed because it is not connected to driving port. (NED-079)
+Information: Invalidating logical update. (PTE-139)
+Information: Inserted 'U86' at 'cores_0__core_instance/threads_3__lsu_instance/U84/A' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U111/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U112/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U576/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U208/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U212/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U238/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U241/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U242/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U246/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U250/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U251/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U252/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U253/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U255/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U256/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U257/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U258/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U259/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U10/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_0__core_instance/threads_3__alu_instance/U25/A is not removed because it is not connected to driving port. (NED-079)
+Information: Inserted 'U247' at 'cores_0__core_instance/threads_3__alu_instance/U111/A2', 'cores_0__core_instance/threads_3__alu_instance/U112/A1', 'cores_0__core_instance/threads_3__alu_instance/U576/A1', 'cores_0__core_instance/threads_3__alu_instance/U208/A1', 'cores_0__core_instance/threads_3__alu_instance/U212/A2', 'cores_0__core_instance/threads_3__alu_instance/U238/A', 'cores_0__core_instance/threads_3__alu_instance/U241/A2', 'cores_0__core_instance/threads_3__alu_instance/U242/A2', 'cores_0__core_instance/threads_3__alu_instance/U246/A', 'cores_0__core_instance/threads_3__alu_instance/U250/A1', 'cores_0__core_instance/threads_3__alu_instance/U251/A2', 'cores_0__core_instance/threads_3__alu_instance/U252/A2', 'cores_0__core_instance/threads_3__alu_instance/U253/A1', 'cores_0__core_instance/threads_3__alu_instance/U255/A', 'cores_0__core_instance/threads_3__alu_instance/U256/A', 'cores_0__core_instance/threads_3__alu_instance/U257/A', 'cores_0__core_instance/threads_3__alu_instance/U258/A1', 'cores_0__core_instance/threads_3__alu_instance/U259/A2', 'cores_0__core_instance/threads_3__alu_instance/U10/A2', 'cores_0__core_instance/threads_3__alu_instance/U25/A' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/decoder_instance/U13' with 'saed32lvt_ss0p75v125c/OR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/decoder_instance/decoded_alu_arithmetic_mux_reg_1_' with 'saed32lvt_ss0p75v125c/DFFSSRX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/decoder_instance/decoded_alu_output_mux_reg' with 'saed32lvt_ss0p75v125c/DFFSSRX2_LVT'. (NED-045)
+Information: Loading library 'saed32lvt_ss0p75v125c' data due to accessing lib cells not linked in the current design. (LNK-041)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/decoder_instance/decoded_immediate_reg_6_' with 'saed32lvt_ss0p75v125c/DFFASRX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/scheduler_instance/U6' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__lsu_instance/U7' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U215' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U218' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U219' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U222' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U225' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U226' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U26' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U27' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U325' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U349' with 'saed32lvt_ss0p75v125c/AOI21X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U6' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U7' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U88' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U91' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U92' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U95' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U96' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U99' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__lsu_instance/U120/A is not removed because it is not connected to driving port. (NED-079)
+Information: Invalidating logical update. (PTE-139)
+Information: Inserted 'U248' at 'cores_1__core_instance/threads_0__lsu_instance/U120/A' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U476/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U495/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U690/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U504/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U77/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U81/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U143/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U723/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U150/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U156/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U206/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U406/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U216/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U425/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U253/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U254/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U255/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U256/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U259/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U260/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U261/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U21/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_0__alu_instance/U28/A is not removed because it is not connected to driving port. (NED-079)
+Information: Inserted 'U622' at 'cores_1__core_instance/threads_0__alu_instance/U476/A2', 'cores_1__core_instance/threads_0__alu_instance/U495/A3', 'cores_1__core_instance/threads_0__alu_instance/U690/A2', 'cores_1__core_instance/threads_0__alu_instance/U504/A2', 'cores_1__core_instance/threads_0__alu_instance/U77/A2', 'cores_1__core_instance/threads_0__alu_instance/U81/A3', 'cores_1__core_instance/threads_0__alu_instance/U143/A1', 'cores_1__core_instance/threads_0__alu_instance/U723/A2', 'cores_1__core_instance/threads_0__alu_instance/U150/A1', 'cores_1__core_instance/threads_0__alu_instance/U156/A2', 'cores_1__core_instance/threads_0__alu_instance/U206/A2', 'cores_1__core_instance/threads_0__alu_instance/U406/A2', 'cores_1__core_instance/threads_0__alu_instance/U216/A1', 'cores_1__core_instance/threads_0__alu_instance/U425/A2', 'cores_1__core_instance/threads_0__alu_instance/U253/A2', 'cores_1__core_instance/threads_0__alu_instance/U254/A2', 'cores_1__core_instance/threads_0__alu_instance/U255/A1', 'cores_1__core_instance/threads_0__alu_instance/U256/A1', 'cores_1__core_instance/threads_0__alu_instance/U259/A1', 'cores_1__core_instance/threads_0__alu_instance/U260/A', 'cores_1__core_instance/threads_0__alu_instance/U261/A2', 'cores_1__core_instance/threads_0__alu_instance/U21/A2', 'cores_1__core_instance/threads_0__alu_instance/U28/A' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__alu_instance/U74' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__lsu_instance/U23' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U10' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U104' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U11' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U218' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U220' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U222' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U223' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U230' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U238' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U27' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U33' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U33' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U153/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U158/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U167/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U172/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U180/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U185/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U87/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U193/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U198/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U99/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U206/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U211/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U128/A4 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U133/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U140/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U145/A3 is not removed because it is not connected to driving port. (NED-079)
+Information: Invalidating logical update. (PTE-139)
+Information: Inserted 'U623' at 'cores_1__core_instance/threads_1__register_instance/U153/A3', 'cores_1__core_instance/threads_1__register_instance/U158/A3', 'cores_1__core_instance/threads_1__register_instance/U167/A3', 'cores_1__core_instance/threads_1__register_instance/U172/A3', 'cores_1__core_instance/threads_1__register_instance/U180/A3', 'cores_1__core_instance/threads_1__register_instance/U185/A3', 'cores_1__core_instance/threads_1__register_instance/U87/A3', 'cores_1__core_instance/threads_1__register_instance/U193/A3', 'cores_1__core_instance/threads_1__register_instance/U198/A3', 'cores_1__core_instance/threads_1__register_instance/U99/A3', 'cores_1__core_instance/threads_1__register_instance/U206/A3', 'cores_1__core_instance/threads_1__register_instance/U211/A3', 'cores_1__core_instance/threads_1__register_instance/U128/A4', 'cores_1__core_instance/threads_1__register_instance/U133/A3', 'cores_1__core_instance/threads_1__register_instance/U140/A3', 'cores_1__core_instance/threads_1__register_instance/U145/A3' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U83' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U84' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U84' with 'saed32lvt_ss0p75v125c/NOR3X1_LVT'. (NED-045)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U153/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U158/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U167/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U172/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U180/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U185/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U87/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U193/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U198/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U99/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U206/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U211/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U128/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U133/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U140/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__register_instance/U145/A1 is not removed because it is not connected to driving port. (NED-079)
+Information: Invalidating logical update. (PTE-139)
+Information: Inserted 'U624' at 'cores_1__core_instance/threads_1__register_instance/U153/A1', 'cores_1__core_instance/threads_1__register_instance/U158/A1', 'cores_1__core_instance/threads_1__register_instance/U167/A1', 'cores_1__core_instance/threads_1__register_instance/U172/A1', 'cores_1__core_instance/threads_1__register_instance/U180/A1', 'cores_1__core_instance/threads_1__register_instance/U185/A1', 'cores_1__core_instance/threads_1__register_instance/U87/A1', 'cores_1__core_instance/threads_1__register_instance/U193/A1', 'cores_1__core_instance/threads_1__register_instance/U198/A1', 'cores_1__core_instance/threads_1__register_instance/U99/A1', 'cores_1__core_instance/threads_1__register_instance/U206/A1', 'cores_1__core_instance/threads_1__register_instance/U211/A1', 'cores_1__core_instance/threads_1__register_instance/U128/A1', 'cores_1__core_instance/threads_1__register_instance/U133/A1', 'cores_1__core_instance/threads_1__register_instance/U140/A1', 'cores_1__core_instance/threads_1__register_instance/U145/A1' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U88' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U91' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U95' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U280/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U281/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U282/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U289/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U53/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U62/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U65/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U9/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U521/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U140/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U717/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U544/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U547/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U372/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U223/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U438/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U633/A4 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U640/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U270/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U271/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U272/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U273/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__alu_instance/U274/A is not removed because it is not connected to driving port. (NED-079)
+Information: Invalidating logical update. (PTE-139)
+Information: Inserted 'U721' at 'cores_1__core_instance/threads_1__alu_instance/U280/A2', 'cores_1__core_instance/threads_1__alu_instance/U281/A', 'cores_1__core_instance/threads_1__alu_instance/U282/A2', 'cores_1__core_instance/threads_1__alu_instance/U289/A', 'cores_1__core_instance/threads_1__alu_instance/U53/A', 'cores_1__core_instance/threads_1__alu_instance/U62/A2', 'cores_1__core_instance/threads_1__alu_instance/U65/A1', 'cores_1__core_instance/threads_1__alu_instance/U9/A2', 'cores_1__core_instance/threads_1__alu_instance/U521/A1', 'cores_1__core_instance/threads_1__alu_instance/U140/A1', 'cores_1__core_instance/threads_1__alu_instance/U717/A2', 'cores_1__core_instance/threads_1__alu_instance/U544/A1', 'cores_1__core_instance/threads_1__alu_instance/U547/A2', 'cores_1__core_instance/threads_1__alu_instance/U372/A2', 'cores_1__core_instance/threads_1__alu_instance/U223/A1', 'cores_1__core_instance/threads_1__alu_instance/U438/A2', 'cores_1__core_instance/threads_1__alu_instance/U633/A4', 'cores_1__core_instance/threads_1__alu_instance/U640/A1', 'cores_1__core_instance/threads_1__alu_instance/U270/A2', 'cores_1__core_instance/threads_1__alu_instance/U271/A2', 'cores_1__core_instance/threads_1__alu_instance/U272/A2', 'cores_1__core_instance/threads_1__alu_instance/U273/A1', 'cores_1__core_instance/threads_1__alu_instance/U274/A' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_1__lsu_instance/U78/A is not removed because it is not connected to driving port. (NED-079)
+Information: Inserted 'U722' at 'cores_1__core_instance/threads_1__lsu_instance/U78/A' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__alu_instance/U337' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__lsu_instance/U19' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U107' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U12' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U141' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U217' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U221' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U222' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U225' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U226' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U230' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U238' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U26' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U86' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U88' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U90' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U91' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U94' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U95' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U98' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U99' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/rt_reg_1__U4' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U676/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U507/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U512/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U91/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U95/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U96/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U97/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U535/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U362/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U177/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U581/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U253/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U254/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U255/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U256/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U257/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U258/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U259/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U260/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U261/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__alu_instance/U14/A2 is not removed because it is not connected to driving port. (NED-079)
+Information: Invalidating logical update. (PTE-139)
+Information: Inserted 'U726' at 'cores_1__core_instance/threads_2__alu_instance/U676/A1', 'cores_1__core_instance/threads_2__alu_instance/U507/A2', 'cores_1__core_instance/threads_2__alu_instance/U512/A', 'cores_1__core_instance/threads_2__alu_instance/U91/A2', 'cores_1__core_instance/threads_2__alu_instance/U95/A2', 'cores_1__core_instance/threads_2__alu_instance/U96/A2', 'cores_1__core_instance/threads_2__alu_instance/U97/A1', 'cores_1__core_instance/threads_2__alu_instance/U535/A1', 'cores_1__core_instance/threads_2__alu_instance/U362/A2', 'cores_1__core_instance/threads_2__alu_instance/U177/A1', 'cores_1__core_instance/threads_2__alu_instance/U581/A1', 'cores_1__core_instance/threads_2__alu_instance/U253/A1', 'cores_1__core_instance/threads_2__alu_instance/U254/A2', 'cores_1__core_instance/threads_2__alu_instance/U255/A2', 'cores_1__core_instance/threads_2__alu_instance/U256/A1', 'cores_1__core_instance/threads_2__alu_instance/U257/A2', 'cores_1__core_instance/threads_2__alu_instance/U258/A2', 'cores_1__core_instance/threads_2__alu_instance/U259/A', 'cores_1__core_instance/threads_2__alu_instance/U260/A', 'cores_1__core_instance/threads_2__alu_instance/U261/A1', 'cores_1__core_instance/threads_2__alu_instance/U14/A2' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_2__lsu_instance/U68/A is not removed because it is not connected to driving port. (NED-079)
+Information: Inserted 'U727' at 'cores_1__core_instance/threads_2__lsu_instance/U68/A' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__alu_instance/U273' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__lsu_instance/U23' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U110' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U112' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U114' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U12' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U126' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U218' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U221' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U223' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U224' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U227' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U228' with 'saed32lvt_ss0p75v125c/NOR2X1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U239' with 'saed32lvt_ss0p75v125c/INVX1_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U29' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U32' with 'saed32lvt_ss0p75v125c/AND2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U33' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U37' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__lsu_instance/U67/A is not removed because it is not connected to driving port. (NED-079)
+Information: Invalidating logical update. (PTE-139)
+Information: Inserted 'U728' at 'cores_1__core_instance/threads_3__lsu_instance/U67/A' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Removing HyperScale Annotations from pin for buffer insertion. Anonations won't be re-added if the buffer is removed later 
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U662/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U666/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U485/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U112/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U312/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U82/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U532/A3 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U725/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U575/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U250/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U267/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U268/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U14/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U269/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U18/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U461/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U270/A2 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U272/A1 is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U273/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U276/A is not removed because it is not connected to driving port. (NED-079)
+Warning: HyperScale annotation at pin cores_1__core_instance/threads_3__alu_instance/U277/A is not removed because it is not connected to driving port. (NED-079)
+Information: Inserted 'U743' at 'cores_1__core_instance/threads_3__alu_instance/U662/A2', 'cores_1__core_instance/threads_3__alu_instance/U666/A2', 'cores_1__core_instance/threads_3__alu_instance/U485/A2', 'cores_1__core_instance/threads_3__alu_instance/U112/A1', 'cores_1__core_instance/threads_3__alu_instance/U312/A1', 'cores_1__core_instance/threads_3__alu_instance/U82/A1', 'cores_1__core_instance/threads_3__alu_instance/U532/A3', 'cores_1__core_instance/threads_3__alu_instance/U725/A2', 'cores_1__core_instance/threads_3__alu_instance/U575/A2', 'cores_1__core_instance/threads_3__alu_instance/U250/A1', 'cores_1__core_instance/threads_3__alu_instance/U267/A2', 'cores_1__core_instance/threads_3__alu_instance/U268/A2', 'cores_1__core_instance/threads_3__alu_instance/U14/A1', 'cores_1__core_instance/threads_3__alu_instance/U269/A2', 'cores_1__core_instance/threads_3__alu_instance/U18/A1', 'cores_1__core_instance/threads_3__alu_instance/U461/A2', 'cores_1__core_instance/threads_3__alu_instance/U270/A2', 'cores_1__core_instance/threads_3__alu_instance/U272/A1', 'cores_1__core_instance/threads_3__alu_instance/U273/A', 'cores_1__core_instance/threads_3__alu_instance/U276/A', 'cores_1__core_instance/threads_3__alu_instance/U277/A' with 'saed32lvt_ss0p75v125c/NBUFFX4_LVT'. (NED-046)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'data_memory_controller/U1845' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'data_memory_controller/U1847' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'data_memory_controller/U2026' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'data_memory_controller/U2223' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'data_memory_controller/U2229' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'data_memory_controller/U2237' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'data_memory_controller/U2791' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'data_memory_controller/U447' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'data_memory_controller/U805' with 'saed32lvt_ss0p75v125c/OR2X2_LVT'. (NED-045)
+ECO pass 1: 40 pins
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U114' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_0__register_instance/U118' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U113' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U125' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U225' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U226' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_1__register_instance/U238' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__alu_instance/U63' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U103' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U225' with 'saed32lvt_ss0p75v125c/NOR3X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U227' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U238' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U7' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U91' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U95' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U103' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U229' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U240' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U84' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_3__register_instance/U92' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U222' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U26' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U325' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U92' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_0__register_instance/U96' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__alu_instance/U74' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U104' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U238' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U88' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_1__register_instance/U91' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U107' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U225' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U226' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U238' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U91' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_2__register_instance/U95' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U126' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U227' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U228' with 'saed32lvt_ss0p75v125c/NOR2X2_LVT'. (NED-045)
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_1__core_instance/threads_3__register_instance/U239' with 'saed32lvt_ss0p75v125c/INVX2_LVT'. (NED-045)
+ECO pass 2: 1 pins
+Information: Invalidating logical update. (PTE-139)
+Information: Sized 'cores_0__core_instance/threads_2__register_instance/U153' with 'saed32lvt_ss0p75v125c/INVX4_LVT'. (NED-045)
+echo "ECO end: [llength [cap_violators]] max_capacitance pins, [timing_summary]"
+ECO end: 0 max_capacitance pins, setup_wns 0.034710 hold_wns 0.000011
+redirect $RUN_DIR/out/eco_violators.rpt {report_constraint -all_violators}
+write_changes -format ptsh  -output $RUN_DIR/out/eco_changes.tcl
+Information: Writing change list file '/home/cegrad/jayvazian/tiny-gpu/syn/runs/ss_lh_cg_2.90/out/eco_changes.tcl'.
+1
+write_changes -format dctcl -output $RUN_DIR/out/eco_changes_dc.tcl
+Information: Writing change list file '/home/cegrad/jayvazian/tiny-gpu/syn/runs/ss_lh_cg_2.90/out/eco_changes_dc.tcl'.
+1
+echo "ECO changes: [exec wc -l < $RUN_DIR/out/eco_changes.tcl] lines -> $RUN_DIR/out/eco_changes.tcl"
+ECO changes: 284 lines -> runs/ss_lh_cg_2.90/out/eco_changes.tcl
+exit
+Information: Defining new variable 'p'. (CMD-041)
+Information: Defining new variable 'ALLOWED_VT'. (CMD-041)
+Information: Defining new variable 'pass'. (CMD-041)
+Information: Defining new variable 'LIBS'. (CMD-041)
+Information: Defining new variable 'bad'. (CMD-041)
+Information: Defining new variable 'buf'. (CMD-041)
+Information: Defining new variable 'done'. (CMD-041)
+Information: Defining new variable 'LIB_DIR'. (CMD-041)
+Information: Defining new variable 'net'. (CMD-041)
+Information: Defining new variable 'new'. (CMD-041)
+Information: Defining new variable 'pin'. (CMD-041)
+Information: Defining new variable 'whs0'. (CMD-041)
+Information: Defining new variable 'ref'. (CMD-041)
+Information: Defining new variable 'wns0'. (CMD-041)
+Information: Defining new variable 'CORNER'. (CMD-041)
+Information: Defining new variable 'TOP'. (CMD-041)
+Information: Defining new variable 'cell'. (CMD-041)
+Information: Defining new variable 'loads'. (CMD-041)
+Information: Defining new variable 'skipped'. (CMD-041)
+
+Timing updates: 218 (0 implicit, 218 explicit) (217 incremental, 1 full, 0 logical)
+Noise updates: 0 (0 implicit, 0 explicit) (0 incremental, 0 full)
+Maximum memory usage for this session: 2768.76 MB
+CPU usage for this session: 25 seconds 
+Elapsed time for this session: 16 seconds
+Diagnostics summary: 1 error, 168 warnings, 473 informationals
+
+Thank you for using pt_shell!

@@ -32,13 +32,15 @@ Repository: https://github.com/jorbo/tiny-gpu/tree/master
 **Simulation levels**
 - **RTL:** SystemVerilog → `sv2v` → Icarus Verilog
 - **Gate level:** synthesized netlist + SAED32 LVT/HVT cell models (zero-delay)
+  - Mux models patched for X-pessimism (`test/saed_xfix.awk`), see Challenges
   - Confirms the netlist matches RTL behavior cycle for cycle
 
 ---
 
 ## 2. Methodology: Synthesis & Power Flow
 
-**Library:** SAED32 at TT 0.78 V / 25 °C, with RVT, HVT and LVT cell flavors
+**Library:** SAED32 at the **worst-case corner, SS 0.75 V / 125 °C** (`saed32{rvt,lvt,hvt}_ss0p75v125c.db`),
+for synthesis and PrimeTime alike
 
 **Design Compiler** (`syn/dc_synth.tcl`)
 - `compile_ultra -gate_clock` keeping the module hierarchy, for per-module PPA
@@ -72,7 +74,7 @@ Repository: https://github.com/jorbo/tiny-gpu/tree/master
 
 **Plan: model it as on-chip SRAM** from the SAED32 memory kit (768 B in total, far too small for DRAM)
 
-| SAED32 source | Cycle time | Access time | At our 2.55 ns clock |
+| SAED32 source | Cycle time | Access time | At our 2.90 ns clock |
 |---|---|---|---|
 | Datasheet, per-macro table (`SRAM1RW256x8`) | 6 ns | 3 ns | +1 wait cycle on reads, one access every 3 cycles |
 | Datasheet, general spec ("500 MHz") | 3 ns | 2 ns | no extra wait, one access every 2 cycles |
@@ -83,34 +85,23 @@ Repository: https://github.com/jorbo/tiny-gpu/tree/master
 - Model to add to the testbench: wait cycles (0–1), busy cycles (2–3), one port per macro;
   data memory as 1 × 256×8, or 4 × 64×8 banks so channels can overlap
 - **Area:** data memory 8,633 µm², program memory 2 × 8,633 µm² (no 256×16 macro);
-  25,899 µm² in total, **+60% on 42,975 µm² of logic**
+  25,899 µm² in total, **+56% on 46,633 µm² of logic**
 - **Power:** the library has no leakage data; the datasheet's 2.5 mA standby (≈2.6 mW per macro) is reported as an estimate only
 - Sweep the model across that range to show how sensitive cycle counts and A1–A3 savings are
 
----|---|---|---|---|
-| `SRAM1RW256x8`, single port | 6 ns | 3 ns | 8,632 µm² | 2.1 / 2.5 mA |
-| `SRAM1RW64x8` (bank option) | 6 ns | 3 ns | 4,501 µm² | 3.6 / 2.6 mA |
-
-- **Data memory = 1 × 256×8, program memory = 2 × 256×8 side by side** (no 256×16 macro)
-- At our 2.55 ns clock: data arrives **≈3 cycles** after a request, and each macro takes
-  a new access only **every 3 cycles** (6 ns ÷ 2.55 ns, rounded up), not every cycle
-- **Single port:** the 4 data channels queue behind each other unless we bank data memory (4 × 64×8)
-- **PPA impact:** +25,896 µm² of macros (+60% on 42,975 µm² of logic); standby current suggests
-  ≈2.6 mW per macro, more than all the logic, so we will check it against the macro `.lib`
-- Also sweep latency (1, 2, 4, 8 cycles) to show how sensitive cycle counts and A1–A3 savings are
 
 ---
 
 ## 3. Verification Results
 
-| Test | RTL (cocotb) | RTL (Verilog TB) | Gate-level @ 2.55 ns |
+| Test | RTL (cocotb) | RTL (Verilog TB) | Gate-level, SS netlist @ 2.90 ns |
 |---|---|---|---|
 | Matrix add (8 threads, both cores) | PASS | PASS — 178 cycles | **PASS — 178 cycles** |
 | Matrix mul (4 threads, core 0 only) | PASS | PASS — 491 cycles | **PASS — 491 cycles** |
 
 - The gate-level netlist matches RTL cycle for cycle on both kernels
 - Waveforms: VCDs from both RTL and gate-level runs (`make tb_matmul`, `make gls`)
-- Kernel latency at the final clock: **matmul 1.25 µs**, **matadd 0.45 µs**
+- Kernel latency at the final clock: **matmul 1.42 µs**, **matadd 0.52 µs**
 
 ---
 
@@ -128,32 +119,34 @@ First instruction, `MUL R0, %blockIdx, %blockDim`, at a 2.55 ns clock:
 
 ## 3. Synthesis Results: Frequency Closure
 
-| Step | Period | Frequency | Cell area (µm²) |
-|---|---|---|---|
-| Starting point: RVT, unconstrained push | 10.0 ns | 100 MHz | 35,257 (2.64 ns slack left) |
-| **Final: LVT + HVT, clock-gated, swept** | **2.55 ns** | **392.2 MHz** | **42,975** |
+| Step | Corner | Period | Frequency | Cell area (µm²) |
+|---|---|---|---|---|
+| Starting point: RVT, unconstrained push | TT 0.78 V 25 °C | 10.0 ns | 100 MHz | 35,257 (2.64 ns slack left) |
+| Exploration: LVT + HVT, clock-gated | TT 0.78 V 25 °C | 2.55 ns | 392.2 MHz | 42,975 |
+| **Final: LVT + HVT, clock-gated, swept** | **SS 0.75 V 125 °C** | **2.90 ns** | **344.8 MHz** | **46,633** |
 
-- **3.9× higher clock** than the 10 ns starting point
-- Final netlist: 5,107 LVT / 8,385 HVT cells, 0 RVT, 211 clock-gating cells (`CGLPPRX2_LVT`)
-- PrimeTime setup slack is +0.0001 ns at 2.55 ns: no margin left. The critical paths run from the
-  LSU read-valid flags into the data memory controller's address/data registers
+- Sweep at SS: 2.90 ns passes, **2.85 ns fails** (one DRC net on the `reset` fanout)
+- The worst-case corner costs **14% in frequency and 8% in area** against TT
+- Final netlist: 11,563 LVT / 3,835 HVT cells, 0 RVT, 211 clock-gating cells (`CGLPPRX2_LVT`)
+- **Critical path slack (PrimeTime): +0.035 ns** setup, +0.00001 ns hold. The worst paths run from the
+  LSU write-valid flags into the data memory controller's write-data registers
 
 ---
 
 ## 3. Results: Baseline PPA & Cycles (what A1–A3 are measured against)
 
-**Performance:** 392.2 MHz (2.55 ns) · **Area:** 42,975 µm² cells ·
-**Timing (PrimeTime):** setup WNS +0.0001 ns, hold WNS +0.030 ns
+**Corner:** SS 0.75 V 125 °C · **Performance:** 344.8 MHz (2.90 ns) · **Area:** 46,633 µm² cells ·
+**Timing (PrimeTime):** setup WNS +0.035 ns, hold WNS +0.00001 ns
 
 | Per kernel | Matmul (2×2, core 0) | Matadd (1×8, both cores) |
 |---|---|---|
 | Instructions per thread block | 41 (5 LDR/STR) | 13 (3 LDR/STR) |
 | **Cycles** | **491** | **178** |
 | Cycles per instruction | ≈12.0 | ≈13.7 |
-| Latency | 1.25 µs | 0.45 µs |
-| Power: dynamic / leakage | 0.90 / 4.35 mW | 1.10 / 4.37 mW |
-| **Total power** | **5.26 mW** | **5.47 mW** |
-| **Energy per kernel** | **≈6.6 nJ** | **≈2.5 nJ** |
+| Latency | 1.42 µs | 0.52 µs |
+| Power: dynamic / leakage | 1.03 / 4.22 mW | 1.20 / 4.27 mW |
+| **Total power** | **5.26 mW** | **5.48 mW** |
+| **Energy per kernel** | **≈7.5 nJ** | **≈2.8 nJ** |
 
 PrimeTime averaged power from gate-level VCDs (100% of nets annotated)
 
@@ -163,17 +156,18 @@ PrimeTime averaged power from gate-level VCDs (100% of nets annotated)
 
 | Module | Matmul | Matadd |
 |---|---|---|
-| Core 0 | 1.74 mW (33%) | 1.76 mW (32%) |
-| Core 1 | 1.57 mW (30%) **idle** | 1.72 mW (31%) |
-| Data memory controller | 1.24 mW (24%) | 1.28 mW (23%) |
-| Dispatcher, program memory controller, rest | 0.71 mW (13%) | 0.71 mW (13%) |
-| **Total** | **5.26 mW** | **5.47 mW** |
+| Core 0 | 1.66 mW (32%) | 1.66 mW (30%) |
+| Core 1 | 1.68 mW (32%) **idle** | 1.85 mW (34%) |
+| Data memory controller | 0.83 mW (16%) | 0.87 mW (16%) |
+| Dispatcher, program memory controller, rest | 1.09 mW (21%) | 1.10 mW (20%) |
+| **Total** | **5.26 mW** | **5.48 mW** |
 
-- **Leakage is 80–83% of power**: it is paid every cycle whether or not logic switches
-- So **energy ≈ power × cycles × 2.55 ns, and power barely moves** (5.26 vs 5.47 mW):
+- **Leakage is 78–80% of power**: it is paid every cycle whether or not logic switches
+- So **energy ≈ power × cycles × 2.90 ns, and power barely moves** (5.26 vs 5.48 mW):
   cutting cycles cuts energy almost one for one, which is what A1–A3 target
-- Clock gating already removed most idle switching: the clock network is 0.93 mW (18%) in matmul, 1.04 mW (19%) in matadd
-- Core 1 does no work in matmul but still costs 1.57 mW, 92% of it leakage
+- Clock gating already removed most idle switching: the clock network is 1.04 mW (20%) in matmul, 1.14 mW (21%) in matadd
+- Core 1 does no work in matmul but still costs 1.68 mW, 91% of it leakage (more than busy core 0:
+  it was synthesized with more LVT cells)
 
 ---
 
@@ -194,11 +188,13 @@ PrimeTime averaged power from gate-level VCDs (100% of nets annotated)
 | Challenge | Solution |
 |---|---|
 | RTL VCD annotated only **4.7%** of nets in PrimeTime (renamed generate blocks; arrays not dumped) | Gate-level simulation of the netlist: **99.99%** annotated |
-| Gate-level sim **hung** with X values | Testbench held reset for only one edge, and cores reset a cycle later via dispatch; now held for 4 edges |
+| Gate-level sim (TT) **hung** with X values | Testbench held reset for only one edge, and cores reset a cycle later via dispatch; now held for 4 edges |
 | DC-written SPEF made PrimeTime timing **0.17 ns worse** than DC | PrimeTime's own per-hierarchy wire-load models match DC; SPEF made opt-in |
 | Clock gating: SAED32 gating cells have a test-enable pin, so DC rejected them by name (PWR-192) and silently fell back to RVT ones | Default gating style, then swap each gating cell to LVT after compile (same pins, test-enable tied to 0) |
 | Hold buffers and DRC upsizing at the end pushed gated paths **0.08 ns** over setup | Final clean-up loop now re-checks setup and runs an incremental setup pass before hold and DRC fixes |
-| PrimeTime flagged **183 max_capacitance pins** that DC reported clean (same net caps and limits in both tools) | Timing-aware ECO in PrimeTime: upsize the driver or buffer its loads, undo any change that breaks setup/hold. **183 → 3 pins** with setup still met. The 3 left (2 ALU inverters, 1 register flop) miss by 0.14–0.53 fF and every fix tried broke setup |
+| PrimeTime flagged **172 max_capacitance pins** that DC reported clean (same net caps and limits in both tools) | Timing-aware ECO in PrimeTime: upsize the driver or buffer its loads, undo any change that breaks setup/hold. **172 → 0 pins** with setup and hold still met |
+| First flow used the typical corner (TT 0.78 V 25 °C); the project requires worst case | Corner is now a script variable, default SS 0.75 V 125 °C, used by DC and PrimeTime; full sweep rerun |
+| SS netlist **stuck at X after reset** in gate-level sim | SAED32 mux models output X on an X select even when both data inputs agree (silicon gives the value). The scheduler's state flop feeds its own next-state mux select. Patched the mux truth tables for GLS only; RTL and netlist then match |
 
 ---
 
@@ -214,15 +210,15 @@ PrimeTime averaged power from gate-level VCDs (100% of nets annotated)
 | A2: merge DECODE + REQUEST | 1 per instruction | ≈41 (8%) | ≈13 (7%) |
 | **A1 + A2** | | **≈77 → ≈414 cycles (−16%)** | **≈23 → ≈155 cycles (−13%)** |
 
-- With power nearly fixed, energy falls about as much as cycles: matmul ≈6.6 → ≈5.6 nJ
+- With power nearly fixed, energy falls about as much as cycles: matmul ≈7.5 → ≈6.3 nJ
 - A3 (fuse EXECUTE + UPDATE) lengthens the ALU path (single-cycle 8-bit divider); with no
-  timing margin left at 2.55 ns it may cost clock frequency, so it must win more in cycles than it loses in period
+  only 0.035 ns of margin at 2.90 ns it may cost clock frequency, so it must win more in cycles than it loses in period
 - FETCH (≈6 cycles of program-memory latency per instruction) is the largest share and is not addressed by A1–A3
 - Same flow for each change: sweep for maximum frequency → gate-level sim (cycles) → PrimeTime → PPA and energy per kernel
 
-**Possible extension suggested by the power results:** leakage is 80–83% of power
+**Possible extension suggested by the power results:** leakage is 78–80% of power
 - Push more of the non-critical logic to HVT
-- Gate or power down the idle core (core 1 costs 1.57 mW during matmul)
+- Gate or power down the idle core (core 1 costs 1.68 mW during matmul)
 
 ---
 
