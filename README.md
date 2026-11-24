@@ -17,9 +17,9 @@ describes the original tiny-gpu design and matrix kernels.
   SAED32 models are absent, and the archived SS netlist predates the fixes.
 - PrimeTime still reports 877 minimum-pulse-width violations at 2.90 ns, and the
   corrected RTL has not been resynthesized.
-- The [report draft](midterm/report.md) documents these results, the proposed
+- The [report draft](docs/midterm/report.md) documents these results, the proposed
   optimizations, and the remaining evidence. The presentation and assignment PDF
-  are also in `midterm/`.
+  are also in `docs/midterm/`.
 
 ## Repository layout
 
@@ -32,8 +32,7 @@ describes the original tiny-gpu design and matrix kernels.
 | `ptpx/` | PrimeTime power/ECO; capacitance/SRAM diagnostics in `diagnostics/`. |
 | `scripts/` | Portable Tcl paths and repository checks. |
 | `results/` | SS baseline, corrected-RTL regression evidence, TT/legacy archives, relocation checksums. |
-| `docs/` | Architecture, figures, wave-view settings, development notes. |
-| `midterm/` | Report, presentation, assignment requirements. |
+| `docs/` | Architecture, midterm report/presentation/assignment PDF, figures, wave-view settings, development notes. |
 | `build/` | Disposable newly generated outputs, ignored by git. |
 
 The [migration index](results/migration.json) records old/new paths and SHA-256
