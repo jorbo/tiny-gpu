@@ -3,10 +3,10 @@
 # interior path spaces (make's word functions would split the filename).
 ROOT := $(shell file="$$(printf '%s' "$(MAKEFILE_LIST)" | sed 's/^[[:space:]]*//')"; cd -- "$$(dirname -- "$$file")" && pwd)
 BUILD := $(ROOT)/build
-.PHONY: help test compile gls check export
+.PHONY: help test compile gls check
 
 help:
-	@echo "Offline: make check | verification_vectors | export"
+	@echo "Offline: make check | verification_vectors"
 	@echo "Hardware (explicit opt-in): make compile | test_matadd | tb_matmul | gls"
 	@echo "See README.md, sim/README.md, syn/README.md and ptpx/README.md."
 
@@ -88,7 +88,3 @@ verification_netlist:
 
 check:
 	cd "$(ROOT)" && $(PYTHON) -m unittest sim.test_suite scripts.test_repository -v
-
-EXPORT_ARGS ?=
-export:
-	cd "$(ROOT)" && $(PYTHON) -m scripts.export_submission $(EXPORT_ARGS)

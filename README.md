@@ -30,12 +30,11 @@ describes the original tiny-gpu design and matrix kernels.
 | `sw/` | Independent architectural reference. |
 | `syn/` | Design Compiler synthesis, constraints, and period sweep. |
 | `ptpx/` | PrimeTime power/ECO; capacitance/SRAM diagnostics in `diagnostics/`. |
-| `scripts/` | Portable Tcl paths, repository checks, submission exporter. |
+| `scripts/` | Portable Tcl paths and repository checks. |
 | `results/` | SS baseline, corrected-RTL regression evidence, TT/legacy archives, relocation checksums. |
 | `docs/` | Architecture, figures, wave-view settings, development notes. |
 | `midterm/` | Report, presentation, assignment requirements. |
 | `build/` | Disposable newly generated outputs, ignored by git. |
-| `dist/` | Generated submission ZIPs, ignored by git. |
 
 The [migration index](results/migration.json) records old/new paths and SHA-256
 hashes for 320 preserved files, including RTL and historical evidence. Original
@@ -53,8 +52,8 @@ make check PYTHON=/usr/bin/python3
 make verification_vectors PYTHON=/usr/bin/python3
 ```
 
-`check` runs software-reference/generator/runner tests and repository/exporter
-checks, including software tests from an extracted ZIP. It never runs HDL tools.
+`check` runs software-reference/generator/runner tests and repository layout
+checks. It never runs HDL tools.
 Vector generation creates a new timestamped directory under `build/verification/`
 with 1,039 instances, all initially `not_run`. See [sim/README.md](sim/README.md)
 for all families, seeds, expected results, and optional execution modes.
@@ -105,23 +104,3 @@ unique `build/` directory while iterating, then be imported under a new
 `results/ss/<run-id>/`. Never overwrite a TT run or rename TT data as SS.
 [results/ss/README.md](results/ss/README.md) records the selected run and its
 caveats. No server changes are performed by local commands.
-
-## Submission export
-
-```bash
-make export PYTHON=/usr/bin/python3
-# Include the SS evidence and corrected-RTL regression manifest explicitly:
-python3 -m scripts.export_submission --run results/ss --run results/verification \
-  --output dist/midterm-team-6-with-results.zip
-```
-
-The exporter creates one top-level `midterm-team-6/` folder, portable code and a
-package README, plus a checksum inventory. Only explicit `--run` directories are
-included; old sweeps, loose archives, generated scratch files, PDK libraries,
-symlinks, and credentials are not bundled automatically. Existing ZIPs are never
-overwritten. Identical source/selection produces identical ZIP bytes.
-
-Exports remain labeled **draft**: the exporter does not certify that verification,
-SS timing, power, or the assignment checklist passed. The report and presentation
-are separate deliverables. Review the package inventory and run its commands from
-a clean extraction before final submission.
