@@ -1,17 +1,16 @@
-*/**/__pycache__
-build/
-test/logs/*
-!.gitkeep
-gds/**/*.gltf
+__pycache__/
+*.py[cod]
+/build/
+/dist/
+results/legacy/gds/**/*.gltf
 
 .DS_Store
 results.xml
 .venv
-syn/runs/
 
 # Run outputs: SDF/SPEF regenerate from the netlist; keep only the baseline SDF for GLS
-runs/**/*.sdf
-runs/**/*.spef
-!runs/lh_2.55_cg/out/gpu.sdf
-!runs/ss_lh_cg_2.90/out/gpu.sdf
+results/**/*.sdf
+results/**/*.spef
+!results/tt/runs/lh_2.55_cg/out/gpu.sdf
+!results/ss/runs/ss_lh_cg_2.90/out/gpu.sdf
 *:Zone.Identifier

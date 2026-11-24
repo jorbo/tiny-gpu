@@ -122,6 +122,7 @@ module core #(
         .decoded_mem_read_enable(decoded_mem_read_enable),
         .decoded_mem_write_enable(decoded_mem_write_enable),
         .decoded_ret(decoded_ret),
+        .thread_count(thread_count),
         .lsu_state(lsu_state),
         .current_pc(current_pc),
         .next_pc(next_pc),

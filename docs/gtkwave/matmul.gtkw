@@ -1,4 +1,4 @@
-[dumpfile] "/home/jordan/tiny-gpu/build/gpu_rtl_2p55.vcd"
+[dumpfile] "results/tt/activity/gpu_rtl_2p55.vcd"
 [timestart] 0
 @200
 -Top level
@@ -10,10 +10,10 @@ tb_gpu.dut.done
 @200
 -Core 0 control
 @2022
-^1 /home/jordan/tiny-gpu/docs/gtkwave/core_state.txt
+^1 docs/gtkwave/core_state.txt
 tb_gpu.dut.cores[0].core_instance.core_state[2:0]
 @2022
-^2 /home/jordan/tiny-gpu/docs/gtkwave/fetcher_state.txt
+^2 docs/gtkwave/fetcher_state.txt
 tb_gpu.dut.cores[0].core_instance.fetcher_state[2:0]
 @24
 tb_gpu.dut.cores[0].core_instance.current_pc[7:0]

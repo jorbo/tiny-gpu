@@ -8,7 +8,7 @@ Repository: https://github.com/jorbo/tiny-gpu/tree/master
 
 ## 1. Baseline Design Recap
 
-**tiny-gpu:** a minimal SIMD GPU in SystemVerilog (12 modules, ~1,300 lines in `src/`)
+**tiny-gpu:** a minimal SIMD GPU in SystemVerilog (12 modules, ~1,300 lines in `rtl/`)
 
 - **Top level:** dispatcher → 2 compute cores → program and data memory controllers
 - **Each core:** scheduler, fetcher, decoder, plus per-thread ALU, LSU, PC and register file (4 threads per block)
@@ -24,7 +24,7 @@ Repository: https://github.com/jorbo/tiny-gpu/tree/master
 
 **Functional verification: two independent testbenches**
 - **cocotb** (Python): the original matadd / matmul tests, ported to cocotb 2.x
-- **Plain Verilog testbench** (`test/tb_gpu.v`): same kernels and memory model, with no Python dependency
+- **Plain Verilog testbench** (`sim/legacy/tb_gpu.v`): same kernels and memory model, with no Python dependency
   - Clock period set at compile time to match each synthesis run
   - Checks results against expected values and reports the cycle count
   - Dumps a VCD for waveform inspection and power analysis
@@ -54,7 +54,7 @@ for synthesis and PrimeTime alike
 - **Pass = setup slack ≥ 0, no hold violations, no DRC violations**
 - Runs up to 3 DC jobs in parallel
 
-**PrimeTime** (`syn/pt_eco.tcl`, `syn/pt_power.tcl`)
+**PrimeTime** (`ptpx/pt_eco.tcl`, `ptpx/pt_power.tcl`)
 - Independent setup/hold check at the chosen period
 - Signoff DRC ECO: upsize or buffer drivers PT flags, keeping each change only if setup and hold stay met
 - Averaged power from a **gate-level VCD** of each kernel at that same period
@@ -98,6 +98,7 @@ for synthesis and PrimeTime alike
 |---|---|---|---|
 | Matrix add (8 threads, both cores) | PASS | PASS — 178 cycles | **PASS — 178 cycles** |
 | Matrix mul (4 threads, core 0 only) | PASS | PASS — 491 cycles | **PASS — 491 cycles** |
+| Full regression (10 random + 10 corner families, 1,039 instances) | — | PASS after two RTL fixes | not run (no cell models) |
 
 - The gate-level netlist matches RTL cycle for cycle on both kernels
 - Waveforms: VCDs from both RTL and gate-level runs (`make tb_matmul`, `make gls`)
@@ -123,10 +124,12 @@ First instruction, `MUL R0, %blockIdx, %blockDim`, at a 2.55 ns clock:
 |---|---|---|---|---|
 | Starting point: RVT, unconstrained push | TT 0.78 V 25 °C | 10.0 ns | 100 MHz | 35,257 (2.64 ns slack left) |
 | Exploration: LVT + HVT, clock-gated | TT 0.78 V 25 °C | 2.55 ns | 392.2 MHz | 42,975 |
-| **Final: LVT + HVT, clock-gated, swept** | **SS 0.75 V 125 °C** | **2.90 ns** | **344.8 MHz** | **46,633** |
+| **Selected: LVT + HVT, clock-gated, swept** | **SS 0.75 V 125 °C** | **2.90 ns** | **344.8 MHz** | **46,633** |
 
-- Sweep at SS: 2.90 ns passes, **2.85 ns fails** (one DRC net on the `reset` fanout)
-- The worst-case corner costs **14% in frequency and 8% in area** against TT
+- Sweep at SS: **2.90 ns is the shortest DC-passing point**, 2.85 ns fails (one DRC net)
+- PrimeTime still flags **877 minimum-pulse-width violations** at 2.90 ns (-0.07 ns);
+  3.05 ns (327.9 MHz) is the conservative pulse-width-clean candidate, pending PT/power
+- The worst-case corner costs **12% in frequency and 8.5% in area** against TT
 - Final netlist: 11,563 LVT / 3,835 HVT cells, 0 RVT, 211 clock-gating cells (`CGLPPRX2_LVT`)
 - **Critical path slack (PrimeTime): +0.035 ns** setup, +0.00001 ns hold. The worst paths run from the
   LSU write-valid flags into the data memory controller's write-data registers
@@ -135,8 +138,8 @@ First instruction, `MUL R0, %blockIdx, %blockDim`, at a 2.55 ns clock:
 
 ## 3. Results: Baseline PPA & Cycles (what A1–A3 are measured against)
 
-**Corner:** SS 0.75 V 125 °C · **Performance:** 344.8 MHz (2.90 ns) · **Area:** 46,633 µm² cells ·
-**Timing (PrimeTime):** setup WNS +0.035 ns, hold WNS +0.00001 ns
+**Corner:** SS 0.75 V 125 °C · **Performance:** 344.8 MHz (2.90 ns, DC/PT setup-closed) · **Area:** 46,633 µm² cells ·
+**Timing (PrimeTime):** setup WNS +0.035 ns, hold WNS +0.00001 ns; pulse width not clean
 
 | Per kernel | Matmul (2×2, core 0) | Matadd (1×8, both cores) |
 |---|---|---|
@@ -148,7 +151,7 @@ First instruction, `MUL R0, %blockIdx, %blockDim`, at a 2.55 ns clock:
 | **Total power** | **5.26 mW** | **5.48 mW** |
 | **Energy per kernel** | **≈7.5 nJ** | **≈2.8 nJ** |
 
-PrimeTime averaged power from gate-level VCDs (100% of nets annotated)
+PrimeTime averaged power from gate-level VCDs (99.99% of nets annotated). PPA is for the netlist synthesized **before** the two RTL bug fixes.
 
 ---
 
@@ -194,6 +197,8 @@ PrimeTime averaged power from gate-level VCDs (100% of nets annotated)
 | Hold buffers and DRC upsizing at the end pushed gated paths **0.08 ns** over setup | Final clean-up loop now re-checks setup and runs an incremental setup pass before hold and DRC fixes |
 | PrimeTime flagged **172 max_capacitance pins** that DC reported clean (same net caps and limits in both tools) | Timing-aware ECO in PrimeTime: upsize the driver or buffer its loads, undo any change that breaks setup/hold. **172 → 0 pins** with setup and hold still met |
 | First flow used the typical corner (TT 0.78 V 25 °C); the project requires worst case | Corner is now a script variable, default SS 0.75 V 125 °C, used by DC and PrimeTime; full sweep rerun |
+| RTL regression exposed a partial-block PC hang and reversed CMP N/P flags | Scheduler selects the last active lane; ALU compares operands directly. Full 1,039-instance RTL corpus passes; resynthesis pending |
+| SS 2.90 ns passes DC setup/hold/DRC but fails PT minimum pulse width (877 pins, -0.07 ns) | Under review: relax to 3.05 ns, change the clock waveform, or justify the uncertainty treatment; re-run PT before signoff |
 | SS netlist **stuck at X after reset** in gate-level sim | SAED32 mux models output X on an X select even when both data inputs agree (silicon gives the value). The scheduler's state flop feeds its own next-state mux select. Patched the mux truth tables for GLS only; RTL and netlist then match |
 
 ---

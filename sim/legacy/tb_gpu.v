@@ -63,7 +63,7 @@ module tb_gpu;
     always #(`CLK_PERIOD / 2.0) clk = ~clk;
 
     // External memories: respond to requests seen at a clock edge on the following edge,
-    // matching the timing of the cocotb Memory model (test/helpers/memory.py)
+    // matching the timing of the cocotb Memory model (sim/legacy/helpers/memory.py)
     reg [PROGRAM_MEM_DATA_BITS-1:0] program_memory [0:(1<<PROGRAM_MEM_ADDR_BITS)-1];
     reg [DATA_MEM_DATA_BITS-1:0] data_memory [0:(1<<DATA_MEM_ADDR_BITS)-1];
     reg mem_enable = 0;
@@ -88,7 +88,7 @@ module tb_gpu;
         end
     end
 
-    // Kernels (same programs and data as test/test_matadd.py and test/test_matmul.py)
+    // Kernels (same programs and data as sim/legacy/test_matadd.py and test_matmul.py)
     integer i, threads, errors, cycles;
     reg [7:0] expected;
     reg [8*256-1:0] vcdfile;

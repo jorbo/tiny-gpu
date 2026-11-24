@@ -1,0 +1,735 @@
+# Tiny-GPU midterm lab report
+
+CS 220: Synthesis of Digital Systems, Fall 2026
+
+University of California, Riverside
+
+Team 6: Jordan Ayvazian, Shane Zimmerman, Svetlana Nosova
+
+Draft date: November 9, 2026
+
+> **Submission status:** The baseline is now the SS 0.75 V / 125 °C clock-gated implementation in `results/ss/runs/best_ss_lh_cg/`: 2.90 ns, 344.8 MHz, 46,632.883 µm² of standard-cell area after ECO, +0.034710 ns setup slack, and +0.000011 ns hold slack. PrimeTime power from gate-level activity is 5.2567 mW for matmul and 5.4775 mW for matadd. The earlier TT 0.78 V / 25 °C measurements are retained only as an exploratory comparison.
+>
+> The new regression suite was compiled and run against converted RTL. Its first full pass exposed two baseline functional defects (partial-block PC selection and CMP flag ordering); both were fixed in `rtl/` and the corrected RTL now passes all 1,039 default instances at RTL level. Netlist regression could not be run in the report environment because the SAED32 Verilog models and PDK are not installed.
+>
+> The SS PPA above was measured on the archived netlist synthesized before those two RTL fixes, so it describes the pre-fix implementation. Resynthesis and a netlist rerun are still required. PrimeTime also reports 877 minimum-pulse-width violations of -0.07 ns at 2.90 ns, and the power logs still contain `PWR-264` annotation warnings. These items are documented in Sections 3, 5.5, 6.2, and 9.2.
+
+## 1. Introduction and baseline scope
+
+Our project evaluates control-state optimizations for tiny-gpu, an educational SIMD processor written in SystemVerilog. The baseline has two compute cores, each with four thread lanes, and executes one kernel at a time. Its multicycle instruction schedule separates instruction fetch, decode, operand and memory requests, memory waiting, arithmetic execution, and architectural update. This organization makes the cost of individual control states visible and provides a starting point for reducing execution cycles without changing the instruction set. [R1], [R2]
+
+The midterm establishes the baseline through functional simulation, standard-cell synthesis, and workload-driven power analysis. The selected baseline is the SS 0.75 V / 125 °C clock-gated LVT+HVT implementation in `results/ss/runs/best_ss_lh_cg/`. It was synthesized on the `bender` host, imported through upstream commits `49f7b15`, `cc8ddd5`, and `60003d8`, and relocated without payload changes into the `results/ss/` layout. The earlier TT 0.78 V / 25 °C clock-gated run remains at `results/tt/runs/lh_2.55_cg/` as an exploratory comparison, not as the assignment baseline. Files named `best_lh` and `lh_2.55_final` contain still older ungated or pre-ECO results and are not interchangeable with either baseline. Raw reports take precedence over rounded presentation values. [R3], [R4], [R5]
+
+At the SS corner, the selected design operates at a 2.90 ns clock period, or 344.8 MHz. Design Compiler reports 46,553.590 µm² of pre-ECO cell area; PrimeTime reports 46,632.883 µm² after ECO changes. PrimeTime setup slack is +0.034710 ns and hold slack is +0.000011 ns. Recorded average logic power is 5.2567 mW for matrix multiplication and 5.4775 mW for matrix addition. These values exclude the external program and data memories. The 2.90 ns period is the shortest passing point in the saved DC sweep, but it still carries minimum-pulse-width violations in PrimeTime; Section 5.5 states that limitation explicitly. These PPA values were measured on the netlist synthesized before the two RTL bug fixes in Section 2.2, so they describe the pre-fix implementation. [R5], [R6]
+
+The proposed optimizations are A1, bypassing WAIT for non-memory instructions; A2, merging DECODE and REQUEST; and A3, fusing EXECUTE and UPDATE. They remain implementation plans, not measured RTL improvements.
+
+## 2. Baseline RTL
+
+### 2.1 Architecture and important modules
+
+The RTL is in `rtl/`, relocated from `src/`; three files (`alu.sv`, `core.sv`, `scheduler.sv`) now contain the documented bug fixes. The canonical repository and submission exporter use the required source folder names. The top-level default configuration has eight-bit data, eight-bit memory addresses, 16-bit instructions, four external data-memory channels, and one external program-memory channel. Eight thread lanes share these interfaces through memory controllers. [R2]
+
+| Module | Function in the baseline |
+|---|---|
+| [`gpu.sv`](../rtl/gpu.sv) | Instantiates the device control register, dispatcher, two cores, and both memory controllers. Registered connections relay LSU requests and responses between cores and the data controller. |
+| [`dcr.sv`](../rtl/dcr.sv) | Captures the eight-bit thread count when the host asserts `device_control_write_enable`. |
+| [`dispatch.sv`](../rtl/dispatch.sv) | Divides the thread count into blocks of four, assigns blocks to available cores, supplies block IDs and active-lane counts, and asserts kernel completion after all blocks finish. |
+| [`controller.sv`](../rtl/controller.sv) | Arbitrates consumer requests onto available memory channels and relays each response to its requesting consumer. Separate instances serve instruction fetches and data loads/stores. |
+| [`core.sv`](../rtl/core.sv) | Connects one scheduler, fetcher, and decoder to four lane-local ALUs, LSUs, register files, and PC units. |
+| [`scheduler.sv`](../rtl/scheduler.sv) | Sequences FETCH, DECODE, REQUEST, WAIT, EXECUTE, and UPDATE. Tracks block completion and selects the next shared PC. |
+| [`fetcher.sv`](../rtl/fetcher.sv) | Requests the instruction at the current PC and holds it until the core consumes it. |
+| [`decoder.sv`](../rtl/decoder.sv) | Registers operand addresses, immediates, branch conditions, and control signals during DECODE. Recognizes arithmetic, memory, constant, compare, branch, return, and NOP encodings. |
+| [`registers.sv`](../rtl/registers.sv) | Implements 16 eight-bit registers per lane: R0 through R12 are writable; R13, R14, and R15 supply block ID, block size, and thread ID. Reads operands in REQUEST and writes results in UPDATE. |
+| [`alu.sv`](../rtl/alu.sv) | Computes ADD, SUB, MUL, DIV, or comparison flags and registers the result during EXECUTE. Division is a combinational eight-bit operation feeding this register. |
+| [`lsu.sv`](../rtl/lsu.sv) | Issues a load or store, holds the request while waiting for a response, captures returned data, and resets its transaction state during UPDATE. |
+| [`pc.sv`](../rtl/pc.sv) | Maintains lane-local NZP flags and calculates sequential or conditional-branch targets. |
+
+All lanes in a block execute the same instruction. Although each lane calculates a next PC, the scheduler assumes convergence and uses the last active lane's next-PC value. Branch divergence is unsupported. Partial-block behavior therefore needs explicit testing; the two existing workloads use complete four-lane blocks. There is no instantiated cache in the current RTL, despite cache discussion in the original README. [R1], [R2]
+
+### 2.2 Baseline changes and justifications
+
+The latest upstream functional source change before relocation is commit `560688c` from April 2024. The recent project work adds verification, synthesis infrastructure, SS-corner support, and directory organization without implementing A1, A2, or A3. `results/migration.json` and `results/ss/migration.json` record the original and current paths and verify evidence hashes; the three RTL files changed by the fixes retain their original hashes in `historical_sha256`.
+
+| Change | Justification and scope |
+|---|---|
+| cocotb 2.x compatibility updates, commit `7306732` | Updates Makefile integration, the clock API, and value conversions in trace formatting. This changes the verification environment, not the GPU architecture. |
+| Plain-Verilog testbench, now `sim/legacy/tb_gpu.v` | Provides a self-checking top-level DUT testbench usable with both converted RTL and synthesized netlists, without requiring Python during simulation. |
+| Four-edge reset in the Verilog testbench, commit `d443022` | Cores receive reset through registered dispatcher signals. Holding reset for several edges avoids capturing unknown core requests when gate-level simulation starts. This is a stimulus fix, not a new hardware feature. |
+| `sv2v` conversion to `build/gpu.v` | Converts SystemVerilog arrays and constructs to the Verilog input used by the simulator/synthesis flow. The preserved historical TT input is `results/tt/inputs/gpu.v`; fresh generated conversion stays in `build/`. |
+| SS corner selection, commit `49f7b15` | Makes `ss0p75v125c` the default DC/PrimeTime corner and threads the corner, clock-gating flag, and run name through `sweep.sh`. This changes the measurement corner, not the architecture. |
+| Multithreshold mapping, clock gating, and timing/DRC ECOs | Changes the synthesized implementation while preserving intended functionality. These are synthesis choices and must be distinguished from source-level bug fixes. |
+| SAED32 mux X-pessimism patch, `sim/saed_xfix.awk` | Adds X-select rows to the mux UDP tables used only in gate-level simulation. The SS netlist otherwise holds `core_state` at X after reset because the scheduler's next-state mux select is its own X output while both data inputs agree. This is a simulation-model compatibility fix; it changes no synthesized logic. |
+| Scheduler active-lane PC fix, `rtl/scheduler.sv`, `rtl/core.sv` | Bug fix: a partial block previously selected the disabled last lane's stale `next_pc`, restarting at PC 0. The scheduler now receives `thread_count` and selects the last active lane. No ISA change. |
+| CMP N/Z/P fix, `rtl/alu.sv` | Bug fix: the unsigned eight-bit subtraction made bit 2 mean "not equal" and bit 0 always zero. The ALU now compares operands directly, producing less-than/equal/greater-than in bits 2/1/0 as documented. No ISA change. |
+| Directory reorganization and evidence relocation | Moves sources, testbenches, scripts, and results into the required `rtl/`, `sim/`, `syn/`, `ptpx/`, `sw/`, and `results/` layout. Payload hashes are preserved in the migration manifests. |
+
+The new regression suite exposed two functional defects in the baseline RTL: a partial block (fewer than four active threads) hung because `scheduler.sv` always selected `next_pc[THREADS_PER_BLOCK-1]`, whose lane is disabled and therefore never updates; and `alu.sv` computed CMP flags with an unsigned eight-bit subtraction, so bit 2 meant "not equal" rather than "less than" and bit 0 was never set. These are baseline bugs, not optimization regressions. Both are now fixed: the scheduler receives `thread_count` and selects the last active lane's PC, and the ALU compares the operands directly to produce N/Z/P in bits 2/1/0. The corrected RTL passes the full 1,039-instance RTL corpus (Section 3).
+
+The recorded SS synthesis predates these fixes. Consequently, the SS PPA in Sections 5 and 6 applies to the pre-fix RTL; it must be re-established by resynthesizing the corrected RTL and rerunning PrimeTime. The functional changes are confined to the scheduler state transition and the ALU compare path, but no area or timing claim is made for the corrected netlist until that rerun exists.
+
+A fresh `sv2v` 0.0.13 conversion of the corrected `rtl/` was generated with `make compile` and used for the reported regression; that converted file is retained in `results/verification/gpu.v`. A passing simulation of one conversion does not establish that every future conversion is equivalent.
+
+### 2.3 Memory interface and PPA boundaries
+
+Program memory contains 256 × 16 bits, or 512 bytes; data memory contains 256 × 8 bits, or 256 bytes. Both are testbench arrays outside the synthesized `gpu` module. The Verilog memory model returns registered responses to requests sampled at clock edges and services all four data channels concurrently. It does not model a single-port SRAM's serialization, banking conflicts, macro busy time, or a realistic memory-power cost. [R7]
+
+The memory controllers and core/controller relay registers add latency beyond the memory model itself. The existing waveform shows roughly six cycles in FETCH for the first matmul instruction. A non-memory instruction still visits REQUEST and WAIT before EXECUTE and UPDATE. [R3]
+
+The reported area is standard-cell area, not die area or placed-and-routed core area. The reported power covers synthesized GPU logic, not the external memories or a complete chip. Memory integration will require a separate implementation and measurement boundary.
+
+## 3. Verification
+
+### 3.1 RTL testbench and stimulus generation
+
+The repository has two functional verification paths:
+
+1. The Python/cocotb tests load encoded instructions and data, configure the thread count, drive the memory interface, wait for `done`, and compare output memory with software-calculated results. Supporting files under `sim/legacy/helpers/` provide setup, memory behavior, logging, and cycle traces. [R8]
+2. The main Verilog testbench, `tb_gpu`, instantiates `gpu`, generates the clock and reset, initializes program/data arrays, writes the device control register, and launches the selected kernel. Compile-time `MATADD` selects matrix addition; the default is matrix multiplication. `CLK_PERIOD` controls the clock, and `+vcd` enables waveform dumping. [R7]
+
+The original Verilog testbench checks every expected output element, prints a cycle count, and reports `PASS` or mismatches. It also stops a kernel after 100,000 cycles. A limitation is that failure and timeout paths call `$finish`, so a simulator exit code of zero is not sufficient evidence of success. Automated regression must also require an explicit `PASS` and reject `FAIL`, `Mismatch`, and timeout messages.
+
+The new [`sim/tb_regression.v`](../sim/tb_regression.v) and [`sim/run.py`](../sim/run.py) extend verification to the twenty families below. Python generates programs and complete input/expected memory images; the shared testbench supports either converted RTL or a mapped netlist using top-level ports only. It checks all 256 memory bytes, per-address store counts, request stability, unknown payloads, completion, and reset recovery, with `$fatal(1)` on failure. A clean exit plus exactly one matching `PASS <case> cycles=<n>` marker is required for a pass.
+
+During report preparation the suite was compiled with Icarus Verilog 13.0 and run against converted RTL. The first full pass exposed the two baseline defects described in Section 2.2. After fixing them, the full default corpus of 1,039 instances passes at RTL level; the manifest and summary are retained in `results/verification/`. Netlist-mode execution was attempted only in the sense of checking prerequisites: the SAED32 Verilog cell models are not installed in this environment, so no netlist regression result is claimed here.
+
+The cocotb helper currently generates a 25 µs clock. Those tests check functional behavior and are not the source of the 2.90 ns PrimeTime activity traces. The plain-Verilog testbench supplies the period-matched traces.
+
+### 3.2 Netlist simulation
+
+`make gls` compiles the synthesized netlist together with SAED32 standard-cell Verilog models and the same `tb_gpu` testbench. Workload contents and expected results are unchanged. Array ports have already been flattened by conversion/synthesis, matching the packed testbench interfaces. The cell models are preprocessed by [`sim/saed_xfix.awk`](../sim/saed_xfix.awk), which adds X-select rows to mux UDP tables so the SS netlist does not remain at X after reset. That patch affects simulation models only, not the mapped logic. [R7], [R9]
+
+The recorded SS gate-level runs at 2.90 ns report `PASS` and the same 178 cycles for matadd and 491 cycles for matmul as the RTL runs. Their compressed VCDs are retained in `results/ss/activity/`. The current gate-level simulation is zero delay. It does not annotate the saved SDF, so it checks mapped logical behavior and generates switching activity; it does not independently demonstrate setup/hold closure or capture realistic gate-delay glitches. Timing is evaluated separately in Design Compiler and PrimeTime.
+
+The regression testbench can also target a netlist, but no such run is reported: this environment has no SAED32 models or licensed PDK. In addition, the retained netlist is the DC output, while PrimeTime applies its ECO changes only inside the timing/power session. The exact post-ECO netlist has not been exported, so a final netlist regression must use a newly written ECO-applied netlist rather than the archived DC file.
+
+### 3.3 Implemented testcases and expected results
+
+| ID | Testcase | Verification goal | Expected result |
+|---|---|---|---|
+| B01 | Elementwise addition of two length-eight arrays, both initialized to `[0,1,2,3,4,5,6,7]`; eight threads | Exercise both cores, lane/block indexing, constants, address arithmetic, loads, stores, and completion across two blocks. | Addresses 16 through 23 contain `[0,2,4,6,8,10,12,14]`; no output mismatch. |
+| B02 | Multiply `[[1,2],[3,4]]` by `[[1,2],[3,4]]`; four threads | Exercise one full core, row/column indexing, integer division, multiplication/accumulation, comparison, a convergent loop branch, and memory traffic. | Addresses 8 through 11 contain `[7,10,15,22]`; no output mismatch. |
+
+These are two directed workloads. Running the same workload in cocotb, the Verilog testbench, and gate-level simulation does not turn it into three independent testcases.
+
+### 3.4 Results and evidence status
+
+| Workload | Report-preparation RTL check, 2.90 ns | Earlier cocotb result | Zero-delay gate-level result, SS netlist at 2.90 ns |
+|---|---|---|---|
+| B01: matadd | PASS, 178 cycles | PASS reported in progress notes | PASS, 178 cycles; compressed VCD retained |
+| B02: matmul | PASS, 491 cycles | PASS reported in progress notes | PASS, 491 cycles; compressed VCD retained |
+
+The report-preparation RTL checks used Icarus Verilog 13.0 with the fresh `sv2v` 0.0.13 conversion in `results/verification/gpu.v` and the testbench in `sim/legacy/tb_gpu.v`. The SS gate-level PASS results are recorded in the upstream project commits and supported by the retained VCDs, but standalone simulator logs for those runs are not tracked. Those VCDs and the netlist predate the two RTL fixes, so they establish the pre-fix gate-level behavior only. The retained VCDs support activity inspection and power replay, not a complete replacement for self-checking simulation logs. [R3], [R10]
+
+At 2.90 ns, 178 cycles corresponds to 516.2 ns and 491 cycles to 1,423.9 ns. The retained VCDs end at 529.975 ns and 1,437.675 ns respectively; the difference is reset and launch overhead. These intervals use the testbench's cycle-count convention and exclude setup time from the cycle total.
+
+### 3.5 Constrained-random testcases
+
+The assignment targets ten constrained-random and ten corner-case testcases, all passing at RTL and netlist levels. The ten random families below are implemented in [`sim/cases.py`](../sim/cases.py), with 100 generated instances per family by default and the listed deterministic seeds. The default complete export contains 1,039 instances, including 39 directed corner instances. Each instance records its inputs, reference outputs, goal, seed, and delay/reset settings.
+
+The full default corpus was run against the corrected converted RTL at 2.90 ns with Icarus Verilog 13.0. All 1,000 random instances pass, including 100/100 for every family. The run also covers the reset-recovery and backpressure cases, so the pass is not limited to straight-line arithmetic.
+
+| ID / seed | Stimulus and constraints | Goal and expected result | RTL result |
+|---|---|---|---|
+| R01 / 1001 | Eight-element matadd with independent random bytes | Verify both cores and modulo-256 addition; every output equals `(A[i]+B[i]) & 255`. | 100/100 PASS |
+| R02 / 1002 | Four-element matadd, one complete block, random bytes | Verify a single busy core and absence of unintended writes from the idle core; exactly four correct outputs. | 100/100 PASS |
+| R03 / 1003 | Length-12 or length-16 matadd; nonoverlapping buffers within 256 bytes | Verify block reuse after core reset and correct block IDs; every element is written to its assigned output. | 100/100 PASS |
+| R04 / 1004 | Random 2×2 matmul with operands from 0 through 7 | Verify convergent loop control and multiply/accumulate without overflow; outputs match integer matrix multiplication. | 100/100 PASS |
+| R05 / 1005 | Random full-byte 2×2 matmul | Verify truncated products and accumulations; outputs equal the low eight bits of each mathematical dot product. | 100/100 PASS |
+| R06 / 1006 | Random bounded straight-line ADD/SUB/MUL/CONST programs; writable registers only | Verify operand selection, dependencies, and destination writeback; all stored signatures match the instruction reference. | 100/100 PASS |
+| R07 / 1007 | Random DIV operands with divisors constrained to 1 through 255 | Verify unsigned integer quotients through dependent additions; stored signatures equal `((a // b) + a) & 255`. Direct quotient boundaries are also checked by C06. | 100/100 PASS |
+| R08 / 1008 | Random loads/stores to legal, nonconflicting lane-local scratch locations | Verify address/data routing and read-after-write behavior; final memory and transaction results match the reference. | 100/100 PASS |
+| R09 / 1009 | Random terminating CMP/BR programs with identical branch decisions across active lanes | Verify taken and untaken convergent branches; executed control flow and output signatures match the agreed NZP semantics. | 100/100 PASS |
+| R10 / 1010 | Random finite program/data response delays of 1 through 8 cycles on legal kernels | Verify backpressure and completion despite channel skew; outputs stay bit exact and each transaction is acknowledged without lost requests. | 100/100 PASS |
+
+The shared regression testbench implements finite per-channel response delays and a one-accept-per-valid-episode memory protocol. Its timing differs from the original fixed-kernel testbench, so cycle counts from the two responders must not be mixed. Twenty software-only checks of the reference, generators, export, and runner pass. The reference encodes the documented NZP order; the corrected RTL now agrees. See the [suite README](../sim/README.md) for exact stimulus and execution details.
+
+### 3.6 Corner-case testcases
+
+| ID | Testcase | Goal and expected result | RTL result |
+|---|---|---|---|
+| C01 | One active thread and partial blocks with 3, 5, and 7 total threads | Verify active-lane masking and partial-block PC selection; only active threads produce outputs and the kernel terminates. | 4/4 PASS |
+| C02 | Zero-thread launch after valid reset and configuration | Verify empty-workload handling; completion occurs without a data-memory transaction. | 1/1 PASS |
+| C03 | More blocks than cores, including a partial last block | Verify redispatch, block metadata, and reset between blocks; every requested thread runs once and guard locations remain unchanged. | 3/3 PASS |
+| C04 | ADD/SUB boundary values: `0`, `1`, `127`, `128`, and `255` | Verify eight-bit wraparound; examples include `255+1 -> 0` and `0-1 -> 255`. | 4/4 PASS |
+| C05 | MUL zero, one, and maximum-byte combinations | Verify product truncation; examples include `255*255 -> 1` and `255*0 -> 0`. | 3/3 PASS |
+| C06 | DIV boundaries: `0/1`, `255/1`, `255/255`, and `1/255` | Verify quotient boundaries; expected values are `0`, `255`, `1`, and `0`. Division by zero is excluded until its contract is specified. | 4/4 PASS |
+| C07 | Attempt writes to R13, R14, and R15, then use those registers in output signatures | Verify read-only metadata protection; block ID, block size, and thread ID remain correct. | 1/1 PASS |
+| C08 | Legal loads/stores at addresses 0 and 255, with sentinel locations elsewhere | Verify address boundaries; only intended destinations change. | 2/2 PASS |
+| C09 | Equal, less-than, and greater-than CMP operands followed immediately by corresponding branches | Verify NZP flag ordering, comparison sizing/signedness, and CMP-to-branch dependency; the expected branch is taken for each agreed condition. | 15/15 PASS |
+| C10 | Reset during a stalled load/store, followed by a fresh legal launch | Verify recovery of dispatcher, controllers, and lanes; no stale response contaminates the restarted kernel, which produces the reference output. | 2/2 PASS |
+
+All 39 corner instances pass after the fixes, including the partial-block and comparison-boundary cases that the suite was designed to stress. Combined with the random families, the corrected RTL passes 1,039 of 1,039 at RTL level. The two defects were real baseline bugs rather than testbench artifacts; they were fixed in the RTL and documented in Section 2.2, not removed or relabeled in the suite. Netlist-level regression remains unrun because the SAED32 models are absent, and the archived SS synthesis predates the fixes.
+
+## 4. Software golden model
+
+### 4.1 Current reference calculations
+
+The cocotb tests calculate expected matrix results in Python. Matadd uses elementwise addition; matmul uses the four corresponding row/column dot products. The Verilog testbench independently calculates the same expected outputs from its initialized input memory. The existing fixed inputs fit in eight bits, so both reference paths agree without needing explicit overflow handling. [R7], [R8]
+
+The original matrix references remain embedded in the older tests. The new [`sw/golden.py`](../sw/golden.py) provides a separate architectural interpreter and instruction encoder for the generated regression programs. It models byte arithmetic, protected metadata, convergent four-lane control flow, and race-free memory accesses, with a bounded instruction budget. It specifies unsigned comparison and N/Z/P in bits 2/1/0, independently of the RTL's expression sizing or flag ordering. Division by zero, divergent branches, invalid instructions, and cross-thread memory races are rejected during generation. Integer result matching is the relevant correctness metric; AI accuracy or image-fidelity metrics do not apply.
+
+### 4.2 Required reference extensions and metrics
+
+For general inputs, the reference must preserve hardware widths: `u8(x) = x & 255` after arithmetic writes, unsigned integer division for nonzero divisors, eight-bit addresses/PCs, and protected metadata registers. CMP/NZP behavior must be specified and checked directly, including SystemVerilog expression sizing and signedness. A reference should not copy an accidental RTL behavior without recording it as a bug or explicit architectural choice.
+
+The implemented reference produces expected final memory and per-address store counts. Generated programs store register signatures so the external-interface testbench can check them without relying on internal hierarchical names. It is not cycle accurate and does not yet emit a full architectural-retirement trace. Software-only unit tests include literal arithmetic/branch expectations, published kernel encodings, independent matrix-product checks, metadata protection, and rejection of nontermination and races. These twenty checks validate suite components; the full RTL corpus is the separate DUT check.
+
+| Metric | Definition and use |
+|---|---|
+| Functional correctness | Exact equality for every checked output and sentinel location; zero mismatches required. |
+| Regression completion | All directed, constrained-random, and corner cases pass at both RTL and gate levels without timeouts or unknown checked outputs. |
+| Kernel cycles | Clock edges counted from the testbench's launch interval until `done`; compare only under the same memory model. |
+| Kernel latency | `cycles × clock period`; use each implementation's own timing-closed period. |
+| Energy estimate | Average measured logic power times kernel latency, with the measurement-window qualification in Section 6.4. |
+
+Software host runtime is not a hardware performance metric. The current kernel reference has no cycle-accurate timing model; cycle counts come from hardware simulation.
+
+## 5. Synthesis
+
+### 5.1 Library corners and constraints
+
+`syn/dc_synth.tcl` now defaults to the assignment's worst-case SS 0.75 V / 125 °C libraries and selects RVT, HVT, and LVT files from one `CORNER` variable. In the selected run, RVT remains available for linking and constraint references but is prohibited from standard-cell mapping. The resulting pre-ECO DC cell mix is 11,563 LVT cells and 3,835 HVT cells, with zero mapped RVT cells. [R11], [R12]
+
+The assignment specifies the following worst-case library files, and the scripts now use exactly these names:
+
+```text
+saed32rvt_ss0p75v125c.db
+saed32lvt_ss0p75v125c.db
+saed32hvt_ss0p75v125c.db
+```
+
+The same `CORNER` selection is threaded through Design Compiler, PrimeTime power analysis, and the PrimeTime ECO script. The original SS flow scripts are preserved in `results/ss/flow_snapshot/syn/`; the maintained versions are in `syn/` and `ptpx/`. The earlier TT results are retained only as an exploratory comparison and are not used for any headline PPA number. [R11], [R20]
+
+The constraints in `syn/constraints.sdc` specify an ideal clock, 0.1 ns clock uncertainty, 0.1 ns clock transition, input/output delays equal to 20% of the period, an `INVX1_RVT` input driver, and output load `0.005` in library load units. At 2.90 ns, each I/O delay is 0.58 ns. No physical clock tree or extracted routed interconnect is included. [R13]
+
+### 5.2 Synthesis script and methodology
+
+The flow is top-down synthesis with hierarchy retained using `compile_ultra -no_autoungroup`. It analyzes the converted Verilog, elaborates and links `gpu`, uniquifies instances, checks the design, and reads the timing constraints. The clock-gated configuration uses `compile_ultra -no_autoungroup -gate_clock`. [R11]
+
+The main implementation steps are:
+
+1. Select permitted threshold-voltage libraries. Map critical logic to faster cells while allowing HVT cells elsewhere.
+2. Temporarily increase setup uncertainty by 3% of the target period during initial optimization, then restore the stated 0.1 ns uncertainty before final reporting.
+3. Insert integrated clock gates for enabled register banks. DC's default gating selection can use RVT gates even when ordinary RVT mapping is disabled, so the script swaps compatible gating cells to allowed LVT cells after compilation. The current design has 211 clock gates.
+4. Apply incremental setup recovery, hold fixing, and driver upsizing/buffering. Recheck all three because a hold or capacitance fix can break a near-critical setup path.
+5. Write area, timing, QoR, design-rule, power, and Vt-mix reports, followed by the mapped netlist, SDC, SDF, SPEF, and RTL-to-gate name mapping.
+
+DC power reports can use default activity when SAIF is absent; they are not the source of the workload-driven power values reported here. PrimeTime uses the gate-level VCDs instead.
+
+### 5.3 Maximum-frequency search
+
+`syn/sweep.sh` searches candidate periods, quantized by a configurable step, and permits several independent DC jobs per round. It now defaults to the SS corner and records the corner and gating choice in each run name. A candidate passes only if the reported worst setup slack is nonnegative, total negative slack is zero, hold-violation count is zero, and design-rule-violating net count is zero. The saved clock-gated LVT+HVT sweep gives the following results. [R14]
+
+| Target period (ns) | Frequency (MHz) | DC setup WNS (ns) | TNS (ns) | Hold violations | DRC nets | Cell area (µm²) | Saved status |
+|---:|---:|---:|---:|---:|---:|---:|---|
+| 2.85 | 350.9 | +0.01 | 0 | 0 | 1 | 46,274.794 | FAIL |
+| 2.90 | 344.8 | +0.03 | 0 | 0 | 0 | 46,553.590 | PASS |
+| 2.95 | 339.0 | +0.02 | 0 | 0 | 0 | 47,228.342 | PASS |
+| 3.05 | 327.9 | +0.01 | 0 | 0 | 0 | 47,983.150 | PASS |
+| 3.10 | 322.6 | +0.05 | 0 | 0 | 0 | 47,822.531 | PASS |
+| 3.20 | 312.5 | 0.00 | 0 | 0 | 0 | 46,829.336 | PASS |
+| 3.55 | 281.7 | 0.00 | 0 | 0 | 0 | 46,979.790 | PASS |
+| 3.90 | 256.4 | +0.01 | 0 | 0 | 0 | 46,838.486 | PASS |
+| 5.25 | 190.5 | +0.04 | 0 | 0 | 0 | 45,705.512 | PASS |
+| 6.65 | 150.4 | +0.16 | 0 | 0 | 0 | 44,497.311 | PASS |
+| 8.00 | 125.0 | +0.16 | 0 | 0 | 0 | 42,808.016 | PASS |
+
+The shortest DC-passing period in this saved sweep is 2.90 ns. The 2.85 ns candidate has one remaining design-rule net. Area is nonmonotonic across nearby constraints, so the selected 2.90 ns implementation is the best demonstrated DC point, not a proof of a global optimum.
+
+The sweep's pass test does not include PrimeTime's minimum-pulse-width check. At 2.90 ns, PrimeTime reports 877 register clock pins with -0.07 ns pulse-width slack (Section 5.5). The shortest saved period whose ideal half-period minus the 0.1 ns uncertainty exceeds the 1.42 ns library minimum is 3.05 ns (327.9 MHz), but that point has not been carried through PrimeTime ECO and power. The defensible fully closed baseline is therefore still an open item, and 344.8 MHz should be described as the DC-closed / PT-setup-closed point rather than a complete signoff frequency.
+
+For reporting, frequency is `1000 / period_ns` MHz. A final maximum-frequency claim must use the required SS corner and pass independent PrimeTime checks, including pulse width and design rules.
+
+### 5.4 Baseline frequency, area, and critical paths
+
+| Quantity | DC clock-gated design, before PT ECO | PrimeTime design, after ECO |
+|---|---:|---:|
+| Clock period | 2.90 ns | 2.90 ns |
+| Frequency | 344.8 MHz | 344.8 MHz |
+| Standard-cell area | 46,553.590 µm² | 46,632.883 µm² |
+| Leaf cells | 15,398 | 15,412 |
+| Setup slack | +0.03 ns in detailed path report | +0.034710 ns |
+| Hold status | Zero violations in QoR | Worst hold slack +0.000011 ns |
+| Design-rule status | Zero violating nets in DC QoR | Zero max-capacitance nets; 877 pulse-width violations |
+| Clock gates | 211 | 211 |
+| Vt mix | 11,563 LVT / 3,835 HVT / 0 RVT | Not separately re-reported |
+
+Sources: DC area/QoR/timing reports and PrimeTime area/summary/constraint reports. The ECO increases cell area by about 79.293 µm². PrimeTime's reported cell area is 0.046633 mm². DC's separate interconnect-area estimate is not added to that number. The leaf-cell count includes clock-gating and buffer/inverter cells. [R5], [R15], [R16], [R18]
+
+The saved DC timing report's critical path is from `lsu_write_valid_reg[2]` in core 0 to `data_memory_controller/mem_write_data_reg[22]`. Data arrival is 2.72 ns and data required is 2.75 ns, giving +0.03 ns slack. The next paths are the same write-valid source into other write-data and write-address bits, with +0.04 ns slack. An arithmetic path from `rt_reg[4]` to `alu_out_reg_reg[0]` also appears near the top of the report. Both memory-control and arithmetic logic therefore constrain the SS implementation, with the LSU write path now dominant. [R17]
+
+The retained PrimeTime setup/hold path reports are filtered to negative slack and therefore contain no path details when timing passes. The positive slack values above come from `summary.rpt`. An unfiltered, high-precision post-ECO critical-path report is still needed to identify the exact PrimeTime worst endpoint and to confirm that the DC critical path remains worst after ECO.
+
+### 5.5 Remaining closure limitations
+
+The PrimeTime ECO script tries stronger drivers or inserted buffers and retains a change only if setup and hold stay nonnegative, or do not worsen an already-negative baseline. At SS, the recorded ECO reduces 172 max-capacitance violations to zero while preserving setup and hold. The ECO increases cell area by 79.293 µm² and leaf-cell count by 14. [R18], [R19]
+
+The remaining signoff problem is minimum pulse width. PrimeTime reports 877 register clock pins with `sequential_clock_pulse_width` violations. Each high-phase check requires 1.42 ns and measures 1.35 ns, for -0.07 ns slack. The arithmetic is transparent: the 2.90 ns clock has a 1.45 ns high phase, and the 0.1 ns clock uncertainty subtracts from the measured pulse, leaving 1.35 ns. The nominal high phase is 0.03 ns above the library minimum, but the team's uncertainty guard band makes the checked value negative. At 3.05 ns the corresponding checked value would be 1.425 ns, just above 1.42 ns; that point exists in the DC sweep but has not been validated in PrimeTime or used for power analysis. The 2.90 ns result should therefore be reported as setup/hold/DRC-net clean but not pulse-width clean.
+
+The very small positive setup slack (+0.034710 ns) and hold slack (+0.000011 ns) leave little nominal margin. All reported timing uses pre-layout wire-load estimates and an ideal clock. It is not post-route signoff. Resolving the pulse-width finding requires either a relaxed period, a clock-waveform change, or library/tool guidance on whether the uncertainty should apply to pulse-width checks; the choice must be documented and re-verified in PrimeTime.
+
+## 6. PrimeTime power analysis
+
+### 6.1 Script and averaged-power methodology
+
+`ptpx/pt_power.tcl` reads a run's netlist and SDC, links the standard-cell libraries, and applies `out/eco_changes.tcl` when present. It updates timing and writes global timing, setup/hold, constraint, and clock reports. It calculates cell area by summing the library areas of leaf cells. The exact SS flow used for the recorded run is preserved in `results/ss/flow_snapshot/syn/`; the TT pre-organization scripts remain in `results/tt/flow_snapshot/syn/`. The maintained script defaults to the SS corner and accepts `CORNER` to reproduce the exploratory TT run. [R20]
+
+The script enables averaged power analysis, reads the workload VCD under the `tb_gpu/dut` hierarchy, updates power, and writes switching-activity, total-power, and hierarchical-power reports. Dynamic power is internal cell power plus net-switching power; leakage is reported separately.
+
+By default, PrimeTime chooses per-hierarchy wire-load estimates rather than reading DC's generated SPEF. The optional `USE_SPEF` flag changes this assumption. The existing baseline must therefore be described as wire-load-based, not extracted-interconnect power/timing analysis.
+
+### 6.2 Workloads, measurement windows, and annotation quality
+
+The activity vectors execute B01 and B02 with the same inputs and 2.90 ns clock period used in verification. Matadd activates both cores; matmul uses one core. This samples two relevant execution patterns, although the fixed small datasets are not a broad workload distribution. The compressed traces are retained under `results/ss/activity/`. [R10]
+
+| Workload | Full VCD / PT averaging window | Nominal launch-to-done interval | Kernel cycles |
+|---|---:|---:|---:|
+| matmul | 0 to 1,437.675 ns | 1,423.90 ns | 491 |
+| matadd | 0 to 529.975 ns | 516.20 ns | 178 |
+
+Both VCDs have a 1 ps timescale. Their final timestamps agree with the simulation windows printed in the corresponding PrimeTime logs. The current script reads the full trace without a workload-only time restriction, so reset and setup activity are included in average power. Each trace spans a complete kernel, but repeated launches and longer steady-state windows are still needed to assess whether the averages are stable over an extended execution period. [R21], [R22]
+
+The final switching reports state that 16,041 of 16,042 nets (99.99%) and all 211 clock-gate outputs have activity-file annotation. The single nonannotated net is `program_memory_controller/mem_write_ready[0]`. This improves on the earlier RTL-VCD mapping approach. However, the power logs contain `PWR-264` VCD identifier/vector-width warnings: 6,789 messages in the matmul log and 5,143 in the matadd log. Each log also records the startup `PT-063` Library Compiler-path error and 167 `NED-079` ECO annotation warnings. Reports were produced, but these diagnostics have not been resolved. [R21], [R22], [R23]
+
+Consequently, 99.99% reported net annotation is a coverage statistic, not proof that every waveform value was interpreted correctly. Before final submission, the team must verify VCD/netlist correspondence, investigate the width warnings and environment error, and rerun power. Because PT applies ECO changes to the loaded design, the final verification flow should also export and simulate that exact ECO-modified netlist and regenerate its VCD. The retained VCDs were generated from the DC netlist, so the reported power and the post-ECO timing/area are not yet measured on the same exact database.
+
+### 6.3 Recorded average power
+
+| Power component (mW) | matmul | matadd |
+|---|---:|---:|
+| Dynamic: internal plus switching | 1.032396 | 1.204701 |
+| Leakage | 4.224331 | 4.272786 |
+| Total average logic power | 5.256727 | 5.477488 |
+| Leakage fraction | 80.36% | 78.01% |
+
+These are the saved post-ECO SS measurements, subject to the limitations above. The power report rounds the totals to 5.257 mW and 5.477 mW. The reports show no memory-macro power because there are no memory macros inside the measured DUT. Peak power was not measured. [R5], [R6]
+
+The hierarchical matmul report attributes 1.66 mW to core 0, 1.68 mW to the idle core 1, 0.828 mW to the data-memory controller, 0.132 mW to the dispatcher, 0.077 mW to the program-memory controller, and 0.011 mW to the device control register. The remaining approximately 0.87 mW includes top-level relay logic and other blocks. The idle core still has leakage; in this synthesis it is slightly more expensive than the busy core because it received more LVT cells. Clock gating can reduce switching while leaving that leakage largely present. The separate power-group report assigns about 1.041 mW to the clock network for matmul and 1.140 mW for matadd; these are an alternative breakdown, not additional power to add to the totals. [R24]
+
+### 6.4 Derived latency and energy estimates
+
+For a kernel with cycle count `C`, period `T` in ns, and average power `P` in W:
+
+```text
+latency_ns = C × T
+estimated_energy_nJ = P × latency_ns
+```
+
+| Derived metric | matmul | matadd |
+|---|---:|---:|
+| Launch-to-done latency | 1,423.90 ns | 516.20 ns |
+| Energy estimate using full-trace average power | 7.485 nJ | 2.827 nJ |
+
+These energy values multiply a full-trace average by a shorter kernel interval. They are useful first-order estimates, not direct integrations over the active-kernel window. Exact kernel energy requires a consistently delimited power window or time-resolved integration. No external-memory energy is included.
+
+## 7. Validation of PPA and software metrics
+
+### 7.1 Validation against the original design documentation
+
+The original project README documents eight-bit data, 16-bit instructions, lane-local metadata registers, the multicycle schedule, and the two matrix kernels. Its expected matadd output and standard 2×2 matrix-product calculation agree with the checks in Section 3.3. Inspection of the top-level RTL confirms the two-core/four-lane configuration used in this report. The current RTL, rather than README discussion of unfinished cache features, defines the implementation boundary. [R1], [R2]
+
+The software calculations provide an independent mathematical check of final kernel outputs. Fresh converted-RTL simulations reproduce those outputs and the recorded 178/491-cycle counts. The new regression suite goes further: it executes all twenty families against converted RTL and, after the two fixes described in Section 2.2, reports 1,039 of 1,039 default instances passing. The suite initially exposed those defects, so it is consistent with the reference and the documented ISA rather than tuned to the RTL. This still does not validate the full instruction set beyond the exercised programs or all legal launch conditions.
+
+### 7.2 Cross-checks on reported PPA
+
+The following checks support internal consistency:
+
+- `1000 / 2.90 = 344.8276` MHz, which rounds to 344.8 MHz.
+- `46,632.883 / 1,000,000 = 0.046632883` mm².
+- In both PT summaries, dynamic plus leakage power equals total power to the displayed precision.
+- The saved VCD endpoints (1,437.675 ns and 529.975 ns) match the full averaging windows in the PT logs.
+- The original DC implementation and the PT ECO implementation have different cell counts and areas; using their respective reports explains the difference rather than attributing it to a unit conversion. The ECO adds 79.293 µm² and 14 leaf cells.
+- DC and PrimeTime both report no setup or hold violations at 2.90 ns. PrimeTime additionally reports 877 minimum-pulse-width violations, which the DC QoR report does not check.
+- The SS corner costs about 12.1% in frequency and 8.5% in cell area relative to the exploratory TT result (392.2 MHz, 42,974.734 µm²). Those are different measurement corners, not an optimization.
+
+The earlier RVT run in `results/tt/initial_rvt/` has 35,257.398 µm² cell area at a 10 ns target. That is an initial mapping point, not a measured RVT maximum frequency. Describing 344.8 MHz as a demonstrated 3.4× gain over the RVT design's maximum frequency would therefore overstate the evidence. [R25]
+
+### 7.3 External validation and memory estimates
+
+The original design documentation validates architecture and workload semantics, but it does not provide a directly comparable SAED32 PPA reference. No independently matched published PPA result is established here. A comparison against a different GPU, technology node, voltage, memory boundary, or placed-and-routed implementation would need those differences stated explicitly.
+
+The project slides estimate about 25,899 µm² for one 256×8 data SRAM plus two 256×8 program SRAMs, approximately 55.5% of the reported SS logic area. They also quote 6 ns macro cycle time and 3 ns access time, and discuss a four-bank data-memory alternative. These are planning estimates, not measurements of the present DUT. [R3], [R4]
+
+The SRAM inspection script targets a separate TT 1.05 V macro library, whereas the measured standard-cell logic uses SS 0.75 V. The underlying macro datasheet and complete probe results are not included with this report. We therefore do not add the slide's macro area or standby-power estimate to the logic PPA or claim that it validates the current memory system. Macro timing, supply compatibility, port count, and power need direct source verification before integration. [R26]
+
+## 8. Proposed optimizations: implementation plan
+
+### 8.1 A1: bypass WAIT for non-memory instructions
+
+The baseline unconditionally transitions from REQUEST to WAIT. A1 will change `scheduler.sv` so a non-memory instruction proceeds directly from REQUEST to EXECUTE; LDR and STR will retain the existing wait protocol. Decoded memory enables are already available at this point. Operand capture in REQUEST and result writeback in UPDATE will remain unchanged.
+
+Implementation should first compare the baseline and A1 state traces for an arithmetic instruction, a load, and a store. Non-memory instructions should lose one state cycle without issuing a memory transaction. Memory instructions must still wait for every required LSU response, and RET must still assert completion only after its architectural effects are finished.
+
+Matmul executes 41 dynamic instructions per block, of which five are loads/stores. The initial estimate is therefore 36 saved cycles: 491 to approximately 455. Matadd has 13 instructions per block and three loads/stores, giving an estimate of ten saved cycles: 178 to approximately 168. These estimates assume unchanged memory timing and no new inter-core arbitration effects.
+
+### 8.2 A2: merge DECODE and REQUEST
+
+A2 will make decode information available before operand capture at a merged decode/request edge. The present decoder and register-file reads are synchronous. Simply renaming or skipping a state would cause consumers to see stale decoded addresses or controls because nonblocking register updates become visible after the edge.
+
+The proposed implementation will:
+
+1. Separate combinational instruction decoding from any controls that need to be held during execution.
+2. Capture register operands and stable execution controls at the merged-state edge.
+3. Preserve the LSU's REQUESTING step so request addresses/data are driven only after the newly captured operands are valid.
+4. Update fetcher-consumption and scheduler state checks consistently in `decoder.sv`, `registers.sv`, `lsu.sv`, `fetcher.sv`, `scheduler.sv`, and their connections in `core.sv`.
+5. Test arithmetic dependencies, immediate changes, load/store sequences, and CMP followed by branch before measuring cycle savings.
+
+The initial estimate is one saved cycle per dynamic instruction: 41 for matmul and 13 for matadd. The added decode-to-operand/control logic can increase the critical path, so the estimate alone is not an acceptance criterion.
+
+### 8.3 A3: fuse EXECUTE and UPDATE
+
+A3 will evaluate a combined execution/writeback stage. In the current RTL, EXECUTE registers `alu_out` and next-PC information, while UPDATE consumes those registered values. Combining their state encodings without changing the datapath would write the previous result.
+
+The implementation must expose the current instruction's combinational arithmetic result and branch/PC decision to the architectural writeback edge, or provide an equivalent bypass. CMP flag writes, branch evaluation, load-result selection, RET handling, and LSU cleanup must all observe the correct instruction. This requires coordinated changes in `alu.sv`, `pc.sv`, `registers.sv`, `scheduler.sv`, and `lsu.sv`.
+
+The main timing risk is the combinational divider and the longer path into register-file writeback. Since the SS baseline has only +0.034710 ns setup margin at 2.90 ns, A3 must be resynthesized and evaluated at its own closed period. It should be kept only if total execution latency or energy improves under the project's stated area/power constraints.
+
+### 8.4 Evaluation order and acceptance criteria
+
+First close the two baseline defects and complete the required SS-corner flow, then freeze that corrected baseline. Evaluate A1 alone, A2 alone, A1+A2, A3 alone, and finally any combination justified by their individual results. This order isolates causes of failures and prevents synthesis-flow improvements from being counted as RTL cycle reductions.
+
+| Estimated change at unchanged 2.90 ns period | matmul | matadd |
+|---|---:|---:|
+| A1 cycle reduction | 36 (7.33%) | 10 (5.62%) |
+| A2 cycle reduction | 41 (8.35%) | 13 (7.30%) |
+| A1+A2 estimated cycles | 414 | 155 |
+| A1+A2 estimated cycle reduction | 15.68% | 12.92% |
+| A1+A2 estimated latency | 1,200.60 ns | 449.50 ns |
+
+These are hypotheses, not preliminary measured optimization results. At unchanged average power, the corresponding energy estimates would be about 6.31 nJ for matmul and 2.46 nJ for matadd. Actual power and period must be remeasured. For A1+A2 to beat baseline latency, its period must remain below approximately 3.439 ns for matmul and 3.330 ns for matadd, using the current cycle estimates. Those thresholds are computed as baseline latency divided by optimized cycles; they will change again after the baseline bugs are fixed and the design is resynthesized.
+
+An accepted variant must pass all functional regressions, satisfy setup/hold and design-rule constraints, and improve measured kernel latency and/or energy without silently changing workload or memory assumptions. Its ISA, output data, and supported convergent control flow must remain unchanged. FETCH latency is a large remaining cost that A1 through A3 do not directly eliminate.
+
+## 9. Proposed optimizations: verification plan
+
+### 9.1 Regression and architectural checks
+
+For each variant, run B01/B02 plus all 1,039 default R01-R10 and C01-C10 instances on both RTL and the final mapped netlist. The corrected baseline passes 1,039 of 1,039 at RTL level; the netlist run still has to be repeated on a corrected, ECO-applied netlist. Save the testcase ID, seed, memory timing parameters, expected and actual output signatures, cycle count, and pass/fail log. A failure must return a failing process status as well as a diagnostic message.
+
+Add checks that disabled lanes do not generate writes, outstanding memory requests retain stable address/data until acknowledged, the scheduler does not commit a load before its result is valid, and `done` follows the completion of all requested blocks. The monitor must respect the existing level-held valid/ready protocol rather than treating every high-valid cycle as a separate new transaction.
+
+For control-stage changes, compare architectural retirement events or committed results, not raw cycle-by-cycle internal signals. A faster implementation will intentionally change state occupancy and memory-request timing. Compare transaction content and per-thread ordering without requiring identical arbitration order for independent accesses.
+
+### 9.2 Golden-model updates
+
+A1 through A3 preserve instruction semantics, so the functional model should stay unchanged. If an optimization requires altering expected numerical outputs, it is not an accepted implementation of these proposals. The model's timing assumptions and performance monitor must change to count the new stages and memory waits; any cycle-accurate model added later must identify which hardware version it describes.
+
+If testing reveals a baseline defect in comparison flags, partial-block execution, reset, or another existing function, first define the intended behavior, add a failing regression, and document the bug fix. Freeze new baseline measurements after that fix before comparing optimized RTL.
+
+The current suite exposed two such defects, and both are now fixed and re-verified:
+
+1. **Partial-block PC selection.** `scheduler.sv` updated `current_pc` from `next_pc[THREADS_PER_BLOCK-1]`. For a block with fewer than four active threads, that lane's `pc` instance is disabled by `enable = i < thread_count`, so its `next_pc` never left zero and execution restarted at PC 0 forever. The scheduler now receives `thread_count` and selects `next_pc[thread_count-1]`, with PC 0 held for the zero-thread case. C01 and C03_threads_13 pass, and the full-block workloads are unchanged.
+2. **CMP flag encoding.** `alu.sv` computed `(rs - rt > 0)`, `(rs - rt == 0)`, and `(rs - rt < 0)` on an eight-bit unsigned subtraction. The difference wrapped for `rs < rt`, so bit 2 became "not equal" rather than "less than" and the bit-0 less-than term was always false. The ALU now compares the operands directly and writes N/Z/P to bits 2/1/0 for `a < b`, `a == b`, and `a > b`. C09 and R09 pass, and the matmul `BRn` loop still iterates the same way.
+
+Both fixes change only control/compare logic and do not add ISA features. They have been validated at RTL level by the full 1,039-instance corpus. They must still be followed by a fresh SS synthesis, PrimeTime ECO, VCD regeneration, power measurement, and a new full regression on the exact post-ECO netlist. The PPA in Sections 5 and 6 predates these fixes and must not be presented as applying to the corrected RTL until that rerun is complete.
+
+### 9.3 Memory latency, contention, and waveform inspection
+
+Extend the testbench to sweep response latency over 1, 2, 4, and 8 cycles, plus independent finite channel delays. Evaluate ideal concurrent data channels separately from a serialized single-port memory and any proposed banked model. Identical data capacity does not imply identical bandwidth.
+
+For the slide's tentative 6 ns cycle / 3 ns access SRAM model at a 2.90 ns logic clock, the rounded minimum access spacing is three cycles and read availability requires at least two logic-clock intervals, before wrapper/controller delays. Exact handshake timing must be defined at clock edges and validated against the actual macro specification. Do not reuse ideal-memory cycle counts for this different model.
+
+Inspect waveforms around non-memory WAIT bypass, the merged decode/request edge, load completion, CMP/branch dependencies, reset recovery, and final RET. The current first-instruction waveform provides a baseline example:
+
+![Baseline matmul first instruction: core FSM and instruction-fetch handshake](../docs/img/waveform_matmul_first_instr.png)
+
+### 9.4 PPA and energy re-evaluation
+
+Repeat the period search at SS for every accepted variant using the same I/O/load assumptions and permitted Vt choices. Export the exact post-ECO netlist and constraints, run gate-level regression on that implementation, regenerate period-matched workload activity, resolve annotation warnings, and measure both kernels in PrimeTime.
+
+For average power, repeat enough launches that extending the measurement window produces a stable result, with the convergence criterion chosen and reported in advance. Report reset-inclusive and kernel-only windows separately if both matter. For each workload, record cycles, closed period, latency, area, internal/switching/leakage power, and consistently delimited energy. Include the memory implementation in PPA only when it is actually part of the evaluated design.
+
+## 10. Reproduction README
+
+### 10.1 Tools, libraries, and working-directory conventions
+
+The commands below describe the current checkout. During report preparation the two legacy converted-RTL simulations and the full 1,039-instance regression were run locally with Icarus Verilog 13.0 and Python 3.9.6. Licensed synthesis, ECO, and PrimeTime runs were not rerun; their values come from the retained SS run artifacts. Netlist simulation was not run because the SAED32 Verilog models and PDK are absent from this environment.
+
+| Component | Requirement / recorded version |
+|---|---|
+| Icarus Verilog and `vvp` | Required for Verilog simulations; report-preparation runs used Icarus 13.0. |
+| `sv2v` | Required to regenerate `build/gpu.v` from `rtl/`; report-preparation runs used sv2v 0.0.13. |
+| Python and cocotb | The regression runner needs Python 3.9+ and only the standard library; report-preparation runs used `/usr/bin/python3` 3.9.6. cocotb is needed only for `make test_*`; the compatibility commit records Python 3.13, cocotb 2.0.1, and Icarus 12.0. These are historical tested versions, not a new run log. |
+| Synopsys Design Compiler | Recorded synthesis version W-2024.09-SP5-4; needs a valid license and SAED32 `.db` files. |
+| Synopsys PrimeTime with power analysis | Recorded version V-2023.12-SP5-4; needs a valid license, libraries, and a correctly configured tool environment. |
+| SAED32 Verilog models | Required for gate-level simulation; set `SAED` to the directory containing `stdcell_*/verilog/`. The SS runs used the LVT and HVT models with the `sim/saed_xfix.awk` mux patch. |
+| Bash, Make, gzip, awk, grep, `timeout` | Used by scripts and the example commands. GNU `timeout` is required for the bounded examples. |
+
+The Tcl scripts hard-code `/usr/local/synopsys/pdk/SAED32_EDK/lib`; this is the recorded synthesis-host PDK location, not a portable macOS installation path. Update library paths consistently on another host. `SAED` changes the gate-level Makefile library path only; it does not override Tcl library selections. Use the course-provided PDK and tool setup rather than downloading substitutes.
+
+No new simulation package or virtual environment was introduced to prepare this draft. To recreate the existing cocotb environment with an isolated Python environment, an example setup is:
+
+```bash
+uv venv --python 3.13 .venv
+uv pip install --python .venv/bin/python 'cocotb==2.0.1'
+source .venv/bin/activate
+```
+
+This is an optional setup recipe, not a claim that the original results used a tracked lockfile. Install Icarus and `sv2v` separately using their supported distributions and record actual tool versions in the final submission.
+
+Start the following examples in the repository root:
+
+```bash
+export ROOT="$PWD"
+export REPRO="$ROOT/build/report_reproduction"
+mkdir -p "$REPRO"
+```
+
+Maintained Tcl scripts resolve inputs relative to the repository, independent of the invoking working directory. Relative `RUN_DIR` and VCD paths are repository-relative; absolute paths are accepted. Retained SS runs are under `results/ss/runs/`, retained TT runs under `results/tt/runs/`, new scratch runs belong under `build/`, and the sweep accepts a separate `RUN_ROOT`. Original scripts with their historical working-directory assumptions remain in `results/ss/flow_snapshot/` and `results/tt/flow_snapshot/`.
+
+### 10.2 RTL compilation and simulation
+
+Regenerate the converted RTL when `sv2v` is available:
+
+```bash
+mkdir -p build
+timeout 120 make compile
+```
+
+The direct commands below use the corrected converted RTL and reproduce the legacy kernel simulation path. For the historical pre-fix snapshot, substitute `results/tt/inputs/gpu.v`. They avoid overwriting retained waveform files:
+
+```bash
+iverilog -g2012 -s tb_gpu -DCLK_PERIOD=2.9 \
+  -o "$REPRO/matmul.vvp" results/verification/gpu.v sim/legacy/tb_gpu.v
+timeout 60 vvp "$REPRO/matmul.vvp" > "$REPRO/rtl_matmul.log" 2>&1
+grep -qx PASS "$REPRO/rtl_matmul.log"
+
+iverilog -g2012 -s tb_gpu -DCLK_PERIOD=2.9 -DMATADD \
+  -o "$REPRO/matadd.vvp" results/verification/gpu.v sim/legacy/tb_gpu.v
+timeout 60 vvp "$REPRO/matadd.vvp" > "$REPRO/rtl_matadd.log" 2>&1
+grep -qx PASS "$REPRO/rtl_matadd.log"
+```
+
+Expected results are `PASS` and 491 cycles for matmul, and `PASS` and 178 cycles for matadd. The clock period affects waveform timestamps, not the cycle counts. Add `+vcd +vcdfile=<path>` to `vvp` to retain a waveform. The existing `make tb_matmul CLK_PERIOD=2.9` and `make tb_matadd CLK_PERIOD=2.9` targets additionally regenerate RTL and dump `build/gpu.vcd`, which is overwritten by the next such run.
+
+### 10.3 Hardware and software-reference verification
+
+With cocotb configured and `sv2v` installed:
+
+```bash
+timeout 300 make test_matadd > "$REPRO/cocotb_matadd.log" 2>&1
+timeout 300 make test_matmul > "$REPRO/cocotb_matmul.log" 2>&1
+```
+
+Check the cocotb test summary and retain the logs. Expected output comparisons are in `sim/legacy/test_matadd.py` and `sim/legacy/test_matmul.py`. The existing two tests do not replace the full new regression suite.
+
+The new software checks and vector export need only Python 3.9+ and its standard library, with no hardware toolchain:
+
+```bash
+make verification_unit PYTHON=/usr/bin/python3
+/usr/bin/python3 -m sim.run --mode generate --out "$REPRO/verification-vectors"
+```
+
+Run the full default RTL corpus against the corrected converted RTL:
+
+```bash
+/usr/bin/python3 -m sim.run --mode rtl --rtl results/verification/gpu.v \
+  --period 2.9 --out "$REPRO/verification-rtl"
+```
+
+The expected result is 1,039 of 1,039 passing; the recorded manifest and summary are in `results/verification/`. `gpu.v` is the fresh `sv2v` conversion of the corrected RTL. Regenerate it with `make compile` before rerunning. The runner writes a per-instance manifest and status; use a new `--out` directory for every run. Netlist mode requires an explicit netlist plus all mapped standard-cell models:
+
+```bash
+/usr/bin/python3 -m sim.run --mode netlist \
+  --netlist results/ss/runs/best_ss_lh_cg/out/gpu_netlist.v \
+  --cell-model "$SAED/stdcell_lvt/verilog/saed32nm_lvt.v" \
+  --cell-model "$SAED/stdcell_hvt/verilog/saed32nm_hvt.v" \
+  --period 2.9 --out "$REPRO/verification-netlist"
+```
+
+That netlist command is not reported as executed because the models are absent locally. Full corpus selection, seeds, failure rules, and output manifests are documented in [`sim/README.md`](../sim/README.md).
+
+### 10.4 Synthesis and maximum-frequency search
+
+On the licensed synthesis host, after RTL compilation, run a fresh SS clock-gated candidate in a new directory. The script defaults to `ss0p75v125c`; the explicit `CORNER` makes the command self-documenting:
+
+```bash
+cd "$ROOT"
+timeout 7200 dc_shell \
+  -x 'set CLK_PERIOD 2.9; set CORNER ss0p75v125c; set USE_HVT 1; set USE_LVT 1; set NO_RVT 1; set CLOCK_GATING 1; set RUN_DIR build/reproduce_ss_lh_cg_2.90' \
+  -f syn/dc_synth.tcl > "$REPRO/dc.log" 2>&1
+```
+
+Inspect the log for tool errors and the generated `qor.rpt`, timing reports, and `violators.rpt`; file creation or process exit alone is not proof of closure. In particular, the DC QoR report does not check minimum pulse width; run PrimeTime before declaring closure.
+
+To reproduce the saved SS LVT+HVT sweep:
+
+```bash
+cd "$ROOT"
+RUN_ROOT="$REPRO/sweep_ss" CORNER=ss0p75v125c CG=1 JOBS=3 \
+  timeout 21600 bash syn/sweep.sh lh 2.85 3.10 0.05 \
+  > "$REPRO/sweep_ss.log" 2>&1
+```
+
+`JOBS=3` consumes up to three DC licenses; use `JOBS=1` when appropriate. Run names now encode the corner and gating (`ss_lh_cg_<period>`), so a TT and an SS sweep cannot silently reuse each other's QoR files. The default `CG=0` is still ungated; pass `CG=1` for the recorded gated baseline. Do not mix cached TT and SS results.
+
+The recorded sweep was run with `CORNER=ss0p75v125c`, `CG=1`, and `RUN_ROOT` pointing at the imported `runs/` directory; it is preserved under `results/ss/runs/`.
+
+### 10.5 Gate-level simulation and workload VCD generation
+
+Set `SAED` to the licensed PDK library directory appropriate for the simulation machine. These commands explicitly identify the retained SS netlist. The Makefile automatically preprocesses the cell models through `sim/saed_xfix.awk`:
+
+```bash
+cd "$ROOT"
+export SAED=/usr/local/synopsys/pdk/SAED32_EDK/lib
+timeout 300 make gls NETLIST=results/ss/runs/best_ss_lh_cg/out/gpu_netlist.v \
+  CLK_PERIOD=2.9 SAED="$SAED" > "$REPRO/gls_matmul.log" 2>&1
+grep -qx PASS "$REPRO/gls_matmul.log"
+cp build/gpu_gls.vcd "$REPRO/matmul_new.vcd"
+
+timeout 300 make gls NETLIST=results/ss/runs/best_ss_lh_cg/out/gpu_netlist.v \
+  CLK_PERIOD=2.9 MATADD=1 SAED="$SAED" > "$REPRO/gls_matadd.log" 2>&1
+grep -qx PASS "$REPRO/gls_matadd.log"
+cp build/gpu_gls.vcd "$REPRO/matadd_new.vcd"
+```
+
+These simulate the saved DC netlist and should reproduce 491 and 178 cycles. PT's separate ECO change list is not automatically applied by `make gls`. For final post-ECO verification, first apply/export those changes to a new netlist and use that exact file in `NETLIST`; regenerate activity after that export. The corresponding export step is not yet automated in the repository. The compressed recorded VCDs are in `results/ss/activity/` and are the ones used for the reported power.
+
+### 10.6 PrimeTime replay and new-run analysis
+
+To replay the recorded SS baseline power analysis with its retained activity and ECO list, decompress the saved VCDs and write reports into new report subdirectories:
+
+```bash
+cd "$ROOT"
+gzip -dc results/ss/activity/gpu_gls_ss_2p90.vcd.gz > "$REPRO/matmul_saved.vcd"
+gzip -dc results/ss/activity/gpu_gls_matadd_ss_2p90.vcd.gz > "$REPRO/matadd_saved.vcd"
+# Use a new replay copy rather than writing into the archived evidence.
+cp -R results/ss/runs/best_ss_lh_cg "$REPRO/ss_replay"
+
+cd "$ROOT"
+timeout 1800 pt_shell \
+  -x "set RUN_DIR {$REPRO/ss_replay}; set VCD {$REPRO/matmul_saved.vcd}; set CORNER ss0p75v125c; set RPT_NAME pt_reports_reproduced_matmul; set USE_ECO 1; set USE_SPEF 0" \
+  -f ptpx/pt_power.tcl > "$REPRO/pt_matmul.log" 2>&1
+
+timeout 1800 pt_shell \
+  -x "set RUN_DIR {$REPRO/ss_replay}; set VCD {$REPRO/matadd_saved.vcd}; set CORNER ss0p75v125c; set RPT_NAME pt_reports_reproduced_matadd; set USE_ECO 1; set USE_SPEF 0" \
+  -f ptpx/pt_power.tcl > "$REPRO/pt_matadd.log" 2>&1
+```
+
+Compare the new `summary.rpt`, `power.rpt`, and `switching_activity.rpt` against the retained baseline reports. Reproduction should show the same 5.2567 mW and 5.4775 mW totals, the 877 pulse-width violations, and the same annotation diagnostics. Agreement is not resolution of those diagnostics.
+
+For a newly synthesized candidate, generate its own ECO list rather than reusing cell names from the saved run:
+
+```bash
+cd "$ROOT"
+timeout 1800 pt_shell \
+  -x 'set RUN_DIR build/reproduce_ss_lh_cg_2.90; set CORNER ss0p75v125c' \
+  -f ptpx/pt_eco.tcl > "$REPRO/pt_eco_new.log" 2>&1
+```
+
+Then export and verify the modified netlist, regenerate both workload VCDs at the selected period, and invoke `pt_power.tcl` with that new `RUN_DIR` and each matching VCD. Inspect errors/warnings, nonannotated nets, setup/hold, residual DRC, library corner, and measurement windows before accepting the new results. Final submission commands must be rerun from the packaged directory and updated for its `rtl/`, `sim/`, `sw/`, and `ptpx/` paths.
+
+## 11. Submission requirements and outstanding items
+
+### 11.1 Required package layout
+
+The assignment requires a top-level `midterm-team-6` directory inside the code ZIP. A proposed layout is:
+
+```text
+midterm-team-6/
+  README.md                 # Validated reproduction commands and environment
+  rtl/                      # Baseline RTL (bug fixes pending)
+  sim/                      # Verilog TBs, cocotb tests, regression suite, xfix
+  sw/                       # Reusable golden model and software verification
+  syn/                      # DC flow, constraints, generated synthesis reports
+  ptpx/                     # PT power/ECO flow and generated reports
+  results/ss/               # Selected SS runs, activity, flow snapshot
+  results/verification/     # Corrected-RTL 1,039-instance manifest and summary
+  results/tt/               # Exploratory TT evidence, clearly labelled
+  build/                    # Converted RTL and generated netlists as needed
+  scripts/                  # Portable path helpers and exporter
+```
+
+The canonical repository now uses these required source directories. `python3 -m scripts.export_submission` creates a draft code ZIP and portable README; explicitly selected result directories are included under `results/`. The report and presentation remain separate deliverables. The exporter records file checksums and refuses output overwrites; it does not certify hardware correctness or assignment completion. PDK libraries are external dependencies and must not be redistributed. [R0]
+
+### 11.2 Requirement-completion checklist
+
+| Assignment requirement | Current evidence / report location | Remaining work before submission |
+|---|---|---|
+| Important RTL modules and justified baseline changes | Section 2; twelve modules in `rtl/`; two baseline bug fixes documented and verified | Resynthesize and retest the corrected RTL. |
+| Main Verilog DUT testbench and stimulus | Section 3; kernel TB in `sim/legacy/`, regression TB and Python runner in `sim/` | Retain fresh self-checking RTL and netlist logs in the package. |
+| Ten constrained-random testcases | R01-R10, 100 instances each; 1,000/1,000 pass at RTL level | Repeat at netlist level on the corrected, ECO-applied netlist. |
+| Ten corner-case testcases | C01-C10, 39 directed instances; 39/39 pass at RTL level | Repeat at netlist level on the corrected, ECO-applied netlist. |
+| Software reference and evaluation metrics | Section 4; `sw/golden.py`, 20 software checks pass, DUT comparison complete | Package the model and the full-run manifest; retain logs. |
+| Worst-case synthesis libraries | Section 5.1; SS flow and 11-point sweep imported | Complete pulse-width closure and document the selected period. |
+| Maximum frequency, area, and critical-path slack | Sections 5.3 and 5.4; pre-fix SS DC/PT reports at 2.90 ns | Resynthesize corrected RTL, resolve 877 pulse-width violations (3.05 ns is the conservative candidate), and save unfiltered post-ECO critical paths. |
+| Representative average PrimeTime power | Section 6; two pre-fix SS full-kernel VCDs and PT reports | Re-measure corrected netlist; resolve `PWR-264`/`PT-063`; export/simulate the exact ECO netlist; add longer windows. |
+| Validation of PPA and software metrics | Section 7; mathematical references, raw-report arithmetic, simulation and regression cross-checks | Add direct external/library-source validation where available; current PPA is pre-bug-fix and annotation-limited. |
+| Detailed optimization implementation plan | Section 8 | Execute after fixing the two bugs and freezing a corrected, pulse-width-clean baseline. Preliminary results are optional. |
+| Detailed optimization verification plan | Section 9 | Implement the proposed monitors, memory sensitivity tests, and full-corpus regression. |
+| Reproduction README and dependencies | Section 10; commands updated for the SS layout | Test all commands on the licensed host and again from the final package. |
+| Code ZIP, report, and presentation | Markdown draft, existing presentation, and implemented draft exporter | Finalize PPA after fixes/resynthesis, update slides, and validate the exported package. |
+
+### 11.3 Work order before finalizing the baseline
+
+1. The partial-block PC selection and CMP flag fixes are complete; the full 1,039-instance RTL corpus passes. Retain the manifest and rerun B01/B02 after any further RTL edit.
+2. Rerun SS synthesis and PrimeTime ECO on the corrected RTL. Select between a 2.90 ns implementation after resolving pulse width and a conservatively closed 3.05 ns implementation; do not claim 344.8 MHz until the pulse-width check is clean.
+3. Export the exact post-ECO netlist and SDC, run gate-level regression on that database, and regenerate both workload VCDs from it.
+4. Resolve `PWR-264`, `PT-063`, and `NED-079`; extend the measurement windows and report a convergence criterion.
+5. Replace every pre-fix PPA table with the corrected SS results, preserving the pre-fix numbers only as clearly labelled exploratory measurements.
+6. Assemble the required package, execute its README from a clean extracted copy, and synchronize the report and presentation.
+
+## References and evidence index
+
+Links are relative to this report in `midterm/`.
+
+- [R0] Assignment, *Project Midterm*, CS 220, Fall 2026, pages 1 through 3.
+- [R1] Original tiny-gpu README, architecture, ISA, and matrix kernels.
+- [R2] Current top-level RTL; related module links appear in Section 2.1.
+- [R3] Project progress notes, verification history, waveform, and optimization estimates.
+- [R4] Team 6 midterm presentation, architecture and planning context.
+- [R5] SS clock-gated baseline PrimeTime matmul summary and area.
+- [R6] SS clock-gated baseline PrimeTime matadd summary.
+- [R7] Main self-checking Verilog testbench.
+- [R8] Python test source directory, including embedded reference calculations and memory helpers.
+- [R9] Makefile, conversion, simulation, and gate-level targets.
+- [R10] Retained SS simulation/activity artifacts in `results/ss/activity/`.
+- [R11] Main Design Compiler synthesis script.
+- [R12] SS pre-ECO threshold-voltage cell counts.
+- [R13] Timing and I/O constraints.
+- [R14] Saved SS LVT+HVT frequency-sweep data.
+- [R15] SS pre-ECO DC area report.
+- [R16] SS pre-ECO DC QoR report.
+- [R17] SS pre-ECO DC detailed setup paths.
+- [R18] SS post-ECO PrimeTime constraint violations, including pulse width.
+- [R19] SS PrimeTime ECO execution log.
+- [R20] PrimeTime timing, area, and averaged-power script.
+- [R21] SS PrimeTime matmul execution log, diagnostics, and averaging window.
+- [R22] SS PrimeTime matadd execution log, diagnostics, and averaging window.
+- [R23] SS PrimeTime matmul switching-activity report; the matching matadd report is under `pt_reports_matadd/`.
+- [R24] SS PrimeTime matmul hierarchical power report.
+- [R25] Initial RVT DC area report.
+- [R26] SRAM-library inspection script; macro planning only.
+- [R27] Preserved SS flow scripts: `results/ss/flow_snapshot/syn/`.
+- [R28] SAED32 mux X-pessimism patch for gate-level simulation.
+
+[R0]: Project%20Midterm.pdf
+[R1]: ../docs/architecture.md
+[R2]: ../rtl/gpu.sv
+[R3]: ../docs/progress_slides.md
+[R4]: midterm-team-6.pptx
+[R5]: ../results/ss/runs/best_ss_lh_cg/pt_reports/summary.rpt
+[R6]: ../results/ss/runs/best_ss_lh_cg/pt_reports_matadd/summary.rpt
+[R7]: ../sim/legacy/tb_gpu.v
+[R8]: ../sim/legacy/
+[R9]: ../Makefile
+[R10]: ../results/ss/activity/
+[R11]: ../syn/dc_synth.tcl
+[R12]: ../results/ss/runs/best_ss_lh_cg/reports/vt_mix.rpt
+[R13]: ../syn/constraints.sdc
+[R14]: ../results/ss/runs/sweep_ss_lh_cg.csv
+[R15]: ../results/ss/runs/best_ss_lh_cg/reports/area.rpt
+[R16]: ../results/ss/runs/best_ss_lh_cg/reports/qor.rpt
+[R17]: ../results/ss/runs/best_ss_lh_cg/reports/timing.rpt
+[R18]: ../results/ss/runs/best_ss_lh_cg/pt_reports/violators.rpt
+[R19]: ../results/ss/runs/best_ss_lh_cg/pt_eco.log
+[R20]: ../ptpx/pt_power.tcl
+[R21]: ../results/ss/runs/best_ss_lh_cg/pt.log
+[R22]: ../results/ss/runs/best_ss_lh_cg/pt_matadd.log
+[R23]: ../results/ss/runs/best_ss_lh_cg/pt_reports/switching_activity.rpt
+[R24]: ../results/ss/runs/best_ss_lh_cg/pt_reports/power_hier.rpt
+[R25]: ../results/tt/initial_rvt/area.rpt
+[R26]: ../ptpx/diagnostics/sram_info.tcl
+[R27]: ../results/ss/flow_snapshot/syn/
+[R28]: ../sim/saed_xfix.awk

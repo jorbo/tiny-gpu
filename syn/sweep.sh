@@ -3,12 +3,17 @@
 # A run passes when every setup slack >= 0, there are no hold violations and no DRC
 # (max_transition / max_capacitance) violations.
 #
-# Run from syn/ after `make compile`:
-#   ./sweep.sh [vt] [lo_ns] [hi_ns] [step_ns]
+# From repo root after `make compile`:
+#   bash syn/sweep.sh [vt] [lo_ns] [hi_ns] [step_ns]
 #   vt: rvt | hvt (RVT+HVT, default) | lvt (LVT+RVT+HVT) | lh (LVT+HVT, no RVT)
-# Results: runs/<vt>_<period>/ per run, runs/sweep_<vt>.csv, runs/best_<vt> -> best run dir
+# Results: $RUN_ROOT/<corner>_<vt>[_cg]_<period>; default RUN_ROOT is build/sweeps.
 
 set -u
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+PROJECT_ROOT=$(cd -- "$SCRIPT_DIR/.." && pwd)
+RUN_ROOT=${RUN_ROOT:-"$PROJECT_ROOT/build/sweeps"}
+mkdir -p "$RUN_ROOT"
+RUN_ROOT=$(cd -- "$RUN_ROOT" && pwd)
 VT=${1:-hvt}
 LO=${2:-1.0}
 HI=${3:-8.0}
@@ -28,25 +33,24 @@ case $VT in
 esac
 
 # Run names carry the corner and gating so they never reuse another config's results:
-# ss0p75v125c + CG=1 + lh -> runs/ss_lh_cg_<period>
+# ss0p75v125c + CG=1 + lh -> <RUN_ROOT>/ss_lh_cg_<period>
 NAME=${CORNER:0:2}_$VT
 [ "$CG" = 1 ] && NAME=${NAME}_cg
 VT_ARGS="$VT_ARGS; set CORNER $CORNER; set CLOCK_GATING $CG"
 
-mkdir -p runs
-CSV=runs/sweep_$NAME.csv
+CSV=$RUN_ROOT/sweep_$NAME.csv
 [ -f "$CSV" ] || echo "period_ns,freq_mhz,setup_wns,tns,hold_viol,drc_nets,cell_area,status" > "$CSV"
 
 # Synthesize at period $1, print PASS or FAIL
 run_period() {
     local p dir qor wns tns hold drc area status
     p=$(printf "%.2f" "$1")
-    dir=runs/${NAME}_$p
+    dir=$RUN_ROOT/${NAME}_$p
     qor=$dir/reports/qor.rpt
     if [ ! -f "$qor" ]; then
         mkdir -p "$dir"
         echo "$(date +%T) synthesizing at $p ns (log: $dir/dc.log)" >&2
-        dc_shell -x "set CLK_PERIOD $p; $VT_ARGS; set RUN_DIR $dir" -f dc_synth.tcl > "$dir/dc.log" 2>&1
+        dc_shell -x "set CLK_PERIOD $p; $VT_ARGS; set RUN_DIR {$dir}" -f "$SCRIPT_DIR/dc_synth.tcl" > "$dir/dc.log" 2>&1
     fi
     if [ ! -f "$qor" ]; then
         echo "$p,,,,,,,ERROR" >> "$CSV"
@@ -84,12 +88,12 @@ while awk -v l="$LO" -v h="$HI" -v s="$STEP" 'BEGIN {exit !(h - l > s + 1e-9)}';
             if (p > l + 1e-9 && p < h - 1e-9) printf "%.2f\n", p
         }}' | sort -un)
     for p in $points; do
-        run_period "$p" > "runs/.status_${NAME}_$p" &
+        run_period "$p" > "$RUN_ROOT/.status_${NAME}_$p" &
     done
     wait
     for p in $points; do
-        r=$(cat "runs/.status_${NAME}_$p")
-        rm -f "runs/.status_${NAME}_$p"
+        r=$(cat "$RUN_ROOT/.status_${NAME}_$p")
+        rm -f "$RUN_ROOT/.status_${NAME}_$p"
         echo "period $p ns: $r"
         if [ "$r" = PASS ] && awk -v p="$p" -v h="$HI" 'BEGIN {exit !(p < h)}'; then
             HI=$p
@@ -104,5 +108,5 @@ while awk -v l="$LO" -v h="$HI" -v s="$STEP" 'BEGIN {exit !(h - l > s + 1e-9)}';
     done
 done
 
-ln -sfn "${NAME}_$best" "runs/best_$NAME"
-echo "best period: $best ns ($(awk -v p="$best" 'BEGIN {printf "%.1f", 1000 / p}') MHz) -> runs/best_$NAME"
+ln -sfn "${NAME}_$best" "$RUN_ROOT/best_$NAME"
+echo "best period: $best ns ($(awk -v p="$best" 'BEGIN {printf "%.1f", 1000 / p}') MHz) -> $RUN_ROOT/best_$NAME"

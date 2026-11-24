@@ -1,14 +1,16 @@
 # Design Compiler baseline synthesis for tiny-gpu (SAED32, worst-case SS 0.75V 125C by default)
-# Run from syn/:  dc_shell -f dc_synth.tcl | tee dc.log
-# Expects ../build/gpu.v from `make compile` and optionally ../build/gpu.saif
+# From repo root: dc_shell -f syn/dc_synth.tcl (see syn/README.md)
+# Expects build/gpu.v from `make compile` and optionally build/gpu.saif
+
+source [file join [file dirname [info script]] .. scripts paths.tcl]
 
 # Library corner. Worst case (SS 0.75 V 125 C) per the project spec; override e.g. "set CORNER tt0p78v25c"
 if {![info exists CORNER]} { set CORNER ss0p75v125c }
 set LIB_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_$CORNER.db
 set HVT_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_$CORNER.db
 set LVT_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_$CORNER.db
-set RTL    ../build/gpu.v
-set SAIF   ../build/gpu.saif
+set RTL    [project_path build/gpu.v]
+set SAIF   [project_path build/gpu.saif]
 set TOP    gpu
 
 # Multi-Vt: dc_shell -x "set USE_HVT 1" -f dc_synth.tcl
@@ -26,16 +28,12 @@ if {![info exists CLOCK_GATING]} { set CLOCK_GATING 0 }
 set LIBS $LIB_DB
 if {$USE_HVT} { lappend LIBS $HVT_DB }
 if {$USE_LVT} { lappend LIBS $LVT_DB }
-if {[info exists RUN_DIR]} {
-    set OUT $RUN_DIR/out
-    set RPT $RUN_DIR/reports
-} elseif {$USE_HVT} {
-    set OUT  out_hvt
-    set RPT  reports_hvt
-} else {
-    set OUT  out
-    set RPT  reports
+if {![info exists RUN_DIR]} {
+    if {$USE_HVT} { set RUN_DIR build/synthesis/multi_vt } else { set RUN_DIR build/synthesis/rvt }
 }
+set RUN_DIR [project_path $RUN_DIR]
+set OUT [file join $RUN_DIR out]
+set RPT [file join $RUN_DIR reports]
 
 file mkdir $OUT $RPT
 
@@ -53,7 +51,7 @@ uniquify
 saif_map -start
 check_design > $RPT/check_design.rpt
 
-source constraints.sdc
+source [file join $PROJECT_ROOT syn constraints.sdc]
 
 # Overconstrain setup during optimization only: DC stops once WNS reaches ~0 and often lands
 # 0.01 ns short, which made pass/fail at nearby periods look random. The margin is removed

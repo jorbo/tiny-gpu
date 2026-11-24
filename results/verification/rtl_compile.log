@@ -1,0 +1,10 @@
+mkdir -p "/Users/zimmy/code/tiny-gpu/build"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -C "/Users/zimmy/code/tiny-gpu" compile_alu
+mkdir -p "/Users/zimmy/code/tiny-gpu/build"
+sv2v -w "/Users/zimmy/code/tiny-gpu/build/alu.v" "/Users/zimmy/code/tiny-gpu/rtl/alu.sv"
+sv2v -I "/Users/zimmy/code/tiny-gpu"/rtl/* -w "/Users/zimmy/code/tiny-gpu/build/gpu.v"
+echo "" >> "/Users/zimmy/code/tiny-gpu/build/gpu.v"
+cat "/Users/zimmy/code/tiny-gpu/build/alu.v" >> "/Users/zimmy/code/tiny-gpu/build/gpu.v"
+echo '`timescale 1ns/1ns' > "/Users/zimmy/code/tiny-gpu/build/temp.v"
+cat "/Users/zimmy/code/tiny-gpu/build/gpu.v" >> "/Users/zimmy/code/tiny-gpu/build/temp.v"
+mv "/Users/zimmy/code/tiny-gpu/build/temp.v" "/Users/zimmy/code/tiny-gpu/build/gpu.v"

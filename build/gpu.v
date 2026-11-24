@@ -297,6 +297,7 @@ module core (
 		.decoded_mem_read_enable(decoded_mem_read_enable),
 		.decoded_mem_write_enable(decoded_mem_write_enable),
 		.decoded_ret(decoded_ret),
+		.thread_count(thread_count),
 		.lsu_state(lsu_state),
 		.current_pc(sv2v_tmp_scheduler_instance_current_pc),
 		.next_pc(next_pc),
@@ -1134,6 +1135,7 @@ module scheduler (
 	decoded_ret,
 	fetcher_state,
 	lsu_state,
+	thread_count,
 	current_pc,
 	next_pc,
 	core_state,
@@ -1148,6 +1150,7 @@ module scheduler (
 	input wire decoded_ret;
 	input wire [2:0] fetcher_state;
 	input wire [(THREADS_PER_BLOCK * 2) - 1:0] lsu_state;
+	input wire [$clog2(THREADS_PER_BLOCK):0] thread_count;
 	output reg [7:0] current_pc;
 	input wire [(THREADS_PER_BLOCK * 8) - 1:0] next_pc;
 	output reg [2:0] core_state;
@@ -1212,7 +1215,10 @@ module scheduler (
 						core_state <= DONE;
 					end
 					else begin
-						current_pc <= next_pc[(THREADS_PER_BLOCK - 1) * 8+:8];
+						if (thread_count == 0)
+							current_pc <= 0;
+						else
+							current_pc <= next_pc[(thread_count - 1) * 8+:8];
 						core_state <= FETCH;
 					end
 				DONE:
@@ -1253,7 +1259,7 @@ module alu (
 		else if (enable) begin
 			if (core_state == 3'b101) begin
 				if (decoded_alu_output_mux == 1)
-					alu_out_reg <= {5'b00000, (rs - rt) > 0, (rs - rt) == 0, (rs - rt) < 0};
+					alu_out_reg <= {5'b00000, rs < rt, rs == rt, rs > rt};
 				else
 					case (decoded_alu_arithmetic_mux)
 						ADD: alu_out_reg <= rs + rt;

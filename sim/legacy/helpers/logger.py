@@ -1,8 +1,11 @@
 import datetime
+from pathlib import Path
 
 class Logger:
     def __init__(self, level="debug"):
-        self.filename = f"test/logs/log_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}.txt"
+        folder = Path(__file__).resolve().parents[3] / "build" / "logs"
+        folder.mkdir(parents=True, exist_ok=True)
+        self.filename = str(folder / f"log_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}.txt")
         self.level = level
 
     def debug(self, *messages):

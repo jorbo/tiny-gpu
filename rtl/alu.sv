@@ -35,8 +35,10 @@ module alu (
             // Calculate alu_out when core_state = EXECUTE
             if (core_state == 3'b101) begin 
                 if (decoded_alu_output_mux == 1) begin 
-                    // Set values to compare with NZP register in alu_out[2:0]
-                    alu_out_reg <= {5'b0, (rs - rt > 0), (rs - rt == 0), (rs - rt < 0)};
+                    // Set values to compare with NZP register in alu_out[2:0].
+                    // Bits are N/Z/P = less-than/equal/greater-than. Compare the
+                    // operands directly; an 8-bit subtraction wraps for rs < rt.
+                    alu_out_reg <= {5'b0, (rs < rt), (rs == rt), (rs > rt)};
                 end else begin 
                     // Execute the specified arithmetic instruction
                     case (decoded_alu_arithmetic_mux)

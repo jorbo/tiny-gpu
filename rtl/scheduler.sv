@@ -29,6 +29,9 @@ module scheduler #(
     input reg [2:0] fetcher_state,
     input reg [1:0] lsu_state [THREADS_PER_BLOCK-1:0],
 
+    // Active thread count in this block (1..THREADS_PER_BLOCK)
+    input reg [$clog2(THREADS_PER_BLOCK):0] thread_count,
+
     // Current & Next PC
     output reg [7:0] current_pc,
     input reg [7:0] next_pc [THREADS_PER_BLOCK-1:0],
@@ -100,8 +103,15 @@ module scheduler #(
                         done <= 1;
                         core_state <= DONE;
                     end else begin 
-                        // TODO: Branch divergence. For now assume all next_pc converge
-                        current_pc <= next_pc[THREADS_PER_BLOCK-1];
+                        // TODO: Branch divergence. For now assume all next_pc converge.
+                        // Use the last *active* lane: inactive lanes are disabled and
+                        // never update their PC, so lane THREADS_PER_BLOCK-1 is stale
+                        // for a partial block.
+                        if (thread_count == 0) begin
+                            current_pc <= 0;
+                        end else begin
+                            current_pc <= next_pc[thread_count-1];
+                        end
 
                         // Update is synchronous so we move on after one cycle
                         core_state <= FETCH;
