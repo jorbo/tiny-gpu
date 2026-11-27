@@ -2,7 +2,7 @@
 # post_synth.sh <run_dir> <period> <expect_matmul_cycles>
 # GLS identity check -> PT ECO -> PT timing probe -> ECO netlist export
 set -u
-cd /home/csgrad/szimm011/tiny-gpu/tiny-gpu
+cd "$(dirname -- "${BASH_SOURCE[0]}")/.." || exit 1   # repository root
 export PATH=$HOME/.local/bin:$PATH
 R=$1; P=$2; EXP=$3; L=$R/post_synth.log
 : > $L

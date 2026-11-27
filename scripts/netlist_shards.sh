@@ -1,6 +1,6 @@
 #!/bin/bash
 # netlist_shards.sh <name> <run_dir> <period>: one sim.run process per family shard
-cd /home/csgrad/szimm011/tiny-gpu/tiny-gpu
+cd "$(dirname -- "${BASH_SOURCE[0]}")/.." || exit 1   # repository root
 export PATH=$HOME/.local/bin:$PATH
 N=$1; R=$2; P=$3; M=$PWD/build/saed_models; O=$PWD/build/verification/netlist_$N
 mkdir -p $O

@@ -5,6 +5,13 @@
 // > Kernel select:   +define+MATADD  (default is matmul)
 // > Clock period:    +define+CLK_PERIOD=<ns> (default 10, keep equal to the SDC period for power)
 // > Waveform dump:   +vcd plusarg writes build/gpu.vcd (+vcdfile=<path> to rename)
+// > Repeated launches for average power: +launches=<N> (default 1 = original behavior).
+//   Each launch resets the GPU, reloads the data memory and runs the kernel again.
+//   Launch 0 uses the original inputs; later launches use seeded pseudo-random bytes
+//   (+data_seed=<n>, default 1) so the datapath sees varied, workload-like activity.
+//   Every launch's outputs are checked. The testbench prints
+//   "KERNEL_WINDOWS_NS s0 e0 s1 e1 ..." (start asserted .. done seen, per launch) for
+//   PrimeTime's read_vcd -time, which then averages power over kernel execution only.
 `ifndef CLK_PERIOD
 `define CLK_PERIOD 10
 `endif
@@ -90,8 +97,21 @@ module tb_gpu;
 
     // Kernels (same programs and data as sim/legacy/test_matadd.py and test_matmul.py)
     integer i, threads, errors, cycles;
+    integer launch, launches, total_cycles, total_errors;
+    reg [31:0] data_seed;
     reg [7:0] expected;
     reg [8*256-1:0] vcdfile;
+    reg [64*1024-1:0] windows;   // accumulated "start end " pairs, printed at the end
+    real t_start, t_end;
+
+    // Deterministic 32-bit LCG for launch data (Numerical Recipes constants)
+    function [7:0] next_byte;
+        input dummy;
+        begin
+            data_seed = data_seed * 32'd1664525 + 32'd1013904223;
+            next_byte = data_seed[31:24];
+        end
+    endfunction
 
     task load_kernel;
         begin
@@ -111,10 +131,6 @@ module tb_gpu;
             program_memory[10] = 16'b0011011100110000; // ADD R7, R3, R0                 ; addr(C[i])
             program_memory[11] = 16'b1000000001110110; // STR R7, R6
             program_memory[12] = 16'b1111000000000000; // RET
-            for (i = 0; i < 8; i = i + 1) begin
-                data_memory[i] = i;      // Matrix A (1 x 8)
-                data_memory[i + 8] = i;  // Matrix B (1 x 8)
-            end
             threads = 8;
 `else
             program_memory[0]  = 16'b0101000011011110; // MUL R0, %blockIdx, %blockDim
@@ -145,11 +161,49 @@ module tb_gpu;
             program_memory[25] = 16'b0011100101010000; // ADD R9, R5, R0                 ; addr(C[i])
             program_memory[26] = 16'b1000000010011000; // STR R9, R8
             program_memory[27] = 16'b1111000000000000; // RET
-            for (i = 0; i < 4; i = i + 1) begin
-                data_memory[i] = i + 1;      // Matrix A (2 x 2)
-                data_memory[i + 4] = i + 1;  // Matrix B (2 x 2)
-            end
             threads = 4;
+`endif
+        end
+    endtask
+
+    // Inputs for one launch: launch 0 = the original kernel data, later launches random
+    task load_data;
+        input integer n;
+        begin
+            for (i = 0; i < (1<<DATA_MEM_ADDR_BITS); i = i + 1) data_memory[i] = 0;
+`ifdef MATADD
+            for (i = 0; i < 8; i = i + 1) begin
+                data_memory[i]     = (n == 0) ? i : next_byte(0);  // Matrix A (1 x 8)
+                data_memory[i + 8] = (n == 0) ? i : next_byte(0);  // Matrix B (1 x 8)
+            end
+`else
+            for (i = 0; i < 4; i = i + 1) begin
+                data_memory[i]     = (n == 0) ? i + 1 : next_byte(0);  // Matrix A (2 x 2)
+                data_memory[i + 4] = (n == 0) ? i + 1 : next_byte(0);  // Matrix B (2 x 2)
+            end
+`endif
+        end
+    endtask
+
+    task check_results;
+        begin
+            errors = 0;
+`ifdef MATADD
+            for (i = 0; i < 8; i = i + 1) begin
+                expected = data_memory[i] + data_memory[i + 8];
+                if (data_memory[i + 16] !== expected) begin
+                    $display("Mismatch launch %0d C[%0d]: expected %0d, got %0d", launch, i, expected, data_memory[i + 16]);
+                    errors = errors + 1;
+                end
+            end
+`else
+            for (i = 0; i < 4; i = i + 1) begin
+                expected = data_memory[(i/2)*2] * data_memory[4 + (i%2)] + data_memory[(i/2)*2 + 1] * data_memory[6 + (i%2)];
+                if (data_memory[i + 8] !== expected) begin
+                    $display("Mismatch launch %0d C[%0d]: expected %0d, got %0d", launch, i, expected, data_memory[i + 8]);
+                    errors = errors + 1;
+                end
+            end
 `endif
         end
     endtask
@@ -160,57 +214,69 @@ module tb_gpu;
             $dumpfile(vcdfile);
             $dumpvars(0, dut);
         end
+        if (!$value$plusargs("launches=%d", launches)) launches = 1;
+        if (!$value$plusargs("data_seed=%d", data_seed)) data_seed = 1;
+        if (launches < 1) begin
+            $display("FAIL: +launches must be >= 1");
+            $finish;
+        end
 
         load_kernel;
+        windows = "";
+        total_cycles = 0;
+        total_errors = 0;
 
-        // Reset: several edges, since cores are reset through dispatch's registered core_reset;
-        // with one edge the memory controllers leave reset while core fetchers are still X,
-        // which a gate-level sim latches forever
-        repeat (4) @(posedge clk);
-        #(`CLK_PERIOD / 4.0) reset = 0;
+        for (launch = 0; launch < launches; launch = launch + 1) begin
+            load_data(launch);
 
-        // Device Control Register
-        device_control_write_enable = 1;
-        device_control_data = threads;
-        @(posedge clk);
-        #(`CLK_PERIOD / 4.0) device_control_write_enable = 0;
+            // Reset: several edges, since cores are reset through dispatch's registered core_reset;
+            // with one edge the memory controllers leave reset while core fetchers are still X,
+            // which a gate-level sim latches forever. Repeated for every launch, because the
+            // dispatcher only starts a new kernel from reset.
+            reset = 1;
+            start = 0;
+            mem_enable = 0;
+            repeat (4) @(posedge clk);
+            #(`CLK_PERIOD / 4.0) reset = 0;
 
-        // Start
-        start = 1;
-        mem_enable = 1;
-        cycles = 0;
-        while (done !== 1'b1) begin
+            // Device Control Register
+            device_control_write_enable = 1;
+            device_control_data = threads;
             @(posedge clk);
-            cycles = cycles + 1;
-            if (cycles > 100000) begin
-                $display("FAIL: timeout after %0d cycles", cycles);
-                $finish;
-            end
-        end
-        #(`CLK_PERIOD / 4.0);
+            #(`CLK_PERIOD / 4.0) device_control_write_enable = 0;
 
-        // Check results
-        errors = 0;
-`ifdef MATADD
-        for (i = 0; i < 8; i = i + 1) begin
-            expected = data_memory[i] + data_memory[i + 8];
-            if (data_memory[i + 16] !== expected) begin
-                $display("Mismatch C[%0d]: expected %0d, got %0d", i, expected, data_memory[i + 16]);
-                errors = errors + 1;
+            // Start
+            start = 1;
+            mem_enable = 1;
+            t_start = $realtime;
+            cycles = 0;
+            while (done !== 1'b1) begin
+                @(posedge clk);
+                cycles = cycles + 1;
+                if (cycles > 100000) begin
+                    $display("FAIL: timeout after %0d cycles (launch %0d)", cycles, launch);
+                    $finish;
+                end
             end
+            t_end = $realtime;
+            $sformat(windows, "%0s%0.3f %0.3f ", windows, t_start, t_end);
+            #(`CLK_PERIOD / 4.0);
+
+            check_results;
+            total_errors = total_errors + errors;
+            total_cycles = total_cycles + cycles;
+            if (launches > 1)
+                $display("Launch %0d: %0d cycles, %0d errors", launch, cycles, errors);
         end
-`else
-        for (i = 0; i < 4; i = i + 1) begin
-            expected = data_memory[(i/2)*2] * data_memory[4 + (i%2)] + data_memory[(i/2)*2 + 1] * data_memory[6 + (i%2)];
-            if (data_memory[i + 8] !== expected) begin
-                $display("Mismatch C[%0d]: expected %0d, got %0d", i, expected, data_memory[i + 8]);
-                errors = errors + 1;
-            end
-        end
-`endif
-        $display("Completed in %0d cycles (%0.2f ns at %0.2f ns clock)", cycles, cycles * `CLK_PERIOD * 1.0, `CLK_PERIOD * 1.0);
-        if (errors == 0) $display("PASS");
-        else $display("FAIL: %0d errors", errors);
+
+        if (launches == 1)
+            $display("Completed in %0d cycles (%0.2f ns at %0.2f ns clock)", cycles, cycles * `CLK_PERIOD * 1.0, `CLK_PERIOD * 1.0);
+        else
+            $display("Completed %0d launches in %0d kernel cycles (%0.2f ns at %0.2f ns clock)",
+                     launches, total_cycles, total_cycles * `CLK_PERIOD * 1.0, `CLK_PERIOD * 1.0);
+        $display("KERNEL_WINDOWS_NS %0s", windows);
+        if (total_errors == 0) $display("PASS");
+        else $display("FAIL: %0d errors", total_errors);
         $finish;
     end
 endmodule

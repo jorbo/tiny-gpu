@@ -19,6 +19,16 @@ set RUN_DIR [project_path $RUN_DIR]
 if {![info exists VCD]}     { set VCD build/gpu_gls.vcd }
 set VCD [project_path $VCD]
 if {![info exists VCD_RTL]} { set VCD_RTL 0 }
+# VCD_TIME: optional activity windows in ns, {s0 e0 s1 e1 ...} (read_vcd -time). The
+# legacy TB prints them as KERNEL_WINDOWS_NS with +launches=N, so power is averaged over
+# kernel execution only (no reset/DCR setup between launches). Empty = whole VCD.
+if {![info exists VCD_TIME]} { set VCD_TIME {} }
+set VCD_OPTS {}
+if {[llength $VCD_TIME] > 0} {
+    if {[llength $VCD_TIME] % 2} { error "VCD_TIME needs start/end pairs" }
+    set VCD_OPTS [list -time $VCD_TIME]
+    echo "Averaging activity over [expr {[llength $VCD_TIME] / 2}] window(s) from $VCD"
+}
 # Separate report dir per workload, e.g. "set RPT_NAME pt_reports_matadd"
 if {![info exists RPT_NAME]} { set RPT_NAME pt_reports }
 set RPT $RUN_DIR/$RPT_NAME
@@ -72,9 +82,9 @@ if {$VCD_RTL} {
     if {[file exists $RUN_DIR/out/${TOP}_name_map.tcl]} {
         source $RUN_DIR/out/${TOP}_name_map.tcl
     }
-    read_vcd -rtl -strip_path tb_gpu/dut $VCD
+    read_vcd -rtl -strip_path tb_gpu/dut {*}$VCD_OPTS $VCD
 } else {
-    read_vcd -strip_path tb_gpu/dut $VCD
+    read_vcd -strip_path tb_gpu/dut {*}$VCD_OPTS $VCD
 }
 
 update_power
