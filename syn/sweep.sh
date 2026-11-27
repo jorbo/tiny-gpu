@@ -6,7 +6,9 @@
 # From repo root after `make compile`:
 #   bash syn/sweep.sh [vt] [lo_ns] [hi_ns] [step_ns]
 #   vt: rvt | hvt (RVT+HVT, default) | lvt (LVT+RVT+HVT) | lh (LVT+HVT, no RVT)
-# Results: $RUN_ROOT/<corner>_<vt>[_cg]_<period>; default RUN_ROOT is build/sweeps.
+# Results: $RUN_ROOT/<corner>_<vt>[_cg][_<variant>]_<period>; default RUN_ROOT is build/sweeps.
+# Design variant: VARIANT=a1 synthesizes build/gpu_a1.v (make compile VARIANT=a1) and tags run
+# names with _a1; the default (baseline) reads build/gpu.v with unchanged run names.
 
 set -u
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
@@ -36,7 +38,14 @@ esac
 # ss0p75v125c + CG=1 + lh -> <RUN_ROOT>/ss_lh_cg_<period>
 NAME=${CORNER:0:2}_$VT
 [ "$CG" = 1 ] && NAME=${NAME}_cg
-VT_ARGS="$VT_ARGS; set CORNER $CORNER; set CLOCK_GATING $CG"
+VARIANT=${VARIANT:-baseline}
+case $VARIANT in
+    baseline) RTL_FILE=build/gpu.v ;;
+    a1)       RTL_FILE=build/gpu_a1.v; NAME=${NAME}_a1 ;;
+    *)        echo "unknown VARIANT '$VARIANT' (baseline|a1)"; exit 1 ;;
+esac
+[ -f "$PROJECT_ROOT/$RTL_FILE" ] || { echo "missing $RTL_FILE; run make compile VARIANT=$VARIANT"; exit 1; }
+VT_ARGS="$VT_ARGS; set CORNER $CORNER; set CLOCK_GATING $CG; set RTL {$RTL_FILE}"
 
 CSV=$RUN_ROOT/sweep_$NAME.csv
 [ -f "$CSV" ] || echo "period_ns,freq_mhz,setup_wns,tns,hold_viol,drc_nets,cell_area,status" > "$CSV"

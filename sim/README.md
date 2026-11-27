@@ -20,6 +20,7 @@ archived SS netlist also predates the fixes and must be resynthesized.
 | `sim/tb_regression.v` | Shared top-level Verilog testbench for converted RTL or a mapped netlist. |
 | `sim/run.py` | Offline export and explicitly requested future simulation, logs, summary manifest. |
 | `sim/test_suite.py` | Software-only checks of the interpreter, generators, export, and runner. |
+| `sim/compare_cycles.py` | A1 check: compares baseline and A1 manifests of the same cases (cycle savings). |
 
 The original TB and cocotb workloads are preserved under `sim/legacy/`. Run commands from the
 repository root. On this Mac use `/usr/bin/python3` or another explicitly selected
@@ -202,3 +203,42 @@ Use `--vcd` only when needed; it writes one potentially large waveform per selec
 instance. These regression traces are not automatically representative long-window
 power traces. A hardware pass is meaningful only for the source hashes and selected
 instances recorded in that manifest; run all families before reporting full coverage.
+
+## A1 suite: bypass WAIT for non-memory instructions
+
+`--suite a1` selects ten A1 families (`--suite all` runs midterm + A1; the default
+`midterm` keeps the 1,039-instance corpus unchanged). A1 changes no architectural
+result, so every A1 instance is checked by the same golden model and testbench. The
+A1-specific property, one cycle saved per retired non-memory instruction, is
+checked against a baseline run of the same cases by `sim/compare_cycles.py`.
+Random A1 families use RNG seed `2000 + family_number + seed_offset`; memory map:
+inputs 0-63, lane scratch 64-127, signatures 128-255.
+
+| Family | Stimulus | Verification goal and expected result |
+|---|---|---|
+| A1_01 | Random straight-line CONST/ADD/SUB/MUL/DIV/NOP (32 ops), 8 register signatures | Maximum bypass density; all signatures match the golden model. |
+| A1_02 | LDR, then an immediately dependent ALU op; back-to-back LDRs of one address | Load-use right after WAIT→EXECUTE; second load not stale (difference 0). |
+| A1_03 | ALU → STR → LDR same lane-local address → ALU, four slots | STR/LDR never bypass; read-after-write through memory is correct. |
+| A1_04 | Two shared-address loads → CMP → random-mask BR, taken/fallthrough paths | Bypassed CMP/BR consume waited load results; correct path signature. |
+| A1_05 | Counted loop (1–24 trips) of ALU ops with CMP/BRn back-edge | Long runs of bypassed CMP/BR; trip count and accumulators correct. |
+| A1_06 | RET-only (1/4/8 threads), NOPs then STR, STR or LDR immediately before RET, CONST to all writable registers | `done` only after the last memory ACK; zero- and one-memory-op edges. |
+| A1_07 | Random mixed program, response delays 1–8 per transaction | Memory still waits for every response under backpressure; outputs exact. |
+| A1_08 | One mixed program at 1, 3, 5, 7, 12, 13 threads | Partial blocks/redispatch with bypass; disabled lanes issue no requests. |
+| A1_09 | Mixed program with reset during the first stalled read/write, then relaunch | Recovery from the new REQUEST→EXECUTE path; no stale response. |
+| A1_10 | matmul (4 threads) and matadd (8 threads) with random data | Real kernels: outputs exact, measured cycle reduction. |
+
+```bash
+make compile VARIANT=baseline && make compile VARIANT=a1
+python3 -m sim.run --mode rtl --suite all --rtl build/gpu.v    --period 2.9 --out build/verification/rtl_baseline
+python3 -m sim.run --mode rtl --suite all --rtl build/gpu_a1.v --period 2.9 --out build/verification/rtl_a1
+python3 -m sim.compare_cycles build/verification/rtl_baseline/manifest.json \
+  build/verification/rtl_a1/manifest.json
+```
+
+`compare_cycles` rules: single-block, fixed-delay, no-reset cases must save exactly
+`retired - memory_ops` cycles (counts from `sw/golden.py`; one core means no
+arbitration). Zero-thread launches must take identical cycles. Other fixed-delay cases must be
+strictly faster: with two cores sharing one program-memory channel, fetch
+arbitration absorbs most of the saving (8-thread matadd: 196 to 195 cycles in this
+testbench, 178 to 170 in the legacy kernel testbench, versus 10 bypassed WAITs per block). Random-delay and reset cases must pass in both runs. The same
+commands work in `--mode netlist` with each variant's own netlist.

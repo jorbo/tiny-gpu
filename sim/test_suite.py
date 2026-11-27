@@ -12,6 +12,8 @@ from sw.golden import encode, execute
 from sim.cases import Program, branch_program, generate_cases, matadd_program, matmul_program
 from sim.run import classify, export_cases
 from sim import run as runner
+from sim.cases import generate_a1_cases, SUITES
+from sim import compare_cycles
 
 
 class GoldenTests(unittest.TestCase):
@@ -212,6 +214,81 @@ class ResultTests(unittest.TestCase):
                            (0, "PASS R01_0000 cycles=42\nFATAL: late error\n")]:
             with self.subTest(code=code, text=text):
                 self.assertEqual(classify(code, text, "R01_0000"), "fail")
+
+
+class A1Tests(unittest.TestCase):
+    """A1 (WAIT bypass): golden counters, suite generation, and the cycle comparator."""
+
+    def test_golden_counts_match_midterm_estimates(self):
+        mm = execute(matmul_program(), [0] * 256, 4)
+        self.assertEqual((mm.retired, mm.memory_ops, mm.non_memory_ops()), ([41], [5], [36]))
+        ma = execute(matadd_program(8), [0] * 256, 8)
+        self.assertEqual((ma.retired, ma.memory_ops, ma.non_memory_ops()),
+                         ([13, 13], [3, 3], [10, 10]))
+        self.assertEqual(execute([0xF000], [0] * 256, 0).retired, [])
+
+    def test_counters_do_not_change_functional_results(self):
+        for c in generate_cases(trials=1):
+            ref = execute(c.program, c.memory, c.threads)
+            self.assertEqual((ref.memory, ref.writes), (c.expected, c.writes))
+
+    def test_a1_suite_has_ten_distinct_reproducible_families(self):
+        a, b = generate_a1_cases(trials=2), generate_a1_cases(trials=2)
+        self.assertEqual(a, b)
+        self.assertEqual({c.family for c in a}, {"A1_%02d" % i for i in range(1, 11)})
+        self.assertEqual(len({c.name for c in a}), len(a))
+        midterm = {c.name for c in generate_cases(trials=2)}
+        self.assertFalse(midterm & {c.name for c in a})
+        self.assertNotEqual([c for c in a if c.family == "A1_01"],
+                            [c for c in generate_a1_cases(trials=2, seed_offset=1)
+                             if c.family == "A1_01"])
+        self.assertEqual(len(SUITES["all"](2)), len(generate_cases(2)) + len(a))
+
+    def test_a1_cases_exercise_both_paths(self):
+        for c in generate_a1_cases(trials=3):
+            with self.subTest(case=c.name):
+                self.assertEqual(len(c.retired), (c.threads + 3) // 4)
+                self.assertTrue(all(r > m for r, m in zip(c.retired, c.memory_ops)))
+                if c.family not in {"A1_01", "A1_05", "A1_06"}:
+                    self.assertTrue(all(m > 0 for m in c.memory_ops), "no memory op")
+        families = {c.family: c for c in generate_a1_cases(trials=1)}
+        self.assertEqual(families["A1_01"].memory_ops, [8])          # signatures only
+        self.assertEqual(families["A1_07"].delay_max, 8)
+        resets = {c.reset_kind for c in generate_a1_cases(1) if c.family == "A1_09"}
+        self.assertEqual(resets, {1, 2})
+
+    def _manifest(self, rows):
+        cases = []
+        for name, threads, dmax, reset, base, opt in rows:
+            cases.append({"name": name, "family": name[:5], "threads": threads,
+                          "delay_min": 1, "delay_max": dmax, "reset_kind": reset,
+                          "retired": [10], "memory_ops": [3], "status": "pass",
+                          "cycles": base if opt is None else opt})
+        return {"mode": "rtl", "cases": cases}
+
+    def test_compare_cycles_rules(self):
+        base = self._manifest([("A1_01_a", 4, 1, 0, 100, None), ("A1_08_b", 8, 1, 0, 100, None),
+                               ("A1_07_c", 4, 8, 0, 100, None), ("A1_09_d", 4, 8, 1, 100, None)])
+        good = self._manifest([("A1_01_a", 4, 1, 0, 0, 93), ("A1_08_b", 8, 1, 0, 0, 99),
+                               ("A1_07_c", 4, 8, 0, 0, 120), ("A1_09_d", 4, 8, 1, 0, 140)])
+        rows, violations = compare_cycles.compare(base, good)
+        self.assertEqual(violations, [])
+        self.assertEqual([r["rule"] for r in rows], ["exact", "functional", "faster", "functional"])  # sorted by name
+        off_by_one = self._manifest([("A1_01_a", 4, 1, 0, 0, 94), ("A1_08_b", 8, 1, 0, 0, 100),
+                                     ("A1_07_c", 4, 8, 0, 0, 1), ("A1_09_d", 4, 8, 1, 0, 1)])
+        _, violations = compare_cycles.compare(base, off_by_one)
+        self.assertEqual(len(violations), 2)
+        failed = self._manifest([("A1_01_a", 4, 1, 0, 0, 93), ("A1_08_b", 8, 1, 0, 0, 99),
+                                 ("A1_07_c", 4, 8, 0, 0, 1), ("A1_09_d", 4, 8, 1, 0, 1)])
+        failed["cases"][2]["status"] = "fail"
+        self.assertEqual(len(compare_cycles.compare(base, failed)[1]), 1)
+        with self.assertRaises(ValueError):
+            compare_cycles.compare(base, {"mode": "rtl", "cases": good["cases"][:2]})
+        zero_b = self._manifest([("C02_z", 0, 1, 0, 1, None)])
+        rows, violations = compare_cycles.compare(zero_b, self._manifest([("C02_z", 0, 1, 0, 0, 1)]))
+        self.assertEqual((rows[0]["rule"], violations), ("equal", []))
+        self.assertEqual(len(compare_cycles.compare(
+            zero_b, self._manifest([("C02_z", 0, 1, 0, 0, 2)]))[1]), 1)
 
 
 if __name__ == "__main__":

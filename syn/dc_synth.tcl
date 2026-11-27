@@ -1,6 +1,6 @@
 # Design Compiler baseline synthesis for tiny-gpu (SAED32, worst-case SS 0.75V 125C by default)
 # From repo root: dc_shell -f syn/dc_synth.tcl (see syn/README.md)
-# Expects build/gpu.v from `make compile` and optionally build/gpu.saif
+# Expects build/gpu.v (or the variant set in RTL) from `make compile` and optionally build/gpu.saif
 
 source [file join [file dirname [info script]] .. scripts paths.tcl]
 
@@ -9,7 +9,11 @@ if {![info exists CORNER]} { set CORNER ss0p75v125c }
 set LIB_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_$CORNER.db
 set HVT_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_$CORNER.db
 set LVT_DB /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_$CORNER.db
-set RTL    [project_path build/gpu.v]
+# Design variant: RTL selects the converted netlist input. Baseline is build/gpu.v;
+# A1 (WAIT bypass, rtl/scheduler_a1.sv) is build/gpu_a1.v from `make compile VARIANT=a1`:
+#   dc_shell -x "set RTL build/gpu_a1.v; ..." -f syn/dc_synth.tcl
+if {![info exists RTL]} { set RTL build/gpu.v }
+set RTL    [project_path $RTL]
 set SAIF   [project_path build/gpu.saif]
 set TOP    gpu
 
@@ -36,6 +40,16 @@ set OUT [file join $RUN_DIR out]
 set RPT [file join $RUN_DIR reports]
 
 file mkdir $OUT $RPT
+
+# Per-run design library and SVF. Without this, analyze writes <MODULE>.mr /
+# <module>-verilog.syn into the shared working directory, so concurrent DC runs
+# of different RTL (e.g. baseline and A1 sweeps) could elaborate each other's
+# modules. Each run now analyzes into its own RUN_DIR/work.
+set WORK_DIR [file join $RUN_DIR work]
+file delete -force $WORK_DIR
+file mkdir $WORK_DIR
+define_design_lib WORK -path $WORK_DIR
+set_svf [file join $OUT default.svf]
 
 set_app_var target_library $LIBS
 set_app_var link_path      "* $LIBS"

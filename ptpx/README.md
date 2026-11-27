@@ -20,6 +20,19 @@ remaining-violation report. The power script applies the PT change list by
 default. The netlist on disk is not automatically rewritten; export and simulate
 the exact changed implementation before final gate-level validation/activity.
 
+`ptpx/export_eco_netlist.tcl` does that export in `dc_shell`: it reads
+`out/gpu_netlist.v`, sources `out/eco_changes_dc.tcl`, and writes
+`out/gpu_netlist_eco.v` (same `change_names`/`write` settings as synthesis).
+Replaying it on the archived 2.90 ns run gives 46,632.882978 µm², identical to
+PrimeTime's post-ECO area, and the result passes matmul GLS in 491 cycles.
+
+```bash
+dc_shell -x 'set RUN_DIR build/sweeps/ss_lh_cg_a1_<period>' -f ptpx/export_eco_netlist.tcl
+```
+
+Simulate `gpu_netlist_eco.v` (regression and VCDs); PrimeTime keeps reading
+`gpu_netlist.v` plus `eco_changes.tcl`, which is the same implementation.
+
 ## Workload activity and power
 
 Set `SAED` to the licensed PDK library directory, not a downloaded replacement.

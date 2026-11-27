@@ -18,6 +18,16 @@ are `build/synthesis/rvt` or `build/synthesis/multi_vt`. Relative paths are root
 at the repository, not the invoking directory. RTL/optional SAIF are read from
 `build/gpu.v` and `build/gpu.saif`; constraints come from `syn/constraints.sdc`.
 
+Design variants: `make compile VARIANT=a1` writes `build/gpu_a1.v` (A1, WAIT bypass,
+`rtl/scheduler_a1.sv`). Pass `set RTL build/gpu_a1.v` in `-x` to synthesize it. In
+the sweep, `VARIANT=a1` does this and tags run names with `_a1`
+(`ss_lh_cg_a1_<period>`); the default `VARIANT=baseline` keeps the old names.
+
+Each run analyzes RTL into its own design library, `RUN_DIR/work`. Before this,
+`analyze` wrote `*.mr`/`*.syn` files into the shared working directory, so
+concurrent DC runs of different RTL (baseline and A1 sweeps) could elaborate each
+other's modules. Single-variant sweeps, like the midterm's, were not affected.
+
 The optimization flags, clock-gating choices, setup margin, hold/DRC repair loops,
 and numeric constraints were not changed by repository organization. The exact
 SS flow is preserved in `results/ss/flow_snapshot/syn/`; the original TT scripts
@@ -28,6 +38,8 @@ remain in `results/tt/flow_snapshot/syn/`.
 ```bash
 RUN_ROOT="$PWD/build/sweeps/ss_lh" CORNER=ss0p75v125c CG=1 JOBS=3 \
   bash syn/sweep.sh lh 2.85 3.10 0.05
+# A1 (after make compile VARIANT=a1)
+VARIANT=a1 RUN_ROOT="$PWD/build/sweeps" CG=1 JOBS=2 bash syn/sweep.sh lh 2.70 3.10 0.05
 ```
 
 `RUN_ROOT` defaults to `build/sweeps/`; each candidate gets its own directory.

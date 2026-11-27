@@ -12,7 +12,7 @@ import subprocess
 import sys
 from typing import List
 
-from sim.cases import Case, generate_cases
+from sim.cases import Case, SUITES
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,7 +37,8 @@ def export_cases(cases: List[Case], out: Path):
                 "families": sorted({c.family for c in cases}), "cases": []}
     manifest["verification_sources"] = [
         {"path": name, "sha256": hashlib.sha256((ROOT / name).read_bytes()).hexdigest()}
-        for name in ["sim/tb_regression.v", "sim/cases.py", "sim/run.py", "sw/golden.py"]]
+        for name in ["sim/tb_regression.v", "sim/cases.py", "sim/run.py", "sw/golden.py",
+                     "sim/compare_cycles.py"]]
     for c in cases:
         folder = out / c.name
         folder.mkdir()
@@ -143,6 +144,8 @@ def run_simulation(manifest, out, args):
 def parser():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--mode", choices=["generate", "rtl", "netlist"], default="generate")
+    p.add_argument("--suite", choices=sorted(SUITES), default="midterm",
+                   help="midterm: R01-R10/C01-C10; a1: A1_01-A1_10 (WAIT bypass); all: both")
     p.add_argument("--out", type=Path, help="new directory; existing outputs are never overwritten")
     p.add_argument("--trials", type=int, default=100, help="instances per random family")
     p.add_argument("--seed-offset", type=int, default=0)
@@ -167,7 +170,7 @@ def main(argv=None):
             raise ValueError("period, timeout, and cycle budget must be positive finite values")
         if args.mode == "netlist" and not args.netlist:
             raise ValueError("--netlist is required for netlist mode")
-        cases = generate_cases(args.trials, args.seed_offset)
+        cases = SUITES[args.suite](args.trials, args.seed_offset)
         if args.case:
             known = {c.name for c in cases} | {c.family for c in cases}
             if set(args.case) - known:
@@ -177,6 +180,7 @@ def main(argv=None):
         out = (args.out or ROOT / "build/verification" / stamp).resolve()
         manifest = export_cases(cases, out)
         manifest["seed_offset"], manifest["trials"] = args.seed_offset, args.trials
+        manifest["suite"] = args.suite
         if args.mode != "generate":
             passed = run_simulation(manifest, out, args)
         else:

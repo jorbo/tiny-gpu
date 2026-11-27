@@ -5,9 +5,26 @@ ROOT := $(shell file="$$(printf '%s' "$(MAKEFILE_LIST)" | sed 's/^[[:space:]]*//
 BUILD := $(ROOT)/build
 .PHONY: help test compile gls check
 
+# Design variant: baseline -> build/gpu.v, a1 -> build/gpu_a1.v
+#   A1 (bypass WAIT for non-memory instructions) swaps rtl/scheduler.sv for rtl/scheduler_a1.sv.
+#   ALU is converted on its own and appended (see compile).
+VARIANT ?= baseline
+RTL_BASELINE := controller.sv core.sv dcr.sv decoder.sv dispatch.sv fetcher.sv gpu.sv \
+	lsu.sv pc.sv registers.sv scheduler.sv
+RTL_a1 := $(subst scheduler.sv,scheduler_a1.sv,$(RTL_BASELINE))
+ifeq ($(VARIANT),baseline)
+RTL_SRCS := $(RTL_BASELINE)
+GPU_V := $(BUILD)/gpu.v
+else ifeq ($(VARIANT),a1)
+RTL_SRCS := $(RTL_a1)
+GPU_V := $(BUILD)/gpu_$(VARIANT).v
+else
+$(error unknown VARIANT '$(VARIANT)'; use baseline or a1)
+endif
+
 help:
 	@echo "Offline: make check | verification_vectors"
-	@echo "Hardware (explicit opt-in): make compile | test_matadd | tb_matmul | gls"
+	@echo "Hardware (explicit opt-in): make compile | test_matadd | tb_matmul | gls  [VARIANT=baseline|a1]"
 	@echo "See README.md, sim/README.md, syn/README.md and ptpx/README.md."
 
 # cocotb is only needed for test_%; scoping these keeps other targets working on hosts without it
@@ -16,16 +33,16 @@ test_%: export PYGPI_PYTHON_BIN = $(shell cocotb-config --python-bin)
 test_%: export GPI_USERS = $(LIBPYTHON_LOC);$(shell $(PYGPI_PYTHON_BIN) -m cocotb_tools.config --pygpi-entry-point)
 
 test_%:
-	$(MAKE) -C "$(ROOT)" compile
-	iverilog -o "$(BUILD)/sim.vvp" -s gpu -g2012 "$(BUILD)/gpu.v"
+	$(MAKE) -C "$(ROOT)" compile VARIANT=$(VARIANT)
+	iverilog -o "$(BUILD)/sim.vvp" -s gpu -g2012 "$(GPU_V)"
 	cd "$(ROOT)" && COCOTB_TEST_MODULES=sim.legacy.test_$* vvp -m $$( $${PYGPI_PYTHON_BIN} -m cocotb_tools.config --lib-name-path vpi icarus ) "$(BUILD)/sim.vvp"
 
 # Plain Verilog testbench (no cocotb): make tb_matmul / tb_matadd, writes build/gpu.vcd
 CLK_PERIOD ?= 10
 
 tb_%:
-	$(MAKE) -C "$(ROOT)" compile
-	iverilog -g2012 -o "$(BUILD)/tb.vvp" -s tb_gpu -DCLK_PERIOD=$(CLK_PERIOD) $(if $(filter matadd,$*),-DMATADD) "$(BUILD)/gpu.v" "$(ROOT)/sim/legacy/tb_gpu.v"
+	$(MAKE) -C "$(ROOT)" compile VARIANT=$(VARIANT)
+	iverilog -g2012 -o "$(BUILD)/tb.vvp" -s tb_gpu -DCLK_PERIOD=$(CLK_PERIOD) $(if $(filter matadd,$*),-DMATADD) "$(GPU_V)" "$(ROOT)/sim/legacy/tb_gpu.v"
 	cd "$(ROOT)" && vvp "$(BUILD)/tb.vvp" +vcd
 
 # Gate-level sim of a DC netlist for PrimeTime power:
@@ -49,15 +66,18 @@ gls: $(GLS_VLIB)
 		"$(NETLIST)" $(GLS_VLIB) sim/legacy/tb_gpu.v
 	cd "$(ROOT)" && vvp build/gls.vvp +vcd +vcdfile=build/gpu_gls.vcd
 
+# The old recipe passed `-I rtl/*`, which made rtl/alu.sv an include directory and
+# converted every other rtl/*.sv; ALU was converted separately and appended. The
+# file list is now explicit so variant files (e.g. scheduler_a1.sv) are not swept in.
 compile:
 	mkdir -p "$(BUILD)"
 	$(MAKE) -C "$(ROOT)" compile_alu
-	sv2v -I "$(ROOT)"/rtl/* -w "$(BUILD)/gpu.v"
-	echo "" >> "$(BUILD)/gpu.v"
-	cat "$(BUILD)/alu.v" >> "$(BUILD)/gpu.v"
+	sv2v -w "$(GPU_V)" $(addprefix "$(ROOT)/rtl/,$(addsuffix ",$(RTL_SRCS)))
+	echo "" >> "$(GPU_V)"
+	cat "$(BUILD)/alu.v" >> "$(GPU_V)"
 	echo '`timescale 1ns/1ns' > "$(BUILD)/temp.v"
-	cat "$(BUILD)/gpu.v" >> "$(BUILD)/temp.v"
-	mv "$(BUILD)/temp.v" "$(BUILD)/gpu.v"
+	cat "$(GPU_V)" >> "$(BUILD)/temp.v"
+	mv "$(BUILD)/temp.v" "$(GPU_V)"
 
 compile_%:
 	mkdir -p "$(BUILD)"

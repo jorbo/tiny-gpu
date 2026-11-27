@@ -5,7 +5,7 @@ divergent branches, and cross-thread memory races are outside this suite's
 legal program contract and are rejected, not given invented reference values.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict, List, Sequence
 
 
@@ -36,6 +36,18 @@ def encode(op: str, rd: int = 0, rs: int = 0, rt: int = 0,
 class Execution:
     memory: List[int]
     writes: Dict[int, int]
+    # A1 (WAIT bypass) addition: per-block dynamic instruction counts. Blocks are
+    # convergent, so one count per block covers every active lane. `retired`
+    # includes the final RET; `memory_ops` counts LDR/STR. A1 does not change any
+    # functional output (memory, writes); it removes exactly one scheduler cycle per
+    # retired non-memory instruction, i.e. `retired - memory_ops` cycles per block
+    # when the block runs alone on one core (see sim/compare_cycles.py).
+    retired: List[int] = field(default_factory=list)
+    memory_ops: List[int] = field(default_factory=list)
+
+    def non_memory_ops(self) -> List[int]:
+        """A1: instructions per block that skip WAIT (one cycle saved each)."""
+        return [r - m for r, m in zip(self.retired, self.memory_ops)]
 
 
 def execute(program: Sequence[int], memory: Sequence[int], threads: int,
@@ -54,17 +66,24 @@ def execute(program: Sequence[int], memory: Sequence[int], threads: int,
     writes: Dict[int, int] = {}
     owners: Dict[int, int] = {}
     readers: Dict[int, set] = {}
+    retired: List[int] = []
+    memory_ops: List[int] = []
     for block in range((threads + 3) // 4):
         count = min(4, threads - 4 * block)
         regs = [[0] * 13 + [block, 4, lane] for lane in range(count)]
         nzp = [0] * count
         pc = 0
+        retired.append(0)      # A1 performance counters (no functional effect)
+        memory_ops.append(0)
         for _ in range(max_steps):
             word = code[pc]
             op, rd, rs, rt = word >> 12, (word >> 8) & 15, (word >> 4) & 15, word & 15
             imm, mask = word & 255, (word >> 9) & 7
             if op not in OPS.values():
                 raise ValueError("unsupported opcode at PC %d" % pc)
+            retired[-1] += 1
+            if op in (OPS["LDR"], OPS["STR"]):
+                memory_ops[-1] += 1
             if op == OPS["RET"]:
                 break
             targets = []
@@ -109,4 +128,4 @@ def execute(program: Sequence[int], memory: Sequence[int], threads: int,
             pc = targets[0]
         else:
             raise ValueError("instruction budget exhausted (nontermination)")
-    return Execution(data, writes)
+    return Execution(data, writes, retired, memory_ops)

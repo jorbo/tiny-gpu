@@ -7,6 +7,11 @@ describes the original tiny-gpu design and matrix kernels.
 
 ## Current status
 
+- A1 (bypass WAIT for non-memory instructions) is implemented in
+  `rtl/scheduler_a1.sv`. Results comparing it with the re-synthesized fixed
+  baseline are in [results/a1/README.md](results/a1/README.md): baseline 2.35 ns
+  (425.5 MHz), A1 2.25 ns (444.4 MHz), both PrimeTime-clean after ECO; matmul
+  491 → 455 cycles. The midterm bullets below describe the earlier baseline.
 - The selected baseline is the SS 0.75 V / 125°C clock-gated run at 2.90 ns
   (344.8 MHz) under `results/ss/runs/best_ss_lh_cg/`; its flow snapshot and
   activity are in `results/ss/`. Historical TT 0.78 V / 25°C results are retained
@@ -20,6 +25,17 @@ describes the original tiny-gpu design and matrix kernels.
 - The [report draft](docs/midterm/report.md) documents these results, the proposed
   optimizations, and the remaining evidence. The presentation and assignment PDF
   are also in `docs/midterm/`.
+
+## Design variants
+
+| Variant | RTL files | Converted netlist input | Change |
+|---|---|---|---|
+| baseline | `rtl/*.sv` except `*_a1.sv` | `build/gpu.v` | Midterm baseline with the two bug fixes. |
+| A1 | baseline with `rtl/scheduler.sv` replaced by `rtl/scheduler_a1.sv` | `build/gpu_a1.v` | Non-memory instructions skip WAIT (REQUEST→EXECUTE). |
+
+Select with `VARIANT=baseline|a1` on `make compile`, `tb_%`, and `test_%`, and with
+`VARIANT=a1` for `syn/sweep.sh` (see `syn/README.md`). The A1 test suite and cycle
+comparison are described in [sim/README.md](sim/README.md#a1-suite-bypass-wait-for-non-memory-instructions).
 
 ## Repository layout
 
@@ -58,6 +74,12 @@ with 1,039 instances, all initially `not_run`. See [sim/README.md](sim/README.md
 for all families, seeds, expected results, and optional execution modes.
 
 ## Hardware tools and reproduction
+
+On the RHEL 8 lab server, Icarus Verilog 12.0 was built from source into
+`~/.local` (with GNU gperf 3.1, also built locally); add `~/.local/bin` to `PATH`. The
+prebuilt sv2v v0.0.13 binary needs glibc 2.34+, so `~/bin/sv2v` is a wrapper that runs
+it inside an Ubuntu 22.04 Apptainer image (`apptainer pull ubuntu2204.sif
+docker://ubuntu:22.04`).
 
 Hardware commands require separately installed `sv2v`, Icarus Verilog/`vvp`, and
 the course-provided SAED32 models. Synthesis and power need licensed Synopsys

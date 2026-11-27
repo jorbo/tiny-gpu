@@ -14,3 +14,15 @@ results/**/*.spef
 !results/tt/runs/lh_2.55_cg/out/gpu.sdf
 !results/ss/runs/ss_lh_cg_2.90/out/gpu.sdf
 *:Zone.Identifier
+
+# Design Compiler side files written to the working directory (design library now
+# lives in RUN_DIR/work; these remain from alib caching and command logging)
+alib-52/
+cksum_dir/
+command.log
+default.svf
+*.mr
+*-verilog.pvl
+*-verilog.syn
+pt_shell_command.log
+Synopsys_stack_trace_*.txt
