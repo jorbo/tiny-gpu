@@ -1,0 +1,10 @@
+VCD info: dumpfile matmul_n5.vcd opened for output.
+Launch 0: 455 cycles, 0 errors
+Launch 1: 455 cycles, 0 errors
+Launch 2: 455 cycles, 0 errors
+Launch 3: 455 cycles, 0 errors
+Launch 4: 455 cycles, 0 errors
+Completed 5 launches in 2275 kernel cycles (5118.75 ns at 2.25 ns clock)
+KERNEL_WINDOWS_NS 10.688 1033.875 1045.688 2068.875 2080.688 3103.875 3115.688 4138.875 4150.688 5173.875 
+PASS
+sim/legacy/tb_gpu.v:280: $finish called at 5174438 (1ps)

@@ -58,6 +58,14 @@ Replace the example period with the selected run's period and use its exact
 netlist. Current GLS is zero delay, not SDF timing verification. The new full
 suite is separately documented in [sim/README.md](../sim/README.md).
 
+**Extended-period (reported) power:** `LAUNCHES=20 scripts/power.sh <RUN_DIR> <period>`
+simulates 20 back-to-back launches of each kernel (`sim/legacy/tb_gpu.v +launches=N`,
+randomized data after launch 0, every launch checked). It passes the printed
+`KERNEL_WINDOWS_NS` to `pt_power.tcl` as `VCD_TIME`, i.e. `read_vcd -time {s0 e0 ...}`
+in ns, so power is averaged over kernel execution only. Reports go to
+`pt_reports_n20/` and `pt_reports_matadd_n20/`. The average converged within 0.25%
+between N=5 and N=20 (`results/a1/README.md`).
+
 `USE_ECO` defaults to 1; `USE_SPEF` defaults to 0. Activity is averaged over the
 full supplied VCD unless the measurement flow is explicitly changed. Save the
 window and annotation diagnostics, resolve width/import errors, and use longer

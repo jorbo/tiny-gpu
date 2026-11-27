@@ -27,16 +27,49 @@ matmul: 491 cycles (baseline) and 455 cycles (A1), so each is the intended desig
 
 | | Frequency (MHz) | Period (ns) | Setup WNS (ns) | Hold WNS (ns) | Area (µm²) | Power matmul (mW) | Power matadd (mW) |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Baseline | 425.5 | 2.35 | +0.047952 | +0.091396 | 46,934.043 | 6.6727 | 6.9490 |
-| A1 | 444.4 | 2.25 | +0.067512 | +0.091396 | 45,035.333 | 6.5687 | 6.8654 |
-| Change | +4.44% | -0.10 | | | -4.05% | -1.56% | -1.20% |
+| Baseline | 425.5 | 2.35 | +0.047952 | +0.091396 | 46,934.043 | 6.6946 | 6.9916 |
+| A1 | 444.4 | 2.25 | +0.067512 | +0.091396 | 45,035.333 | 6.5854 | 6.9033 |
+| Change | +4.44% | -0.10 | | | -4.05% | -1.63% | -1.26% |
 
-Power breakdown (mW):
+Power is the average over 20 back-to-back kernel launches, kernel windows only
+(see "Power measurement" below; reports in `pt_reports_n20/` and
+`pt_reports_matadd_n20/`). Breakdown (mW):
 
 | | matmul dynamic | matmul leakage | matadd dynamic | matadd leakage |
 |---|---:|---:|---:|---:|
-| Baseline | 0.9544 | 5.7183 | 1.1563 | 5.7927 |
-| A1 | 1.0139 | 5.5548 | 1.2199 | 5.6455 |
+| Baseline | 0.9409 | 5.7537 | 1.1298 | 5.8618 |
+| A1 | 0.9952 | 5.5902 | 1.1862 | 5.7171 |
+| Change | +5.78% | -2.84% | +4.99% | -2.47% |
+
+Leakage is about 85% of the total. A1's lower leakage tracks its smaller cell
+area. Its higher dynamic power is expected: A1 does the same switching in fewer
+cycles at a faster clock. Per launch, A1 uses less energy (table below).
+
+## Power measurement
+
+`sim/legacy/tb_gpu.v +launches=N` runs N back-to-back launches. Each resets the
+GPU, reloads data memory, runs the kernel and checks every output. Launch 0 uses
+the original kernel inputs; launches 1 to N-1 use seeded pseudo-random bytes
+(`+data_seed`, default 1). The testbench prints each launch's start..done window.
+`scripts/power.sh` (`LAUNCHES=N`) passes the windows to PrimeTime as
+`read_vcd -time` (`ptpx/pt_power.tcl` `VCD_TIME`). Power is therefore averaged
+over kernel execution only, excluding reset and DCR setup. The gate-level
+simulation is of the ECO netlist at each design's own period.
+
+Convergence (total power, mW). The change from N=5 to N=20 is below 0.25% in
+every case, so N=20 (about 9,100-9,820 matmul and 3,400-3,560 matadd kernel
+cycles) is reported:
+
+| Launches N | Baseline matmul | A1 matmul | Baseline matadd | A1 matadd |
+|---:|---:|---:|---:|---:|
+| 1 | 6.6462 | 6.5395 | 6.8837 | 6.7957 |
+| 5 | 6.6838 | 6.5746 | 6.9754 | 6.8874 |
+| 20 | 6.6946 | 6.5854 | 6.9916 | 6.9033 |
+| Change 5 → 20 | +0.16% | +0.16% | +0.23% | +0.23% |
+
+The earlier single-launch, whole-trace measurement (reset included, midterm
+method, `pt_reports/`) gave 6.6727 / 6.9490 mW (baseline) and 6.5687 / 6.8654 mW
+(A1). Both designs annotate 100% of nets from the VCD.
 
 No PrimeTime violators of any kind remain for either design, including
 minimum pulse width. The midterm's 877 pulse-width violations matched its 877
@@ -52,14 +85,13 @@ Critical paths (DC, both are the per-lane ALU):
 
 ## Latency and energy (legacy kernel testbench, gate level, ECO netlist)
 
-`energy = average power × cycles × period`. The power is averaged over the full
-trace (including reset/setup), so these are first-order estimates, as at the midterm.
+Energy per launch = N=20 kernel-window average power × cycles × period.
 
 | | matmul cycles | matmul latency | matmul energy | matadd cycles | matadd latency | matadd energy |
 |---|---:|---:|---:|---:|---:|---:|
-| Baseline | 491 | 1,153.85 ns | 7.699 nJ | 178 | 418.30 ns | 2.907 nJ |
-| A1 | 455 | 1,023.75 ns | 6.725 nJ | 170 | 382.50 ns | 2.626 nJ |
-| Change | -7.33% | -11.28% | -12.66% | -4.49% | -8.56% | -9.66% |
+| Baseline | 491 | 1,153.85 ns | 7.725 nJ | 178 | 418.30 ns | 2.925 nJ |
+| A1 | 455 | 1,023.75 ns | 6.742 nJ | 170 | 382.50 ns | 2.641 nJ |
+| Change | -7.33% | -11.28% | -12.72% | -4.49% | -8.56% | -9.71% |
 
 ## Attribution: what A1 itself contributes
 
@@ -119,22 +151,23 @@ Mapped to the final project manual's parts; the numbers are the tables above.
 - **Baseline section update:** the midterm's 344.8 MHz / 46,632.9 µm² / 877
   pulse-width violations describe the pre-fix netlist and a sweep that stopped at
   2.85 ns. The fixed baseline is 425.5 MHz / 46,934.0 µm² with no violations.
-- **Caveats to state:** power is averaged over one kernel launch, including reset
-  (see open items). The netlist is pre-layout, with an ideal clock and wire-load
+- **Power methodology (Part 3):** average over 20 launches with randomized data,
+  kernel windows only via `read_vcd -time`, converged within 0.25% (convergence
+  table above). Test vectors come from the legacy kernel testbench
+  (`+launches`, `+data_seed`).
+- **Caveats to state:** power is still a zero-delay gate-level activity estimate,
+  with no glitch power and no memory macros. The netlist is pre-layout, with an ideal clock and wire-load
   models. The two-core matadd saving is limited by the shared program-memory
   channel.
 
 ## Open items
 
-1. **Extended-period power (required by the manual, both designs):** the VCDs
-   cover one kernel launch, including reset. Run repeated launches (or a longer
-   workload) until the average stabilizes, and report kernel-only power.
-2. **Reproduction scripts:** the post-synthesis steps were run with throwaway
-   scripts in the git-ignored `build/` directory. Move them into the repository
-   and add them to the README:
-   - `post_synth.sh`: gate-level identity check, PT ECO, PT timing probe, ECO export
-   - `power.sh`: ECO-netlist VCDs, then PrimeTime power
-   - `netlist_shards.sh`: parallel netlist regression
+1. Done: extended-period power (20 launches, kernel windows, converged; see
+   "Power measurement").
+2. Done: reproduction scripts are in `scripts/`. They are `post_synth.sh` (GLS
+   identity check, PT ECO, PT timing probe, ECO export), `power.sh`
+   (`LAUNCHES=N` for the extended measurement) and `netlist_shards.sh` (parallel
+   netlist regression). They locate the repository root relative to themselves.
 3. **Submission packaging:** the whole repository archives to about 28 MB, over
    the 20 MB limit. Build `final-team-6/` from `rtl sim sw syn ptpx scripts
    results/a1` plus the README (about 1.8 MB zipped), and fix the paths for that
@@ -143,8 +176,10 @@ Mapped to the final project manual's parts; the numbers are the tables above.
 
 ## Files
 
-- `runs/<design>_ss_lh_cg_<period>/`: `dc.log`, DC `reports/`, PT `pt_reports/` (matmul)
-  and `pt_reports_matadd/`, PT/ECO logs, `out/gpu_netlist.v` (DC),
+- `runs/<design>_ss_lh_cg_<period>/`: `dc.log`, DC `reports/`, PT `pt_reports_n{1,5,20}/`
+  (matmul) and `pt_reports_matadd_n{1,5,20}/` (the extended measurement; `n20` is
+  reported), `pt_reports*/` without a suffix (single-launch whole-trace),
+  `power_n*.log` summaries, PT/ECO logs, `out/gpu_netlist.v` (DC),
   `out/gpu_netlist_eco.v` (ECO applied, simulated), `out/eco_changes*.tcl`,
   `out/gpu.sdc`, `gls/` simulation logs.
 - `sweeps/`: period-sweep CSVs. All rows are post-fix runs (per-run design

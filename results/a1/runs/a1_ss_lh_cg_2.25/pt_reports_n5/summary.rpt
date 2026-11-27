@@ -1,0 +1,8 @@
+period_ns  2.250
+freq_mhz   444.4
+setup_wns  0.067512
+hold_wns   0.091396
+cell_area  45035.333
+total_pwr  0.006574630990586758
+dyn_pwr    0.000992474661165
+leak_pwr   0.005582156327068941

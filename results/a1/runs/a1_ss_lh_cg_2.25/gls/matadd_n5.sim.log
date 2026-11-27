@@ -1,0 +1,10 @@
+VCD info: dumpfile matadd_n5.vcd opened for output.
+Launch 0: 170 cycles, 0 errors
+Launch 1: 170 cycles, 0 errors
+Launch 2: 170 cycles, 0 errors
+Launch 3: 170 cycles, 0 errors
+Launch 4: 170 cycles, 0 errors
+Completed 5 launches in 850 kernel cycles (1912.50 ns at 2.25 ns clock)
+KERNEL_WINDOWS_NS 10.688 392.625 404.438 786.375 798.188 1180.125 1191.938 1573.875 1585.688 1967.625 
+PASS
+sim/legacy/tb_gpu.v:280: $finish called at 1968188 (1ps)

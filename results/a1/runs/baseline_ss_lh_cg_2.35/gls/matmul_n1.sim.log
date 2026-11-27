@@ -1,0 +1,5 @@
+VCD info: dumpfile matmul_n1.vcd opened for output.
+Completed in 491 cycles (1153.85 ns at 2.35 ns clock)
+KERNEL_WINDOWS_NS 11.163 1164.425 
+PASS
+sim/legacy/tb_gpu.v:280: $finish called at 1165013 (1ps)

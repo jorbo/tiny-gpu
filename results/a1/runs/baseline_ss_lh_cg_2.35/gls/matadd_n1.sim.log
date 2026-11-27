@@ -1,0 +1,5 @@
+VCD info: dumpfile matadd_n1.vcd opened for output.
+Completed in 178 cycles (418.30 ns at 2.35 ns clock)
+KERNEL_WINDOWS_NS 11.163 428.875 
+PASS
+sim/legacy/tb_gpu.v:280: $finish called at 429463 (1ps)

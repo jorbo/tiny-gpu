@@ -1,0 +1,32 @@
+****************************************
+Report : Averaged Power
+Design : gpu
+Version: V-2023.12-SP5-4
+Date   : Fri Nov 27 12:38:22 2026
+****************************************
+
+
+
+  Attributes
+  ----------
+      i  -  Including register clock pin internal power
+      u  -  User defined power group
+
+                        Internal  Switching  Leakage    Total
+Power Group             Power     Power      Power      Power   (     %)  Attrs
+--------------------------------------------------------------------------------
+clock_network           9.226e-04 2.999e-05 9.006e-05 1.043e-03 (15.34%)  i
+register                7.705e-06 6.892e-06 2.949e-03 2.964e-03 (43.61%)  
+combinational           1.262e-04 5.534e-05 2.608e-03 2.789e-03 (41.05%)  
+sequential                 0.0000    0.0000    0.0000    0.0000 ( 0.00%)  
+memory                     0.0000    0.0000    0.0000    0.0000 ( 0.00%)  
+io_pad                     0.0000    0.0000    0.0000    0.0000 ( 0.00%)  
+black_box                  0.0000    0.0000    0.0000    0.0000 ( 0.00%)  
+
+  Net Switching Power  = 9.222e-05   ( 1.36%)
+  Cell Internal Power  = 1.057e-03   (15.55%)
+  Cell Leakage Power   = 5.647e-03   (83.10%)
+                         ---------
+Total Power            = 6.796e-03  (100.00%)
+
+1

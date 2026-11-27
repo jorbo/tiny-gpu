@@ -1,0 +1,25 @@
+VCD info: dumpfile matmul_n20.vcd opened for output.
+Launch 0: 491 cycles, 0 errors
+Launch 1: 491 cycles, 0 errors
+Launch 2: 491 cycles, 0 errors
+Launch 3: 491 cycles, 0 errors
+Launch 4: 491 cycles, 0 errors
+Launch 5: 491 cycles, 0 errors
+Launch 6: 491 cycles, 0 errors
+Launch 7: 491 cycles, 0 errors
+Launch 8: 491 cycles, 0 errors
+Launch 9: 491 cycles, 0 errors
+Launch 10: 491 cycles, 0 errors
+Launch 11: 491 cycles, 0 errors
+Launch 12: 491 cycles, 0 errors
+Launch 13: 491 cycles, 0 errors
+Launch 14: 491 cycles, 0 errors
+Launch 15: 491 cycles, 0 errors
+Launch 16: 491 cycles, 0 errors
+Launch 17: 491 cycles, 0 errors
+Launch 18: 491 cycles, 0 errors
+Launch 19: 491 cycles, 0 errors
+Completed 20 launches in 9820 kernel cycles (23077.00 ns at 2.35 ns clock)
+KERNEL_WINDOWS_NS 11.163 1164.425 1176.763 2330.025 2342.363 3495.625 3507.963 4661.225 4673.563 5826.825 5839.163 6992.425 7004.763 8158.025 8170.363 9323.625 9335.963 10489.225 10501.563 11654.825 11667.163 12820.425 12832.763 13986.025 13998.363 15151.625 15163.963 16317.225 16329.563 17482.825 17495.163 18648.425 18660.763 19814.025 19826.363 20979.625 20991.963 22145.225 22157.563 23310.825 
+PASS
+sim/legacy/tb_gpu.v:280: $finish called at 23311413 (1ps)

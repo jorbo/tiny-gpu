@@ -1,0 +1,25 @@
+VCD info: dumpfile matadd_n20.vcd opened for output.
+Launch 0: 178 cycles, 0 errors
+Launch 1: 178 cycles, 0 errors
+Launch 2: 178 cycles, 0 errors
+Launch 3: 178 cycles, 0 errors
+Launch 4: 178 cycles, 0 errors
+Launch 5: 178 cycles, 0 errors
+Launch 6: 178 cycles, 0 errors
+Launch 7: 178 cycles, 0 errors
+Launch 8: 178 cycles, 0 errors
+Launch 9: 178 cycles, 0 errors
+Launch 10: 178 cycles, 0 errors
+Launch 11: 178 cycles, 0 errors
+Launch 12: 178 cycles, 0 errors
+Launch 13: 178 cycles, 0 errors
+Launch 14: 178 cycles, 0 errors
+Launch 15: 178 cycles, 0 errors
+Launch 16: 178 cycles, 0 errors
+Launch 17: 178 cycles, 0 errors
+Launch 18: 178 cycles, 0 errors
+Launch 19: 178 cycles, 0 errors
+Completed 20 launches in 3560 kernel cycles (8366.00 ns at 2.35 ns clock)
+KERNEL_WINDOWS_NS 11.163 428.875 441.213 858.925 871.263 1288.975 1301.313 1719.025 1731.363 2149.075 2161.413 2579.125 2591.463 3009.175 3021.513 3439.225 3451.563 3869.275 3881.613 4299.325 4311.663 4729.375 4741.713 5159.425 5171.763 5589.475 5601.813 6019.525 6031.863 6449.575 6461.913 6879.625 6891.963 7309.675 7322.013 7739.725 7752.063 8169.775 8182.113 8599.825 
+PASS
+sim/legacy/tb_gpu.v:280: $finish called at 8600413 (1ps)

@@ -1,0 +1,23 @@
+matmul: Completed 20 launches in 9820 kernel cycles (23077.00 ns at 2.35 ns clock) PASS 
+matmul windows: 40 values
+matmul power:
+period_ns  2.350
+freq_mhz   425.5
+setup_wns  0.047952
+hold_wns   0.091396
+cell_area  46934.043
+total_pwr  0.006694616856158806
+dyn_pwr    0.000940874560689
+leak_pwr   0.005753742280753711
+matadd: Completed 20 launches in 3560 kernel cycles (8366.00 ns at 2.35 ns clock) PASS 
+matadd windows: 40 values
+matadd power:
+period_ns  2.350
+freq_mhz   425.5
+setup_wns  0.047952
+hold_wns   0.091396
+cell_area  46934.043
+total_pwr  0.00699160660141827
+dyn_pwr    0.00112982155576
+leak_pwr   0.005861785030695978
+DONE

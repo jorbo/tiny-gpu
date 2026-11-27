@@ -1,0 +1,23 @@
+matmul: Completed in 491 cycles (1153.85 ns at 2.35 ns clock) PASS 
+matmul windows: 2 values
+matmul power:
+period_ns  2.350
+freq_mhz   425.5
+setup_wns  0.047952
+hold_wns   0.091396
+cell_area  46934.043
+total_pwr  0.006646190948237282
+dyn_pwr    0.000928451701277
+leak_pwr   0.005717739234712494
+matadd: Completed in 178 cycles (418.30 ns at 2.35 ns clock) PASS 
+matadd windows: 2 values
+matadd power:
+period_ns  2.350
+freq_mhz   425.5
+setup_wns  0.047952
+hold_wns   0.091396
+cell_area  46934.043
+total_pwr  0.006883742834075373
+dyn_pwr    0.0010906920443
+leak_pwr   0.005793050765453532
+DONE
