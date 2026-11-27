@@ -1,0 +1,4 @@
+VCD info: dumpfile matmul.vcd opened for output.
+Completed in 491 cycles (1153.85 ns at 2.35 ns clock)
+PASS
+sim/legacy/tb_gpu.v:214: $finish called at 1165013 (1ps)

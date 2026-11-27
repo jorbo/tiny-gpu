@@ -1,0 +1,700 @@
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid this.
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+              Version W-2024.09-SP5-4 for linux64 - Sep 10, 2025 
+
+                    Copyright (c) 1988 - 2025 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+Initializing...
+Current time:       Tue Nov 24 18:02:58 2026
+Hostname:           bender.engr.ucr.edu
+CPU Model:          Intel(R) Xeon(R) Gold 5215 CPU @ 2.50GHz
+CPU Details:        Cores = 40 : Sockets = 2 : Cache Size = 14080 KB : Freq = 3.05 GHz
+OS:                 Linux 4.18.0-553.172.1.el8_10.x86_64
+RAM:                251 GB (Free 106 GB)
+Swap:                 3 GB (Free   3 GB)
+Work Filesystem:    /home/csgrad mounted to toaster:/home/grad/cs
+Tmp Filesystem:     / mounted to /dev/md125
+Work Disk:          6745 GB (Free 3265 GB)
+Tmp Disk:           888 GB (Free 168 GB)
+
+CPU Load: 17%, Ram Free: 106 GB, Swap Free: 3 GB, Work Disk Free: 3265 GB, Tmp Disk Free: 168 GB
+# Export the ECO-applied netlist so gate-level regression and power activity use the
+# exact implementation PrimeTime signs off (pt_power.tcl applies eco_changes.tcl only
+# inside its own session; the DC netlist on disk is unchanged).
+#
+# From repo root, after ptpx/pt_eco.tcl has written $RUN_DIR/out/eco_changes_dc.tcl:
+#   dc_shell -x "set RUN_DIR build/sweeps/ss_lh_cg_a1_2.90" -f ptpx/export_eco_netlist.tcl
+# Writes $RUN_DIR/out/gpu_netlist_eco.v. Simulate that file with sim.run --mode netlist
+# and make gls NETLIST=...; keep gpu_netlist.v + eco_changes.tcl as the PT input.
+source [file join [file dirname [info script]] .. scripts paths.tcl]
+if {![info exists CORNER]} { set CORNER ss0p75v125c }
+ss0p75v125c
+if {![info exists RUN_DIR]} { error "Set RUN_DIR explicitly (repository-relative or absolute)." }
+set RUN_DIR [project_path $RUN_DIR]
+/home/csgrad/szimm011/tiny-gpu/tiny-gpu/build/sweeps/ss_lh_cg_2.35
+set TOP gpu
+gpu
+set LIBDIR /usr/local/synopsys/pdk/SAED32_EDK/lib
+/usr/local/synopsys/pdk/SAED32_EDK/lib
+set target_library [list \
+    $LIBDIR/stdcell_lvt/db_nldm/saed32lvt_$CORNER.db \
+    $LIBDIR/stdcell_hvt/db_nldm/saed32hvt_$CORNER.db \
+    $LIBDIR/stdcell_rvt/db_nldm/saed32rvt_$CORNER.db]
+/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75v125c.db /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p75v125c.db /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p75v125c.db
+set link_library [concat * $target_library]
+* /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75v125c.db /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p75v125c.db /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p75v125c.db
+set ECO $RUN_DIR/out/eco_changes_dc.tcl
+/home/csgrad/szimm011/tiny-gpu/tiny-gpu/build/sweeps/ss_lh_cg_2.35/out/eco_changes_dc.tcl
+if {![file exists $ECO]} { error "missing $ECO; run ptpx/pt_eco.tcl first" }
+read_verilog -netlist $RUN_DIR/out/${TOP}_netlist.v
+Loading db file '/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75v125c.db'
+Loading db file '/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p75v125c.db'
+Loading db file '/usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p75v125c.db'
+Loading db file '/usr/local/synopsys/syn/W-2024.09-SP5-4/libraries/syn/gtech.db'
+Loading db file '/usr/local/synopsys/syn/W-2024.09-SP5-4/libraries/syn/standard.sldb'
+  Loading link library 'saed32lvt_ss0p75v125c'
+  Loading link library 'saed32hvt_ss0p75v125c'
+  Loading link library 'saed32rvt_ss0p75v125c'
+  Loading link library 'gtech'
+Loading verilog file '/home/csgrad/szimm011/tiny-gpu/tiny-gpu/build/sweeps/ss_lh_cg_2.35/out/gpu_netlist.v'
+Running DC verilog reader
+Performing 'read' command.
+Compiling source file /home/csgrad/szimm011/tiny-gpu/tiny-gpu/build/sweeps/ss_lh_cg_2.35/out/gpu_netlist.v
+Verilog netlist reader completed successfully.
+Current design is now '/home/csgrad/szimm011/tiny-gpu/tiny-gpu/build/sweeps/ss_lh_cg_2.35/out/SNPS_CLOCK_GATE_HIGH_dcr.db:SNPS_CLOCK_GATE_HIGH_dcr'
+Loaded 268 designs.
+Current design is 'SNPS_CLOCK_GATE_HIGH_dcr'.
+SNPS_CLOCK_GATE_HIGH_dcr dcr SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_0 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_24 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_23 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_22 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_21 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_20 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_19 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_18 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_17 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_16 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_15 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_14 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_13 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_12 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_11 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_10 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_9 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_8 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_7 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_6 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_5 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_4 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_3 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_2 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_1 controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_0 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_3 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_2 SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_1 controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0 SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_0 SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_4 SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_3 SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_2 SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_1 dispatch_NUM_CORES2_THREADS_PER_BLOCK4 SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_5 SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_4 SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_3 fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_1 SNPS_CLOCK_GATE_HIGH_decoder_0_1 decoder_1 SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_3 SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_2 scheduler_THREADS_PER_BLOCK4_1 SNPS_CLOCK_GATE_HIGH_alu_0_7 alu_7 SNPS_CLOCK_GATE_HIGH_lsu_0_23 SNPS_CLOCK_GATE_HIGH_lsu_0_22 SNPS_CLOCK_GATE_HIGH_lsu_0_21 lsu_7 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_32 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_31 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_30 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_29 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_28 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_27 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_26 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_25 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_24 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_23 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_22 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_21 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_20 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_19 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_18 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_17 registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_15 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_14 pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_7 SNPS_CLOCK_GATE_HIGH_alu_0_6 alu_6 SNPS_CLOCK_GATE_HIGH_lsu_0_20 SNPS_CLOCK_GATE_HIGH_lsu_0_19 SNPS_CLOCK_GATE_HIGH_lsu_0_18 lsu_6 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_32 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_31 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_30 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_29 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_28 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_27 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_26 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_25 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_24 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_23 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_22 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_21 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_20 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_19 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_18 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_17 registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_1 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_13 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_12 pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_6 SNPS_CLOCK_GATE_HIGH_alu_0_5 alu_5 SNPS_CLOCK_GATE_HIGH_lsu_0_17 SNPS_CLOCK_GATE_HIGH_lsu_0_16 SNPS_CLOCK_GATE_HIGH_lsu_0_15 lsu_5 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_32 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_31 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_30 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_29 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_28 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_27 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_26 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_25 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_24 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_23 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_22 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_21 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_20 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_19 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_18 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_17 registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_1 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_11 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_10 pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_5 SNPS_CLOCK_GATE_HIGH_alu_0_4 alu_4 SNPS_CLOCK_GATE_HIGH_lsu_0_14 SNPS_CLOCK_GATE_HIGH_lsu_0_13 SNPS_CLOCK_GATE_HIGH_lsu_0_12 lsu_4 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_32 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_31 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_30 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_29 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_28 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_27 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_26 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_25 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_24 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_23 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_22 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_21 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_20 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_19 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_18 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_17 registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_9 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_8 pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4 
+core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1 SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_0 SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_2 SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_1 fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0 SNPS_CLOCK_GATE_HIGH_decoder_0_0 decoder_0 SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_0 SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_1 scheduler_THREADS_PER_BLOCK4_0 SNPS_CLOCK_GATE_HIGH_alu_0_3 alu_3 SNPS_CLOCK_GATE_HIGH_lsu_0_11 SNPS_CLOCK_GATE_HIGH_lsu_0_10 SNPS_CLOCK_GATE_HIGH_lsu_0_9 lsu_3 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_16 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_15 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_14 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_13 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_12 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_11 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_10 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_9 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_8 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_7 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_6 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_5 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_4 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_3 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_2 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_1 registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_7 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_6 pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_3 SNPS_CLOCK_GATE_HIGH_alu_0_2 alu_2 SNPS_CLOCK_GATE_HIGH_lsu_0_8 SNPS_CLOCK_GATE_HIGH_lsu_0_7 SNPS_CLOCK_GATE_HIGH_lsu_0_6 lsu_2 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_16 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_15 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_14 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_13 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_12 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_11 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_10 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_9 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_8 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_7 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_6 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_5 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_4 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_3 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_2 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_1 registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_5 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_4 pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_2 SNPS_CLOCK_GATE_HIGH_alu_0_1 alu_1 SNPS_CLOCK_GATE_HIGH_lsu_0_5 SNPS_CLOCK_GATE_HIGH_lsu_0_4 SNPS_CLOCK_GATE_HIGH_lsu_0_3 lsu_1 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_16 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_15 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_14 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_13 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_12 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_11 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_10 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_9 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_8 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_7 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_6 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_5 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_4 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_3 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_2 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_1 registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_3 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_2 pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_1 SNPS_CLOCK_GATE_HIGH_alu_0_0 alu_0 SNPS_CLOCK_GATE_HIGH_lsu_0_0 SNPS_CLOCK_GATE_HIGH_lsu_0_2 SNPS_CLOCK_GATE_HIGH_lsu_0_1 lsu_0 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_16 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_15 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_14 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_13 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_12 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_11 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_10 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_9 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_8 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_7 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_6 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_5 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_4 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_3 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_2 SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_1 registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_0 SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_1 pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0 core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0 gpu
+current_design $TOP
+Current design is 'gpu'.
+{gpu}
+link
+
+  Linking design 'gpu'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (268 designs)             /home/csgrad/szimm011/tiny-gpu/tiny-gpu/build/sweeps/ss_lh_cg_2.35/out/gpu.db, etc
+  saed32lvt_ss0p75v125c (library) /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75v125c.db
+  saed32hvt_ss0p75v125c (library) /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p75v125c.db
+  saed32rvt_ss0p75v125c (library) /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p75v125c.db
+
+1
+set before [sizeof_collection [get_cells -hierarchical -filter "is_hierarchical == false"]]
+15642
+current_instance
+Current instance is the top-level of design 'gpu'.
+source -echo $ECO
+###############################################################################
+# Change list, formatted for dc_shell -tcl
+#
+# NOTE - Assumes dc_shell is already in incremental mode
+#
+#
+# 
+#
+###############################################################################
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_0__alu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_0__alu_instance'.
+size_cell {U178} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_0__lsu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_0__lsu_instance'.
+size_cell {U16} {OR2X4_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_0__register_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_0__register_instance'.
+size_cell {U11} {INVX2_LVT}
+size_cell {U115} {AND2X2_LVT}
+size_cell {U122} {AND2X2_LVT}
+size_cell {U34} {INVX4_LVT}
+size_cell {U35} {AOI21X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_0__lsu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_0__lsu_instance'.
+insert_buffer [get_pins {U21/A}] NBUFFX4_LVT -new_net_names {net1} -new_cell_names {U1}
+Information: Buffering net cores_0__core_instance/threads_0__lsu_instance/rt[2]. (HFS-701)
+Disconnecting net 'cores_0__core_instance/threads_0__lsu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__lsu_instance/U21/A'.
+Creating net 'net1' in design 'lsu_7'.
+Creating cell 'U1' in design 'lsu_7'.
+Connecting net 'cores_0__core_instance/threads_0__lsu_instance/net1' to pin 'cores_0__core_instance/threads_0__lsu_instance/U1/Y'.
+Connecting net 'cores_0__core_instance/threads_0__lsu_instance/net1' to pin 'cores_0__core_instance/threads_0__lsu_instance/U21/A'.
+Connecting net 'cores_0__core_instance/threads_0__lsu_instance/rt[2]' to pin 'cores_0__core_instance/threads_0__lsu_instance/U1/A'.
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_0__alu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_0__alu_instance'.
+insert_buffer [get_pins {U31/A1 U32/A2 U33/A1 U34/A1 U35/A2 U36/A2 U37/A1 U38/A2 U39/A2 U40/A1 U41/A1 U371/A U400/A2 U403/A2 U417/A1 U421/A1 U649/A2 U459/A2 U13/A2 U18/A}] NBUFFX4_LVT -new_net_names {net2} -new_cell_names {U2}
+Information: Buffering net cores_0__core_instance/threads_0__alu_instance/rt[2]. (HFS-701)
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U31/A1'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U32/A2'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U33/A1'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U34/A1'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U35/A2'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U36/A2'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U37/A1'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U38/A2'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U39/A2'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U40/A1'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U41/A1'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U371/A'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U400/A2'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U403/A2'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U417/A1'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U421/A1'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U649/A2'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U459/A2'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U13/A2'.
+Disconnecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' from pin 'cores_0__core_instance/threads_0__alu_instance/U18/A'.
+Creating net 'net2' in design 'alu_7'.
+Creating cell 'U2' in design 'alu_7'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U2/Y'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U31/A1'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U32/A2'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U33/A1'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U34/A1'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U35/A2'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U36/A2'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U37/A1'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U38/A2'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U39/A2'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U40/A1'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U41/A1'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U371/A'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U400/A2'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U403/A2'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U417/A1'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U421/A1'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U649/A2'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U459/A2'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U13/A2'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/net2' to pin 'cores_0__core_instance/threads_0__alu_instance/U18/A'.
+Connecting net 'cores_0__core_instance/threads_0__alu_instance/rt[2]' to pin 'cores_0__core_instance/threads_0__alu_instance/U2/A'.
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_1__alu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_1__alu_instance'.
+size_cell {U29} {MUX21X2_LVT}
+size_cell {U341} {INVX2_LVT}
+size_cell {U551} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_1__lsu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_1__lsu_instance'.
+size_cell {U16} {OR2X4_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_1__register_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_1__register_instance'.
+size_cell {U10} {INVX2_LVT}
+size_cell {U118} {AND2X2_LVT}
+size_cell {U19} {AND2X2_LVT}
+size_cell {U23} {AOI21X2_LVT}
+size_cell {U34} {INVX4_LVT}
+size_cell {U35} {AOI21X2_LVT}
+size_cell {U8} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_2__alu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_2__alu_instance'.
+size_cell {U18} {INVX2_LVT}
+size_cell {U34} {AO21X2_LVT}
+size_cell {U388} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_2__lsu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_2__lsu_instance'.
+size_cell {U11} {OR2X4_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_2__register_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_2__register_instance'.
+size_cell {U118} {AND2X2_LVT}
+size_cell {U125} {AND2X2_LVT}
+size_cell {U23} {AOI21X2_LVT}
+size_cell {U33} {INVX4_LVT}
+size_cell {U39} {AOI21X2_LVT}
+size_cell {U8} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_3__alu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_3__alu_instance'.
+size_cell {U27} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_3__lsu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_3__lsu_instance'.
+size_cell {U9} {OR2X4_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_3__register_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_3__register_instance'.
+size_cell {U120} {AND2X2_LVT}
+size_cell {U134} {INVX2_LVT}
+size_cell {U22} {AND2X2_LVT}
+size_cell {U27} {AOI21X2_LVT}
+size_cell {U38} {AOI21X2_LVT}
+size_cell {U44} {AOI21X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/decoder_instance}
+Current instance is '/gpu/cores_1__core_instance/decoder_instance'.
+size_cell {U18} {INVX4_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_0__alu_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_0__alu_instance'.
+size_cell {U171} {INVX2_LVT}
+size_cell {U441} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_0__lsu_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_0__lsu_instance'.
+size_cell {U20} {OR2X4_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_0__register_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_0__register_instance'.
+size_cell {U115} {AND2X2_LVT}
+size_cell {U122} {AND2X2_LVT}
+size_cell {U16} {INVX4_LVT}
+size_cell {U64} {AOI21X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_1__alu_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_1__alu_instance'.
+size_cell {U108} {INVX2_LVT}
+size_cell {U304} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_1__lsu_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_1__lsu_instance'.
+size_cell {U15} {OR2X4_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_1__register_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_1__register_instance'.
+size_cell {U11} {INVX2_LVT}
+size_cell {U118} {AND2X2_LVT}
+size_cell {U125} {AND2X2_LVT}
+size_cell {U21} {AOI21X2_LVT}
+size_cell {U60} {AOI21X2_LVT}
+size_cell {U9} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_1__alu_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_1__alu_instance'.
+insert_buffer [get_pins {U288/A2 U105/A U113/A2 U114/A2 U306/A1 U116/A2 U117/A2 U118/A1 U85/A2 U522/A U332/A1 U340/A1 U341/A1 U348/A2 U366/A1 U382/A2 U601/A2 U412/A2 U258/A1 U279/A1}] NBUFFX4_LVT -new_net_names {net3} -new_cell_names {U688}
+Information: Buffering net cores_1__core_instance/threads_1__alu_instance/rt[2]. (HFS-701)
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U288/A2'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U105/A'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U113/A2'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U114/A2'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U306/A1'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U116/A2'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U117/A2'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U118/A1'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U85/A2'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U522/A'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U332/A1'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U340/A1'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U341/A1'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U348/A2'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U366/A1'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U382/A2'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U601/A2'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U412/A2'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U258/A1'.
+Disconnecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__alu_instance/U279/A1'.
+Creating net 'net3' in design 'alu_2'.
+Creating cell 'U688' in design 'alu_2'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U688/Y'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U288/A2'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U105/A'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U113/A2'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U114/A2'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U306/A1'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U116/A2'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U117/A2'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U118/A1'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U85/A2'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U522/A'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U332/A1'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U340/A1'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U341/A1'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U348/A2'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U366/A1'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U382/A2'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U601/A2'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U412/A2'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U258/A1'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/net3' to pin 'cores_1__core_instance/threads_1__alu_instance/U279/A1'.
+Connecting net 'cores_1__core_instance/threads_1__alu_instance/rt[2]' to pin 'cores_1__core_instance/threads_1__alu_instance/U688/A'.
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_1__lsu_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_1__lsu_instance'.
+insert_buffer [get_pins {U70/A}] NBUFFX4_LVT -new_net_names {net4} -new_cell_names {U689}
+Information: Buffering net cores_1__core_instance/threads_1__lsu_instance/rt[2]. (HFS-701)
+Disconnecting net 'cores_1__core_instance/threads_1__lsu_instance/rt[2]' from pin 'cores_1__core_instance/threads_1__lsu_instance/U70/A'.
+Creating net 'net4' in design 'lsu_2'.
+Creating cell 'U689' in design 'lsu_2'.
+Connecting net 'cores_1__core_instance/threads_1__lsu_instance/net4' to pin 'cores_1__core_instance/threads_1__lsu_instance/U689/Y'.
+Connecting net 'cores_1__core_instance/threads_1__lsu_instance/net4' to pin 'cores_1__core_instance/threads_1__lsu_instance/U70/A'.
+Connecting net 'cores_1__core_instance/threads_1__lsu_instance/rt[2]' to pin 'cores_1__core_instance/threads_1__lsu_instance/U689/A'.
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_2__lsu_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_2__lsu_instance'.
+size_cell {U7} {OR2X4_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_2__register_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_2__register_instance'.
+size_cell {U116} {AND2X2_LVT}
+size_cell {U122} {AND2X2_LVT}
+size_cell {U19} {INVX4_LVT}
+size_cell {U21} {AOI21X2_LVT}
+size_cell {U63} {AOI21X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_3__alu_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_3__alu_instance'.
+size_cell {U182} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_3__lsu_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_3__lsu_instance'.
+size_cell {U8} {OR2X4_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_3__register_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_3__register_instance'.
+size_cell {U10} {INVX2_LVT}
+size_cell {U119} {AND2X2_LVT}
+size_cell {U126} {AND2X2_LVT}
+size_cell {U19} {AOI21X2_LVT}
+size_cell {U20} {AOI21X2_LVT}
+size_cell {U29} {INVX4_LVT}
+size_cell {U60} {AOI21X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {data_memory_controller}
+Current instance is '/gpu/data_memory_controller'.
+size_cell {U2202} {OR2X2_LVT}
+size_cell {U404} {AND2X2_LVT}
+size_cell {U415} {AND2X2_LVT}
+size_cell {U421} {OR2X2_LVT}
+size_cell {U432} {OR2X2_LVT}
+size_cell {U435} {OR2X2_LVT}
+size_cell {U463} {OR2X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {dcr_instance}
+Current instance is '/gpu/dcr_instance'.
+size_cell {U5} {OR2X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_0__alu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_0__alu_instance'.
+size_cell {U312} {INVX2_LVT}
+size_cell {U54} {NOR2X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_0__register_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_0__register_instance'.
+size_cell {U113} {NOR2X2_LVT}
+size_cell {U117} {NOR2X2_LVT}
+size_cell {U120} {NOR2X2_LVT}
+size_cell {U13} {NOR2X2_LVT}
+size_cell {U16} {NOR3X2_LVT}
+size_cell {U18} {NOR3X2_LVT}
+size_cell {U204} {NOR3X2_LVT}
+size_cell {U207} {NOR3X2_LVT}
+size_cell {U208} {NOR2X2_LVT}
+size_cell {U211} {NOR2X2_LVT}
+size_cell {U212} {NOR2X2_LVT}
+size_cell {U214} {NOR2X2_LVT}
+size_cell {U215} {NOR2X2_LVT}
+size_cell {U223} {INVX2_LVT}
+size_cell {U23} {NOR2X2_LVT}
+size_cell {U40} {NOR2X2_LVT}
+size_cell {U52} {NOR2X2_LVT}
+size_cell {U56} {NOR2X2_LVT}
+size_cell {U65} {NOR2X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_1__alu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_1__alu_instance'.
+size_cell {U121} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_1__register_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_1__register_instance'.
+size_cell {U116} {NOR2X2_LVT}
+size_cell {U120} {NOR2X2_LVT}
+size_cell {U123} {NOR2X2_LVT}
+size_cell {U14} {NOR3X2_LVT}
+size_cell {U15} {NOR2X2_LVT}
+size_cell {U17} {NOR3X2_LVT}
+size_cell {U20} {NOR2X2_LVT}
+size_cell {U207} {NOR3X2_LVT}
+size_cell {U210} {NOR3X2_LVT}
+size_cell {U211} {NOR2X2_LVT}
+size_cell {U214} {NOR2X2_LVT}
+size_cell {U215} {NOR2X2_LVT}
+size_cell {U218} {NOR2X2_LVT}
+size_cell {U219} {NOR2X2_LVT}
+size_cell {U45} {NOR2X2_LVT}
+size_cell {U50} {NOR2X2_LVT}
+size_cell {U54} {NOR2X2_LVT}
+size_cell {U59} {NOR2X2_LVT}
+size_cell {U68} {NOR2X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_2__alu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_2__alu_instance'.
+size_cell {U30} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_2__register_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_2__register_instance'.
+size_cell {U116} {NOR2X2_LVT}
+size_cell {U120} {NOR2X2_LVT}
+size_cell {U123} {NOR2X2_LVT}
+size_cell {U13} {NOR2X2_LVT}
+size_cell {U14} {NOR3X2_LVT}
+size_cell {U15} {NOR3X2_LVT}
+size_cell {U19} {NOR2X2_LVT}
+size_cell {U206} {NOR3X2_LVT}
+size_cell {U208} {NOR2X2_LVT}
+size_cell {U210} {NOR3X2_LVT}
+size_cell {U212} {NOR2X2_LVT}
+size_cell {U213} {NOR2X2_LVT}
+size_cell {U215} {NOR2X2_LVT}
+size_cell {U216} {NOR2X2_LVT}
+size_cell {U224} {INVX2_LVT}
+size_cell {U43} {NOR2X2_LVT}
+size_cell {U48} {NOR2X2_LVT}
+size_cell {U53} {NOR2X2_LVT}
+size_cell {U58} {NOR2X2_LVT}
+size_cell {U63} {NOR2X2_LVT}
+size_cell {U68} {NOR2X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_3__alu_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_3__alu_instance'.
+size_cell {U378} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_0__core_instance/threads_3__register_instance}
+Current instance is '/gpu/cores_0__core_instance/threads_3__register_instance'.
+size_cell {U122} {NOR2X2_LVT}
+size_cell {U125} {NOR2X2_LVT}
+size_cell {U13} {NOR2X2_LVT}
+size_cell {U16} {NOR2X2_LVT}
+size_cell {U17} {NOR3X2_LVT}
+size_cell {U18} {NOR3X2_LVT}
+size_cell {U209} {NOR3X2_LVT}
+size_cell {U212} {NOR3X2_LVT}
+size_cell {U213} {NOR2X2_LVT}
+size_cell {U215} {NOR2X2_LVT}
+size_cell {U216} {NOR2X2_LVT}
+size_cell {U219} {NOR2X2_LVT}
+size_cell {U220} {NOR2X2_LVT}
+size_cell {U228} {INVX2_LVT}
+size_cell {U23} {NOR2X2_LVT}
+size_cell {U56} {NOR2X2_LVT}
+size_cell {U60} {NOR2X2_LVT}
+size_cell {U65} {NOR2X2_LVT}
+size_cell {U70} {NOR2X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_0__alu_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_0__alu_instance'.
+size_cell {U308} {INVX2_LVT}
+size_cell {U450} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_0__register_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_0__register_instance'.
+size_cell {U110} {NOR3X2_LVT}
+size_cell {U112} {NOR2X2_LVT}
+size_cell {U114} {NOR3X2_LVT}
+size_cell {U117} {NOR2X2_LVT}
+size_cell {U118} {NOR2X2_LVT}
+size_cell {U121} {NOR2X2_LVT}
+size_cell {U130} {INVX2_LVT}
+size_cell {U14} {NOR2X2_LVT}
+size_cell {U19} {NOR2X2_LVT}
+size_cell {U205} {NOR3X2_LVT}
+size_cell {U207} {NOR2X2_LVT}
+size_cell {U209} {NOR3X2_LVT}
+size_cell {U210} {NOR2X2_LVT}
+size_cell {U212} {NOR2X2_LVT}
+size_cell {U213} {NOR2X2_LVT}
+size_cell {U216} {NOR2X2_LVT}
+size_cell {U224} {INVX2_LVT}
+size_cell {U29} {NOR2X2_LVT}
+size_cell {U34} {NOR2X2_LVT}
+size_cell {U39} {NOR2X2_LVT}
+size_cell {U44} {NOR2X2_LVT}
+size_cell {U53} {NOR2X2_LVT}
+size_cell {U58} {NOR2X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_1__register_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_1__register_instance'.
+size_cell {U113} {NOR3X2_LVT}
+size_cell {U115} {NOR2X2_LVT}
+size_cell {U117} {NOR3X2_LVT}
+size_cell {U120} {NOR2X2_LVT}
+size_cell {U121} {NOR2X2_LVT}
+size_cell {U124} {NOR2X2_LVT}
+size_cell {U207} {NOR3X2_LVT}
+size_cell {U209} {NOR2X2_LVT}
+size_cell {U211} {NOR3X2_LVT}
+size_cell {U212} {NOR2X2_LVT}
+size_cell {U214} {NOR2X2_LVT}
+size_cell {U215} {NOR2X2_LVT}
+size_cell {U218} {NOR2X2_LVT}
+size_cell {U31} {NOR2X2_LVT}
+size_cell {U36} {NOR2X2_LVT}
+size_cell {U41} {NOR2X2_LVT}
+size_cell {U46} {NOR2X2_LVT}
+size_cell {U51} {NOR2X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_2__register_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_2__register_instance'.
+size_cell {U111} {NOR3X2_LVT}
+size_cell {U113} {NOR2X2_LVT}
+size_cell {U115} {NOR3X2_LVT}
+size_cell {U118} {NOR2X2_LVT}
+size_cell {U121} {NOR2X2_LVT}
+size_cell {U130} {INVX2_LVT}
+size_cell {U204} {NOR3X2_LVT}
+size_cell {U206} {NOR2X2_LVT}
+size_cell {U208} {NOR3X2_LVT}
+size_cell {U209} {NOR2X2_LVT}
+size_cell {U212} {NOR2X2_LVT}
+size_cell {U213} {NOR2X2_LVT}
+size_cell {U216} {NOR2X2_LVT}
+size_cell {U217} {NOR2X2_LVT}
+size_cell {U225} {INVX2_LVT}
+size_cell {U31} {NOR2X2_LVT}
+size_cell {U36} {NOR2X2_LVT}
+size_cell {U40} {NOR2X2_LVT}
+size_cell {U45} {NOR2X2_LVT}
+size_cell {U53} {NOR2X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_3__alu_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_3__alu_instance'.
+size_cell {U134} {INVX2_LVT}
+size_cell {U48} {INVX2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {cores_1__core_instance/threads_3__register_instance}
+Current instance is '/gpu/cores_1__core_instance/threads_3__register_instance'.
+size_cell {U114} {NOR3X2_LVT}
+size_cell {U118} {NOR3X2_LVT}
+size_cell {U12} {NOR2X2_LVT}
+size_cell {U121} {NOR2X2_LVT}
+size_cell {U122} {NOR2X2_LVT}
+size_cell {U125} {NOR2X2_LVT}
+size_cell {U14} {NOR2X2_LVT}
+size_cell {U206} {NOR3X2_LVT}
+size_cell {U208} {NOR2X2_LVT}
+size_cell {U210} {NOR3X2_LVT}
+size_cell {U211} {NOR2X2_LVT}
+size_cell {U214} {NOR2X2_LVT}
+size_cell {U215} {NOR2X2_LVT}
+size_cell {U218} {NOR2X2_LVT}
+size_cell {U219} {NOR2X2_LVT}
+size_cell {U227} {INVX2_LVT}
+size_cell {U34} {NOR2X2_LVT}
+size_cell {U39} {NOR2X2_LVT}
+size_cell {U44} {NOR2X2_LVT}
+size_cell {U49} {NOR2X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance {data_memory_controller}
+Current instance is '/gpu/data_memory_controller'.
+size_cell {U138} {NOR2X2_LVT}
+size_cell {U2211} {NOR2X2_LVT}
+size_cell {U2213} {NOR2X2_LVT}
+size_cell {U396} {NOR2X2_LVT}
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_instance
+Current instance is the top-level of design 'gpu'.
+current_design $TOP
+Current design is 'gpu'.
+{gpu}
+set after [sizeof_collection [get_cells -hierarchical -filter "is_hierarchical == false"]]
+15646
+echo "ECO export: leaf cells $before -> $after"
+ECO export: leaf cells 15642 -> 15646
+# Same naming rules as dc_synth.tcl's netlist write, so the testbench ports still match.
+change_names -rules verilog -hierarchy
+Warning: The specified replacement character (_) is conflicting with the specified allowed or restricted character.   (UCN-4)
+Warning: In the design decoder_1, net 'decoded_rd_address[3]' is connecting multiple ports. (UCN-1)
+Warning: In the design decoder_1, net 'decoded_rd_address[2]' is connecting multiple ports. (UCN-1)
+Warning: In the design decoder_1, net 'decoded_rd_address[1]' is connecting multiple ports. (UCN-1)
+Warning: In the design decoder_1, net 'decoded_immediate[5]' is connecting multiple ports. (UCN-1)
+Warning: In the design decoder_1, net 'decoded_mem_read_enable' is connecting multiple ports. (UCN-1)
+Warning: In the design decoder_1, net 'decoded_nzp_write_enable_BAR' is connecting multiple ports. (UCN-1)
+Warning: In the design decoder_0, net 'decoded_nzp[2]' is connecting multiple ports. (UCN-1)
+Warning: In the design decoder_0, net 'decoded_rd_address[2]' is connecting multiple ports. (UCN-1)
+Warning: In the design decoder_0, net 'decoded_rd_address[1]' is connecting multiple ports. (UCN-1)
+Warning: In the design decoder_0, net 'decoded_rs_address[0]' is connecting multiple ports. (UCN-1)
+Warning: In the design decoder_0, net 'decoded_mem_read_enable' is connecting multiple ports. (UCN-1)
+Warning: In the design decoder_0, net 'decoded_nzp_write_enable_BAR' is connecting multiple ports. (UCN-1)
+1
+write -format verilog -hierarchy -output $RUN_DIR/out/${TOP}_netlist_eco.v
+Writing verilog file '/home/csgrad/szimm011/tiny-gpu/tiny-gpu/build/sweeps/ss_lh_cg_2.35/out/gpu_netlist_eco.v'.
+Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
+1
+report_area > $RUN_DIR/out/eco_export_area.rpt
+echo "Wrote $RUN_DIR/out/${TOP}_netlist_eco.v"
+Wrote /home/csgrad/szimm011/tiny-gpu/tiny-gpu/build/sweeps/ss_lh_cg_2.35/out/gpu_netlist_eco.v
+exit
+
+Memory usage for this session 302 Mbytes.
+Memory usage for this session including child processes 302 Mbytes.
+CPU usage for this session 7 seconds ( 0.00 hours ).
+Elapsed time for this session 8 seconds ( 0.00 hours ).
+
+Thank you...

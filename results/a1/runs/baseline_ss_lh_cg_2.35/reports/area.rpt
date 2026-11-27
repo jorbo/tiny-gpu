@@ -1,0 +1,572 @@
+ 
+****************************************
+Report : area
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Tue Nov 24 17:40:32 2026
+****************************************
+
+Library(s) Used:
+
+    saed32lvt_ss0p75v125c (File: /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75v125c.db)
+    saed32hvt_ss0p75v125c (File: /usr/local/synopsys/pdk/SAED32_EDK/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p75v125c.db)
+
+Number of ports:                         4170
+Number of nets:                         19701
+Number of cells:                        15915
+Number of combinational cells:          13057
+Number of sequential cells:              2540
+Number of macros/black boxes:               0
+Number of buf/inv:                       2715
+Number of references:                       8
+
+Combinational area:              30204.760440
+Buf/Inv area:                     3514.557390
+Noncombinational area:           16652.277833
+Macro/Black Box area:                0.000000
+Net Interconnect area:            9451.010562
+
+Total cell area:                 46857.038273
+Total area:                      56308.048835
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area            Local cell area
+                                  -------------------  ------------------------------ 
+Hierarchical cell                 Absolute    Percent  Combi-      Noncombi-   Black-
+                                  Total       Total    national    national    boxes   Design
+--------------------------------  ----------  -------  ----------  ----------  ------  ----------------------------------------------------------------------------------------------------------------
+gpu                               46857.0383    100.0      0.0000   1904.3011  0.0000  gpu
+cores[0].core_instance            17768.7322     37.9     31.2597      0.0000  0.0000  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_1
+cores[0].core_instance/decoder_instance
+                                    251.6026      0.5    101.1493    144.6079  0.0000  decoder_1
+cores[0].core_instance/decoder_instance/clk_gate_decoded_pc_mux_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_decoder_0_1
+cores[0].core_instance/fetcher_instance
+                                    282.6081      0.6     86.6631    178.4091  0.0000  fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_1
+cores[0].core_instance/fetcher_instance/clk_gate_fetcher_state_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_3
+cores[0].core_instance/fetcher_instance/clk_gate_instruction_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_4
+cores[0].core_instance/fetcher_instance/clk_gate_mem_read_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_5
+cores[0].core_instance/scheduler_instance
+                                    282.8623      0.6    191.8787     79.2929  0.0000  scheduler_THREADS_PER_BLOCK4_1
+cores[0].core_instance/scheduler_instance/clk_gate_core_state_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_3
+cores[0].core_instance/scheduler_instance/clk_gate_current_pc_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_2
+cores[0].core_instance/threads[0].alu_instance
+                                   1720.3007      3.7   1661.5935     52.8620  0.0000  alu_7
+cores[0].core_instance/threads[0].alu_instance/clk_gate_alu_out_reg_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_alu_0_7
+cores[0].core_instance/threads[0].lsu_instance
+                                    445.7686      1.0    190.3539    237.8788  0.0000  lsu_7
+cores[0].core_instance/threads[0].lsu_instance/clk_gate_lsu_out_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_21
+cores[0].core_instance/threads[0].lsu_instance/clk_gate_mem_read_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_22
+cores[0].core_instance/threads[0].lsu_instance/clk_gate_mem_write_data_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_23
+cores[0].core_instance/threads[0].pc_instance
+                                    207.1274      0.4    122.7516     72.6852  0.0000  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_7
+cores[0].core_instance/threads[0].pc_instance/clk_gate_next_pc_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_14
+cores[0].core_instance/threads[0].pc_instance/clk_gate_nzp_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_15
+cores[0].core_instance/threads[0].register_instance
+                                   1841.5275      3.9    792.9293    955.0732  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_1
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[0]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_18
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[10]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_28
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[11]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_29
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[12]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_30
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[13]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_31
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[14]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_32
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[1]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_19
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[2]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_20
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[3]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_21
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[4]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_22
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[5]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_23
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[6]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_24
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[7]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_25
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[8]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_26
+cores[0].core_instance/threads[0].register_instance/clk_gate_registers_reg[9]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_27
+cores[0].core_instance/threads[0].register_instance/clk_gate_rs_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_17
+cores[0].core_instance/threads[1].alu_instance
+                                   1726.9085      3.7   1668.2012     52.8620  0.0000  alu_6
+cores[0].core_instance/threads[1].alu_instance/clk_gate_alu_out_reg_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_alu_0_6
+cores[0].core_instance/threads[1].lsu_instance
+                                    445.7686      1.0    190.3539    237.8788  0.0000  lsu_6
+cores[0].core_instance/threads[1].lsu_instance/clk_gate_lsu_out_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_18
+cores[0].core_instance/threads[1].lsu_instance/clk_gate_mem_read_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_19
+cores[0].core_instance/threads[1].lsu_instance/clk_gate_mem_write_data_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_20
+cores[0].core_instance/threads[1].pc_instance
+                                    206.1108      0.4    121.7350     72.6852  0.0000  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_6
+cores[0].core_instance/threads[1].pc_instance/clk_gate_next_pc_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_12
+cores[0].core_instance/threads[1].pc_instance/clk_gate_nzp_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_13
+cores[0].core_instance/threads[1].register_instance
+                                   1844.5772      3.9    796.4873    954.5649  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_1
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[0]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_18
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[10]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_28
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[11]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_29
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[12]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_30
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[13]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_31
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[14]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_32
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[1]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_19
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[2]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_20
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[3]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_21
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[4]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_22
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[5]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_23
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[6]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_24
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[7]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_25
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[8]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_26
+cores[0].core_instance/threads[1].register_instance/clk_gate_registers_reg[9]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_27
+cores[0].core_instance/threads[1].register_instance/clk_gate_rs_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_17
+cores[0].core_instance/threads[2].alu_instance
+                                   1720.3007      3.7   1661.5935     52.8620  0.0000  alu_5
+cores[0].core_instance/threads[2].alu_instance/clk_gate_alu_out_reg_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_alu_0_5
+cores[0].core_instance/threads[2].lsu_instance
+                                    445.7686      1.0    190.3539    237.8788  0.0000  lsu_5
+cores[0].core_instance/threads[2].lsu_instance/clk_gate_lsu_out_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_15
+cores[0].core_instance/threads[2].lsu_instance/clk_gate_mem_read_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_16
+cores[0].core_instance/threads[2].lsu_instance/clk_gate_mem_write_data_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_17
+cores[0].core_instance/threads[2].pc_instance
+                                    206.3649      0.4    121.9891     72.6852  0.0000  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_5
+cores[0].core_instance/threads[2].pc_instance/clk_gate_next_pc_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_10
+cores[0].core_instance/threads[2].pc_instance/clk_gate_nzp_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_11
+cores[0].core_instance/threads[2].register_instance
+                                   1843.5606      3.9    795.9790    954.0566  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_1
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[0]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_18
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[10]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_28
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[11]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_29
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[12]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_30
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[13]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_31
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[14]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_32
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[1]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_19
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[2]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_20
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[3]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_21
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[4]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_22
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[5]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_23
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[6]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_24
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[7]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_25
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[8]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_26
+cores[0].core_instance/threads[2].register_instance/clk_gate_registers_reg[9]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_27
+cores[0].core_instance/threads[2].register_instance/clk_gate_rs_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_17
+cores[0].core_instance/threads[3].alu_instance
+                                   1767.3174      3.8   1708.6101     52.8620  0.0000  alu_4
+cores[0].core_instance/threads[3].alu_instance/clk_gate_alu_out_reg_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_alu_0_4
+cores[0].core_instance/threads[3].lsu_instance
+                                    445.7686      1.0    190.3539    237.8788  0.0000  lsu_4
+cores[0].core_instance/threads[3].lsu_instance/clk_gate_lsu_out_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_12
+cores[0].core_instance/threads[3].lsu_instance/clk_gate_mem_read_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_13
+cores[0].core_instance/threads[3].lsu_instance/clk_gate_mem_write_data_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_14
+cores[0].core_instance/threads[3].pc_instance
+                                    206.1108      0.4    121.7350     72.6852  0.0000  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_4
+cores[0].core_instance/threads[3].pc_instance/clk_gate_next_pc_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_8
+cores[0].core_instance/threads[3].pc_instance/clk_gate_nzp_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_9
+cores[0].core_instance/threads[3].register_instance
+                                   1847.1186      3.9    799.5370    954.0566  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_1
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[0]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_18
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[10]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_28
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[11]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_29
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[12]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_30
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[13]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_31
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[14]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_32
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[1]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_19
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[2]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_20
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[3]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_21
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[4]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_22
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[5]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_23
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[6]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_24
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[7]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_25
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[8]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_26
+cores[0].core_instance/threads[3].register_instance/clk_gate_registers_reg[9]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_27
+cores[0].core_instance/threads[3].register_instance/clk_gate_rs_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_17
+cores[1].core_instance            17731.8813     37.8     30.2431      0.0000  0.0000  core_DATA_MEM_ADDR_BITS8_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_THREADS_PER_BLOCK4_0
+cores[1].core_instance/decoder_instance
+                                    252.8733      0.5    102.6742    144.3538  0.0000  decoder_0
+cores[1].core_instance/decoder_instance/clk_gate_decoded_pc_mux_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_decoder_0_0
+cores[1].core_instance/fetcher_instance
+                                    282.6081      0.6     86.6631    178.4091  0.0000  fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0
+cores[1].core_instance/fetcher_instance/clk_gate_fetcher_state_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_1
+cores[1].core_instance/fetcher_instance/clk_gate_instruction_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_2
+cores[1].core_instance/fetcher_instance/clk_gate_mem_read_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_fetcher_PROGRAM_MEM_ADDR_BITS8_PROGRAM_MEM_DATA_BITS16_0_0
+cores[1].core_instance/scheduler_instance
+                                    284.1330      0.6    193.1494     79.2929  0.0000  scheduler_THREADS_PER_BLOCK4_0
+cores[1].core_instance/scheduler_instance/clk_gate_core_state_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_0
+cores[1].core_instance/scheduler_instance/clk_gate_current_pc_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_scheduler_THREADS_PER_BLOCK4_0_1
+cores[1].core_instance/threads[0].alu_instance
+                                   1736.8201      3.7   1678.1128     52.8620  0.0000  alu_3
+cores[1].core_instance/threads[0].alu_instance/clk_gate_alu_out_reg_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_alu_0_3
+cores[1].core_instance/threads[0].lsu_instance
+                                    445.7686      1.0    190.3539    237.8788  0.0000  lsu_3
+cores[1].core_instance/threads[0].lsu_instance/clk_gate_lsu_out_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_9
+cores[1].core_instance/threads[0].lsu_instance/clk_gate_mem_read_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_10
+cores[1].core_instance/threads[0].lsu_instance/clk_gate_mem_write_data_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_11
+cores[1].core_instance/threads[0].pc_instance
+                                    207.1274      0.4    122.7516     72.6852  0.0000  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_3
+cores[1].core_instance/threads[0].pc_instance/clk_gate_next_pc_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_6
+cores[1].core_instance/threads[0].pc_instance/clk_gate_nzp_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_7
+cores[1].core_instance/threads[0].register_instance
+                                   1838.7319      3.9    791.1503    954.0566  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[0]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_2
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[10]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_12
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[11]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_13
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[12]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_14
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[13]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_15
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[14]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_16
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[1]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_3
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[2]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_4
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[3]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_5
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[4]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_6
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[5]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_7
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[6]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_8
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[7]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_9
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[8]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_10
+cores[1].core_instance/threads[0].register_instance/clk_gate_registers_reg[9]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_11
+cores[1].core_instance/threads[0].register_instance/clk_gate_rs_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID0_DATA_BITS8_0_1
+cores[1].core_instance/threads[1].alu_instance
+                                   1698.4444      3.6   1639.7371     52.8620  0.0000  alu_2
+cores[1].core_instance/threads[1].alu_instance/clk_gate_alu_out_reg_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_alu_0_2
+cores[1].core_instance/threads[1].lsu_instance
+                                    445.7686      1.0    190.3539    237.8788  0.0000  lsu_2
+cores[1].core_instance/threads[1].lsu_instance/clk_gate_lsu_out_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_6
+cores[1].core_instance/threads[1].lsu_instance/clk_gate_mem_read_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_7
+cores[1].core_instance/threads[1].lsu_instance/clk_gate_mem_write_data_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_8
+cores[1].core_instance/threads[1].pc_instance
+                                    206.1108      0.4    121.7350     72.6852  0.0000  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_2
+cores[1].core_instance/threads[1].pc_instance/clk_gate_next_pc_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_4
+cores[1].core_instance/threads[1].pc_instance/clk_gate_nzp_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_5
+cores[1].core_instance/threads[1].register_instance
+                                   1845.3396      3.9    797.2497    954.5649  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[0]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_2
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[10]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_12
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[11]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_13
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[12]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_14
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[13]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_15
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[14]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_16
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[1]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_3
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[2]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_4
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[3]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_5
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[4]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_6
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[5]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_7
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[6]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_8
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[7]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_9
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[8]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_10
+cores[1].core_instance/threads[1].register_instance/clk_gate_registers_reg[9]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_11
+cores[1].core_instance/threads[1].register_instance/clk_gate_rs_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID1_DATA_BITS8_0_1
+cores[1].core_instance/threads[2].alu_instance
+                                   1723.6046      3.7   1664.8974     52.8620  0.0000  alu_1
+cores[1].core_instance/threads[2].alu_instance/clk_gate_alu_out_reg_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_alu_0_1
+cores[1].core_instance/threads[2].lsu_instance
+                                    445.7686      1.0    190.3539    237.8788  0.0000  lsu_1
+cores[1].core_instance/threads[2].lsu_instance/clk_gate_lsu_out_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_3
+cores[1].core_instance/threads[2].lsu_instance/clk_gate_mem_read_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_4
+cores[1].core_instance/threads[2].lsu_instance/clk_gate_mem_write_data_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_5
+cores[1].core_instance/threads[2].pc_instance
+                                    206.1108      0.4    121.7350     72.6852  0.0000  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_1
+cores[1].core_instance/threads[2].pc_instance/clk_gate_next_pc_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_2
+cores[1].core_instance/threads[2].pc_instance/clk_gate_nzp_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_3
+cores[1].core_instance/threads[2].register_instance
+                                   1843.0523      3.9    795.4707    954.0566  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[0]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_2
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[10]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_12
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[11]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_13
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[12]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_14
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[13]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_15
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[14]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_16
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[1]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_3
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[2]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_4
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[3]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_5
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[4]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_6
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[5]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_7
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[6]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_8
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[7]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_9
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[8]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_10
+cores[1].core_instance/threads[2].register_instance/clk_gate_registers_reg[9]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_11
+cores[1].core_instance/threads[2].register_instance/clk_gate_rs_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID2_DATA_BITS8_0_1
+cores[1].core_instance/threads[3].alu_instance
+                                   1740.1240      3.7   1681.4167     52.8620  0.0000  alu_0
+cores[1].core_instance/threads[3].alu_instance/clk_gate_alu_out_reg_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_alu_0_0
+cores[1].core_instance/threads[3].lsu_instance
+                                    445.7686      1.0    190.3539    237.8788  0.0000  lsu_0
+cores[1].core_instance/threads[3].lsu_instance/clk_gate_lsu_out_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_1
+cores[1].core_instance/threads[3].lsu_instance/clk_gate_mem_read_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_2
+cores[1].core_instance/threads[3].lsu_instance/clk_gate_mem_write_data_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_lsu_0_0
+cores[1].core_instance/threads[3].pc_instance
+                                    206.1108      0.4    121.7350     72.6852  0.0000  pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0
+cores[1].core_instance/threads[3].pc_instance/clk_gate_next_pc_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_1
+cores[1].core_instance/threads[3].pc_instance/clk_gate_nzp_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_pc_DATA_MEM_DATA_BITS8_PROGRAM_MEM_ADDR_BITS8_0_0
+cores[1].core_instance/threads[3].register_instance
+                                   1847.3728      3.9    798.7746    955.0732  0.0000  registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[0]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_2
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[10]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_12
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[11]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_13
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[12]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_14
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[13]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_15
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[14]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_16
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[1]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_3
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[2]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_4
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[3]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_5
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[4]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_6
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[5]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_7
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[6]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_8
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[7]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_9
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[8]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_10
+cores[1].core_instance/threads[3].register_instance/clk_gate_registers_reg[9]
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_11
+cores[1].core_instance/threads[3].register_instance/clk_gate_rs_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_registers_THREADS_PER_BLOCK4_THREAD_ID3_DATA_BITS8_0_1
+data_memory_controller             7698.0219     16.4   6122.8373   1429.0518  0.0000  controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4
+data_memory_controller/clk_gate_consumer_read_data_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_17
+data_memory_controller/clk_gate_consumer_read_data_reg_0
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_16
+data_memory_controller/clk_gate_consumer_read_data_reg_1
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_15
+data_memory_controller/clk_gate_consumer_read_data_reg_2
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_14
+data_memory_controller/clk_gate_consumer_read_data_reg_3
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_13
+data_memory_controller/clk_gate_consumer_read_data_reg_4
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_12
+data_memory_controller/clk_gate_consumer_read_data_reg_5
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_11
+data_memory_controller/clk_gate_consumer_read_data_reg_6
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_10
+data_memory_controller/clk_gate_consumer_read_ready_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_1
+data_memory_controller/clk_gate_controller_state_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_5
+data_memory_controller/clk_gate_controller_state_reg_0
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_4
+data_memory_controller/clk_gate_controller_state_reg_1
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_3
+data_memory_controller/clk_gate_controller_state_reg_2
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_2
+data_memory_controller/clk_gate_current_consumer_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_9
+data_memory_controller/clk_gate_current_consumer_reg_0
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_8
+data_memory_controller/clk_gate_current_consumer_reg_1
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_7
+data_memory_controller/clk_gate_current_consumer_reg_2
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_6
+data_memory_controller/clk_gate_mem_read_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_0
+data_memory_controller/clk_gate_mem_read_address_reg_0
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_24
+data_memory_controller/clk_gate_mem_read_address_reg_1
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_23
+data_memory_controller/clk_gate_mem_read_address_reg_2
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_22
+data_memory_controller/clk_gate_mem_write_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_21
+data_memory_controller/clk_gate_mem_write_address_reg_0
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_20
+data_memory_controller/clk_gate_mem_write_address_reg_1
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_19
+data_memory_controller/clk_gate_mem_write_address_reg_2
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS8_NUM_CONSUMERS8_NUM_CHANNELS4_18
+dcr_instance                         94.5416      0.2     35.8343     52.8620  0.0000  dcr
+dcr_instance/clk_gate_device_conrol_register_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_dcr
+dispatch_instance                  1157.6259      2.5    836.8962    291.5032  0.0000  dispatch_NUM_CORES2_THREADS_PER_BLOCK4
+dispatch_instance/clk_gate_blocks_dispatched_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_2
+dispatch_instance/clk_gate_blocks_done_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_3
+dispatch_instance/clk_gate_core_thread_count_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_0
+dispatch_instance/clk_gate_core_thread_count_reg_0
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_4
+dispatch_instance/clk_gate_done_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_dispatch_NUM_CORES2_THREADS_PER_BLOCK4_1
+program_memory_controller           501.9344      1.1    154.7737    323.7795  0.0000  controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0
+program_memory_controller/clk_gate_consumer_read_data_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_2
+program_memory_controller/clk_gate_consumer_read_data_reg_0
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_1
+program_memory_controller/clk_gate_controller_state_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_0
+program_memory_controller/clk_gate_mem_read_address_reg
+                                      5.8453      0.0      0.0000      5.8453  0.0000  SNPS_CLOCK_GATE_HIGH_controller_ADDR_BITS8_DATA_BITS16_NUM_CONSUMERS2_NUM_CHANNELS1_WRITE_ENABLE0_3
+--------------------------------  ----------  -------  ----------  ----------  ------  ----------------------------------------------------------------------------------------------------------------
+Total                                                  30204.7604  16652.2778  0.0000
+
+1

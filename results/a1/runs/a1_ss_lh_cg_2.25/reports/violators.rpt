@@ -1,0 +1,21 @@
+ 
+****************************************
+Report : constraint
+        -all_violators
+Design : gpu
+Version: W-2024.09-SP5-4
+Date   : Tue Nov 24 17:10:08 2026
+****************************************
+
+
+   max_leakage_power
+
+                             Required        Actual
+   Design                   Leakage Power  Leakage Power     Slack
+   -----------------------------------------------------------------
+   gpu                        0.0000       6526790656.0000
+                                                          -6526790656.0000
+                                                                    (VIOLATED)
+
+
+1
