@@ -4,7 +4,12 @@ This suite implements the report's ten constrained-random families (R01 through
 R10) and ten corner-case families (C01 through C10). Python 3.9+ and its standard
 library are enough to generate vectors and test the reference/generators.
 
-**DUT status: RTL pass, netlist not run.** The full default corpus was compiled
+**Update (A1 work):** with Icarus Verilog 12.0 and the local SAED32 models, the
+`--suite all` corpus (1,856 instances) passes at RTL and on the re-synthesized,
+ECO-applied baseline and A1 netlists; see `results/a1/README.md`. The paragraph
+below records the midterm state.
+
+**DUT status (midterm): RTL pass, netlist not run.** The full default corpus was compiled
 with Icarus Verilog 13.0 and run against converted RTL at 2.90 ns: 1,039 of 1,039
 instances pass after two baseline fixes (partial-block PC selection and CMP flag
 ordering). The manifest and summary are in `results/verification/`. Netlist mode

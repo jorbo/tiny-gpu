@@ -91,6 +91,56 @@ A1's own effect is the cycle reduction at negligible area:
 | Netlist cycles equal to RTL cycles | 1,856 / 1,856 | 1,856 / 1,856 |
 | GLS legacy matmul / matadd (ECO netlist) | PASS 491 / 178 | PASS 455 / 170 |
 
+## For the final report
+
+Mapped to the final project manual's parts; the numbers are the tables above.
+
+- **Part 1 (RTL):** one file modified: `rtl/scheduler.sv` → `rtl/scheduler_a1.sv`
+  (same module name; commented header). In the REQUEST state the next state is WAIT
+  only if `decoded_mem_read_enable || decoded_mem_write_enable`, else EXECUTE. These
+  decoder outputs were already wired to the scheduler but unused. No other RTL
+  changed; `make compile VARIANT=a1` selects the file list.
+- **Part 2 (verification):** the same testbench `sim/tb_regression.v` is used for
+  RTL and netlist, so the netlist testbench does not differ. The ten A1 testcase
+  families A1_01-A1_10 (goals and expected results tabulated in
+  `sim/README.md`) all pass at RTL and gate level. Also report the A1-specific
+  check, `sim/compare_cycles.py`: exact cycle saving per case, 0 violations.
+- **Part 3 (synthesis/PT):** use the PPA comparison, critical-path and
+  frequency-selection tables. Paste `runs/*/reports/qor.rpt`, `reports/timing.rpt`
+  (first path), `pt_reports/summary.rpt`, `pt_reports/power.rpt` and
+  `pt_reports/area.rpt` for both designs. State the attribution: the cycle
+  reduction is A1's effect; the frequency and area deltas are DC variance in the
+  unchanged ALU. Mention the shared-design-library bug and the PrimeTime slack
+  check as methodology.
+- **Part 4 (software model):** `sw/golden.py` now counts retired and memory
+  instructions per block (commented as A1). Functional outputs are unchanged by
+  A1. The predicted saving, retired minus memory instructions, matches hardware
+  exactly for single-core runs (matmul 41 - 5 = 36).
+- **Baseline section update:** the midterm's 344.8 MHz / 46,632.9 µm² / 877
+  pulse-width violations describe the pre-fix netlist and a sweep that stopped at
+  2.85 ns. The fixed baseline is 425.5 MHz / 46,934.0 µm² with no violations.
+- **Caveats to state:** power is averaged over one kernel launch, including reset
+  (see open items). The netlist is pre-layout, with an ideal clock and wire-load
+  models. The two-core matadd saving is limited by the shared program-memory
+  channel.
+
+## Open items
+
+1. **Extended-period power (required by the manual, both designs):** the VCDs
+   cover one kernel launch, including reset. Run repeated launches (or a longer
+   workload) until the average stabilizes, and report kernel-only power.
+2. **Reproduction scripts:** the post-synthesis steps were run with throwaway
+   scripts in the git-ignored `build/` directory. Move them into the repository
+   and add them to the README:
+   - `post_synth.sh`: gate-level identity check, PT ECO, PT timing probe, ECO export
+   - `power.sh`: ECO-netlist VCDs, then PrimeTime power
+   - `netlist_shards.sh`: parallel netlist regression
+3. **Submission packaging:** the whole repository archives to about 28 MB, over
+   the 20 MB limit. Build `final-team-6/` from `rtl sim sw syn ptpx scripts
+   results/a1` plus the README (about 1.8 MB zipped), and fix the paths for that
+   layout.
+4. Optional: peak power.
+
 ## Files
 
 - `runs/<design>_ss_lh_cg_<period>/`: `dc.log`, DC `reports/`, PT `pt_reports/` (matmul)
